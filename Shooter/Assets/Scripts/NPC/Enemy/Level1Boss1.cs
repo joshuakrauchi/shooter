@@ -25,14 +25,14 @@ public class Level1Boss1 : Boss
             IsActive = true;
         }
     }
-    
+
     private void Phase2()
     {
         if (IsNewPhase)
         {
             BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, false);
 
-            EnemyShoot.ShootBehaviour = new ShootNHoming(5);
+            ShootBehaviour = new ShootSuccessiveHoming(0, 0.5f, ProjectileDefinitions[0], 5, 20f, 5f, 0.25f);
             IsNewPhase = false;
         }
 

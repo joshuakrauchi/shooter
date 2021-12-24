@@ -425,7 +425,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.25, y: 0.25}
   m_EdgeRadius: 0
 --- !u!114 &1435785327
 MonoBehaviour:
@@ -476,6 +476,7 @@ MonoBehaviour:
   boss1: {fileID: 783130416472518599, guid: 8af025950db82f440b958a4ba5a8cc58, type: 3}
   slowArrow: {fileID: 7528613875248914025, guid: 9d8a02e44c3b2144dbf186ba75d55d52, type: 3}
   fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
+  bigArrow: {fileID: 2714373215205119015, guid: 52937ba3e53190348b06c91a8e14826e, type: 3}
 --- !u!4 &2058242150
 Transform:
   m_ObjectHideFlags: 0

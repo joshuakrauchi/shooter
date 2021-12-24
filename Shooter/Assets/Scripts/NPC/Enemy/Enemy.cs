@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : TimeObject
@@ -10,8 +11,9 @@ public class Enemy : TimeObject
         protected set => health = value;
     }
 
+    public List<ProjectileDefinition> ProjectileDefinitions { get; set; }
     public EnemyCollision EnemyCollision { get; private set; }
-    public EnemyShoot EnemyShoot { get; private set; }
+    public ShootBehaviour ShootBehaviour { get; set; }
     public Animator Animator { get; private set; }
     public SpriteRenderer SpriteRenderer { get; private set; }
     public bool IsDisabled { get; protected set; }
@@ -23,7 +25,6 @@ public class Enemy : TimeObject
 
         Animator = GetComponent<Animator>();
         EnemyCollision = GetComponent<EnemyCollision>();
-        EnemyShoot = GetComponent<EnemyShoot>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         EnemyManager.Instance.AddEnemy(this);
     }
@@ -32,10 +33,10 @@ public class Enemy : TimeObject
     {
         SpriteRenderer.enabled = !IsDisabled;
 
-        if (!IsDisabled)
+        if (!IsDisabled && !GameManager.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
-            EnemyShoot.UpdateShoot();
+            ShootBehaviour?.UpdateShoot(transform.position);
         }
 
         UpdateTimeData();
@@ -43,7 +44,7 @@ public class Enemy : TimeObject
 
     protected override void Record()
     {
-        TimeData.AddLast(new EnemyTimeData(Animator.GetCurrentAnimatorStateInfo(0).normalizedTime, Health, IsDisabled));
+        TimeData.AddLast(new EnemyTimeData(Animator.GetCurrentAnimatorStateInfo(0).normalizedTime, Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone()));
 
         if (((EnemyTimeData) TimeData.First.Value).IsDisabled)
         {
@@ -53,7 +54,7 @@ public class Enemy : TimeObject
 
     protected override void Rewind()
     {
-        if (CreationTime > GameManager.LevelTime )
+        if (CreationTime > GameManager.LevelTime)
         {
             Die();
         }
@@ -64,6 +65,7 @@ public class Enemy : TimeObject
         Animator.Play(0, 0, timeData.Time);
         Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
+        ShootBehaviour = timeData.ShootBehaviour;
         TimeData.Remove(timeData);
     }
 

@@ -12,7 +12,7 @@ public abstract class Boss : Enemy
         get => moveDelay;
         set => moveDelay = value;
     }
-    
+
     public BossMovement BossMovement { get; protected set; }
     public List<Tuple<float, PhaseBehaviour>> Phases { get; private set; }
     public int PhaseIndex { get; private set; }
@@ -30,7 +30,7 @@ public abstract class Boss : Enemy
 
     protected override void Record()
     {
-        TimeData.AddLast(new BossTimeData(CreationTime, Health, IsDisabled, PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.TotalTime));
+        TimeData.AddLast(new BossTimeData(CreationTime, Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone(), PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.TotalTime));
     }
 
     protected override void Rewind()
@@ -41,6 +41,7 @@ public abstract class Boss : Enemy
 
         Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
+        ShootBehaviour = timeData.ShootBehaviour;
         PhaseIndex = timeData.PhaseIndex;
         IsNewPhase = timeData.IsNewPhase;
         BossMovement.SetRewindData(timeData.StartPosition, timeData.EndPosition, timeData.TotalTime);
@@ -60,7 +61,7 @@ public abstract class Boss : Enemy
         }
 
         Phases[PhaseIndex].Item2.Invoke();
-        
+
         transform.position = BossMovement.GetMovement();
 
         if (IsActive)

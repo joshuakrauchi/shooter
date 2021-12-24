@@ -1,7 +1,20 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public abstract class ShootBehaviour
+public abstract class ShootBehaviour : ICloneable
 {
-    public abstract void UpdateShoot(IReadOnlyList<ProjectileDefinition> projectileDefinitions, Vector2 position);
+    public uint TotalCycles { get; private set; }
+    public float TimeBetweenCycles { get; private set; }
+
+    protected uint CurrentCycles;
+    protected float CurrentTime;
+
+    public ShootBehaviour(uint totalCycles, float timeBetweenCycles)
+    {
+        TotalCycles = totalCycles;
+        TimeBetweenCycles = timeBetweenCycles;
+    }
+
+    public abstract void UpdateShoot(Vector2 position);
+    public abstract object Clone();
 }

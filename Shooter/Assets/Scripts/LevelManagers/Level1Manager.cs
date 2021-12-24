@@ -9,6 +9,7 @@ public class Level1Manager : LevelManager
     [SerializeField] private GameObject boss1;
     [SerializeField] private GameObject slowArrow;
     [SerializeField] private GameObject fastArrow;
+    [SerializeField] private GameObject bigArrow;
 
     private readonly int HDangle = Animator.StringToHash("HDangle");
     private readonly int HSlide1 = Animator.StringToHash("HSlide1");
@@ -23,15 +24,15 @@ public class Level1Manager : LevelManager
     protected override void Awake()
     {
         base.Awake();
-        
+
         var projectile = new ProjectileDefinition(slowArrow, Pattern.MoveStraightSlowing);
         var fastProjectile = new ProjectileDefinition(fastArrow, Pattern.MoveStraight);
+        var bigProjectile = new ProjectileDefinition(bigArrow, Pattern.MoveStraight);
         var basic = new EnemyDefinition(footSoldier, null, null);
-        var basicShoot = new EnemyDefinition(archer, new List<ProjectileDefinition>{projectile}, new ShootNHoming(3));
-        var mediumShoot = new EnemyDefinition(eliteArcher, new List<ProjectileDefinition>{fastProjectile}, new ShootNHoming(5));
-        var boss1Projectiles = new List<ProjectileDefinition> {projectile, fastProjectile};
-        
-        /*
+        var basicShoot = new EnemyDefinition(archer, null, new ShootHoming(0, 0.25f, projectile, 3, 20f, 5f));
+        var mediumShoot = new EnemyDefinition(eliteArcher, null, new ShootHoming(0, 0.25f, fastProjectile, 5, 20f, 5f));
+        var boss1Projectiles = new List<ProjectileDefinition> {bigProjectile, projectile, fastProjectile};
+
         // 1
         for (var i = 0; i < 10; ++i)
         {
@@ -39,19 +40,19 @@ public class Level1Manager : LevelManager
             Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, VSlide2));
             CurrentTime += 0.25f;
         }
-        
+
         CurrentTime += 0.5f;
-        
+
         for (var i = 0; i < 10; ++i)
         {
             Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenterFlip, VSlide1));
             Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenterFlip, VSlide2));
             CurrentTime += 0.25f;
         }
-        
+
         // 2
         CurrentTime += 2f;
-        
+
         Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topMidRight, VDangle));
         CurrentTime += 1f;
         Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topMidLeft, VDangle));
@@ -61,10 +62,10 @@ public class Level1Manager : LevelManager
         Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenter, HDangle));
         CurrentTime += 1f;
         Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenter, VDangle));
-        
+
         // 3
         CurrentTime += 5.5f;
-        
+
         for (var i = 0; i < 10; ++i)
         {
             Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, HSlide1));
@@ -72,9 +73,9 @@ public class Level1Manager : LevelManager
 
             CurrentTime += 0.25f;
         }
-        
+
         Enemies.Add(new EnemySpawn(CurrentTime, mediumShoot, topCenter, VDangle));
-        
+
         for (var i = 0; i < 15; ++i)
         {
             Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, HSlide1));
@@ -82,7 +83,7 @@ public class Level1Manager : LevelManager
 
             CurrentTime += 0.25f;
         }
-        
+
         // 4
         CurrentTime += 2f;
 
@@ -96,10 +97,10 @@ public class Level1Manager : LevelManager
 
             CurrentTime += 0.25f;
         }
-        
+
         Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenter, HSlide1));
         Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenterFlip, HSlide1));
-        
+
         for (var i = 0; i < 20; ++i)
         {
             Enemies.Add(new EnemySpawn(CurrentTime, basic, topLeft, Wave));
@@ -111,10 +112,10 @@ public class Level1Manager : LevelManager
             CurrentTime += 0.25f;
         }
 
-        CurrentTime += 5f;*/
+        CurrentTime += 5f;
 
         Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameManager.Top + 5f), boss1Projectiles));
-        
+
         Debug.Log(CurrentTime);
     }
 }

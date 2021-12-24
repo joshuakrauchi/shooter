@@ -8,7 +8,7 @@ public class BossTimeData : EnemyTimeData
     public Vector2 EndPosition { get; private set; }
     public float TotalTime { get; private set; }
 
-    public BossTimeData(float time, float health, bool isDisabled, int phaseIndex, bool isNewPhase, Vector2 startPosition, Vector2 endPosition, float totalTime) : base(time, health, isDisabled)
+    public BossTimeData(float time, float health, bool isDisabled, ShootBehaviour shootBehaviour, int phaseIndex, bool isNewPhase, Vector2 startPosition, Vector2 endPosition, float totalTime) : base(time, health, isDisabled, shootBehaviour)
     {
         PhaseIndex = phaseIndex;
         IsNewPhase = isNewPhase;

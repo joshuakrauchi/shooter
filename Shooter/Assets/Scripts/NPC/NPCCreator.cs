@@ -10,27 +10,25 @@ public static class NPCCreator
         var enemyAnimator = enemyObject.GetComponent<Animator>();
         enemyAnimator.SetBool(enemySpawn.AnimationID, true);
 
-        var enemyShoot = enemyObject.GetComponent<EnemyShoot>();
-        enemyShoot.ShootBehaviour = enemyDefinition.ShootBehaviour;
-        enemyShoot.ProjectileDefinitions = enemyDefinition.ProjectileDefinitions;
-
         var enemy = enemyObject.GetComponent<Enemy>();
         enemy.CreationTime = enemySpawn.CreationTime;
+        enemy.ProjectileDefinitions = enemyDefinition.ProjectileDefinitions;
+        enemy.ShootBehaviour = enemyDefinition.ShootBehaviour;
     }
 
     public static void CreateBoss(BossSpawn bossSpawn)
     {
         var bossObject = Object.Instantiate(bossSpawn.Prefab, bossSpawn.Position, Quaternion.identity);
-        var bossShoot = bossObject.GetComponent<EnemyShoot>();
-        bossShoot.ProjectileDefinitions = bossSpawn.ProjectileDefinitions;
+
+        var boss = bossObject.GetComponent<Boss>();
+        boss.ProjectileDefinitions = bossSpawn.ProjectileDefinitions;
     }
 
-    public static GameObject CreateProjectile(ProjectileDefinition projectileDefinition, Vector2 position, Quaternion rotation)
+    public static void CreateProjectile(ProjectileDefinition projectileDefinition, Vector2 position, Quaternion rotation)
     {
         var projectileObject = Object.Instantiate(projectileDefinition.Prefab, position, rotation);
+
         var projectileMovement = projectileObject.GetComponent<NPCMovement>();
         projectileMovement.Pattern = projectileDefinition.Pattern;
-
-        return projectileObject;
     }
 }
