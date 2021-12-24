@@ -1,0 +1,81 @@
+using UnityEngine;
+
+public class Projectile : TimeObject
+{
+    public NPCMovement ProjectileMovement { get; private set; }
+    public SpriteRenderer SpriteRenderer { get; private set; }
+    public BoxCollider2D Collider { get; private set; }
+    public bool IsDisabled { get; set; }
+    public float CreationTime { get; private set; }
+
+    private const float OffscreenThreshold = 2f;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        ProjectileMovement = GetComponent<NPCMovement>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        Collider = GetComponent<BoxCollider2D>();
+        CreationTime = GameManager.LevelTime;
+        ProjectileManager.Instance.AddProjectile(this);
+    }
+
+    protected override void Record()
+    {
+        TimeData.AddLast(new ProjectileTimeData(0f, transform.position, ProjectileMovement.Velocity, IsDisabled));
+
+        if (((ProjectileTimeData) TimeData.First.Value).IsDisabled)
+        {
+            Remove();
+        }
+    }
+
+    protected override void Rewind()
+    {
+        if (CreationTime > GameManager.LevelTime)
+        {
+            Remove();
+        }
+
+        if (TimeData.Count <= 0) return;
+
+        var timeData = (ProjectileTimeData) TimeData.Last.Value;
+        transform.position = timeData.Position;
+        ProjectileMovement.Velocity = timeData.Velocity;
+        IsDisabled = timeData.IsDisabled;
+        TimeData.Remove(timeData);
+    }
+
+    public void UpdateProjectile()
+    {
+        SpriteRenderer.enabled = !IsDisabled;
+        Collider.enabled = !IsDisabled;
+
+        if (!IsDisabled)
+        {
+            ProjectileMovement.UpdateMovement();
+            if (IsOffscreen())
+            {
+                IsDisabled = true;
+            }
+        }
+
+        UpdateTimeData();
+    }
+
+    private bool IsOffscreen()
+    {
+        var position = transform.position;
+        var spriteSize = SpriteRenderer.bounds.size;
+
+        return position.x < GameManager.Left - OffscreenThreshold - spriteSize.x || position.x > GameManager.Right + OffscreenThreshold + spriteSize.x ||
+               position.y < GameManager.Bottom - OffscreenThreshold - spriteSize.y || position.y > GameManager.Top + OffscreenThreshold + spriteSize.y;
+    }
+
+    public void Remove()
+    {
+        ProjectileManager.Instance.RemoveProjectile(this);
+        Destroy(gameObject);
+    }
+}
