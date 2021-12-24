@@ -4,15 +4,14 @@ using UnityEngine;
 public abstract class ShootBehaviour : ICloneable
 {
     public uint TotalCycles { get; private set; }
-    public float TimeBetweenCycles { get; private set; }
+    public Timer CycleTimer { get; private set; }
 
     protected uint CurrentCycles;
-    protected float CurrentTime;
 
-    public ShootBehaviour(uint totalCycles, float timeBetweenCycles)
+    public ShootBehaviour(uint totalCycles, Timer cycleTimer)
     {
         TotalCycles = totalCycles;
-        TimeBetweenCycles = timeBetweenCycles;
+        CycleTimer = cycleTimer;
     }
 
     public abstract void UpdateShoot(Vector2 position);

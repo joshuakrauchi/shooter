@@ -12,7 +12,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
     private float _currentDelay;
     private float _currentAngle;
 
-    public ShootSuccessiveHoming(uint totalCycles, float timeBetweenCycles, ProjectileDefinition projectileDefinition, uint numberOfProjectiles, float angleBetweenProjectiles, float angleVariation, float timeBetweenShots) : base(totalCycles, timeBetweenCycles)
+    public ShootSuccessiveHoming(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, uint numberOfProjectiles, float angleBetweenProjectiles, float angleVariation, float timeBetweenShots) : base(totalCycles, cycleTimer)
     {
         ProjectileDefinition = projectileDefinition;
         NumberOfProjectiles = numberOfProjectiles;
@@ -23,15 +23,13 @@ public class ShootSuccessiveHoming : ShootBehaviour
 
     public override void UpdateShoot(Vector2 position)
     {
-        if (CurrentTime < TimeBetweenCycles)
-        {
-            CurrentTime += Time.deltaTime;
-            return;
-        }
+        CycleTimer.UpdateTime();
+
+        if (!CycleTimer.IsFinished() || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
         _currentDelay += Time.deltaTime;
 
-        if (TotalCycles != 0 && CurrentCycles == TotalCycles || _currentDelay < TimeBetweenShots) return;
+        if (_currentDelay < TimeBetweenShots) return;
 
         _currentDelay -= TimeBetweenShots;
 
@@ -48,17 +46,16 @@ public class ShootSuccessiveHoming : ShootBehaviour
         if (_shotsFired == NumberOfProjectiles)
         {
             ++CurrentCycles;
-            CurrentTime -= TimeBetweenCycles;
+            CycleTimer.SubtractTotalTime();
             _shotsFired = 0;
         }
     }
 
     public override object Clone()
     {
-        return new ShootSuccessiveHoming(TotalCycles, TimeBetweenCycles, ProjectileDefinition, NumberOfProjectiles, AngleBetweenProjectiles, 0f, TimeBetweenShots)
+        return new ShootSuccessiveHoming(TotalCycles, CycleTimer, ProjectileDefinition, NumberOfProjectiles, AngleBetweenProjectiles, 0f, TimeBetweenShots)
         {
             CurrentCycles = CurrentCycles,
-            CurrentTime = CurrentTime,
             HalfAngleVariation = HalfAngleVariation,
             _shotsFired = _shotsFired,
             _currentAngle = _currentAngle,

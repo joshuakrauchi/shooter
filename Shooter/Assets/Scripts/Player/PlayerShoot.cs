@@ -1,26 +1,38 @@
 using UnityEngine;
 
-public class PlayerShoot : Shoot
+public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private float shootDelay = 1f;
+
+    public float ShootDelay
+    {
+        get => shootDelay;
+        set => shootDelay = value;
+    }
 
     public bool IsShooting { get; set; }
-    
-    private float _currentDelay;
 
-    public override void UpdateShoot()
+    private Timer timer;
+
+    public void Awake()
     {
-        if (_currentDelay >= ShootDelay)
+        timer = new Timer(ShootDelay);
+    }
+
+    public void UpdateShoot()
+    {
+        if (timer.IsFinished())
         {
             if (IsShooting)
             {
                 NPCCreator.CreateProjectile(new ProjectileDefinition(projectilePrefab, Pattern.MoveStraight), transform.position, Quaternion.identity);
-                _currentDelay -= ShootDelay;
+                timer.SubtractTotalTime();
             }
         }
         else
         {
-            _currentDelay += Time.deltaTime;
+            timer.UpdateTime();
         }
     }
 }

@@ -7,7 +7,7 @@ public class ShootHoming : ShootBehaviour
     public float ProjectileOffset { get; private set; }
     public float HalfAngleVariation { get; private set; }
 
-    public ShootHoming(uint totalCycles, float timeBetweenCycles, ProjectileDefinition projectileDefinition, uint numberOfProjectiles, float projectileOffset, float angleVariation) : base(totalCycles, timeBetweenCycles)
+    public ShootHoming(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, uint numberOfProjectiles, float projectileOffset, float angleVariation) : base(totalCycles, cycleTimer)
     {
         ProjectileDefinition = projectileDefinition;
         NumberOfProjectiles = numberOfProjectiles;
@@ -17,13 +17,9 @@ public class ShootHoming : ShootBehaviour
 
     public override void UpdateShoot(Vector2 position)
     {
-        if (CurrentTime < TimeBetweenCycles)
-        {
-            CurrentTime += Time.deltaTime;
-            return;
-        }
+        CycleTimer.UpdateTime();
 
-        if (TotalCycles != 0 && CurrentCycles == TotalCycles) return;
+        if (!CycleTimer.IsFinished() || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
         var direction = (Vector2)GameManager.Player.transform.position - position;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -37,15 +33,14 @@ public class ShootHoming : ShootBehaviour
         }
 
         ++CurrentCycles;
-        CurrentTime -= TimeBetweenCycles;
+        CycleTimer.SubtractTotalTime();
     }
 
     public override object Clone()
     {
-        return new ShootHoming(TotalCycles, TimeBetweenCycles, ProjectileDefinition, NumberOfProjectiles, ProjectileOffset, 0f)
+        return new ShootHoming(TotalCycles, CycleTimer, ProjectileDefinition, NumberOfProjectiles, ProjectileOffset, 0f)
         {
             CurrentCycles = CurrentCycles,
-            CurrentTime = CurrentTime,
             HalfAngleVariation = HalfAngleVariation
         };
     }

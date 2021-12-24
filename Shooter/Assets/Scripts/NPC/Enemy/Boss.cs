@@ -23,7 +23,7 @@ public abstract class Boss : Enemy
 
     protected override void Record()
     {
-        TimeData.AddLast(new BossTimeData(CreationTime, Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone(), PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.TotalTime));
+        TimeData.AddLast(new BossTimeData(CreationTime, Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone(), PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer));
     }
 
     protected override void Rewind()
@@ -37,7 +37,7 @@ public abstract class Boss : Enemy
         ShootBehaviour = timeData.ShootBehaviour;
         PhaseIndex = timeData.PhaseIndex;
         IsNewPhase = timeData.IsNewPhase;
-        BossMovement.SetRewindData(timeData.StartPosition, timeData.EndPosition, timeData.TotalTime);
+        BossMovement.SetRewindData(timeData.StartPosition, timeData.EndPosition, timeData.MovementTimer);
 
         if (TimeData.Count > 1)
         {

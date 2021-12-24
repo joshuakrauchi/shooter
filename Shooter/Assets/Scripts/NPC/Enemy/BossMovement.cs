@@ -5,25 +5,28 @@ using Random = UnityEngine.Random;
 
 public class BossMovement : MonoBehaviour
 {
+    [SerializeField] private float initialDelay;
     public Vector2 StartPosition { get; private set; }
     public Vector2 EndPosition { get; private set; }
-    public float TotalTime { get; private set; }
-    [SerializeField] private float moveDelay;
 
-    public float MoveDelay
+    public float InitialDelay
     {
-        get => moveDelay;
-        private set => moveDelay = value;
+        get => initialDelay;
+        private set => initialDelay = value;
     }
 
-    private float _currentDelay;
+    private Timer _initialDelayTimer;
 
-    public Stack<Tuple<Vector2, Vector2, float>> FuturePositions { get; private set; }
-    private float _elapsedTime;
+    public Stack<Tuple<Vector2, Vector2, Timer>> FuturePositions { get; private set; }
+    public Timer MovementTimer { get; private set; }
 
     public void Awake()
     {
-        FuturePositions = new Stack<Tuple<Vector2, Vector2, float>>();
+        FuturePositions = new Stack<Tuple<Vector2, Vector2, Timer>>();
+        _initialDelayTimer = new Timer(InitialDelay);
+        MovementTimer = new Timer(0);
+        StartPosition = transform.position;
+        EndPosition = StartPosition;
     }
 
     public void ResetMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, bool overrideFuturePositions)
@@ -34,67 +37,51 @@ public class BossMovement : MonoBehaviour
 
             StartPosition = position.Item1;
             EndPosition = position.Item2;
-            TotalTime = position.Item3;
+            MovementTimer = position.Item3;
         }
         else
         {
             if (FuturePositions.Count > 0)
             {
-                FuturePositions = new Stack<Tuple<Vector2, Vector2, float>>();
+                FuturePositions = new Stack<Tuple<Vector2, Vector2, Timer>>();
             }
 
             StartPosition = startPosition;
             EndPosition = endPosition;
-            TotalTime = totalTime;
+            MovementTimer = new Timer(totalTime);
         }
 
-        _elapsedTime = 0f;
-        _currentDelay = 0f;
+        _initialDelayTimer.Reset();
     }
 
     public Vector2 GetMovement()
     {
-        if (GameManager.IsRewinding)
+        if (!_initialDelayTimer.IsFinished())
         {
-            if (_elapsedTime > 0f)
-            {
-                _elapsedTime -= Time.deltaTime;
-            }
-            else if (_currentDelay > 0f)
-            {
-                _currentDelay -= Time.deltaTime;
-            }
+            _initialDelayTimer.UpdateTime();
         }
         else
         {
-            if (_currentDelay < MoveDelay)
-            {
-                _currentDelay += Time.deltaTime;
-            }
-            else
-            {
-                _elapsedTime += Time.deltaTime;
-            }
+            MovementTimer.UpdateTime();
         }
 
-        return Vector2.Lerp(StartPosition, EndPosition, _elapsedTime / TotalTime);
+        return Vector2.Lerp(StartPosition, EndPosition, MovementTimer.ElapsedTime / MovementTimer.TotalTime);
     }
 
     public bool IsFinished()
     {
-        return _elapsedTime >= TotalTime;
+        return !GameManager.IsRewinding && MovementTimer.IsFinished();
     }
 
-    public void SetRewindData(Vector2 startPosition, Vector2 endPosition, float totalTime)
+    public void SetRewindData(Vector2 startPosition, Vector2 endPosition, Timer movementTimer)
     {
         if (StartPosition == startPosition && EndPosition == endPosition) return;
 
-        FuturePositions.Push(Tuple.Create(StartPosition, EndPosition, TotalTime));
+        FuturePositions.Push(Tuple.Create(StartPosition, EndPosition, MovementTimer));
 
         StartPosition = startPosition;
         EndPosition = endPosition;
-        TotalTime = totalTime;
-        _elapsedTime = TotalTime - Time.deltaTime;
+        MovementTimer = movementTimer;
     }
 
     public static Vector2 GetRandomPosition()

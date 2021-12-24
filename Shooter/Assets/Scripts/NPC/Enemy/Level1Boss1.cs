@@ -31,7 +31,7 @@ public class Level1Boss1 : Boss
         {
             BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, false);
 
-            ShootBehaviour = new ShootSuccessiveHoming(0, 0.5f, ProjectileDefinitions[0], 5, 10f, 5f, 0.25f);
+            ShootBehaviour = new ShootSuccessiveHoming(0, new Timer(0.5f), ProjectileDefinitions[0], 5, 10f, 5f, 0.25f);
             IsNewPhase = false;
         }
 
