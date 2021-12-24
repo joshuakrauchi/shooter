@@ -8,6 +8,16 @@ public class BossMovement : MonoBehaviour
     public Vector2 StartPosition { get; private set; }
     public Vector2 EndPosition { get; private set; }
     public float TotalTime { get; private set; }
+    [SerializeField] private float moveDelay;
+
+    public float MoveDelay
+    {
+        get => moveDelay;
+        private set => moveDelay = value;
+    }
+
+    private float _currentDelay;
+
     public Stack<Tuple<Vector2, Vector2, float>> FuturePositions { get; private set; }
     private float _elapsedTime;
 
@@ -21,7 +31,7 @@ public class BossMovement : MonoBehaviour
         if (FuturePositions.Count > 0 && !overrideFuturePositions)
         {
             var position = FuturePositions.Pop();
-            
+
             StartPosition = position.Item1;
             EndPosition = position.Item2;
             TotalTime = position.Item3;
@@ -32,18 +42,40 @@ public class BossMovement : MonoBehaviour
             {
                 FuturePositions = new Stack<Tuple<Vector2, Vector2, float>>();
             }
-            
+
             StartPosition = startPosition;
             EndPosition = endPosition;
             TotalTime = totalTime;
         }
-        
+
         _elapsedTime = 0f;
+        _currentDelay = 0f;
     }
 
     public Vector2 GetMovement()
     {
-        _elapsedTime += GameManager.IsRewinding ? -Time.deltaTime : Time.deltaTime;
+        if (GameManager.IsRewinding)
+        {
+            if (_elapsedTime > 0f)
+            {
+                _elapsedTime -= Time.deltaTime;
+            }
+            else if (_currentDelay > 0f)
+            {
+                _currentDelay -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            if (_currentDelay < MoveDelay)
+            {
+                _currentDelay += Time.deltaTime;
+            }
+            else
+            {
+                _elapsedTime += Time.deltaTime;
+            }
+        }
 
         return Vector2.Lerp(StartPosition, EndPosition, _elapsedTime / TotalTime);
     }
@@ -56,9 +88,9 @@ public class BossMovement : MonoBehaviour
     public void SetRewindData(Vector2 startPosition, Vector2 endPosition, float totalTime)
     {
         if (StartPosition == startPosition && EndPosition == endPosition) return;
-        
+
         FuturePositions.Push(Tuple.Create(StartPosition, EndPosition, TotalTime));
-            
+
         StartPosition = startPosition;
         EndPosition = endPosition;
         TotalTime = totalTime;

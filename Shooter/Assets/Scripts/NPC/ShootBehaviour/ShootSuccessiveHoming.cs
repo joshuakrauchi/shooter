@@ -17,7 +17,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
         ProjectileDefinition = projectileDefinition;
         NumberOfProjectiles = numberOfProjectiles;
         AngleBetweenProjectiles = angleBetweenProjectiles;
-        HalfAngleVariation = angleVariation / 2;
+        HalfAngleVariation = angleVariation / 2f;
         TimeBetweenShots = timeBetweenShots;
     }
 

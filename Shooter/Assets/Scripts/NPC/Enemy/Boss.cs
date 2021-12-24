@@ -6,13 +6,6 @@ public abstract class Boss : Enemy
 {
     public delegate void PhaseBehaviour();
 
-    [SerializeField] private float moveDelay;
-    public float MoveDelay
-    {
-        get => moveDelay;
-        set => moveDelay = value;
-    }
-
     public BossMovement BossMovement { get; protected set; }
     public List<Tuple<float, PhaseBehaviour>> Phases { get; private set; }
     public int PhaseIndex { get; private set; }

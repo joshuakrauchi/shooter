@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 200
-  moveDelay: 0
 --- !u!114 &6191009518171552355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,6 +25,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ac11450fae85c4093dcdc91c6bfb79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDelay: 2
 --- !u!1001 &4409770457600421242
 PrefabInstance:
   m_ObjectHideFlags: 0
