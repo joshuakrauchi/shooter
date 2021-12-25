@@ -21,6 +21,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1008901172266228851, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008901172266228851, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008901172266228851, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.5
       objectReference: {fileID: 0}
@@ -126,7 +134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4203282110089882886, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
       propertyPath: m_Name
-      value: Boss
+      value: Level1Boss1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316285780021556633, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
+      propertyPath: initialDelay
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}

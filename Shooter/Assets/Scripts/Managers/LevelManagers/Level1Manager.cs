@@ -33,7 +33,7 @@ public class Level1Manager : LevelManager
         var mediumShoot = new EnemyDefinition(eliteArcher, null, new ShootHoming(0, new Timer(0.25f), fastProjectile, 5, 20f, 5f));
         var boss1Projectiles = new List<ProjectileDefinition> {bigProjectile, projectile, fastProjectile};
 
-
+        /*
         // 1
         for (var i = 0; i < 10; ++i)
         {
@@ -113,7 +113,7 @@ public class Level1Manager : LevelManager
             CurrentTime += 0.25f;
         }
 
-        CurrentTime += 5f;
+        CurrentTime += 5f;*/
 
         Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameManager.Top + 5f), boss1Projectiles));
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,6 +78,6 @@ public class GameManager : MonoBehaviour
 
     public static void OnPlayerHit()
     {
-        Debug.Log("Hit!");
+        //UIManager.Instance.StartDialogue(new []{Tuple.Create("God", "YOU DIED")});
     }
 }

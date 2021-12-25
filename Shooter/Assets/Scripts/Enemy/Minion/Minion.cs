@@ -13,32 +13,29 @@ public class Minion : Enemy
 
     protected override void Record()
     {
-        AddTimeData(new EnemyTimeData(Animator.GetCurrentAnimatorStateInfo(0).normalizedTime, Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone()));
+        AddTimeData(new MinionTimeData(Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone(), Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
 
-        if (((EnemyTimeData) TimeData.First.Value).IsDisabled)
-        {
-            Die();
-        }
+        base.Record();
     }
 
     protected override void Rewind()
     {
         if (CreationTime > GameManager.LevelTime)
         {
-            Die();
+            DestroySelf();
         }
 
         if (TimeData.Count <= 0) return;
 
-        var timeData = (EnemyTimeData) TimeData.Last.Value;
-        Animator.Play(0, 0, timeData.Time);
+        var timeData = (MinionTimeData) TimeData.Last.Value;
+        Animator.Play(0, 0, timeData.AnimationTime);
         Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
         ShootBehaviour = timeData.ShootBehaviour;
         TimeData.Remove(timeData);
     }
 
-    private void Die()
+    protected override void DestroySelf()
     {
         EnemyManager.Instance.RemoveEnemy(this);
         Destroy(gameObject);

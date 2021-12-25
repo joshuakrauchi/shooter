@@ -15,7 +15,7 @@ public class Level1Boss1 : Boss
     {
         if (IsNewPhase)
         {
-            BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.Top - 10f), 2f, false);
+            BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.Top - 10f), 2f, 0f, false);
             IsNewPhase = false;
         }
 
@@ -29,15 +29,15 @@ public class Level1Boss1 : Boss
     {
         if (IsNewPhase)
         {
-            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, false);
+            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, 2f, false);
 
-            ShootBehaviour = new ShootSuccessiveHoming(0, new Timer(0.5f), ProjectileDefinitions[0], 5, 10f, 5f, 0.25f);
+            ShootBehaviour = new ShootSuccessiveHoming(0, new Timer(0.5f), ProjectileDefinitions[0], 5, 20f, 5f, 0.25f);
             IsNewPhase = false;
         }
 
         if (BossMovement.IsFinished())
         {
-            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, false);
+            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, 2f, false);
         }
     }
 }

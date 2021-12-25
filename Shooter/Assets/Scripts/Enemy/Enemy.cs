@@ -22,11 +22,20 @@ public abstract class Enemy : TimeObject
     {
         base.Awake();
 
-
         EnemyCollision = GetComponent<EnemyCollision>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         EnemyManager.Instance.AddEnemy(this);
     }
+
+    protected override void Record()
+    {
+        if (((EnemyTimeData) TimeData.First.Value).IsDisabled)
+        {
+            DestroySelf();
+        }
+    }
+
+    protected abstract void DestroySelf();
 
     public virtual void UpdateEnemy()
     {

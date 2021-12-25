@@ -5,31 +5,24 @@ using Random = UnityEngine.Random;
 
 public class BossMovement : MonoBehaviour
 {
-    [SerializeField] private float initialDelay;
     public Vector2 StartPosition { get; private set; }
     public Vector2 EndPosition { get; private set; }
 
-    public float InitialDelay
-    {
-        get => initialDelay;
-        private set => initialDelay = value;
-    }
+    public Timer InitialDelayTimer { get; private set; }
 
-    private Timer _initialDelayTimer;
-
-    public Stack<Tuple<Vector2, Vector2, Timer>> FuturePositions { get; private set; }
+    public Stack<Tuple<Vector2, Vector2, float, float>> FuturePositions { get; private set; }
     public Timer MovementTimer { get; private set; }
 
     public void Awake()
     {
-        FuturePositions = new Stack<Tuple<Vector2, Vector2, Timer>>();
-        _initialDelayTimer = new Timer(InitialDelay);
-        MovementTimer = new Timer(0);
+        FuturePositions = new Stack<Tuple<Vector2, Vector2, float, float>>();
+        InitialDelayTimer = new Timer(0f);
+        MovementTimer = new Timer(0f);
         StartPosition = transform.position;
         EndPosition = StartPosition;
     }
 
-    public void ResetMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, bool overrideFuturePositions)
+    public void ResetMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay, bool overrideFuturePositions)
     {
         if (FuturePositions.Count > 0 && !overrideFuturePositions)
         {
@@ -37,28 +30,30 @@ public class BossMovement : MonoBehaviour
 
             StartPosition = position.Item1;
             EndPosition = position.Item2;
-            MovementTimer = position.Item3;
+            MovementTimer = new Timer(position.Item3);
+            InitialDelayTimer = new Timer(position.Item4);
         }
         else
         {
             if (FuturePositions.Count > 0)
             {
-                FuturePositions = new Stack<Tuple<Vector2, Vector2, Timer>>();
+                FuturePositions = new Stack<Tuple<Vector2, Vector2, float, float>>();
             }
 
             StartPosition = startPosition;
             EndPosition = endPosition;
             MovementTimer = new Timer(totalTime);
+            InitialDelayTimer = new Timer(initialDelay);
         }
 
-        _initialDelayTimer.Reset(false);
+        InitialDelayTimer.Reset(false);
     }
 
     public Vector2 GetMovement()
     {
-        if (!_initialDelayTimer.IsFinished(GameManager.IsRewinding))
+        if (!InitialDelayTimer.IsFinished(false) || GameManager.IsRewinding && MovementTimer.IsFinished(true))
         {
-            _initialDelayTimer.UpdateTime();
+            InitialDelayTimer.UpdateTime();
         }
         else
         {
@@ -70,18 +65,21 @@ public class BossMovement : MonoBehaviour
 
     public bool IsFinished()
     {
-        return !GameManager.IsRewinding && MovementTimer.IsFinished(GameManager.IsRewinding);
+        return !GameManager.IsRewinding && MovementTimer.IsFinished(false);
     }
 
-    public void SetRewindData(Vector2 startPosition, Vector2 endPosition, Timer movementTimer)
+    public void SetRewindData(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay)
     {
         if (StartPosition == startPosition && EndPosition == endPosition) return;
 
-        FuturePositions.Push(Tuple.Create(StartPosition, EndPosition, MovementTimer));
+        FuturePositions.Push(Tuple.Create(StartPosition, EndPosition, MovementTimer.TotalTime, InitialDelayTimer.TotalTime));
 
         StartPosition = startPosition;
         EndPosition = endPosition;
-        MovementTimer = movementTimer;
+        MovementTimer = new Timer(totalTime);
+        MovementTimer.SetToFinished();
+        InitialDelayTimer = new Timer(initialDelay);
+        InitialDelayTimer.SetToFinished();
     }
 
     public static Vector2 GetRandomPosition()
