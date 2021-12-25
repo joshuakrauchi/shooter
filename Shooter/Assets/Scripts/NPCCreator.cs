@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class NPCCreator
@@ -13,7 +14,7 @@ public static class NPCCreator
         var enemy = enemyObject.GetComponent<Enemy>();
         enemy.CreationTime = enemySpawn.CreationTime;
         enemy.ProjectileDefinitions = enemyDefinition.ProjectileDefinitions;
-        enemy.ShootBehaviour = enemyDefinition.ShootBehaviour;
+        enemy.ShootBehaviours = new List<ShootBehaviour> {enemyDefinition.ShootBehaviour};
     }
 
     public static void CreateBoss(BossSpawn bossSpawn)

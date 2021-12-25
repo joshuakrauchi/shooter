@@ -22,7 +22,13 @@ public abstract class Boss : Enemy
 
     protected override void Record()
     {
-        AddTimeData(new BossTimeData(Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone(), PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.TotalTime, BossMovement.InitialDelayTimer.TotalTime));
+        var shootClones = new List<ShootBehaviour>();
+        foreach (var shootBehaviour in ShootBehaviours)
+        {
+            shootClones.Add((ShootBehaviour) shootBehaviour.Clone());
+        }
+
+        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.TotalTime, BossMovement.InitialDelayTimer.TotalTime));
 
         base.Record();
     }
@@ -35,7 +41,7 @@ public abstract class Boss : Enemy
 
         Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
-        ShootBehaviour = timeData.ShootBehaviour;
+        ShootBehaviours = timeData.ShootBehaviours;
         PhaseIndex = timeData.PhaseIndex;
         IsNewPhase = timeData.IsNewPhase;
         BossMovement.SetRewindData(timeData.StartPosition, timeData.EndPosition, timeData.TotalTime, timeData.InitialDelay);

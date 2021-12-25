@@ -60,7 +60,7 @@ public class BossMovement : MonoBehaviour
             MovementTimer.UpdateTime();
         }
 
-        return Vector2.Lerp(StartPosition, EndPosition, MovementTimer.ElapsedTime / MovementTimer.TotalTime);
+        return Vector2.Lerp(StartPosition, EndPosition, Mathf.SmoothStep(0f, 1f, MovementTimer.ElapsedTime / MovementTimer.TotalTime));
     }
 
     public bool IsFinished()

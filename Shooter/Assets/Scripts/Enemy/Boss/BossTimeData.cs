@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BossTimeData : EnemyTimeData
@@ -9,7 +10,7 @@ public class BossTimeData : EnemyTimeData
     public float TotalTime { get; private set; }
     public float InitialDelay { get; private set; }
 
-    public BossTimeData(float health, bool isDisabled, ShootBehaviour shootBehaviour, int phaseIndex, bool isNewPhase, Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay) : base(health, isDisabled, shootBehaviour)
+    public BossTimeData(float health, bool isDisabled, List<ShootBehaviour> shootBehaviours, int phaseIndex, bool isNewPhase, Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay) : base(health, isDisabled, shootBehaviours)
     {
         PhaseIndex = phaseIndex;
         IsNewPhase = isNewPhase;

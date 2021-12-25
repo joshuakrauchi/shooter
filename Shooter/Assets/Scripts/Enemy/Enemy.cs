@@ -13,7 +13,7 @@ public abstract class Enemy : TimeObject
 
     public List<ProjectileDefinition> ProjectileDefinitions { get; set; }
     public EnemyCollision EnemyCollision { get; private set; }
-    public ShootBehaviour ShootBehaviour { get; set; }
+    public List<ShootBehaviour> ShootBehaviours { get; set; }
     public SpriteRenderer SpriteRenderer { get; private set; }
     public bool IsDisabled { get; protected set; }
     public float CreationTime { get; set; }
@@ -24,6 +24,7 @@ public abstract class Enemy : TimeObject
 
         EnemyCollision = GetComponent<EnemyCollision>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
+        ShootBehaviours = new List<ShootBehaviour>();
         EnemyManager.Instance.AddEnemy(this);
     }
 
@@ -44,7 +45,10 @@ public abstract class Enemy : TimeObject
         if (!IsDisabled && !GameManager.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
-            ShootBehaviour?.UpdateShoot(transform.position);
+            foreach (var shootBehaviour in ShootBehaviours)
+            {
+                shootBehaviour.UpdateShoot(transform.position);
+            }
         }
 
         UpdateTimeData();

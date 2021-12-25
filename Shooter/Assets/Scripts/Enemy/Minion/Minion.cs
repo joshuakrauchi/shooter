@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Minion : Enemy
@@ -13,7 +14,13 @@ public class Minion : Enemy
 
     protected override void Record()
     {
-        AddTimeData(new MinionTimeData(Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone(), Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+        var shootClones = new List<ShootBehaviour>();
+        foreach (var shootBehaviour in ShootBehaviours)
+        {
+            shootClones.Add((ShootBehaviour) shootBehaviour.Clone());
+        }
+
+        AddTimeData(new MinionTimeData(Health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
 
         base.Record();
     }
@@ -31,7 +38,7 @@ public class Minion : Enemy
         Animator.Play(0, 0, timeData.AnimationTime);
         Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
-        ShootBehaviour = timeData.ShootBehaviour;
+        ShootBehaviours = timeData.ShootBehaviours;
         TimeData.Remove(timeData);
     }
 

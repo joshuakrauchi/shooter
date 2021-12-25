@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.IsPaused) return;
+
         PlayerCollision.UpdateCollision();
         PlayerMovement.UpdateMovement();
         PlayerShoot.UpdateShoot(PlayerController.IsShooting);
