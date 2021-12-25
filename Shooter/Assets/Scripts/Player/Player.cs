@@ -18,13 +18,18 @@ public class Player : MonoBehaviour
     private void Update()
     {
         PlayerController.UpdateInput();
+
+        if (PlayerController.IsLeftMouseDown)
+        {
+            UIManager.Instance.UpdateDialogue();
+        }
     }
 
     private void FixedUpdate()
     {
         PlayerCollision.UpdateCollision();
         PlayerMovement.UpdateMovement();
-        
+
         PlayerShoot.IsShooting = PlayerController.IsShooting;
         PlayerShoot.UpdateShoot();
 

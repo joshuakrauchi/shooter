@@ -12,27 +12,26 @@ public class PlayerShoot : MonoBehaviour
     }
 
     public bool IsShooting { get; set; }
-
-    private Timer timer;
+    public Timer ShootTimer { get; private set; }
 
     public void Awake()
     {
-        timer = new Timer(ShootDelay);
+        ShootTimer = new Timer(ShootDelay);
     }
 
     public void UpdateShoot()
     {
-        if (timer.IsFinished())
+        if (ShootTimer.IsFinished())
         {
             if (IsShooting)
             {
                 NPCCreator.CreateProjectile(new ProjectileDefinition(projectilePrefab, Pattern.MoveStraight), transform.position, Quaternion.identity);
-                timer.SubtractTotalTime();
+                ShootTimer.SubtractTotalTime();
             }
         }
         else
         {
-            timer.UpdateTime();
+            ShootTimer.UpdateTime();
         }
     }
 }

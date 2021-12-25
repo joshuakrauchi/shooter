@@ -1,7 +1,15 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Canvas dialogueBox;
+    [SerializeField] private Text header;
+    [SerializeField] private Text text;
+
     private static float _levelTime;
 
     public static float LevelTime
@@ -29,7 +37,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Player = GameObject.FindWithTag("Player");
-        
+
         if (Camera.main != null)
         {
             var topRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
@@ -39,12 +47,16 @@ public class GameManager : MonoBehaviour
             Bottom = bottomLeft.y;
             Left = bottomLeft.x;
         }
+
+        UIManager.Instance.Header = header;
+        UIManager.Instance.Text = text;
+        UIManager.Instance.DialogueBox = dialogueBox;
     }
 
     private void Update()
     {
         if (IsPaused) return;
-        
+
         if (IsRewinding)
         {
             LevelTime -= Time.deltaTime;
@@ -58,7 +70,7 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
         if (IsPaused) return;
-        
+
         EnemyManager.Instance.UpdateEnemies();
         ProjectileManager.Instance.UpdateProjectiles();
     }
@@ -66,11 +78,5 @@ public class GameManager : MonoBehaviour
     public static void Die()
     {
         Debug.Log("Hit!");
-    }
-
-    public static void InitiateDialogue()
-    {
-        IsPaused = true;
-        
     }
 }
