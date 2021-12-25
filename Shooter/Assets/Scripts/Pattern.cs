@@ -3,14 +3,13 @@ using UnityEngine;
 public static class Pattern
 {
     private const float MinimumSpeed = 0.1f;
-    
-    // MOVEMENT PATTERNS
+
     public static void MoveStraight(ref Vector2 velocity, float xSpeed, float ySpeed, float timeAlive)
     {
         velocity.x = xSpeed;
         velocity.y = ySpeed;
     }
-    
+
     public static void MoveStraightSlowing(ref Vector2 velocity, float xSpeed, float ySpeed, float timeAlive)
     {
         const float slowModifier = 5f;

@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3202129769840286123}
   - component: {fileID: 1156887572821748931}
-  - component: {fileID: -992902218049976176}
   - component: {fileID: -8954912380456586296}
-  - component: {fileID: -4496614543089662824}
   - component: {fileID: -569611475982204566}
   m_Layer: 0
   m_Name: Enemy
@@ -86,25 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &-992902218049976176
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4029765267154076349}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5435f67099f747749a05efd1a245e1ab, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &-8954912380456586296
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -131,19 +110,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
---- !u!114 &-4496614543089662824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4029765267154076349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdda31bab77ef7f44aeaf1621c904601, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
 --- !u!114 &-569611475982204566
 MonoBehaviour:
   m_ObjectHideFlags: 0

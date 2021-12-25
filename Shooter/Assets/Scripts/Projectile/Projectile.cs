@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : TimeObject
 {
-    public NPCMovement ProjectileMovement { get; private set; }
+    public ProjectileMovement ProjectileMovement { get; private set; }
     public SpriteRenderer SpriteRenderer { get; private set; }
     public BoxCollider2D Collider { get; private set; }
     public bool IsDisabled { get; set; }
@@ -14,7 +14,7 @@ public class Projectile : TimeObject
     {
         base.Awake();
 
-        ProjectileMovement = GetComponent<NPCMovement>();
+        ProjectileMovement = GetComponent<ProjectileMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Collider = GetComponent<BoxCollider2D>();
         CreationTime = GameManager.LevelTime;
@@ -23,11 +23,11 @@ public class Projectile : TimeObject
 
     protected override void Record()
     {
-        TimeData.AddLast(new ProjectileTimeData(0f, transform.position, ProjectileMovement.Velocity, IsDisabled));
+        AddTimeData(new ProjectileTimeData(transform.position, IsDisabled));
 
         if (((ProjectileTimeData) TimeData.First.Value).IsDisabled)
         {
-            Remove();
+            DestroyProjectile();
         }
     }
 
@@ -35,14 +35,13 @@ public class Projectile : TimeObject
     {
         if (CreationTime > GameManager.LevelTime)
         {
-            Remove();
+            DestroyProjectile();
         }
 
         if (TimeData.Count <= 0) return;
 
         var timeData = (ProjectileTimeData) TimeData.Last.Value;
         transform.position = timeData.Position;
-        ProjectileMovement.Velocity = timeData.Velocity;
         IsDisabled = timeData.IsDisabled;
         TimeData.Remove(timeData);
     }
@@ -73,7 +72,7 @@ public class Projectile : TimeObject
                position.y < GameManager.Bottom - OffscreenThreshold - spriteSize.y || position.y > GameManager.Top + OffscreenThreshold + spriteSize.y;
     }
 
-    public void Remove()
+    public void DestroyProjectile()
     {
         ProjectileManager.Instance.RemoveProjectile(this);
         Destroy(gameObject);

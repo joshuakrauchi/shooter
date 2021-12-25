@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public abstract class Boss : Enemy
 {
@@ -23,7 +22,7 @@ public abstract class Boss : Enemy
 
     protected override void Record()
     {
-        TimeData.AddLast(new BossTimeData(CreationTime, Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone(), PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer));
+        AddTimeData(new BossTimeData(CreationTime, Health, IsDisabled, (ShootBehaviour) ShootBehaviour?.Clone(), PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer));
     }
 
     protected override void Rewind()

@@ -7,7 +7,7 @@ public class EnemyCollision : Collision
     protected override void Awake()
     {
         base.Awake();
-        
+
         _enemy = GetComponent<Enemy>();
     }
 
@@ -16,6 +16,7 @@ public class EnemyCollision : Collision
         var projectile = hit.gameObject.GetComponent<Projectile>();
         if (projectile && !projectile.IsDisabled && hit.CompareTag("PlayerProjectile"))
         {
+            Debug.Log("hit?");
             _enemy.OnHit(projectile);
         }
     }
