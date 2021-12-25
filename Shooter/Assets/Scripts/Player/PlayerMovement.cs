@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class PlayerMovement : Movement
+public class PlayerMovement : MonoBehaviour
 {
-    public override void UpdateMovement()
+    public void UpdateMovement()
     {
-        if (!Camera.main) return;
-        transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = (Vector2)GameManager.MainCamera.ScreenToWorldPoint(Input.mousePosition);
     }
 }

@@ -25,7 +25,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
     {
         CycleTimer.UpdateTime();
 
-        if (!CycleTimer.IsFinished() || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
+        if (!CycleTimer.IsFinished(GameManager.IsRewinding) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
         _currentDelay += Time.deltaTime;
 
@@ -46,7 +46,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
         if (_shotsFired == NumberOfProjectiles)
         {
             ++CurrentCycles;
-            CycleTimer.SubtractTotalTime();
+            CycleTimer.Reset(true);
             _shotsFired = 0;
         }
     }

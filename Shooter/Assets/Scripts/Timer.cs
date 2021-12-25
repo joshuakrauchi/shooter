@@ -3,7 +3,6 @@ using UnityEngine;
 public class Timer
 {
     public float TotalTime { get; private set; }
-
     public float ElapsedTime { get; private set; }
 
     public Timer(float totalTime)
@@ -26,23 +25,13 @@ public class Timer
         }
     }
 
-    public void Reset()
+    public void Reset(bool byTotalTime)
     {
-        ElapsedTime = 0f;
+        ElapsedTime = byTotalTime ? ElapsedTime - TotalTime : 0f;
     }
 
-    public void SubtractTotalTime()
+    public bool IsFinished(bool isRewinding)
     {
-        ElapsedTime -= TotalTime;
-    }
-
-    public void SetToTotal()
-    {
-        ElapsedTime = TotalTime - Time.deltaTime;
-    }
-
-    public bool IsFinished()
-    {
-        return GameManager.IsRewinding ? ElapsedTime <= 0f : ElapsedTime >= TotalTime;
+        return isRewinding ? ElapsedTime <= 0f : ElapsedTime >= TotalTime;
     }
 }

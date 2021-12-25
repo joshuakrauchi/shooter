@@ -51,12 +51,12 @@ public class BossMovement : MonoBehaviour
             MovementTimer = new Timer(totalTime);
         }
 
-        _initialDelayTimer.Reset();
+        _initialDelayTimer.Reset(false);
     }
 
     public Vector2 GetMovement()
     {
-        if (!_initialDelayTimer.IsFinished())
+        if (!_initialDelayTimer.IsFinished(GameManager.IsRewinding))
         {
             _initialDelayTimer.UpdateTime();
         }
@@ -70,7 +70,7 @@ public class BossMovement : MonoBehaviour
 
     public bool IsFinished()
     {
-        return !GameManager.IsRewinding && MovementTimer.IsFinished();
+        return !GameManager.IsRewinding && MovementTimer.IsFinished(GameManager.IsRewinding);
     }
 
     public void SetRewindData(Vector2 startPosition, Vector2 endPosition, Timer movementTimer)

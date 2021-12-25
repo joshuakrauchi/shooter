@@ -19,7 +19,7 @@ public class ShootHoming : ShootBehaviour
     {
         CycleTimer.UpdateTime();
 
-        if (!CycleTimer.IsFinished() || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
+        if (!CycleTimer.IsFinished(GameManager.IsRewinding) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
         var direction = (Vector2)GameManager.Player.transform.position - position;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -33,7 +33,7 @@ public class ShootHoming : ShootBehaviour
         }
 
         ++CurrentCycles;
-        CycleTimer.SubtractTotalTime();
+        CycleTimer.Reset(true);
     }
 
     public override object Clone()

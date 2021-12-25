@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
     public static GameObject Player { get; private set; }
+    public static Camera MainCamera { get; private set; }
     public static float Top { get; private set; }
     public static float Bottom { get; private set; }
     public static float Left { get; private set; }
@@ -38,12 +39,14 @@ public class GameManager : MonoBehaviour
     {
         Player = GameObject.FindWithTag("Player");
 
-        if (Camera.main != null)
+        MainCamera = Camera.main;
+
+        if (MainCamera != null)
         {
-            var topRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+            var topRight = MainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
             Top = topRight.y;
             Right = topRight.x;
-            var bottomLeft = Camera.main.ScreenToWorldPoint(Vector2.zero);
+            var bottomLeft = MainCamera.ScreenToWorldPoint(Vector2.zero);
             Bottom = bottomLeft.y;
             Left = bottomLeft.x;
         }
@@ -75,7 +78,7 @@ public class GameManager : MonoBehaviour
         ProjectileManager.Instance.UpdateProjectiles();
     }
 
-    public static void Die()
+    public static void OnPlayerHit()
     {
         Debug.Log("Hit!");
     }

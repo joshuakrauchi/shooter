@@ -23,16 +23,14 @@ public class Player : MonoBehaviour
         {
             UIManager.Instance.UpdateDialogue();
         }
+
+        GameManager.IsRewinding = PlayerController.IsRewinding;
     }
 
     private void FixedUpdate()
     {
         PlayerCollision.UpdateCollision();
         PlayerMovement.UpdateMovement();
-
-        PlayerShoot.IsShooting = PlayerController.IsShooting;
-        PlayerShoot.UpdateShoot();
-
-        GameManager.IsRewinding = PlayerController.IsRewinding;
+        PlayerShoot.UpdateShoot(PlayerController.IsShooting);
     }
 }
