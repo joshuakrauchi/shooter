@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour
 
     public static void OnPlayerHit()
     {
-        //UIManager.Instance.StartDialogue(new []{Tuple.Create("God", "YOU DIED")});
+        if (!IsRewinding)
+        {
+            UIManager.Instance.StartDialogue(new []{Tuple.Create("God", "YOU DIED")});
+        }
     }
 }

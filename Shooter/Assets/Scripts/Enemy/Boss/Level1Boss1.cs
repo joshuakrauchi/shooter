@@ -17,7 +17,7 @@ public class Level1Boss1 : Boss
     {
         if (IsNewPhase)
         {
-            BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.Top - 10f), 2f, 0f, false);
+            BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.Top - 10f), 2f, 0f);
             IsNewPhase = false;
         }
 
@@ -32,31 +32,44 @@ public class Level1Boss1 : Boss
     {
         if (IsNewPhase)
         {
-            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, 2f, false);
+            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, 2f);
 
-            ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new Timer(0.5f), ProjectileDefinitions[0], 5, 20f, 5f, 0.25f)};
+            ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], 5, 20f, 5f, 0.25f)};
             IsNewPhase = false;
         }
 
         if (BossMovement.IsFinished())
         {
-            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, 2f, false);
+            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, 2f);
         }
     }
+
+    private bool phase3marker;
 
     private void Phase3()
     {
         if (IsNewPhase)
         {
-            BossMovement.ResetMovement(transform.position, new Vector2(GameManager.Right / 2f, GameManager.Top - 10f), 1f, 2f, true);
+            phase3marker = false;
+            ShootBehaviours = new List<ShootBehaviour>();
 
-            ShootBehaviours = new List<ShootBehaviour>
-            {
-                new ShootSuccessiveHoming(0, new Timer(0.5f), ProjectileDefinitions[0], 5, 20f, 5f, 0.25f),
-                new ShootHoming(0, new Timer(0.25f), ProjectileDefinitions[1], 10, 10f, 10f)
-            };
+            if (!BossMovement.IsFinished()) return;
+
+            BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.Top - 10f), 1f, 0f);
+
 
             IsNewPhase = false;
+        }
+
+        if (BossMovement.IsFinished() && !phase3marker)
+        {
+            ShootBehaviours = new List<ShootBehaviour>
+            {
+                new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], 5, 20f, 5f, 0.25f),
+                new ShootHoming(0, new LockedTimer(0.25f), ProjectileDefinitions[1], 10, 10f, 10f)
+            };
+
+            phase3marker = true;
         }
     }
 }

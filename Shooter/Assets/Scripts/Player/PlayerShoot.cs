@@ -11,7 +11,7 @@ public class PlayerShoot : MonoBehaviour
         private set
         {
             shootDelay = value;
-            ShootTimer = new Timer(ShootDelay);
+            ShootTimer = new LockedTimer(ShootDelay);
         }
     }
 
@@ -19,7 +19,7 @@ public class PlayerShoot : MonoBehaviour
 
     public void Awake()
     {
-        ShootTimer = new Timer(ShootDelay);
+        ShootTimer = new LockedTimer(ShootDelay);
     }
 
     public void UpdateShoot(bool isShooting)

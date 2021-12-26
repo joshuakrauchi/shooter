@@ -29,8 +29,8 @@ public class Level1Manager : LevelManager
         var fastProjectile = new ProjectileDefinition(fastArrow, Pattern.MoveStraight);
         var bigProjectile = new ProjectileDefinition(bigArrow, Pattern.MoveStraight);
         var basic = new EnemyDefinition(footSoldier, null, null);
-        var basicShoot = new EnemyDefinition(archer, null, new ShootHoming(0, new Timer(0.25f), projectile, 3, 20f, 5f));
-        var mediumShoot = new EnemyDefinition(eliteArcher, null, new ShootHoming(0, new Timer(0.25f), fastProjectile, 5, 20f, 5f));
+        var basicShoot = new EnemyDefinition(archer, null, new ShootHoming(0, new LockedTimer(0.25f), projectile, 3, 20f, 5f));
+        var mediumShoot = new EnemyDefinition(eliteArcher, null, new ShootHoming(0, new LockedTimer(0.25f), fastProjectile, 5, 20f, 5f));
         var boss1Projectiles = new List<ProjectileDefinition> {bigProjectile, projectile, fastProjectile};
 
         /*

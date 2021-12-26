@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class Boss : Enemy
 {
@@ -54,10 +55,17 @@ public abstract class Boss : Enemy
 
     public override void UpdateEnemy()
     {
-        if (IsActive && PhaseIndex + 1 < Phases.Count && Phases[PhaseIndex + 1].Item1 >= Health)
+        Debug.Log(PhaseIndex);
+
+        while (IsActive && PhaseIndex + 1 < Phases.Count && Phases[PhaseIndex + 1].Item1 >= Health)
         {
             ++PhaseIndex;
             IsNewPhase = true;
+        }
+
+        while (PhaseIndex > 0 && Phases[PhaseIndex - 1].Item1 < Health)
+        {
+            --PhaseIndex;
         }
 
         Phases[PhaseIndex].Item2.Invoke();
