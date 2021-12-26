@@ -117,6 +117,6 @@ public class Level1Manager : LevelManager
 
         Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameManager.Top + 5f), boss1Projectiles));
 
-        Debug.Log(CurrentTime);
+        //Debug.Log(CurrentTime);
     }
 }

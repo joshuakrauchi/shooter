@@ -4,21 +4,21 @@ using UnityEngine;
 
 public abstract class Boss : Enemy
 {
-    public delegate void PhaseBehaviour();
+    public delegate bool PhaseBehaviour();
 
     public BossMovement BossMovement { get; protected set; }
-    public List<Tuple<float, PhaseBehaviour>> Phases { get; private set; }
+    public List<PhaseBehaviour> Phases { get; private set; }
     public int PhaseIndex { get; private set; }
     public bool IsActive { get; protected set; }
-    public bool IsNewPhase { get; protected set; }
+    public float MaxHealth { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
 
         BossMovement = GetComponent<BossMovement>();
-        Phases = new List<Tuple<float, PhaseBehaviour>>();
-        IsNewPhase = true;
+        Phases = new List<PhaseBehaviour>();
+        MaxHealth = Health;
     }
 
     protected override void Record()
@@ -29,7 +29,7 @@ public abstract class Boss : Enemy
             shootClones.Add((ShootBehaviour) shootBehaviour.Clone());
         }
 
-        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, IsNewPhase, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.TotalTime, BossMovement.InitialDelayTimer.TotalTime));
+        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, (Timer) BossMovement.MovementTimer.Clone(), (Timer) BossMovement.InitialDelayTimer.Clone()));
 
         base.Record();
     }
@@ -44,7 +44,6 @@ public abstract class Boss : Enemy
         IsDisabled = timeData.IsDisabled;
         ShootBehaviours = timeData.ShootBehaviours;
         PhaseIndex = timeData.PhaseIndex;
-        IsNewPhase = timeData.IsNewPhase;
         BossMovement.SetRewindData(timeData.StartPosition, timeData.EndPosition, timeData.TotalTime, timeData.InitialDelay);
 
         if (TimeData.Count > 1)
@@ -57,18 +56,10 @@ public abstract class Boss : Enemy
     {
         Debug.Log(PhaseIndex);
 
-        while (IsActive && PhaseIndex + 1 < Phases.Count && Phases[PhaseIndex + 1].Item1 >= Health)
+        if (Phases[PhaseIndex].Invoke())
         {
             ++PhaseIndex;
-            IsNewPhase = true;
         }
-
-        while (PhaseIndex > 0 && Phases[PhaseIndex - 1].Item1 < Health)
-        {
-            --PhaseIndex;
-        }
-
-        Phases[PhaseIndex].Item2.Invoke();
 
         transform.position = BossMovement.GetMovement();
 

@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class Timer
+public class Timer : ICloneable
 {
     public float TotalTime { get; private set; }
     public float ElapsedTime { get; protected set; }
@@ -28,5 +29,13 @@ public class Timer
     public bool IsFinished(bool isRewinding)
     {
         return isRewinding ? ElapsedTime <= 0f : ElapsedTime >= TotalTime;
+    }
+
+    public object Clone()
+    {
+        return new Timer(TotalTime)
+        {
+            ElapsedTime = ElapsedTime
+        };
     }
 }

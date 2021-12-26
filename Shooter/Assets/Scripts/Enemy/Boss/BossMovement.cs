@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class BossMovement : MonoBehaviour
 {
@@ -47,16 +44,14 @@ public class BossMovement : MonoBehaviour
         return !GameManager.IsRewinding && MovementTimer.IsFinished(false);
     }
 
-    public void SetRewindData(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay)
+    public void SetRewindData(Vector2 startPosition, Vector2 endPosition, Timer movementTimer, Timer initialDelayTimer)
     {
         if (StartPosition == startPosition && EndPosition == endPosition) return;
 
         StartPosition = startPosition;
         EndPosition = endPosition;
-        MovementTimer = new Timer(totalTime);
-        MovementTimer.SetToFinished();
-        InitialDelayTimer = new Timer(initialDelay);
-        InitialDelayTimer.SetToFinished();
+        MovementTimer = movementTimer;
+        InitialDelayTimer = initialDelayTimer;
     }
 
     public static Vector2 GetRandomPosition()
