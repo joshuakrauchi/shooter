@@ -45,7 +45,7 @@ public abstract class Enemy : TimeObject
             EnemyCollision.UpdateCollision();
             foreach (var shootBehaviour in ShootBehaviours)
             {
-                shootBehaviour.UpdateShoot(transform.position);
+                shootBehaviour?.UpdateShoot(transform.position);
             }
         }
 

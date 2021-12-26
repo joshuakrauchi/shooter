@@ -21,11 +21,6 @@ public class Timer : ICloneable
         ElapsedTime = byTotalTime ? ElapsedTime - TotalTime : 0f;
     }
 
-    public void SetToFinished()
-    {
-        ElapsedTime = TotalTime;
-    }
-
     public bool IsFinished(bool isRewinding)
     {
         return isRewinding ? ElapsedTime <= 0f : ElapsedTime >= TotalTime;

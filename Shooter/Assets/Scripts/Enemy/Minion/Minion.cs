@@ -15,9 +15,10 @@ public class Minion : Enemy
     protected override void Record()
     {
         var shootClones = new List<ShootBehaviour>();
+
         foreach (var shootBehaviour in ShootBehaviours)
         {
-            shootClones.Add((ShootBehaviour) shootBehaviour.Clone());
+            shootClones.Add((ShootBehaviour) shootBehaviour?.Clone());
         }
 
         AddTimeData(new MinionTimeData(Health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
