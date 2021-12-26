@@ -41,10 +41,4 @@ public class Minion : Enemy
         ShootBehaviours = timeData.ShootBehaviours;
         TimeData.Remove(timeData);
     }
-
-    protected override void DestroySelf()
-    {
-        EnemyManager.Instance.RemoveEnemy(this);
-        Destroy(gameObject);
-    }
 }

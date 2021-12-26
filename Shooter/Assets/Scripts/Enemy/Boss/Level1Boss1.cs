@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Level1Boss1 : Boss
 {
+    private bool _initiatedDialogue;
+
     protected override void Awake()
     {
         base.Awake();
 
-        Phases.AddRange(new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5});
+        Phases.AddRange(new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7});
     }
 
     private bool Phase1()
@@ -22,7 +24,15 @@ public class Level1Boss1 : Boss
     {
         if (BossMovement.IsFinished())
         {
-            UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "fine lol")});
+            if (!_initiatedDialogue)
+            {
+                UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "fine lol")});
+                _initiatedDialogue = true;
+            }
+            else
+            {
+                UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
+            }
 
             ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], 5, 20f, 5f, 0.25f)};
             IsActive = true;
@@ -69,6 +79,25 @@ public class Level1Boss1 : Boss
 
     private bool Phase5()
     {
+        return Health <= 0f;
+    }
+
+    private bool Phase6()
+    {
+        UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
+
+        BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.Top + 7f), 2f, 0f);
+
+        return true;
+    }
+
+    private bool Phase7()
+    {
+        if (BossMovement.IsFinished())
+        {
+            DestroySelf();
+        }
+
         return false;
     }
 }

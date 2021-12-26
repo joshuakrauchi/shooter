@@ -56,7 +56,7 @@ public abstract class Boss : Enemy
     {
         Debug.Log(PhaseIndex);
 
-        if (Phases[PhaseIndex].Invoke())
+        if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Count)
         {
             ++PhaseIndex;
         }
@@ -73,8 +73,8 @@ public abstract class Boss : Enemy
         }
     }
 
-    protected override void DestroySelf()
+    protected override void Disable()
     {
-
+        IsActive = false;
     }
 }

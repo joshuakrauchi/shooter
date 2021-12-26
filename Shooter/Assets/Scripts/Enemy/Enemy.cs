@@ -36,8 +36,6 @@ public abstract class Enemy : TimeObject
         }
     }
 
-    protected abstract void DestroySelf();
-
     public virtual void UpdateEnemy()
     {
         SpriteRenderer.enabled = !IsDisabled;
@@ -69,5 +67,11 @@ public abstract class Enemy : TimeObject
     protected virtual void Disable()
     {
         IsDisabled = true;
+    }
+
+    protected void DestroySelf()
+    {
+        EnemyManager.Instance.RemoveEnemy(this);
+        Destroy(gameObject);
     }
 }
