@@ -28,4 +28,16 @@ public class EnemyManager
     {
         _enemies.Remove(enemy);
     }
+
+    public void SetMinionAnimatorSpeed(float speed)
+    {
+        foreach (var enemy in _enemies)
+        {
+            var minion = (Minion) enemy;
+            if (minion)
+            {
+                minion.Animator.speed = speed;
+            }
+        }
+    }
 }

@@ -37,6 +37,7 @@ public class Minion : Enemy
 
         var timeData = (MinionTimeData) TimeData.Last.Value;
         Animator.Play(0, 0, timeData.AnimationTime);
+
         Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
         ShootBehaviours = timeData.ShootBehaviours;

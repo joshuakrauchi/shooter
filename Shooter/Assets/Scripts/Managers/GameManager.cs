@@ -31,7 +31,20 @@ public class GameManager : MonoBehaviour
     public static float Right { get; private set; }
     public static bool IsRewinding { get; set; }
     public static float ProjectileDamage { get; set; } = 1f;
-    public static bool IsPaused { get; set; }
+
+    private static bool _isPaused;
+
+    public static bool IsPaused
+    {
+        get => _isPaused;
+        set
+        {
+            _isPaused = value;
+            EnemyManager.Instance.SetMinionAnimatorSpeed(IsPaused ? 0f : 1f);
+        }
+    }
+
+    public static LevelManager CurrentLevelManager;
 
     private void Awake()
     {
@@ -52,26 +65,17 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.Header = header;
         UIManager.Instance.Text = text;
         UIManager.Instance.DialogueBox = dialogueBox;
-    }
 
-    private void Update()
-    {
-        if (IsPaused) return;
-
-        if (IsRewinding)
-        {
-            LevelTime -= Time.deltaTime;
-        }
-        else
-        {
-            LevelTime += Time.deltaTime;
-        }
+        CurrentLevelManager = FindObjectOfType<LevelManager>();
     }
 
     private void FixedUpdate()
     {
         if (IsPaused) return;
 
+        LevelTime += IsRewinding ? -Time.deltaTime : Time.deltaTime;
+
+        CurrentLevelManager.UpdateEnemyCreation();
         EnemyManager.Instance.UpdateEnemies();
         ProjectileManager.Instance.UpdateProjectiles();
     }
@@ -80,7 +84,7 @@ public class GameManager : MonoBehaviour
     {
         if (!IsRewinding)
         {
-            //UIManager.Instance.StartDialogue(new []{Tuple.Create("God", "YOU DIED")});
+            UIManager.Instance.StartDialogue(new[] {Tuple.Create("God", "YOU DIED")});
         }
     }
 }

@@ -95,7 +95,7 @@ public class Level1Boss1 : Boss
     {
         if (BossMovement.IsFinished())
         {
-            DestroySelf();
+            Disable();
         }
 
         return false;

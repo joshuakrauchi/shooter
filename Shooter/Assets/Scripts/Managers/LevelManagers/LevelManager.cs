@@ -38,7 +38,7 @@ public abstract class LevelManager : MonoBehaviour
         topMidRightFlip = Instantiate(new GameObject(), new Vector3(GameManager.Right / 2, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
     }
 
-    private void FixedUpdate()
+    public void UpdateEnemyCreation()
     {
         while (Enemies.Count > 0 && EnemyIndex > 0 && Enemies[EnemyIndex - 1].CreationTime > GameManager.LevelTime)
         {

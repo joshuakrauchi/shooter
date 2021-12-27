@@ -76,5 +76,6 @@ public abstract class Boss : Enemy
     protected override void Disable()
     {
         IsActive = false;
+        IsDisabled = true;
     }
 }
