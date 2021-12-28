@@ -4,11 +4,18 @@ using UnityEngine;
 public abstract class Enemy : TimeObject
 {
     [SerializeField] private float health = 1f;
+    [SerializeField] private float rewindRecharge = 1f;
 
     public float Health
     {
         get => health;
         protected set => health = value;
+    }
+
+    public float RewindRecharge
+    {
+        get => rewindRecharge;
+        private set => rewindRecharge = value;
     }
 
     public List<ProjectileDefinition> ProjectileDefinitions { get; set; }
@@ -62,6 +69,7 @@ public abstract class Enemy : TimeObject
         if (Health <= 0f)
         {
             Disable();
+            GameManager.Player.RewindCharge += RewindRecharge;
         }
     }
 

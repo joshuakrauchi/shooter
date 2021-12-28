@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas dialogueBox;
     [SerializeField] private Text header;
     [SerializeField] private Text text;
+    [SerializeField] private ValueBar rewindCharge;
 
     private static float _levelTime;
 
@@ -69,6 +70,12 @@ public class GameManager : MonoBehaviour
         CurrentLevelManager = FindObjectOfType<LevelManager>();
     }
 
+    private void Start()
+    {
+        rewindCharge.SetMaxValue(Player.RewindCharge);
+        rewindCharge.SetValue(Player.RewindCharge);
+    }
+
     private void Update()
     {
         Player.UpdatePlayerInput();
@@ -96,6 +103,7 @@ public class GameManager : MonoBehaviour
         EnemyManager.Instance.UpdateEnemies();
         ProjectileManager.Instance.UpdateProjectiles();
         Player.UpdatePlayerMovementAndShoot();
+        rewindCharge.SetValue(Player.RewindCharge);
     }
 
     public static void OnPlayerHit()

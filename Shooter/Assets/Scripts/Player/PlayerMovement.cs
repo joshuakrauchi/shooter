@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 150f;
 
     public float MoveSpeed
     {
@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void UpdateMovement()
     {
-        var newPosition = Vector2.MoveTowards(transform.position, GameManager.MainCamera.ScreenToWorldPoint(Input.mousePosition), moveSpeed);
+        var position = transform.position;
+        var newPosition = Vector3.MoveTowards(position, GameManager.MainCamera.ScreenToWorldPoint(Input.mousePosition), moveSpeed * Time.deltaTime);
 
         if (newPosition.x < GameManager.Left)
         {
@@ -31,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
         {
             newPosition.y = GameManager.Top;
         }
+
+        newPosition.z = position.z;
 
         transform.position = newPosition;
     }

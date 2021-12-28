@@ -54,8 +54,6 @@ public abstract class Boss : Enemy
 
     public override void UpdateEnemy()
     {
-        Debug.Log(PhaseIndex);
-
         if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Count)
         {
             ++PhaseIndex;
