@@ -15,11 +15,11 @@ public class Player : MonoBehaviour
         PlayerShoot = GetComponent<PlayerShoot>();
     }
 
-    private void Update()
+    public void UpdatePlayerInput()
     {
         PlayerController.UpdateInput();
 
-        if (PlayerController.IsLeftMouseDown)
+        if (PlayerController.IsLeftMouseDown && UIManager.Instance.IsDisplayingDialogue)
         {
             UIManager.Instance.UpdateDialogue();
         }
@@ -27,12 +27,14 @@ public class Player : MonoBehaviour
         GameManager.IsRewinding = PlayerController.IsRewinding;
     }
 
-    private void FixedUpdate()
+    public void UpdatePlayerMovementAndShoot()
     {
-        if (GameManager.IsPaused) return;
-
-        PlayerCollision.UpdateCollision();
         PlayerMovement.UpdateMovement();
         PlayerShoot.UpdateShoot(PlayerController.IsShooting);
+    }
+
+    public void UpdatePlayerCollision()
+    {
+        PlayerCollision.UpdateCollision();
     }
 }

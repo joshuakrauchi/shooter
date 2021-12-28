@@ -17,7 +17,7 @@ public abstract class Collision : MonoBehaviour
 
     protected abstract void HandleOverlapCollision(Collider2D hit);
 
-    public void UpdateCollision()
+    public virtual void UpdateCollision()
     {
         Collider.OverlapCollider(overlapFilter, OverlapHits);
 

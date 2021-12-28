@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static GameObject Player { get; private set; }
+    public static Player Player { get; private set; }
     public static Camera MainCamera { get; private set; }
     public static float Top { get; private set; }
     public static float Bottom { get; private set; }
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Player = GameObject.FindWithTag("Player");
+        Player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
         MainCamera = Camera.main;
 
@@ -69,22 +69,40 @@ public class GameManager : MonoBehaviour
         CurrentLevelManager = FindObjectOfType<LevelManager>();
     }
 
+    private void Update()
+    {
+        Player.UpdatePlayerInput();
+    }
+
     private void FixedUpdate()
     {
-        if (IsPaused) return;
+        Player.UpdatePlayerCollision();
+
+        if (IsPaused)
+        {
+            if (IsRewinding)
+            {
+                IsPaused = false;
+            }
+            else
+            {
+                return;
+            }
+        }
 
         LevelTime += IsRewinding ? -Time.deltaTime : Time.deltaTime;
 
         CurrentLevelManager.UpdateEnemyCreation();
         EnemyManager.Instance.UpdateEnemies();
         ProjectileManager.Instance.UpdateProjectiles();
+        Player.UpdatePlayerMovementAndShoot();
     }
 
     public static void OnPlayerHit()
     {
         if (!IsRewinding)
         {
-            UIManager.Instance.StartDialogue(new[] {Tuple.Create("God", "YOU DIED")});
+            IsPaused = true;
         }
     }
 }

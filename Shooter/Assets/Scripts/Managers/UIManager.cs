@@ -13,6 +13,7 @@ public class UIManager
     public Canvas DialogueBox { get; set; }
     public Text Header { get; set; }
     public Text Text { get; set; }
+    public bool IsDisplayingDialogue { get; private set; }
 
     private UIManager()
     {
@@ -29,6 +30,7 @@ public class UIManager
         }
 
         DialogueBox.enabled = true;
+        IsDisplayingDialogue = true;
 
         UpdateDialogue();
     }
@@ -53,6 +55,7 @@ public class UIManager
         Header.text = "";
         Text.text = "";
 
+        IsDisplayingDialogue = false;
         GameManager.IsPaused = false;
     }
 }

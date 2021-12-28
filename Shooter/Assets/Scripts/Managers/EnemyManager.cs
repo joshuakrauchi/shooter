@@ -33,8 +33,7 @@ public class EnemyManager
     {
         foreach (var enemy in _enemies)
         {
-            var minion = (Minion) enemy;
-            if (minion)
+            if (enemy is Minion minion)
             {
                 minion.Animator.speed = speed;
             }

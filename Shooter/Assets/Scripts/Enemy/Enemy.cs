@@ -39,6 +39,7 @@ public abstract class Enemy : TimeObject
     public virtual void UpdateEnemy()
     {
         SpriteRenderer.enabled = !IsDisabled;
+        EnemyCollision.Collider.enabled = !IsDisabled;
 
         if (!IsDisabled && !GameManager.IsRewinding)
         {
