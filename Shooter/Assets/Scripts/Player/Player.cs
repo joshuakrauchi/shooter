@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
             UIManager.Instance.UpdateDialogue();
         }
 
-        GameManager.IsRewinding = PlayerController.IsRewinding;
+        GameManager.IsRewinding = PlayerController.IsRewinding && !UIManager.Instance.IsDisplayingDialogue;
     }
 
     public void UpdatePlayerMovementAndShoot()
