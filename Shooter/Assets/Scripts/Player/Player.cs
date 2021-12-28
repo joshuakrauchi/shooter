@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public PlayerController PlayerController { get; private set; }
     public PlayerMovement PlayerMovement { get; private set; }
     public PlayerShoot PlayerShoot { get; private set; }
+    public float Currency { get; set; }
 
     public float RewindCharge
     {
@@ -20,7 +21,8 @@ public class Player : MonoBehaviour
             if (rewindCharge < 0f)
             {
                 rewindCharge = 0f;
-            } else if (rewindCharge > _maxRewindCharge)
+            }
+            else if (rewindCharge > _maxRewindCharge)
             {
                 rewindCharge = _maxRewindCharge;
             }
@@ -54,7 +56,7 @@ public class Player : MonoBehaviour
             UIManager.Instance.UpdateDialogue();
         }
 
-        if (PlayerController.IsRewinding)
+        if (PlayerController.IsRewinding && !UIManager.Instance.IsDisplayingDialogue)
         {
             RewindCharge -= RewindDecreaseRate * Time.deltaTime;
         }

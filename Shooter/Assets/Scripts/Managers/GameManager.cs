@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
         Player.UpdatePlayerCollision();
+        rewindCharge.SetValue(Player.RewindCharge);
 
         if (IsPaused)
         {
@@ -103,14 +104,20 @@ public class GameManager : MonoBehaviour
         EnemyManager.Instance.UpdateEnemies();
         ProjectileManager.Instance.UpdateProjectiles();
         Player.UpdatePlayerMovementAndShoot();
-        rewindCharge.SetValue(Player.RewindCharge);
     }
 
     public static void OnPlayerHit()
     {
-        if (!IsRewinding)
+        if (!IsRewinding && !IsPaused)
         {
+            Player.RewindCharge -= Player.RewindDecreaseRate / 2f;
             IsPaused = true;
         }
+    }
+
+    public static void OnCollectibleHit()
+    {
+        ++Player.Currency;
+        Debug.Log(Player.Currency);
     }
 }

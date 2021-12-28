@@ -25,6 +25,8 @@ public abstract class Enemy : TimeObject
     public bool IsDisabled { get; protected set; }
     public float CreationTime { get; set; }
 
+    private bool _hasGivenCharge;
+
     protected override void Awake()
     {
         base.Awake();
@@ -69,7 +71,12 @@ public abstract class Enemy : TimeObject
         if (Health <= 0f)
         {
             Disable();
-            GameManager.Player.RewindCharge += RewindRecharge;
+
+            if (!_hasGivenCharge)
+            {
+                GameManager.Player.RewindCharge += RewindRecharge;
+                _hasGivenCharge = true;
+            }
         }
     }
 
