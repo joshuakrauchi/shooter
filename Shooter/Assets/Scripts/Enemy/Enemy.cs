@@ -4,7 +4,8 @@ using UnityEngine;
 public abstract class Enemy : TimeObject
 {
     [SerializeField] private float health = 1f;
-    [SerializeField] private float rewindRecharge = 1f;
+    [SerializeField] private float rewindRecharge = 0.1f;
+    [SerializeField] private GameObject[] drops;
 
     public float Health
     {
@@ -24,8 +25,6 @@ public abstract class Enemy : TimeObject
     public SpriteRenderer SpriteRenderer { get; private set; }
     public bool IsDisabled { get; protected set; }
     public float CreationTime { get; set; }
-
-    private bool _hasGivenCharge;
 
     protected override void Awake()
     {
@@ -72,16 +71,19 @@ public abstract class Enemy : TimeObject
         {
             Disable();
 
-            if (!_hasGivenCharge)
-            {
-                GameManager.Player.RewindCharge += RewindRecharge;
-                _hasGivenCharge = true;
-            }
+            GameManager.Player.RewindCharge += RewindRecharge;
+
+            RewindRecharge /= 2f;
         }
     }
 
     protected virtual void Disable()
     {
+        if (drops.Length > 0)
+        {
+            NPCCreator.CreateCollectible(drops[0], transform.position);
+        }
+
         IsDisabled = true;
     }
 

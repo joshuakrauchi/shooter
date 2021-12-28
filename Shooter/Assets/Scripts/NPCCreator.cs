@@ -32,4 +32,9 @@ public static class NPCCreator
         var projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
         projectileMovement.Pattern = projectileDefinition.Pattern;
     }
+
+    public static void CreateCollectible(GameObject collectible, Vector2 position)
+    {
+        Object.Instantiate(collectible, position, Quaternion.identity);
+    }
 }

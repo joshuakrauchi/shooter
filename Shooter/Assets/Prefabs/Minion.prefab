@@ -32,6 +32,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  rewindRecharge: 0.1
+  drops:
+  - {fileID: 8213909936554195021, guid: 7bd07df2f6f541f43a1594355b437518, type: 3}
 --- !u!1001 &6130565159710172282
 PrefabInstance:
   m_ObjectHideFlags: 0

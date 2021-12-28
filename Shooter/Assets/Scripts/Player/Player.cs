@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float rewindCharge = 100f;
-    [SerializeField] private float rewindDecreaseRate = 10f;
+    [SerializeField] private float rewindCharge = 10f;
 
     public PlayerCollision PlayerCollision { get; private set; }
     public PlayerController PlayerController { get; private set; }
@@ -29,10 +28,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    public float RewindDecreaseRate
+    public float MaxRewindCharge
     {
-        get => rewindDecreaseRate;
-        private set => rewindDecreaseRate = value;
+        get => _maxRewindCharge;
+        private set => _maxRewindCharge = value;
     }
 
     private float _maxRewindCharge;
@@ -58,7 +57,7 @@ public class Player : MonoBehaviour
 
         if (PlayerController.IsRewinding && !UIManager.Instance.IsDisplayingDialogue)
         {
-            RewindCharge -= RewindDecreaseRate * Time.deltaTime;
+            RewindCharge -= Time.deltaTime;
         }
 
         GameManager.IsRewinding = PlayerController.IsRewinding && RewindCharge > 0f && !UIManager.Instance.IsDisplayingDialogue;

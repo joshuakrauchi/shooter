@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
         CurrentLevelManager.UpdateEnemyCreation();
         EnemyManager.Instance.UpdateEnemies();
         ProjectileManager.Instance.UpdateProjectiles();
+        CollectibleManager.Instance.UpdateCollectibles();
         Player.UpdatePlayerMovementAndShoot();
     }
 
@@ -110,7 +111,7 @@ public class GameManager : MonoBehaviour
     {
         if (!IsRewinding && !IsPaused)
         {
-            Player.RewindCharge -= Player.RewindDecreaseRate / 2f;
+            Player.RewindCharge -= Player.MaxRewindCharge / 10f;
             IsPaused = true;
         }
     }
