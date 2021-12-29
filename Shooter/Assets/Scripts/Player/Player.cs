@@ -27,14 +27,10 @@ public class Player : MonoBehaviour
         GameManager.IsRewinding = PlayerController.IsRewinding;
     }
 
-    public void UpdatePlayerMovementAndShoot()
-    {
-        PlayerMovement.UpdateMovement();
-        PlayerShoot.UpdateShoot(PlayerController.IsShooting);
-    }
-
-    public void UpdatePlayerCollision()
+    public void UpdatePlayer()
     {
         PlayerCollision.UpdateCollision();
+        PlayerMovement.UpdateMovement();
+        PlayerShoot.UpdateShoot(PlayerController.IsShooting);
     }
 }

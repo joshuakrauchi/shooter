@@ -3,11 +3,17 @@ using UnityEngine;
 public abstract class Collision : MonoBehaviour
 {
     [SerializeField] protected ContactFilter2D overlapFilter;
+    [SerializeField] protected uint maxOverlapHits = 5;
 
     public BoxCollider2D Collider { get; private set; }
 
+    public uint MaxOverlapHits
+    {
+        get => maxOverlapHits;
+        private set => maxOverlapHits = value;
+    }
+
     protected Collider2D[] OverlapHits;
-    protected const int MaxOverlapHits = 5;
 
     protected virtual void Awake()
     {

@@ -122,7 +122,6 @@ public class GameManager : MonoBehaviour
             RewindCharge -= Time.deltaTime;
         }
 
-        Player.UpdatePlayerCollision();
         rewindBar.SetValue(RewindCharge);
 
         if (IsPaused)
@@ -143,7 +142,7 @@ public class GameManager : MonoBehaviour
         EnemyManager.Instance.UpdateEnemies();
         ProjectileManager.Instance.UpdateProjectiles();
         CollectibleManager.Instance.UpdateCollectibles();
-        Player.UpdatePlayerMovementAndShoot();
+        Player.UpdatePlayer();
     }
 
     public static void OnPlayerHit()
@@ -151,7 +150,7 @@ public class GameManager : MonoBehaviour
         if (!IsRewinding && !IsPaused)
         {
             RewindCharge -= MaxRewindCharge / 10f;
-            //IsPaused = true;
+            IsPaused = true;
         }
     }
 
