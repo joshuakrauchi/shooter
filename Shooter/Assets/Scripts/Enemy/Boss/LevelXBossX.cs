@@ -13,7 +13,7 @@ public class LevelXBossX : Boss
 
     private bool Phase1()
     {
-        BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.Top - 10f), 2f, 0f);
+        BossMovement.ResetMovement(transform.position, new Vector2(0f, 0), 1f, 0f);
 
         return true;
     }
@@ -24,7 +24,7 @@ public class LevelXBossX : Boss
         {
             //UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "ok lol")});
 
-            ShootBehaviours = new List<ShootBehaviour> {new ShootOutwardSpiral(1, new LockedTimer(0.5f), ProjectileDefinitions[0])};
+            ShootBehaviours = new List<ShootBehaviour> {new ShootRain(1, new LockedTimer(0.5f), ProjectileDefinitions[0])};
             IsActive = true;
 
             return true;

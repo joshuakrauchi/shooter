@@ -8,6 +8,8 @@ public class Projectile : TimeObject
     public bool IsDisabled { get; set; }
     public float CreationTime { get; private set; }
 
+    private bool _hasBeenEnabled;
+
     private const float OffscreenThreshold = 2f;
 
     protected override void Awake()
@@ -25,7 +27,16 @@ public class Projectile : TimeObject
     {
         AddTimeData(new ProjectileTimeData(transform.position, IsDisabled));
 
-        if (((ProjectileTimeData) TimeData.First.Value).IsDisabled)
+        if (_hasBeenEnabled && IsDisabled)
+        {
+            _hasBeenEnabled = false;
+        }
+        else if (!_hasBeenEnabled && !IsDisabled)
+        {
+            _hasBeenEnabled = true;
+        }
+
+        if (((ProjectileTimeData) TimeData.First.Value).IsDisabled && !_hasBeenEnabled)
         {
             DestroyProjectile();
         }
@@ -48,11 +59,11 @@ public class Projectile : TimeObject
 
     public void UpdateProjectile()
     {
-        SpriteRenderer.enabled = !IsDisabled;
+        //SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
 
         ProjectileMovement.UpdateMovement();
-        //IsDisabled = IsOffscreen();
+        IsDisabled = IsOffscreen();
 
         UpdateTimeData();
     }
