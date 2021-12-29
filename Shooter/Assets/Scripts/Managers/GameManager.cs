@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     public static bool IsRewinding
     {
         get => _isRewinding;
-        set => _isRewinding = value && RewindCharge > 0f && !UIManager.Instance.IsDisplayingDialogue;
+        set => _isRewinding = value;// && RewindCharge > 0f && !UIManager.Instance.IsDisplayingDialogue;
     }
 
     public static float ProjectileDamage { get; set; } = 1f;
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
         if (!IsRewinding && !IsPaused)
         {
             RewindCharge -= MaxRewindCharge / 10f;
-            IsPaused = true;
+            //IsPaused = true;
         }
     }
 

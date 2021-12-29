@@ -21,7 +21,11 @@ public abstract class Enemy : TimeObject
 
     public List<ProjectileDefinition> ProjectileDefinitions { get; set; }
     public EnemyCollision EnemyCollision { get; private set; }
-    public List<ShootBehaviour> ShootBehaviours { get; set; }
+    [SerializeReference] private List<ShootBehaviour> shootBehaviours;
+    public List<ShootBehaviour> ShootBehaviours {
+        get => shootBehaviours;
+        set => shootBehaviours = value;
+    }
     public SpriteRenderer SpriteRenderer { get; private set; }
     public bool IsDisabled { get; protected set; }
     public float CreationTime { get; set; }

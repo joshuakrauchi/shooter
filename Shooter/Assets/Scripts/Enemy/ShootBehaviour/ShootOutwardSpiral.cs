@@ -24,8 +24,7 @@ public class ShootOutwardSpiral : ShootBehaviour
         var x = 360f / directions;
         for (var i = 0; i < directions; ++i)
         {
-            var proj1 = NPCCreator.CreateProjectile(ProjectileDefinition, position, Quaternion.Euler(0f, 0f, _currentAngle + x * i + Random.Range(-HalfAngleVariation, HalfAngleVariation)));
-            proj1.XSpeed = 0.2f;
+            NPCCreator.CreateProjectile(ProjectileDefinition, position, Quaternion.Euler(0f, 0f, _currentAngle + x * i + Random.Range(-HalfAngleVariation, HalfAngleVariation)));
         }
 
         _currentAngle += AngleBetweenProjectiles;

@@ -11,5 +11,10 @@ public class PlayerController : MonoBehaviour
         IsShooting = Input.GetMouseButton(0);
         IsRewinding = Input.GetMouseButton(1);
         IsLeftMouseDown = Input.GetMouseButtonDown(0);
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ProjectileManager.Instance.ClearProjectiles();
+        }
     }
 }

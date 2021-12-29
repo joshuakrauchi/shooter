@@ -26,10 +26,10 @@ public class Level1Manager : LevelManager
     {
         base.Awake();
 
-        var projectile = new ProjectileDefinition(slowArrow, Pattern.MoveStraightSlowing);
-        var fastProjectile = new ProjectileDefinition(fastArrow, Pattern.MoveStraight);
-        var bigProjectile = new ProjectileDefinition(bigArrow, Pattern.MoveStraight);
-        var spinningProjectile = new ProjectileDefinition(anonArrow, Pattern.MoveForwardSpinAndRelease);
+        var projectile = new ProjectileDefinition(slowArrow, new MoveStraight());
+        var fastProjectile = new ProjectileDefinition(fastArrow, new MoveStraight(0.1f, 5f));
+        //var bigProjectile = new ProjectileDefinition(bigArrow, Pattern.MoveStraight);
+        var spinningProjectile = new ProjectileDefinition(anonArrow, new MoveStraightSpinRelease(new MoveCircle(), new MoveStraight()));
         var basic = new EnemyDefinition(footSoldier, null, null);
         var basicShoot = new EnemyDefinition(archer, null, new ShootHoming(0, new LockedTimer(0.25f), projectile, 3, 20f, 5f));
         var mediumShoot = new EnemyDefinition(eliteArcher, null, new ShootHoming(0, new LockedTimer(0.25f), fastProjectile, 5, 20f, 5f));

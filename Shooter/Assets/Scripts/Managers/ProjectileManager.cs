@@ -28,4 +28,12 @@ public class ProjectileManager
     {
         _projectiles.Remove(projectile);
     }
+
+    public void ClearProjectiles()
+    {
+        foreach (var projectile in _projectiles.ToArray())
+        {
+            projectile.DestroyProjectile();
+        }
+    }
 }

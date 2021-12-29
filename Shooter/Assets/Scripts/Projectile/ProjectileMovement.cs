@@ -2,24 +2,15 @@ using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
 {
-    public delegate void MovementPattern(ref Vector2 velocity, float xSpeed, float ySpeed, float timeAlive);
+    [SerializeField] private float speed;
 
-    [SerializeField] private float xSpeed;
-    [SerializeField] private float ySpeed;
-
-    public float XSpeed
+    public float Speed
     {
-        get => xSpeed;
-        set => xSpeed = value;
+        get => speed;
+        set => speed = value;
     }
 
-    public float YSpeed
-    {
-        get => ySpeed;
-        set => ySpeed = value;
-    }
-
-    public MovementPattern Pattern { get; set; }
+    public MoveBehaviour MoveBehaviour { get; set; }
     public ref Vector2 Velocity => ref _velocity;
 
     private Vector2 _velocity;
@@ -30,7 +21,7 @@ public class ProjectileMovement : MonoBehaviour
         if (!GameManager.IsRewinding)
         {
             _timeAlive += Time.deltaTime;
-            Pattern?.Invoke(ref Velocity, XSpeed, YSpeed, _timeAlive);
+            MoveBehaviour.UpdateMove(ref Velocity, Speed, _timeAlive);
             transform.Translate(Velocity);
         }
         else

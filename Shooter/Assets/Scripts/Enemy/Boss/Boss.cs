@@ -12,6 +12,8 @@ public abstract class Boss : Enemy
     public bool IsActive { get; protected set; }
     public float MaxHealth { get; private set; }
 
+    [SerializeField] private ShootSpinningFlower b;
+
     protected override void Awake()
     {
         base.Awake();

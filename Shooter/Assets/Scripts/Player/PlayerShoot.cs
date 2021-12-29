@@ -15,11 +15,13 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    private ProjectileDefinition _projectileDefinition;
     private Timer _shootTimer;
 
     public void Awake()
     {
         _shootTimer = new LockedTimer(ShootDelay);
+        _projectileDefinition = new ProjectileDefinition(projectilePrefab, new MoveStraight());
     }
 
     public void UpdateShoot(bool isShooting)
@@ -28,7 +30,7 @@ public class PlayerShoot : MonoBehaviour
 
         if (!_shootTimer.IsFinished(false) || !isShooting) return;
 
-        NPCCreator.CreateProjectile(new ProjectileDefinition(projectilePrefab, Pattern.MoveStraight), transform.position, Quaternion.identity);
+        NPCCreator.CreateProjectile(_projectileDefinition, transform.position, Quaternion.Euler(0f, 0f, 90f));
         _shootTimer.Reset(true);
     }
 }

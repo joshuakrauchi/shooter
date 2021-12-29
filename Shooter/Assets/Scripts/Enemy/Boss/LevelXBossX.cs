@@ -24,7 +24,7 @@ public class LevelXBossX : Boss
         {
             //UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "ok lol")});
 
-            ShootBehaviours = new List<ShootBehaviour> {new ShootSpinningFlower(1, new LockedTimer(0.0f), ProjectileDefinitions[0]), new ShootRain(10, new LockedTimer(0.01f), ProjectileDefinitions[1])};
+            ShootBehaviours = new List<ShootBehaviour> {new ShootSpinningFlower(1, new LockedTimer(0.0f), ProjectileDefinitions[0])};
             IsActive = true;
 
             return true;

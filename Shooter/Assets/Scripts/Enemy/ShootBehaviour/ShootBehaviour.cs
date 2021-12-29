@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[Serializable]
 public abstract class ShootBehaviour : ICloneable
 {
     public uint TotalCycles { get; private set; }

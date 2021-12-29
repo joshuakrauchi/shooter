@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class ShootRain : ShootBehaviour
 {
-    private ProjectileDefinition ProjectileDefinition;
+    [SerializeField] private ProjectileDefinition ProjectileDefinition;
     private float _currentAngle;
     private Timer delay;
     private uint _shotsFired;
-    private uint NumberOfProjectiles;
+    [SerializeField] private uint NumberOfProjectiles;
 
 
     public ShootRain(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition) : base(totalCycles, cycleTimer)
     {
         ProjectileDefinition = projectileDefinition;
         delay = new LockedTimer(0f);
+        NumberOfProjectiles = 20;
     }
 
     public override void UpdateShoot(Vector2 position)
@@ -20,7 +21,6 @@ public class ShootRain : ShootBehaviour
         var directions = 4f;
         var AngleBetweenProjectiles = 10f;
         var HalfAngleVariation = 1f;
-        NumberOfProjectiles = 20;
 
         CycleTimer.UpdateTime();
 
@@ -32,8 +32,7 @@ public class ShootRain : ShootBehaviour
         var x = 360f / directions;
         for (var i = 0; i < directions; ++i)
         {
-            var proj1 = NPCCreator.CreateProjectile(ProjectileDefinition, position, Quaternion.Euler(0f, 0f, Random.Range(-180f, 180f) + Random.Range(-HalfAngleVariation, HalfAngleVariation)));
-            proj1.XSpeed = 0.1f;
+            NPCCreator.CreateProjectile(ProjectileDefinition, position, Quaternion.Euler(0f, 0f, Random.Range(-180f, 180f) + Random.Range(-HalfAngleVariation, HalfAngleVariation)));
         }
 
         _currentAngle += AngleBetweenProjectiles;

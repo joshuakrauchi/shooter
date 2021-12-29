@@ -1,13 +1,15 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class ProjectileDefinition
 {
     public GameObject Prefab { get; private set; }
-    public ProjectileMovement.MovementPattern Pattern { get; private set; }
+    [SerializeReference] public MoveBehaviour MoveBehaviour;
 
-    public ProjectileDefinition(GameObject prefab, ProjectileMovement.MovementPattern pattern)
+    public ProjectileDefinition(GameObject prefab, MoveBehaviour moveBehaviour)
     {
         Prefab = prefab;
-        Pattern = pattern;
+        MoveBehaviour = moveBehaviour;
     }
 }
