@@ -31,4 +31,33 @@ public static class Pattern
         velocity.x = xSpeed * Mathf.Pow(Mathf.Sin(timeAlive * 0.25f + 0.7f), 6);
         velocity.y = ySpeed;
     }
+
+    public static void MoveCircle(ref Vector2 velocity, float xSpeed, float ySpeed, float timeAlive)
+    {
+        velocity.x = Mathf.Sin(timeAlive) * xSpeed;
+        velocity.y = Mathf.Cos(timeAlive) * xSpeed;
+    }
+
+    public static void MoveForwardSpinAndRelease(ref Vector2 velocity, float xSpeed, float ySpeed, float timeAlive)
+    {
+        if (timeAlive < 1f)
+        {
+            MoveStraightSlowing(ref velocity, xSpeed, ySpeed, timeAlive);
+        }
+        else if (timeAlive < 2f)
+        {
+            MoveCircle(ref velocity, xSpeed, ySpeed, timeAlive - 1f);
+        }
+        else
+        {
+            velocity.x *= 1.01f;
+            velocity.y *= 1.01f;
+        }
+    }
+
+    public static void SpiralOutwards(ref Vector2 velocity, float xSpeed, float ySpeed, float timeAlive)
+    {
+        velocity.x = (Mathf.Cos(timeAlive + 1f) + 1f) * xSpeed;
+        velocity.y = (Mathf.Sin(timeAlive + 0.5f) - 1f) * xSpeed;
+    }
 }

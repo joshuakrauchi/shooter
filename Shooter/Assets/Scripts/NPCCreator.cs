@@ -25,12 +25,14 @@ public static class NPCCreator
         boss.ProjectileDefinitions = bossSpawn.ProjectileDefinitions;
     }
 
-    public static void CreateProjectile(ProjectileDefinition projectileDefinition, Vector2 position, Quaternion rotation)
+    public static ProjectileMovement CreateProjectile(ProjectileDefinition projectileDefinition, Vector2 position, Quaternion rotation)
     {
         var projectileObject = Object.Instantiate(projectileDefinition.Prefab, position, rotation);
 
         var projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
         projectileMovement.Pattern = projectileDefinition.Pattern;
+
+        return projectileMovement;
     }
 
     public static void CreateCollectible(GameObject collectible, Vector2 position)

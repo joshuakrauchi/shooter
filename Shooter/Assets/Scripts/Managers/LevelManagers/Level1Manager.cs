@@ -10,6 +10,7 @@ public class Level1Manager : LevelManager
     [SerializeField] private GameObject slowArrow;
     [SerializeField] private GameObject fastArrow;
     [SerializeField] private GameObject bigArrow;
+    [SerializeField] private GameObject anonArrow;
 
     private readonly int HDangle = Animator.StringToHash("HDangle");
     private readonly int HSlide1 = Animator.StringToHash("HSlide1");
@@ -28,12 +29,13 @@ public class Level1Manager : LevelManager
         var projectile = new ProjectileDefinition(slowArrow, Pattern.MoveStraightSlowing);
         var fastProjectile = new ProjectileDefinition(fastArrow, Pattern.MoveStraight);
         var bigProjectile = new ProjectileDefinition(bigArrow, Pattern.MoveStraight);
+        var spinningProjectile = new ProjectileDefinition(anonArrow, Pattern.SpiralOutwards);
         var basic = new EnemyDefinition(footSoldier, null, null);
         var basicShoot = new EnemyDefinition(archer, null, new ShootHoming(0, new LockedTimer(0.25f), projectile, 3, 20f, 5f));
         var mediumShoot = new EnemyDefinition(eliteArcher, null, new ShootHoming(0, new LockedTimer(0.25f), fastProjectile, 5, 20f, 5f));
-        var boss1Projectiles = new List<ProjectileDefinition> {bigProjectile, projectile, fastProjectile};
+        var boss1Projectiles = new List<ProjectileDefinition> {spinningProjectile, projectile, fastProjectile};
 
-
+        /*
         // 1
         for (var i = 0; i < 10; ++i)
         {
@@ -113,7 +115,7 @@ public class Level1Manager : LevelManager
             CurrentTime += 0.25f;
         }
 
-        CurrentTime += 5f;
+        CurrentTime += 5f;*/
 
         Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameManager.Top + 5f), boss1Projectiles));
 

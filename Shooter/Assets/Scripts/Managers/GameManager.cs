@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
         if (!IsRewinding && !IsPaused)
         {
             Player.RewindCharge -= Player.MaxRewindCharge / 10f;
-            IsPaused = true;
+            //IsPaused = true;
         }
     }
 

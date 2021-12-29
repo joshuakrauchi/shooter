@@ -10,13 +10,13 @@ public class ProjectileMovement : MonoBehaviour
     public float XSpeed
     {
         get => xSpeed;
-        private set => xSpeed = value;
+        set => xSpeed = value;
     }
 
     public float YSpeed
     {
         get => ySpeed;
-        private set => ySpeed = value;
+        set => ySpeed = value;
     }
 
     public MovementPattern Pattern { get; set; }
