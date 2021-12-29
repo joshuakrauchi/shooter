@@ -13,8 +13,9 @@ public class PlayerCollision : Collision
         }
         else if (hit.CompareTag(collectibleTag))
         {
-            GameManager.OnCollectibleHit();
-            hit.GetComponent<Collectible>().DestroySelf();
+            var collectible = hit.GetComponent<Collectible>();
+            GameManager.OnCollectibleHit(collectible);
+            collectible.DestroySelf();
         }
     }
 }

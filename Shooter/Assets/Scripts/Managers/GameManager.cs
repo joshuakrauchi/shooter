@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas dialogueBox;
     [SerializeField] private Text header;
     [SerializeField] private Text text;
-    [SerializeField] private ValueBar rewindCharge;
-
-    private static float _levelTime;
+    [SerializeField] private ValueBar rewindBar;
 
     public static float LevelTime
     {
@@ -24,15 +21,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public static float RewindCharge
+    {
+        get => rewindCharge;
+        set
+        {
+            rewindCharge = value;
+
+            if (rewindCharge < 0f)
+            {
+                rewindCharge = 0f;
+            }
+            else if (rewindCharge > _maxRewindCharge)
+            {
+                rewindCharge = _maxRewindCharge;
+            }
+        }
+    }
+
+    public static float MaxRewindCharge
+    {
+        get => _maxRewindCharge;
+        private set => _maxRewindCharge = value;
+    }
+
+
     public static Player Player { get; private set; }
     public static Camera MainCamera { get; private set; }
     public static float Top { get; private set; }
     public static float Bottom { get; private set; }
     public static float Left { get; private set; }
     public static float Right { get; private set; }
-    public static bool IsRewinding { get; set; }
-    public static float ProjectileDamage { get; set; } = 1f;
 
+    private static bool _isRewinding;
+
+    public static bool IsRewinding
+    {
+        get => _isRewinding;
+        set => _isRewinding = value && RewindCharge > 0f && !UIManager.Instance.IsDisplayingDialogue;
+    }
+
+    public static float ProjectileDamage { get; set; } = 1f;
+    public static float Currency { get; set; }
+    public static LevelManager CurrentLevelManager;
     private static bool _isPaused;
 
     public static bool IsPaused
@@ -45,7 +76,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static LevelManager CurrentLevelManager;
+    private static float _maxRewindCharge;
+    private static float _levelTime;
+    private static float rewindCharge = 10f;
 
     private void Awake()
     {
@@ -68,12 +101,13 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.DialogueBox = dialogueBox;
 
         CurrentLevelManager = FindObjectOfType<LevelManager>();
+        _maxRewindCharge = rewindCharge;
     }
 
     private void Start()
     {
-        rewindCharge.SetMaxValue(Player.RewindCharge);
-        rewindCharge.SetValue(Player.RewindCharge);
+        rewindBar.SetMaxValue(RewindCharge);
+        rewindBar.SetValue(RewindCharge);
     }
 
     private void Update()
@@ -83,8 +117,13 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (IsRewinding && !UIManager.Instance.IsDisplayingDialogue)
+        {
+            RewindCharge -= Time.deltaTime;
+        }
+
         Player.UpdatePlayerCollision();
-        rewindCharge.SetValue(Player.RewindCharge);
+        rewindBar.SetValue(RewindCharge);
 
         if (IsPaused)
         {
@@ -111,14 +150,14 @@ public class GameManager : MonoBehaviour
     {
         if (!IsRewinding && !IsPaused)
         {
-            Player.RewindCharge -= Player.MaxRewindCharge / 10f;
+            RewindCharge -= MaxRewindCharge / 10f;
             //IsPaused = true;
         }
     }
 
-    public static void OnCollectibleHit()
+    public static void OnCollectibleHit(Collectible collectible)
     {
-        ++Player.Currency;
-        Debug.Log(Player.Currency);
+        Currency += collectible.Value;
+        Debug.Log(Currency);
     }
 }

@@ -71,7 +71,7 @@ public abstract class Enemy : TimeObject
         {
             Disable();
 
-            GameManager.Player.RewindCharge += RewindRecharge;
+            GameManager.RewindCharge += RewindRecharge;
 
             RewindRecharge /= 2f;
         }

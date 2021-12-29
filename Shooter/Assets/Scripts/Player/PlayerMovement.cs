@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 150f;
+    [SerializeField] private float moveSpeed = 10f;
 
     public float MoveSpeed
     {
@@ -13,8 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public void UpdateMovement()
     {
         var position = transform.position;
-        var newPosition = Vector3.MoveTowards(position, GameManager.MainCamera.ScreenToWorldPoint(Input.mousePosition), moveSpeed * Time.deltaTime);
+        var newPosition = Vector3.MoveTowards(position, GameManager.MainCamera.ScreenToWorldPoint(Input.mousePosition), moveSpeed);
 
+        // Lock new position to within screen bounds.
         if (newPosition.x < GameManager.Left)
         {
             newPosition.x = GameManager.Left;
