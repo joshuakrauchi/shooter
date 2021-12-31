@@ -32,6 +32,6 @@ public class PlayerShoot : MonoBehaviour
         if (!_shootTimer.IsFinished(false) || !isShooting) return;
 
         NPCCreator.CreateProjectile(_projectileDefinition, transform.position, Quaternion.Euler(0f, 0f, 90f));
-        _shootTimer.Reset(true);
+        _shootTimer.Reset();
     }
 }

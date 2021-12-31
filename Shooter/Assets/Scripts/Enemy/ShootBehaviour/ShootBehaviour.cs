@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public abstract class ShootBehaviour : ICloneable
+public abstract class ShootBehaviour
 {
-    public uint TotalCycles { get; private set; }
-    public Timer CycleTimer { get; private set; }
+    [field: SerializeField] public uint TotalCycles { get; private set; }
+    [field: SerializeField] public Timer CycleTimer { get; private set; }
 
     protected uint CurrentCycles;
 
@@ -16,5 +16,5 @@ public abstract class ShootBehaviour : ICloneable
     }
 
     public abstract void UpdateShoot(Vector2 position);
-    public abstract object Clone();
+    public abstract ShootBehaviour Clone();
 }

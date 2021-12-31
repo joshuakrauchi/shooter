@@ -800,7 +800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6280cfebbe3528c4db9aed1d44f319bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  <MoveSpeed>k__BackingField: 10
 --- !u!114 &1435785321
 MonoBehaviour:
   m_ObjectHideFlags: 0

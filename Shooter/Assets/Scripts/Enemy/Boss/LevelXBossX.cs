@@ -23,7 +23,9 @@ public class LevelXBossX : Boss
         {
             //UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "ok lol")});
 
-            ShootBehaviours = new List<ShootBehaviour> {new ShootSpinningFlower(1, new LockedTimer(0.0f), ProjectileDefinitions[0])}; //new ShootRain(0, new LockedTimer(0.2f), ProjectileDefinitions[1])};
+            ShootBehaviours = new List<ShootBehaviour> {new ShootSpinningFlower(0, new LockedTimer(5f), ProjectileDefinitions[0], 8, 30, 2f, 0.25f, 0f)}; //new ShootRain(0, new LockedTimer(0.2f), ProjectileDefinitions[1])};
+            //ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(1f), ProjectileDefinitions[2], new LockedTimer(0.25f), 5, 20f, 5f)};
+            //ShootBehaviours = new List<ShootBehaviour> {new ShootSpiral(0, new LockedTimer(0.5f), ProjectileDefinitions[2], 8, 10f, 1f)};
             IsActive = true;
 
             return true;
@@ -51,8 +53,8 @@ public class LevelXBossX : Boss
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], 5, 20f, 5f, 0.25f),
-                new ShootHoming(0, new LockedTimer(0.25f), ProjectileDefinitions[1], 10, 10f, 10f)
+                new ShootSuccessiveHoming(0, new LockedTimer(1f), ProjectileDefinitions[0], new LockedTimer(0.25f), 5, 20f, 5f),
+                //new ShootHoming(0, new LockedTimer(0.25f), ProjectileDefinitions[1], 10, 10f, 10f)
             };
 
             return true;

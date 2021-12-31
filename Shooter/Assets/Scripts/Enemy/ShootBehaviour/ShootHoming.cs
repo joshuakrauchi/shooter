@@ -2,46 +2,45 @@ using UnityEngine;
 
 public class ShootHoming : ShootBehaviour
 {
-    public ProjectileDefinition ProjectileDefinition { get; private set; }
-    public uint NumberOfProjectiles { get; private set; }
-    public float ProjectileOffset { get; private set; }
-    public float HalfAngleVariation { get; private set; }
+    [SerializeField] private ProjectileDefinition projectileDefinition;
+    [SerializeField] private uint numberOfProjectiles;
+    [SerializeField] private float angleBetweenProjectiles;
+    [SerializeField] private float angleVariation;
 
-    public ShootHoming(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, uint numberOfProjectiles, float projectileOffset, float angleVariation) : base(totalCycles, cycleTimer)
+    public ShootHoming(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, uint numberOfProjectiles, float angleBetweenProjectiles, float angleVariation) : base(totalCycles, cycleTimer)
     {
-        ProjectileDefinition = projectileDefinition;
-        NumberOfProjectiles = numberOfProjectiles;
-        ProjectileOffset = projectileOffset;
-        HalfAngleVariation = angleVariation / 2f;
+        this.projectileDefinition = projectileDefinition;
+        this.numberOfProjectiles = numberOfProjectiles;
+        this.angleBetweenProjectiles = angleBetweenProjectiles;
+        this.angleVariation = angleVariation;
     }
 
     public override void UpdateShoot(Vector2 position)
     {
         CycleTimer.UpdateTime();
 
-        if (!CycleTimer.IsFinished(GameManager.IsRewinding) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
+        if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
         var direction = (Vector2)GameManager.Player.transform.position - position;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        angle -= ProjectileOffset * Mathf.Floor(NumberOfProjectiles / 2f) + Random.Range(-HalfAngleVariation, HalfAngleVariation);
+        angle -= angleBetweenProjectiles * Mathf.Floor(numberOfProjectiles / 2f) + Random.Range(-angleVariation, angleVariation);
 
-        for (var i = 0; i < NumberOfProjectiles; ++i)
+        for (var i = 0; i < numberOfProjectiles; ++i)
         {
-            NPCCreator.CreateProjectile(ProjectileDefinition, position, Quaternion.Euler(0f, 0f, angle));
-            angle += ProjectileOffset;
+            NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, angle));
+            angle += angleBetweenProjectiles;
         }
 
         ++CurrentCycles;
-        CycleTimer.Reset(true);
+        CycleTimer.Reset();
     }
 
-    public override object Clone()
+    public override ShootBehaviour Clone()
     {
-        return new ShootHoming(TotalCycles, CycleTimer, ProjectileDefinition, NumberOfProjectiles, ProjectileOffset, 0f)
+        return new ShootHoming(TotalCycles, CycleTimer.Clone(), projectileDefinition, numberOfProjectiles, angleBetweenProjectiles, angleVariation)
         {
-            CurrentCycles = CurrentCycles,
-            HalfAngleVariation = HalfAngleVariation
+            CurrentCycles = CurrentCycles
         };
     }
 }

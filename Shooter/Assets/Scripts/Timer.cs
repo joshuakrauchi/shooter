@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class Timer
 {
-    public float TotalTime { get; private set; }
+    [field: SerializeField] public float TotalTime { get; private set; }
+
     public float ElapsedTime { get; protected set; }
 
     public Timer(float totalTime)
@@ -15,9 +18,14 @@ public class Timer
         ElapsedTime += GameManager.IsRewinding ? -Time.deltaTime : Time.deltaTime;
     }
 
-    public void Reset(bool byTotalTime)
+    public void Reset()
     {
-        ElapsedTime = byTotalTime ? ElapsedTime - TotalTime : 0f;
+        ElapsedTime -= TotalTime;
+    }
+
+    public void SetToEnd()
+    {
+        ElapsedTime += TotalTime;
     }
 
     public bool IsFinished(bool isRewinding)

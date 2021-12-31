@@ -27,14 +27,14 @@ public class Level1Manager : LevelManager
     {
         base.Awake();
 
-        var projectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, 5f))});
+        var projectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, 0.1f))});
         var fastProjectile = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
         //var bigProjectile = new ProjectileDefinition(bigArrow, Pattern.MoveStraight);
         var spinningProjectile = new ProjectileDefinition(anonArrow, new[]
         {
             new MovePair(0f, new MoveStraight()),
             new MovePair(1f, new MoveSin()),
-            new MovePair(2, new MoveStraight(0.1f, 1.01f))
+            new MovePair(2, new MoveStraight(0.1f, 0.01f))
         });
         var basic = new EnemyDefinition(footSoldier, null);
         var basicShoot = new EnemyDefinition(archer, new ShootHoming(0, new LockedTimer(0.25f), projectile, 3, 20f, 5f));

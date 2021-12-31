@@ -18,7 +18,7 @@ public class Minion : Enemy
 
         foreach (var shootBehaviour in ShootBehaviours)
         {
-            shootClones.Add((ShootBehaviour) shootBehaviour?.Clone());
+            shootClones.Add(shootBehaviour?.Clone());
         }
 
         AddTimeData(new MinionTimeData(Health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));

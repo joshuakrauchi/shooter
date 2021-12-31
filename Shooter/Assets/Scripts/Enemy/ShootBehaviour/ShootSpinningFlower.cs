@@ -2,38 +2,48 @@ using UnityEngine;
 
 public class ShootSpinningFlower : ShootBehaviour
 {
-    private bool _isFinished;
-    [SerializeField] private ProjectileDefinition _projectile;
+    [SerializeField] private ProjectileDefinition projectileDefinition;
+    [SerializeField] private uint petals;
+    [SerializeField] private uint projectilesPerPetal;
+    [SerializeField] private float angleBetweenProjectiles;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private float petalOffset;
 
-    public ShootSpinningFlower(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition) : base(totalCycles, cycleTimer)
+    public ShootSpinningFlower(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, uint petals, uint projectilesPerPetal, float angleBetweenProjectiles, float projectileSpeed, float petalOffset) : base(totalCycles, cycleTimer)
     {
-        _projectile = projectileDefinition;
+        this.projectileDefinition = projectileDefinition;
+        this.petals = petals;
+        this.projectilesPerPetal = projectilesPerPetal;
+        this.angleBetweenProjectiles = angleBetweenProjectiles;
+        this.projectileSpeed = projectileSpeed;
+        this.petalOffset = petalOffset;
     }
 
     public override void UpdateShoot(Vector2 position)
     {
-        if (!_isFinished)
+        CycleTimer.UpdateTime();
+
+        if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
+
+        var angleBetweenPetals = 360f / petals;
+        for (var i = 0; i < petals; ++i)
         {
-            for (var j = 0; j < 8; ++j)
+            for (var j = 0; j < projectilesPerPetal; ++j)
             {
-                var petals = 30;
-                var speed = 0.5f;
-                for (var i = 0; i < petals; ++i)
-                {
-                    var projectileMovement1 = NPCCreator.CreateProjectile(_projectile, position, Quaternion.Euler(0f, 0f, 2f * i + 45 * j));
-                    projectileMovement1.Speed = speed - i / (float)petals * speed;
+                var projectileMovement1 = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, angleBetweenPetals * i + angleBetweenProjectiles * j + petalOffset));
+                projectileMovement1.Speed = projectileSpeed - projectileSpeed * j / projectilesPerPetal;
 
-                    var projectileMovement2 = NPCCreator.CreateProjectile(_projectile, position, Quaternion.Euler(0f, 0f, -2f * i + 45 * j));
-                    projectileMovement2.Speed = speed - i / (float)petals * speed;
-                }
+                var projectileMovement2 = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, angleBetweenPetals * i + -angleBetweenProjectiles * j + petalOffset));
+                projectileMovement2.Speed = projectileSpeed - projectileSpeed * j / projectilesPerPetal;
             }
-
-            _isFinished = true;
         }
+
+        CycleTimer.Reset();
+        ++CurrentCycles;
     }
 
-    public override object Clone()
+    public override ShootBehaviour Clone()
     {
-        return new ShootSpinningFlower(TotalCycles, CycleTimer, _projectile);
+        return new ShootSpinningFlower(TotalCycles, CycleTimer.Clone(), projectileDefinition, petals, projectilesPerPetal, angleBetweenProjectiles, projectileSpeed, petalOffset);
     }
 }

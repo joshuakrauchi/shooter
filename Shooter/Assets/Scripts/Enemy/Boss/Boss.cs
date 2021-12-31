@@ -27,7 +27,7 @@ public abstract class Boss : Enemy
         var shootClones = new List<ShootBehaviour>();
         foreach (var shootBehaviour in ShootBehaviours)
         {
-            shootClones.Add((ShootBehaviour) shootBehaviour.Clone());
+            shootClones.Add(shootBehaviour.Clone());
         }
 
         AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.Clone(), BossMovement.InitialDelayTimer.Clone()));
