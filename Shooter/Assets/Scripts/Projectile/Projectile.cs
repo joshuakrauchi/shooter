@@ -8,7 +8,7 @@ public class Projectile : TimeObject
     public bool IsDisabled { get; set; }
     public float CreationTime { get; private set; }
 
-    private bool _hasBeenEnabled;
+    private uint _disablesFound;
 
     private const float OffscreenThreshold = 2f;
 
@@ -27,16 +27,16 @@ public class Projectile : TimeObject
     {
         AddTimeData(new ProjectileTimeData(transform.position, IsDisabled));
 
-        if (_hasBeenEnabled && IsDisabled)
+        if (IsDisabled)
         {
-            _hasBeenEnabled = false;
+            ++_disablesFound;
         }
-        else if (!_hasBeenEnabled && !IsDisabled)
+        else
         {
-            _hasBeenEnabled = true;
+            _disablesFound = 0;
         }
 
-        if (((ProjectileTimeData) TimeData.First.Value).IsDisabled && !_hasBeenEnabled)
+        if (_disablesFound >= TimeData.Count)
         {
             DestroyProjectile();
         }
