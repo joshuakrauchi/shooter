@@ -4,12 +4,19 @@ using UnityEngine;
 [Serializable]
 public class ProjectileDefinition
 {
-    public GameObject Prefab { get; private set; }
-    [SerializeReference] public MoveBehaviour MoveBehaviour;
+    [SerializeField] private MovePair[] movePairs;
 
-    public ProjectileDefinition(GameObject prefab, MoveBehaviour moveBehaviour)
+    public GameObject Prefab { get; private set; }
+
+    public MovePair[] MovePairs
+    {
+        get => movePairs;
+        private set => movePairs = value;
+    }
+
+    public ProjectileDefinition(GameObject prefab, MovePair[] movePairs)
     {
         Prefab = prefab;
-        MoveBehaviour = moveBehaviour;
+        MovePairs = movePairs;
     }
 }

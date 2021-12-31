@@ -255,7 +255,7 @@ MonoBehaviour:
   dialogueBox: {fileID: 27162038}
   header: {fileID: 549057294}
   text: {fileID: 1428882351}
-  rewindCharge: {fileID: 1275910898}
+  rewindSlider: {fileID: 1275910898}
 --- !u!4 &510318363
 Transform:
   m_ObjectHideFlags: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6280cfebbe3528c4db9aed1d44f319bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 150
+  moveSpeed: 15
 --- !u!114 &1435785321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -825,7 +825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7d1d9c30ba27443984f6085c9e3377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewindCharge: 10
 --- !u!212 &1435785323
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -917,6 +916,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  maxOverlapHits: 5
   enemyTag: Enemy
   collectibleTag: Collectible
 --- !u!61 &1435785326

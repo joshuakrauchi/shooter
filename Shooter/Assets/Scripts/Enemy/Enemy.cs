@@ -19,7 +19,6 @@ public abstract class Enemy : TimeObject
         private set => rewindRecharge = value;
     }
 
-    public List<ProjectileDefinition> ProjectileDefinitions { get; set; }
     public EnemyCollision EnemyCollision { get; private set; }
     [SerializeReference] private List<ShootBehaviour> shootBehaviours;
     public List<ShootBehaviour> ShootBehaviours {

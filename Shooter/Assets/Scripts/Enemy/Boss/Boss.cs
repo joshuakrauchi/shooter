@@ -11,8 +11,7 @@ public abstract class Boss : Enemy
     public int PhaseIndex { get; private set; }
     public bool IsActive { get; protected set; }
     public float MaxHealth { get; private set; }
-
-    [SerializeField] private ShootSpinningFlower b;
+    public ProjectileDefinition[] ProjectileDefinitions { get; set; }
 
     protected override void Awake()
     {
@@ -31,7 +30,7 @@ public abstract class Boss : Enemy
             shootClones.Add((ShootBehaviour) shootBehaviour.Clone());
         }
 
-        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, (Timer) BossMovement.MovementTimer.Clone(), (Timer) BossMovement.InitialDelayTimer.Clone()));
+        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.Clone(), BossMovement.InitialDelayTimer.Clone()));
 
         base.Record();
     }

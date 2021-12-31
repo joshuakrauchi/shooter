@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
@@ -21,7 +22,7 @@ public class PlayerShoot : MonoBehaviour
     public void Awake()
     {
         _shootTimer = new LockedTimer(ShootDelay);
-        _projectileDefinition = new ProjectileDefinition(projectilePrefab, new MoveStraight());
+        _projectileDefinition = new ProjectileDefinition(projectilePrefab, new[] {new MovePair(0f, new MoveStraight())});
     }
 
     public void UpdateShoot(bool isShooting)

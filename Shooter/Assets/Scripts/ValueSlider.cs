@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ValueBar : MonoBehaviour
+public class ValueSlider : MonoBehaviour
 {
     private Slider _slider;
 

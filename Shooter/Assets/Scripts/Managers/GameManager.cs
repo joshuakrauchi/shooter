@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas dialogueBox;
     [SerializeField] private Text header;
     [SerializeField] private Text text;
-    [SerializeField] private ValueBar rewindBar;
+    [SerializeField] private ValueSlider rewindSlider;
 
     public static float LevelTime
     {
@@ -106,8 +106,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        rewindBar.SetMaxValue(RewindCharge);
-        rewindBar.SetValue(RewindCharge);
+        rewindSlider.SetMaxValue(RewindCharge);
+        rewindSlider.SetValue(RewindCharge);
     }
 
     private void Update()
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
             RewindCharge -= Time.deltaTime;
         }
 
-        rewindBar.SetValue(RewindCharge);
+        rewindSlider.SetValue(RewindCharge);
 
         if (IsPaused)
         {

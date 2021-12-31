@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,14 +27,19 @@ public class Level1Manager : LevelManager
     {
         base.Awake();
 
-        var projectile = new ProjectileDefinition(slowArrow, new MoveStraight());
-        var fastProjectile = new ProjectileDefinition(fastArrow, new MoveStraight(0.1f, 5f));
+        var projectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, 5f))});
+        var fastProjectile = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
         //var bigProjectile = new ProjectileDefinition(bigArrow, Pattern.MoveStraight);
-        var spinningProjectile = new ProjectileDefinition(anonArrow, new MoveStraightSpinRelease(new MoveCircle(), new MoveStraight()));
-        var basic = new EnemyDefinition(footSoldier, null, null);
-        var basicShoot = new EnemyDefinition(archer, null, new ShootHoming(0, new LockedTimer(0.25f), projectile, 3, 20f, 5f));
-        var mediumShoot = new EnemyDefinition(eliteArcher, null, new ShootHoming(0, new LockedTimer(0.25f), fastProjectile, 5, 20f, 5f));
-        var boss1Projectiles = new List<ProjectileDefinition> {spinningProjectile, projectile, fastProjectile};
+        var spinningProjectile = new ProjectileDefinition(anonArrow, new[]
+        {
+            new MovePair(0f, new MoveStraight()),
+            new MovePair(1f, new MoveSin()),
+            new MovePair(2, new MoveStraight(0.1f, 1.01f))
+        });
+        var basic = new EnemyDefinition(footSoldier, null);
+        var basicShoot = new EnemyDefinition(archer, new ShootHoming(0, new LockedTimer(0.25f), projectile, 3, 20f, 5f));
+        var mediumShoot = new EnemyDefinition(eliteArcher, new ShootHoming(0, new LockedTimer(0.25f), fastProjectile, 5, 20f, 5f));
+        var boss1Projectiles = new[] {spinningProjectile, projectile, fastProjectile};
 
         /*
         // 1

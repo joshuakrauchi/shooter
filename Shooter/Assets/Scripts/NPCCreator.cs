@@ -13,7 +13,6 @@ public static class NPCCreator
 
         var enemy = enemyObject.GetComponent<Enemy>();
         enemy.CreationTime = enemySpawn.CreationTime;
-        enemy.ProjectileDefinitions = enemyDefinition.ProjectileDefinitions;
         enemy.ShootBehaviours = new List<ShootBehaviour> {enemyDefinition.ShootBehaviour};
     }
 
@@ -30,7 +29,7 @@ public static class NPCCreator
         var projectileObject = Object.Instantiate(projectileDefinition.Prefab, position, rotation);
 
         var projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
-        projectileMovement.MoveBehaviour = projectileDefinition.MoveBehaviour;
+        projectileMovement.MovePairs = projectileDefinition.MovePairs;
 
         return projectileMovement;
     }

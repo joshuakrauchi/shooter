@@ -2,32 +2,31 @@ using UnityEngine;
 
 public class MoveStraight : MoveBehaviour
 {
-    [SerializeField] private bool _isSlowing;
     [SerializeField] private float _minSpeed;
-    [SerializeField] private float _slowModifier;
+    [SerializeField] private float _multiplier;
 
     public MoveStraight()
     {
-        _isSlowing = false;
+        _minSpeed = 0f;
+        _multiplier = 0f;
     }
 
-    public MoveStraight(float minSpeed, float slowModifier)
+    public MoveStraight(float minSpeed, float multiplier)
     {
         _minSpeed = minSpeed;
-        _slowModifier = slowModifier;
-        _isSlowing = true;
+        _multiplier = multiplier;
     }
 
     public override void UpdateMove(ref Vector2 velocity, float speed, float timeAlive)
     {
         velocity.x = speed;
 
-        if (!_isSlowing) return;
-
-        velocity.x -= Mathf.Sign(speed) * (timeAlive / _slowModifier);
+        velocity.x += timeAlive * _multiplier;
         if (speed > 0f && velocity.x < _minSpeed || speed < 0f && velocity.x > -_minSpeed)
         {
             velocity.x = _minSpeed * Mathf.Sign(speed);
         }
+
+        velocity.y = 0f;
     }
 }
