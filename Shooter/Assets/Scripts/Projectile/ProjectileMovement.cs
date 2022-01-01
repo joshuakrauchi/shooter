@@ -13,10 +13,17 @@ public class ProjectileMovement : MonoBehaviour
 
     public MovePair[] MovePairs { get; set; }
     public ref Vector2 Velocity => ref _velocity;
+    public ref Quaternion Rotation => ref _rotation;
 
     private Vector2 _velocity;
+    private Quaternion _rotation;
     private float _timeAlive;
     private uint _moveIndex;
+
+    public void Awake()
+    {
+        Rotation = transform.rotation;
+    }
 
     public void UpdateMovement()
     {
@@ -36,8 +43,9 @@ public class ProjectileMovement : MonoBehaviour
                 ++_moveIndex;
             }
 
-            MovePairs[_moveIndex].MoveBehaviour.UpdateMove(ref Velocity, Speed, _timeAlive);
+            MovePairs[_moveIndex].MoveBehaviour.UpdateMove(ref Velocity, ref Rotation, Speed, _timeAlive);
             transform.Translate(Velocity);
+            transform.rotation = Rotation;
         }
         else
         {

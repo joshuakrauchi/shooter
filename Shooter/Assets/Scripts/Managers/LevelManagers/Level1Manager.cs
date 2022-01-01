@@ -7,7 +7,7 @@ public class Level1Manager : LevelManager
     [SerializeField] private GameObject footSoldier;
     [SerializeField] private GameObject archer;
     [SerializeField] private GameObject eliteArcher;
-    [SerializeField] private GameObject boss1;
+    [SerializeField] private GameObject boss2;
     [SerializeField] private GameObject slowArrow;
     [SerializeField] private GameObject fastArrow;
     [SerializeField] private GameObject bigArrow;
@@ -29,15 +29,23 @@ public class Level1Manager : LevelManager
 
         var projectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, 0.1f))});
         var fastProjectile = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
-        //var bigProjectile = new ProjectileDefinition(bigArrow, Pattern.MoveStraight);
+        var bigProjectile = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
+
         var spinningProjectile = new ProjectileDefinition(anonArrow, new[]
         {
             new MovePair(0f, new MoveSin())
         });
+
+        var boss2SlowingProjectileStraight = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.1f))});
+        var boss2SmallProjectileStraight = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
+        var boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
+        var boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight())});
+        var boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
+
         var basic = new EnemyDefinition(footSoldier, null);
-        var basicShoot = new EnemyDefinition(archer, new ShootHoming(0, new LockedTimer(0.25f), projectile, 3, 20f, 5f));
+        var basicShoot = new EnemyDefinition(archer, new ShootSuccessiveHoming(0, new LockedTimer(0.25f), projectile, new LockedTimer(0.1f), 5, 10f, 0f));
         var mediumShoot = new EnemyDefinition(eliteArcher, new ShootHoming(0, new LockedTimer(0.25f), fastProjectile, 5, 20f, 5f));
-        var boss1Projectiles = new[] {spinningProjectile, projectile, fastProjectile};
+        var boss2Projectiles = new[] {boss2SmallProjectileStraight, boss2BigProjectileStraight, boss2SmallProjectileRain, boss2BigProjectileRain, boss2SlowingProjectileStraight};
 
         /*
         // 1
@@ -121,7 +129,7 @@ public class Level1Manager : LevelManager
 
         CurrentTime += 5f;*/
 
-        Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameManager.Top + 5f), boss1Projectiles));
+        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.Top + 5f), boss2Projectiles));
 
         //Debug.Log(CurrentTime);
     }

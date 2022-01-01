@@ -35,7 +35,7 @@ public class MoveSin : MoveBehaviour
         this.yTranslation = yTranslation;
     }
 
-    public override void UpdateMove(ref Vector2 velocity, float speed, float timeAlive)
+    public override void UpdateMove(ref Vector2 velocity, ref Quaternion rotation, float speed, float timeAlive)
     {
         velocity.x = xAmplitude * Mathf.Sin(xPeriod * (timeAlive + xPhaseShift)) + xTranslation;
         velocity.y = yAmplitude * Mathf.Sin(yPeriod * (timeAlive + yPhaseShift)) + yTranslation;
