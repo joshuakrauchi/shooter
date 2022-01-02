@@ -13,15 +13,12 @@ public static class NPCCreator
 
         var enemy = enemyObject.GetComponent<Enemy>();
         enemy.CreationTime = enemySpawn.CreationTime;
-        enemy.ShootBehaviours = new List<ShootBehaviour> {enemyDefinition.ShootBehaviour.Clone()};
+        enemy.ShootBehaviours = new List<ShootBehaviour> {enemyDefinition.ShootBehaviour?.Clone()};
     }
 
     public static void CreateBoss(BossSpawn bossSpawn)
     {
-        var bossObject = Object.Instantiate(bossSpawn.Prefab, bossSpawn.Position, Quaternion.identity);
-
-        var boss = bossObject.GetComponent<Boss>();
-        boss.ProjectileDefinitions = bossSpawn.ProjectileDefinitions;
+        Object.Instantiate(bossSpawn.Prefab, bossSpawn.Position, Quaternion.identity);
     }
 
     public static ProjectileMovement CreateProjectile(ProjectileDefinition projectileDefinition, Vector2 position, Quaternion rotation)

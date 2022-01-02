@@ -5,7 +5,7 @@ public abstract class TimeObject : MonoBehaviour
 {
     public LinkedList<ITimeData> TimeData { get; private set; }
 
-    private const uint MaxData = 200;
+    private const uint MaxData = 600;
 
     protected virtual void Awake()
     {

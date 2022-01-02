@@ -9,15 +9,28 @@ public abstract class LevelManager : MonoBehaviour
 
     protected float CurrentTime = 1f;
     protected Transform origin;
-    protected Transform rotate;
-    protected Transform topCenter;
-    protected Transform topCenterFlip;
-    protected Transform topMidLeft;
-    protected Transform topMidLeftFlip;
-    protected Transform topLeft;
-    protected Transform topRight;
-    protected Transform topMidRight;
-    protected Transform topMidRightFlip;
+    protected Transform top;
+    protected Transform topFlip;
+    protected Transform topM5;
+    protected Transform topM5Flip;
+    protected Transform topM10;
+    protected Transform topM10Flip;
+    protected Transform topM15;
+    protected Transform topM15Flip;
+    protected Transform topM20;
+    protected Transform topM20Flip;
+    protected Transform topM25;
+    protected Transform topM25Flip;
+    protected Transform topP5;
+    protected Transform topP5Flip;
+    protected Transform topP10;
+    protected Transform topP10Flip;
+    protected Transform topP15;
+    protected Transform topP15Flip;
+    protected Transform topP20;
+    protected Transform topP20Flip;
+    protected Transform topP25;
+    protected Transform topP25Flip;
 
     private const float Padding = 2f;
 
@@ -26,16 +39,29 @@ public abstract class LevelManager : MonoBehaviour
         Enemies = new List<EnemySpawn>();
         Bosses = new List<BossSpawn>();
 
-        origin = Instantiate(new GameObject(), new Vector3(), Quaternion.identity).transform;
-        rotate = Instantiate(new GameObject(), new Vector3(), new Quaternion(0f, 0f, 180f, 0f)).transform;
-        topCenter = Instantiate(new GameObject(), new Vector3(0f, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
-        topCenterFlip = Instantiate(new GameObject(), new Vector3(0f, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topMidLeft = Instantiate(new GameObject(), new Vector3(GameManager.Left / 2, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
-        topMidLeftFlip = Instantiate(new GameObject(), new Vector3(GameManager.Left / 2, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topLeft = Instantiate(new GameObject(), new Vector3(GameManager.Left + Padding, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
-        topRight = Instantiate(new GameObject(), new Vector3(GameManager.Right - Padding, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
-        topMidRight = Instantiate(new GameObject(), new Vector3(GameManager.Right / 2, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
-        topMidRightFlip = Instantiate(new GameObject(), new Vector3(GameManager.Right / 2, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        origin = new GameObject("SpawnTransforms").transform;
+        top = Instantiate(origin, new Vector3(0f, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topFlip = Instantiate(origin, new Vector3(0f, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topM5 = Instantiate(origin, new Vector3(-5, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topM5Flip = Instantiate(origin, new Vector3(-5, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topM10 = Instantiate(origin, new Vector3(-10, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topM10Flip = Instantiate(origin, new Vector3(-10, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topM15 = Instantiate(origin, new Vector3(-15, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topM15Flip = Instantiate(origin, new Vector3(-15, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topM20 = Instantiate(origin, new Vector3(-20, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topM20Flip = Instantiate(origin, new Vector3(-20, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topM25 = Instantiate(origin, new Vector3(-25, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topM25Flip = Instantiate(origin, new Vector3(-25, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topP5 = Instantiate(origin, new Vector3(5, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topP5Flip = Instantiate(origin, new Vector3(5, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topP10 = Instantiate(origin, new Vector3(10, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topP10Flip = Instantiate(origin, new Vector3(10, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topP15 = Instantiate(origin, new Vector3(15, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topP15Flip = Instantiate(origin, new Vector3(15, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topP20 = Instantiate(origin, new Vector3(20, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topP20Flip = Instantiate(origin, new Vector3(20, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        topP25 = Instantiate(origin, new Vector3(25, GameManager.Top + Padding, 0f), Quaternion.identity).transform;
+        topP25Flip = Instantiate(origin, new Vector3(25, GameManager.Top + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
     }
 
     public void UpdateEnemyCreation()

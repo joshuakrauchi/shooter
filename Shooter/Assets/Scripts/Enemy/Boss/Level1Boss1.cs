@@ -34,7 +34,7 @@ public class Level1Boss1 : Boss
                 UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
             }
 
-            ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], new LockedTimer(0.25f), 5, 20f, 5f)};
+            //ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], new LockedTimer(0.25f), 5, 20f, 5f)};
             IsActive = true;
 
             return true;
@@ -67,8 +67,8 @@ public class Level1Boss1 : Boss
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], new LockedTimer(0.25f), 5, 20f, 5f),
-                new ShootHoming(0, new LockedTimer(0.25f), ProjectileDefinitions[1], 10, 10f, 10f)
+                //new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], new LockedTimer(0.25f), 5, 20f, 5f),
+                //new ShootHoming(0, new LockedTimer(0.25f), ProjectileDefinitions[1], 10, 10f, 10f)
             };
 
             return true;

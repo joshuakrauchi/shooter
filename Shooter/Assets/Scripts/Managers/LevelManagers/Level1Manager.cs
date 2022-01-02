@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level1Manager : LevelManager
@@ -12,6 +10,7 @@ public class Level1Manager : LevelManager
     [SerializeField] private GameObject fastArrow;
     [SerializeField] private GameObject bigArrow;
     [SerializeField] private GameObject anonArrow;
+    [SerializeField] private GameObject smallArrow;
 
     private readonly int HDangle = Animator.StringToHash("HDangle");
     private readonly int HSlide1 = Animator.StringToHash("HSlide1");
@@ -22,12 +21,15 @@ public class Level1Manager : LevelManager
     private readonly int VSlide2 = Animator.StringToHash("VSlide2");
     private readonly int Wave = Animator.StringToHash("Wave");
     private readonly int VStraight = Animator.StringToHash("VStraight");
+    private readonly int DropLeave = Animator.StringToHash("DropLeave");
 
     protected override void Awake()
     {
         base.Awake();
 
-        var projectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, 0.1f))});
+        var smallProjectile = new ProjectileDefinition(smallArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.05f))});
+        var slowingProjectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.05f))});
+        var projectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.05f))});
         var fastProjectile = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
         var bigProjectile = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
 
@@ -36,23 +38,19 @@ public class Level1Manager : LevelManager
             new MovePair(0f, new MoveSin())
         });
 
-        var boss2SlowingProjectileStraight = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.1f))});
-        var boss2SmallProjectileStraight = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
-        var boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
-        var boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight())});
-        var boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
-
         var basic = new EnemyDefinition(footSoldier, null);
-        var basicShoot = new EnemyDefinition(archer, new ShootSuccessiveHoming(0, new LockedTimer(0.25f), projectile, new LockedTimer(0.1f), 5, 10f, 0f));
-        var mediumShoot = new EnemyDefinition(eliteArcher, new ShootHoming(0, new LockedTimer(0.25f), fastProjectile, 5, 20f, 5f));
-        var boss2Projectiles = new[] {boss2SmallProjectileStraight, boss2BigProjectileStraight, boss2SmallProjectileRain, boss2BigProjectileRain, boss2SlowingProjectileStraight};
+        var basicShoot = new EnemyDefinition(footSoldier, new ShootHoming(0, new LockedTimer(1f), smallProjectile, new LockedTimer(0f), 1, 3, 20, 2f, 0f));
+        var archerSingleShot = new EnemyDefinition(archer, new ShootHoming(1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 1, 15, 10f, 2f, -0.05f));
+        var archerDoubleShot = new EnemyDefinition(archer, new ShootHoming(1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 2, 15, 10f, 2f, -0.05f));
+        var archerNarrowShot = new EnemyDefinition(archer, new ShootHoming(0, new LockedTimer(2f), slowingProjectile, new LockedTimer(0f), 1, 15, 5f, 2f, -0.05f));
 
-        /*
+        var eliteArcherShooting = new EnemyDefinition(eliteArcher, new ShootHoming(0, new LockedTimer(0.5f), fastProjectile, new LockedTimer(0.1f), 4, 15, 20f, 5f, -0.095f));
+/*
         // 1
         for (var i = 0; i < 10; ++i)
         {
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, VSlide1));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, VSlide2));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topM15, VSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topM15, VSlide2));
             CurrentTime += 0.25f;
         }
 
@@ -60,77 +58,169 @@ public class Level1Manager : LevelManager
 
         for (var i = 0; i < 10; ++i)
         {
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenterFlip, VSlide1));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenterFlip, VSlide2));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topP15Flip, VSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topP15Flip, VSlide2));
             CurrentTime += 0.25f;
         }
 
         // 2
         CurrentTime += 2f;
 
-        Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topMidRight, VDangle));
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
         CurrentTime += 1f;
-        Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topMidLeft, VDangle));
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topM15, DropLeave));
         CurrentTime += 1f;
-        Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenterFlip, HDangle));
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topP5Flip, DropLeave));
         CurrentTime += 1f;
-        Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenter, HDangle));
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topM5, DropLeave));
         CurrentTime += 1f;
-        Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenter, VDangle));
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topP20Flip, DropLeave));
+        CurrentTime += 0.75f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topM20, DropLeave));
+        CurrentTime += 0.75f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topP10Flip, DropLeave));
+        CurrentTime += 0.75f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topM10, DropLeave));
+        CurrentTime += 0.75f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
+        CurrentTime += 0.5f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topM5, DropLeave));
+        CurrentTime += 0.5f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topP20Flip, DropLeave));
+        CurrentTime += 0.5f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topM10, DropLeave));
+        CurrentTime += 0.5f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, top, DropLeave));
+        CurrentTime += 0.25f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topM15, DropLeave));
+        CurrentTime += 0.25f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topP15Flip, DropLeave));
+        CurrentTime += 0.25f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topM5, DropLeave));
+        CurrentTime += 0.25f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topP5Flip, DropLeave));
 
         // 3
         CurrentTime += 5.5f;
 
         for (var i = 0; i < 10; ++i)
         {
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, HSlide1));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenterFlip, HSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, top, HSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topFlip, HSlide1));
 
             CurrentTime += 0.25f;
         }
 
-        Enemies.Add(new EnemySpawn(CurrentTime, mediumShoot, topCenter, VDangle));
+        Enemies.Add(new EnemySpawn(CurrentTime, eliteArcherShooting, top, VDangle));
 
         for (var i = 0; i < 15; ++i)
         {
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, HSlide1));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenterFlip, HSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, top, HSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topFlip, HSlide1));
 
             CurrentTime += 0.25f;
         }
 
         // 4
-        CurrentTime += 2f;
+        /*CurrentTime += 2f;
 
         for (var i = 0; i < 5; ++i)
         {
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topLeft, Wave));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topMidLeft, Wave));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, Wave));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topMidRight, Wave));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topRight, Wave));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topM15, Wave));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, top, Wave));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topP15, Wave));
 
             CurrentTime += 0.25f;
         }
 
-        Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenter, HSlide1));
-        Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topCenterFlip, HSlide1));
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, top, HSlide1));
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topFlip, HSlide1));
 
         for (var i = 0; i < 20; ++i)
         {
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topLeft, Wave));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topMidLeft, Wave));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topCenter, Wave));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topMidRight, Wave));
-            Enemies.Add(new EnemySpawn(CurrentTime, basic, topRight, Wave));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topM15, Wave));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, top, Wave));
+            Enemies.Add(new EnemySpawn(CurrentTime, basic, topP15, Wave));
 
             CurrentTime += 0.25f;
         }
 
-        CurrentTime += 5f;*/
+        // Boss 1
+        CurrentTime += 5f;
 
-        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.Top + 5f), boss2Projectiles));
+        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.Top + 5f)));
+*/
+        // 5
+        for (var i = 0; i < 20; ++i)
+        {
+            Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topM15, VSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topM15, VSlide2));
+            Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topP15Flip, VSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topP15Flip, VSlide2));
+            CurrentTime += 0.25f;
+        }
 
-        //Debug.Log(CurrentTime);
+        // 6
+        CurrentTime += 4f;
+
+        for (var i = 0; i < 5; ++i)
+        {
+            Enemies.Add(new EnemySpawn(CurrentTime, archerNarrowShot, top, HSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, archerNarrowShot, topFlip, HSlide1));
+            CurrentTime += 0.5f;
+        }
+
+        Enemies.Add(new EnemySpawn(CurrentTime, eliteArcherShooting, top, VDangle));
+
+        for (var i = 0; i < 10; ++i)
+        {
+            Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topM15, VSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topP15Flip, VSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, archerNarrowShot, top, HSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, archerNarrowShot, topFlip, HSlide1));
+            CurrentTime += 0.25f;
+            Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topM15, VSlide1));
+            Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topP15Flip, VSlide1));
+            CurrentTime += 0.25f;
+        }
+
+        // 7
+        CurrentTime += 5f;
+
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
+        CurrentTime += 1f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topM15, DropLeave));
+        CurrentTime += 1f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topP5Flip, DropLeave));
+        CurrentTime += 1f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topM5, DropLeave));
+        CurrentTime += 1f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topP20Flip, DropLeave));
+        CurrentTime += 0.75f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topM20, DropLeave));
+        CurrentTime += 0.75f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topP10Flip, DropLeave));
+        CurrentTime += 0.75f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topM10, DropLeave));
+        CurrentTime += 0.75f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
+        CurrentTime += 0.5f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topM5, DropLeave));
+        CurrentTime += 0.5f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topP20Flip, DropLeave));
+        CurrentTime += 0.5f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topM10, DropLeave));
+        CurrentTime += 0.5f;
+        Enemies.Add(new EnemySpawn(CurrentTime, eliteArcherShooting, top, DropLeave));
+        CurrentTime += 0.25f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topM15, DropLeave));
+        CurrentTime += 0.25f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerSingleShot, topP15Flip, DropLeave));
+        CurrentTime += 0.25f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topM5, DropLeave));
+        CurrentTime += 0.25f;
+        Enemies.Add(new EnemySpawn(CurrentTime, archerDoubleShot, topP5Flip, DropLeave));
+
+        Debug.Log(CurrentTime);
     }
 }

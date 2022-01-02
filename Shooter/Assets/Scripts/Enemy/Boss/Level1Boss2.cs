@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class Level1Boss2 : Boss
 {
+    [SerializeField] private GameObject slowArrow;
+    [SerializeField] private GameObject fastArrow;
+    [SerializeField] private GameObject bigArrow;
+
+    private ProjectileDefinition slowingProjectileStraight;
+    private ProjectileDefinition smallProjectileStraight;
+    private ProjectileDefinition boss2SmallProjectileRain;
+    private ProjectileDefinition boss2BigProjectileStraight;
+    private ProjectileDefinition boss2BigProjectileRain;
+
     private bool _initiatedDialogue;
 
     protected override void Awake()
     {
         base.Awake();
+
+        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.1f))});
+        smallProjectileStraight = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
+        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
+        boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight())});
+        boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
+
 
         Phases.AddRange(new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7});
     }
@@ -32,8 +49,8 @@ public class Level1Boss2 : Boss
 
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootHoming(0, new LockedTimer(0.1f), ProjectileDefinitions[0], 1, 0f, 5f),
-                new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[1], new LockedTimer(0.25f), 5, 15f, 5f)
+                //new ShootHoming(0, new LockedTimer(0.1f), smallProjectileStraight, 1, 0f, 5f),
+                new ShootSuccessiveHoming(0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 15f, 5f)
             };
 
             IsActive = true;
@@ -67,8 +84,8 @@ public class Level1Boss2 : Boss
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootNormal(0, new LockedTimer(0.25f), ProjectileDefinitions[2], 5, 90f, 10f, 10f),
-                new ShootNormal(0, new LockedTimer(0.5f), ProjectileDefinitions[3], 7, 90f, 12f, 2f)
+                new ShootNormal(0, new LockedTimer(0.25f), boss2SmallProjectileRain, 5, 90f, 10f, 10f),
+                new ShootNormal(0, new LockedTimer(0.5f), boss2BigProjectileRain, 7, 90f, 12f, 2f)
             };
 
             return true;
@@ -83,8 +100,8 @@ public class Level1Boss2 : Boss
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootRandom(0, new LockedTimer(0.1f), ProjectileDefinitions[4], 10),
-                new ShootSpiral(0, new LockedTimer(0.3f), ProjectileDefinitions[1], 1, 20f, 0f)
+                new ShootRandom(0, new LockedTimer(0.1f), slowingProjectileStraight, 10),
+                new ShootSpiral(0, new LockedTimer(0.3f), boss2BigProjectileStraight, 1, 20f, 0f)
             };
 
             return true;
@@ -99,7 +116,7 @@ public class Level1Boss2 : Boss
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootRandom(0, new LockedTimer(0.1f), ProjectileDefinitions[1], 5),
+                new ShootRandom(0, new LockedTimer(0.1f), boss2BigProjectileStraight, 5),
             };
 
             return true;

@@ -11,7 +11,6 @@ public abstract class Boss : Enemy
     public int PhaseIndex { get; private set; }
     public bool IsActive { get; protected set; }
     public float MaxHealth { get; private set; }
-    public ProjectileDefinition[] ProjectileDefinitions { get; set; }
 
     protected override void Awake()
     {

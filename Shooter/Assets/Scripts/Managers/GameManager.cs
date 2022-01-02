@@ -157,6 +157,5 @@ public class GameManager : MonoBehaviour
     public static void OnCollectibleHit(Collectible collectible)
     {
         Currency += collectible.Value;
-        Debug.Log(Currency);
     }
 }
