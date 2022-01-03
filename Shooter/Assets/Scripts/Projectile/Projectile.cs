@@ -59,11 +59,14 @@ public class Projectile : TimeObject
 
     public void UpdateProjectile()
     {
-        //SpriteRenderer.enabled = !IsDisabled;
+        SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
 
         ProjectileMovement.UpdateMovement();
-        IsDisabled = IsOffscreen();
+        if (IsOffscreen())
+        {
+            IsDisabled = true;
+        }
 
         UpdateTimeData();
     }

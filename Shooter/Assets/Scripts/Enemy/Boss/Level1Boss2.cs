@@ -27,7 +27,7 @@ public class Level1Boss2 : Boss
         boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
 
 
-        Phases.AddRange(new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7});
+        Phases = new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7};
     }
 
     private bool Phase1()
@@ -52,8 +52,6 @@ public class Level1Boss2 : Boss
                 //new ShootHoming(0, new LockedTimer(0.1f), smallProjectileStraight, 1, 0f, 5f),
                 new ShootSuccessiveHoming(0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 15f, 5f)
             };
-
-            IsActive = true;
 
             return true;
         }

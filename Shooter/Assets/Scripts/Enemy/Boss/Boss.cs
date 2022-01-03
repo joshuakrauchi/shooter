@@ -7,18 +7,18 @@ public abstract class Boss : Enemy
     public delegate bool PhaseBehaviour();
 
     public BossMovement BossMovement { get; protected set; }
-    public List<PhaseBehaviour> Phases { get; private set; }
+    public PhaseBehaviour[] Phases { get; protected set; }
     public int PhaseIndex { get; private set; }
-    public bool IsActive { get; protected set; }
     public float MaxHealth { get; private set; }
+    public Timer PhaseTimer { get; protected set; }
 
     protected override void Awake()
     {
         base.Awake();
 
         BossMovement = GetComponent<BossMovement>();
-        Phases = new List<PhaseBehaviour>();
         MaxHealth = Health;
+        Disable();
     }
 
     protected override void Record()
@@ -29,9 +29,8 @@ public abstract class Boss : Enemy
             shootClones.Add(shootBehaviour.Clone());
         }
 
-        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.Clone(), BossMovement.InitialDelayTimer.Clone()));
-
-        base.Record();
+        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.Clone(),
+            BossMovement.InitialDelayTimer.Clone()));
     }
 
     protected override void Rewind()
@@ -54,26 +53,37 @@ public abstract class Boss : Enemy
 
     public override void UpdateEnemy()
     {
-        if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Count)
+        if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Length)
         {
             ++PhaseIndex;
         }
 
-        transform.position = BossMovement.GetMovement();
+        PhaseTimer?.UpdateTime();
 
-        if (IsActive)
+        transform.position = BossMovement.GetMovement();
+        EnemyCollision.Collider.enabled = !IsDisabled;
+
+        if (!IsDisabled && !GameManager.IsRewinding)
         {
-            base.UpdateEnemy();
+            EnemyCollision.UpdateCollision();
+            foreach (var shootBehaviour in ShootBehaviours)
+            {
+                shootBehaviour?.UpdateShoot(transform.position);
+            }
         }
-        else
-        {
-            UpdateTimeData();
-        }
+
+        UpdateTimeData();
+    }
+
+    protected void ActivateBoss()
+    {
+        IsDisabled = false;
+        GameManager.BossIsActive = true;
     }
 
     protected override void Disable()
     {
-        IsActive = false;
         IsDisabled = true;
+        GameManager.BossIsActive = false;
     }
 }

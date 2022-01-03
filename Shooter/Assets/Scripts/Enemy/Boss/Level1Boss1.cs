@@ -6,11 +6,26 @@ public class Level1Boss1 : Boss
 {
     private bool _initiatedDialogue;
 
+    [SerializeField] private GameObject slowArrow;
+    [SerializeField] private GameObject fastArrow;
+    [SerializeField] private GameObject bigArrow;
+
+    private ProjectileDefinition slowingProjectileStraight;
+    private ProjectileDefinition smallProjectileStraight;
+    private ProjectileDefinition boss2SmallProjectileRain;
+    private ProjectileDefinition boss2BigProjectileStraight;
+    private ProjectileDefinition boss2BigProjectileRain;
+
     protected override void Awake()
     {
         base.Awake();
 
-        Phases.AddRange(new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7});
+        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.1f))});
+        smallProjectileStraight = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
+        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
+        boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight())});
+
+        Phases = new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7};
     }
 
     private bool Phase1()
@@ -34,9 +49,10 @@ public class Level1Boss1 : Boss
                 UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
             }
 
-            //ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], new LockedTimer(0.25f), 5, 20f, 5f)};
-            IsActive = true;
+            ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(0.5f), slowingProjectileStraight, new LockedTimer(0.25f), 5, 20f, 5f)};
+            PhaseTimer = new LockedTimer(10f);
 
+            ActivateBoss();
             return true;
         }
 
@@ -45,10 +61,12 @@ public class Level1Boss1 : Boss
 
     private bool Phase3()
     {
-        if (Health <= MaxHealth * 0.9f)
+        Debug.Log(PhaseTimer.ElapsedTime);
+        if (Health <= MaxHealth * 0.75f || PhaseTimer.IsFinished(false))
         {
             BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.Top - 10f), 1f, 0f);
-            ShootBehaviours = new List<ShootBehaviour>();
+            ShootBehaviours.Clear();
+            PhaseTimer = new LockedTimer(10f);
 
             return true;
         }
@@ -65,11 +83,11 @@ public class Level1Boss1 : Boss
     {
         if (BossMovement.IsFinished())
         {
-            ShootBehaviours = new List<ShootBehaviour>
+            ShootBehaviours.AddRange(new ShootBehaviour[]
             {
-                //new ShootSuccessiveHoming(0, new LockedTimer(0.5f), ProjectileDefinitions[0], new LockedTimer(0.25f), 5, 20f, 5f),
-                //new ShootHoming(0, new LockedTimer(0.25f), ProjectileDefinitions[1], 10, 10f, 10f)
-            };
+                new ShootSuccessiveHoming(0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 20f, 5f),
+                new ShootHoming(0, new LockedTimer(0.25f), smallProjectileStraight, new LockedTimer(0.25f), 2, 10, 10f, 2f, 0f)
+            });
 
             return true;
         }
@@ -79,7 +97,12 @@ public class Level1Boss1 : Boss
 
     private bool Phase5()
     {
-        return Health <= 0f;
+        if (Health <= MaxHealth * 0.5f || PhaseTimer.IsFinished(false))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private bool Phase6()

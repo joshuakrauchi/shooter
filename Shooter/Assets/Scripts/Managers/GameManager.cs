@@ -58,8 +58,10 @@ public class GameManager : MonoBehaviour
     public static bool IsRewinding
     {
         get => _isRewinding;
-        set => _isRewinding = value;// && RewindCharge > 0f && !UIManager.Instance.IsDisplayingDialogue;
+        set => _isRewinding = value && !UIManager.Instance.IsDisplayingDialogue;// && RewindCharge > 0f;
     }
+
+    public static bool BossIsActive { get; set; }
 
     public static float ProjectileDamage { get; set; } = 1f;
     public static float Currency { get; set; }
@@ -136,7 +138,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        LevelTime += IsRewinding ? -Time.deltaTime : Time.deltaTime;
+        if (!BossIsActive)
+        {
+            LevelTime += IsRewinding ? -Time.deltaTime : Time.deltaTime;
+        }
 
         CurrentLevelManager.UpdateEnemyCreation();
         EnemyManager.Instance.UpdateEnemies();

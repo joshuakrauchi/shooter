@@ -7,7 +7,7 @@ public class LevelXBossX : Boss
     {
         base.Awake();
 
-        Phases.AddRange(new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4});
+        //Phases.AddRange(new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4});
     }
 
     private bool Phase1()
@@ -27,7 +27,6 @@ public class LevelXBossX : Boss
             //ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(1f), ProjectileDefinitions[2], new LockedTimer(0.25f), 5, 20f, 5f)};
             //ShootBehaviours = new List<ShootBehaviour> {new ShootSpiral(0, new LockedTimer(0.5f), ProjectileDefinitions[2], 8, 10f, 1f)};
             //ShootBehaviours = new List<ShootBehaviour> {new ShootNormal(0, new LockedTimer(0.5f), ProjectileDefinitions[3], 5, 90f, 0.2f, 1f)};
-            IsActive = true;
 
             return true;
         }

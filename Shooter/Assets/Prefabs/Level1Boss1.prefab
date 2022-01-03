@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59780320a6ed75448ee79ba9de42dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 500
+  rewindRecharge: 0.1
+  drops: []
+  shootBehaviours: []
+  slowArrow: {fileID: 7528613875248914025, guid: 9d8a02e44c3b2144dbf186ba75d55d52, type: 3}
+  fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
+  bigArrow: {fileID: 2714373215205119015, guid: 52937ba3e53190348b06c91a8e14826e, type: 3}
+  references:
+    version: 1
 --- !u!1001 &50107319671820220
 PrefabInstance:
   m_ObjectHideFlags: 0
