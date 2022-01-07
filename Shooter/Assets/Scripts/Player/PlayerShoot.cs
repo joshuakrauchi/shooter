@@ -5,6 +5,8 @@ public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float shootDelay;
+    [field: SerializeField] public float NumberOfShots { get; set; }
+    [SerializeField] private float armSpan;
 
     public float ShootDelay
     {
@@ -31,7 +33,12 @@ public class PlayerShoot : MonoBehaviour
 
         if (!_shootTimer.IsFinished(false) || !isShooting) return;
 
-        NPCCreator.CreateProjectile(_projectileDefinition, transform.position, Quaternion.Euler(0f, 0f, 90f));
+        var position = transform.position;
+        for (var i = 0; i < NumberOfShots; ++i)
+        {
+            NPCCreator.CreateProjectile(_projectileDefinition, new Vector2(position.x + armSpan * i, position.y), Quaternion.Euler(0f, 0f, 90f));
+        }
+
         _shootTimer.Reset();
     }
 }

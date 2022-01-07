@@ -116,7 +116,7 @@ public class Level1Manager : LevelManager
         }
 
         // Boss 1
-        CurrentTime += 5f;*/
+        CurrentTime += 5f;
 
         Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameManager.Top + 5f)));
 
@@ -223,6 +223,10 @@ public class Level1Manager : LevelManager
         Enemies.Add(new EnemySpawn(CurrentTime, eliteArcherDoubleShot, topM5, DropLeave));
         CurrentTime += 0.25f;
         Enemies.Add(new EnemySpawn(CurrentTime, eliteArcherDoubleShot, topP5Flip, DropLeave));
+
+        CurrentTime += 7f;*/
+
+        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.Top + 5f)));
 
         Debug.Log(CurrentTime);
     }

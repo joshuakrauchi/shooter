@@ -3,21 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager
+public class UIManager : MonoBehaviour
 {
-    private static UIManager _instance;
-
-    public static UIManager Instance => _instance ??= new UIManager();
+    [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private GameObject background;
+    [SerializeField] private GameObject header;
+    [SerializeField] private GameObject text;
+    [SerializeField] private GameObject rewindBar;
 
     public Queue<Tuple<string, string>> TextQueue { get; private set; }
-    public Canvas DialogueBox { get; set; }
-    public Text Header { get; set; }
-    public Text Text { get; set; }
+    private Canvas _dialogueCanvas;
+    private Text _header;
+    private Text _text;
     public bool IsDisplayingDialogue { get; private set; }
 
-    private UIManager()
-    {
+    private void Awake() {
         TextQueue = new Queue<Tuple<string, string>>();
+
+        _dialogueCanvas = Instantiate(dialogueBox, transform).GetComponent<Canvas>();
+
+        var backgroundObject = Instantiate(background, _dialogueCanvas.transform);
+
+
+
+
+        _header = Instantiate(header, backgroundObject.transform).GetComponent<Text>();
+        _text = Instantiate(text, backgroundObject.transform).GetComponent<Text>();
+
+        Instantiate(rewindBar, transform);
     }
 
     public void StartDialogue(IEnumerable<Tuple<string, string>> textStrings)
@@ -29,7 +42,7 @@ public class UIManager
             TextQueue.Enqueue(t);
         }
 
-        DialogueBox.enabled = true;
+        _dialogueCanvas.enabled = true;
         IsDisplayingDialogue = true;
 
         UpdateDialogue();
@@ -45,15 +58,15 @@ public class UIManager
 
         var dialogue = TextQueue.Dequeue();
 
-        Header.text = dialogue.Item1;
-        Text.text = dialogue.Item2;
+        _header.text = dialogue.Item1;
+        _text.text = dialogue.Item2;
     }
 
     public void EndDialogue()
     {
-        DialogueBox.enabled = false;
-        Header.text = "";
-        Text.text = "";
+        _dialogueCanvas.enabled = false;
+        _header.text = "";
+        _text.text = "";
 
         IsDisplayingDialogue = false;
         GameManager.IsPaused = false;

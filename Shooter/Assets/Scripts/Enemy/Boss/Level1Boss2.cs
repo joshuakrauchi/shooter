@@ -43,7 +43,7 @@ public class Level1Boss2 : Boss
         {
             if (!_initiatedDialogue)
             {
-                UIManager.Instance.StartDialogue(new[] {Tuple.Create("Boss", "im gonna kill u"), Tuple.Create("you", "mhm")});
+                GameManager.UIManager.StartDialogue(new[] {Tuple.Create("Boss", "im gonna kill u"), Tuple.Create("you", "mhm")});
                 _initiatedDialogue = true;
             }
 
@@ -52,6 +52,8 @@ public class Level1Boss2 : Boss
                 //new ShootHoming(0, new LockedTimer(0.1f), smallProjectileStraight, 1, 0f, 5f),
                 new ShootSuccessiveHoming(0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 15f, 5f)
             };
+
+            ActivateBoss();
 
             return true;
         }

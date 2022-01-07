@@ -16,6 +16,9 @@ MonoBehaviour:
   rewindRecharge: 0.1
   drops: []
   shootBehaviours: []
+  slowArrow: {fileID: 7528613875248914025, guid: 9d8a02e44c3b2144dbf186ba75d55d52, type: 3}
+  fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
+  bigArrow: {fileID: 2714373215205119015, guid: 52937ba3e53190348b06c91a8e14826e, type: 3}
   references:
     version: 1
 --- !u!1001 &1980733120792408662
@@ -139,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4203282110089882886, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
       propertyPath: m_Name
-      value: Boss
+      value: Level1Boss2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}

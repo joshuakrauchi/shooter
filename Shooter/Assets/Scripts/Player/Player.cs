@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private GameData gameData;
+
     public PlayerCollision PlayerCollision { get; private set; }
     public PlayerController PlayerController { get; private set; }
     public PlayerMovement PlayerMovement { get; private set; }
@@ -13,15 +15,17 @@ public class Player : MonoBehaviour
         PlayerController = GetComponent<PlayerController>();
         PlayerMovement = GetComponent<PlayerMovement>();
         PlayerShoot = GetComponent<PlayerShoot>();
+
+        PlayerShoot.NumberOfShots = gameData.Shots;
     }
 
     public void UpdatePlayerInput()
     {
         PlayerController.UpdateInput();
 
-        if (PlayerController.IsLeftMouseDown && UIManager.Instance.IsDisplayingDialogue)
+        if (PlayerController.IsLeftMouseDown && GameManager.UIManager.IsDisplayingDialogue)
         {
-            UIManager.Instance.UpdateDialogue();
+            GameManager.UIManager.UpdateDialogue();
         }
 
         GameManager.IsRewinding = PlayerController.IsRewinding;
@@ -32,5 +36,16 @@ public class Player : MonoBehaviour
         PlayerCollision.UpdateCollision();
         PlayerMovement.UpdateMovement();
         PlayerShoot.UpdateShoot(PlayerController.IsShooting);
+    }
+
+    public void OnCollectibleHit(Collectible collectible)
+    {
+        gameData.Currency += collectible.Value;
+        collectible.DestroySelf();
+    }
+
+    public void OnHit()
+    {
+        GameManager.OnPlayerHit();
     }
 }

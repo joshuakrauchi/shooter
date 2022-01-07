@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Canvas dialogueBox;
-    [SerializeField] private Text header;
-    [SerializeField] private Text text;
+
     [SerializeField] private ValueSlider rewindSlider;
+    [SerializeField] private GameData gameData;
+    public static UIManager UIManager;
 
     public static float LevelTime
     {
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     public static bool IsRewinding
     {
         get => _isRewinding;
-        set => _isRewinding = value && !UIManager.Instance.IsDisplayingDialogue;// && RewindCharge > 0f;
+        set => _isRewinding = value && !UIManager.IsDisplayingDialogue;// && RewindCharge > 0f;
     }
 
     public static bool BossIsActive { get; set; }
@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        UIManager = FindObjectOfType<UIManager>();
 
         MainCamera = Camera.main;
 
@@ -98,16 +99,13 @@ public class GameManager : MonoBehaviour
             Left = bottomLeft.x;
         }
 
-        UIManager.Instance.Header = header;
-        UIManager.Instance.Text = text;
-        UIManager.Instance.DialogueBox = dialogueBox;
-
         CurrentLevelManager = FindObjectOfType<LevelManager>();
         _maxRewindCharge = rewindCharge;
     }
 
     private void Start()
     {
+        rewindSlider = FindObjectOfType<ValueSlider>();
         rewindSlider.SetMaxValue(RewindCharge);
         rewindSlider.SetValue(RewindCharge);
     }
@@ -119,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsRewinding && !UIManager.Instance.IsDisplayingDialogue)
+        if (IsRewinding && !UIManager.IsDisplayingDialogue)
         {
             RewindCharge -= Time.deltaTime;
         }
@@ -157,10 +155,5 @@ public class GameManager : MonoBehaviour
             RewindCharge -= MaxRewindCharge / 10f;
             //IsPaused = true;
         }
-    }
-
-    public static void OnCollectibleHit(Collectible collectible)
-    {
-        Currency += collectible.Value;
     }
 }
