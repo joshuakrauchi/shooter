@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38d9838f8002f647b8c90463839286b, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
+  <Shots>k__BackingField: 1
+  <Currency>k__BackingField: 0

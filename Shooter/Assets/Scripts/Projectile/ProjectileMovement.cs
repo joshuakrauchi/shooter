@@ -49,6 +49,11 @@ public class ProjectileMovement : MonoBehaviour
         else
         {
             _timeAlive -= Time.deltaTime;
+
+            if (_timeAlive < 0)
+            {
+                GetComponent<Projectile>().DestroyProjectile();
+            }
         }
     }
 }

@@ -11,22 +11,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject text;
     [SerializeField] private GameObject rewindBar;
 
-    public Queue<Tuple<string, string>> TextQueue { get; private set; }
+    public bool IsDisplayingDialogue { get; private set; }
+
+    private Queue<Tuple<string, string>> _textQueue;
     private Canvas _dialogueCanvas;
     private Text _header;
     private Text _text;
-    public bool IsDisplayingDialogue { get; private set; }
 
     private void Awake() {
-        TextQueue = new Queue<Tuple<string, string>>();
+        _textQueue = new Queue<Tuple<string, string>>();
 
         _dialogueCanvas = Instantiate(dialogueBox, transform).GetComponent<Canvas>();
-
         var backgroundObject = Instantiate(background, _dialogueCanvas.transform);
-
-
-
-
         _header = Instantiate(header, backgroundObject.transform).GetComponent<Text>();
         _text = Instantiate(text, backgroundObject.transform).GetComponent<Text>();
 
@@ -39,7 +35,7 @@ public class UIManager : MonoBehaviour
 
         foreach (var t in textStrings)
         {
-            TextQueue.Enqueue(t);
+            _textQueue.Enqueue(t);
         }
 
         _dialogueCanvas.enabled = true;
@@ -50,13 +46,13 @@ public class UIManager : MonoBehaviour
 
     public void UpdateDialogue()
     {
-        if (TextQueue.Count <= 0)
+        if (_textQueue.Count <= 0)
         {
             EndDialogue();
             return;
         }
 
-        var dialogue = TextQueue.Dequeue();
+        var dialogue = _textQueue.Dequeue();
 
         _header.text = dialogue.Item1;
         _text.text = dialogue.Item2;

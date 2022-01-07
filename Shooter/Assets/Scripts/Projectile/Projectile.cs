@@ -6,7 +6,6 @@ public class Projectile : TimeObject
     public SpriteRenderer SpriteRenderer { get; private set; }
     public BoxCollider2D Collider { get; private set; }
     public bool IsDisabled { get; set; }
-    public float CreationTime { get; private set; }
 
     private uint _disablesFound;
 
@@ -19,7 +18,6 @@ public class Projectile : TimeObject
         ProjectileMovement = GetComponent<ProjectileMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Collider = GetComponent<BoxCollider2D>();
-        CreationTime = GameManager.LevelTime;
         ProjectileManager.Instance.AddProjectile(this);
     }
 
@@ -44,11 +42,6 @@ public class Projectile : TimeObject
 
     protected override void Rewind()
     {
-        if (CreationTime > GameManager.LevelTime)
-        {
-            DestroyProjectile();
-        }
-
         if (TimeData.Count <= 0) return;
 
         var timeData = (ProjectileTimeData) TimeData.Last.Value;
