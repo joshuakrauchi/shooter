@@ -19,7 +19,7 @@ public class LevelXBossX : Boss
 
     private bool Phase2()
     {
-        if (BossMovement.IsFinished())
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             //UIManager.Instance.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "ok lol")});
 
@@ -49,7 +49,7 @@ public class LevelXBossX : Boss
 
     private bool Phase4()
     {
-        if (BossMovement.IsFinished())
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             ShootBehaviours = new List<ShootBehaviour>
             {

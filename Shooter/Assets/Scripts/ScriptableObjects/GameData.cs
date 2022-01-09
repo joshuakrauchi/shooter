@@ -27,6 +27,7 @@ public class GameData: ScriptableObject
 
     public uint Shots { get; set; }
     public uint Currency { get; set; }
+    public float ProjectileDamage { get; set; } = 1f;
 
     private float _rewindCharge;
 

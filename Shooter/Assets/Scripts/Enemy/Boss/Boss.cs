@@ -58,17 +58,17 @@ public abstract class Boss : Enemy
             ++PhaseIndex;
         }
 
-        PhaseTimer?.UpdateTime();
+        PhaseTimer?.UpdateTime(GameState.IsRewinding);
 
-        transform.position = BossMovement.GetMovement();
+        transform.position = BossMovement.GetMovement(GameState.IsRewinding);
         EnemyCollision.Collider.enabled = !IsDisabled;
 
-        if (!IsDisabled && !GameManager.IsRewinding)
+        if (!IsDisabled && !GameState.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
             foreach (var shootBehaviour in ShootBehaviours)
             {
-                shootBehaviour?.UpdateShoot(transform.position);
+                shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
             }
         }
 
@@ -78,12 +78,12 @@ public abstract class Boss : Enemy
     protected void ActivateBoss()
     {
         IsDisabled = false;
-        GameManager.BossIsActive = true;
+        GameState.BossIsActive = true;
     }
 
     protected override void Disable()
     {
         IsDisabled = true;
-        GameManager.BossIsActive = false;
+        GameState.BossIsActive = false;
     }
 }

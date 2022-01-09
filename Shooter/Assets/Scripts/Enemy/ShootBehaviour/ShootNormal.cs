@@ -17,9 +17,9 @@ public class ShootNormal : ShootBehaviour
         this.angleVariation = angleVariation;
     }
 
-    public override void UpdateShoot(Vector2 position)
+    public override void UpdateShoot(Vector2 position, bool isRewinding)
     {
-        CycleTimer.UpdateTime();
+        CycleTimer.UpdateTime(isRewinding);
 
         if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 

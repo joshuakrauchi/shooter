@@ -27,9 +27,9 @@ public class PlayerShoot : MonoBehaviour
         _projectileDefinition = new ProjectileDefinition(projectilePrefab, new[] {new MovePair(0f, new MoveStraight())});
     }
 
-    public void UpdateShoot(bool isShooting)
+    public void UpdateShoot(bool isShooting, bool isRewinding)
     {
-        _shootTimer.UpdateTime();
+        _shootTimer.UpdateTime(isRewinding);
 
         if (!_shootTimer.IsFinished(false) || !isShooting) return;
 

@@ -23,13 +23,13 @@ public class ShootHoming : ShootBehaviour
         this.speedChangeBetweenShots = speedChangeBetweenShots;
     }
 
-    public override void UpdateShoot(Vector2 position)
+    public override void UpdateShoot(Vector2 position, bool isRewinding)
     {
-        CycleTimer.UpdateTime();
+        CycleTimer.UpdateTime(isRewinding);
 
         if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
-        shotTimer.UpdateTime();
+        shotTimer.UpdateTime(isRewinding);
 
         if (!shotTimer.IsFinished(false)) return;
 

@@ -20,13 +20,13 @@ public class ShootSuccessiveHoming : ShootBehaviour
         this.angleVariation = angleVariation;
     }
 
-    public override void UpdateShoot(Vector2 position)
+    public override void UpdateShoot(Vector2 position, bool isRewinding)
     {
-        CycleTimer.UpdateTime();
+        CycleTimer.UpdateTime(isRewinding);
 
         if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
-        betweenShotsTimer.UpdateTime();
+        betweenShotsTimer.UpdateTime(isRewinding);
 
         if (!betweenShotsTimer.IsFinished(false)) return;
 

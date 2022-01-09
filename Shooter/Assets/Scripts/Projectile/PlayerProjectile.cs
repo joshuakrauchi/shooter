@@ -7,7 +7,7 @@ public class PlayerProjectile : Projectile
         SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
 
-        ProjectileMovement.UpdateMovement();
+        ProjectileMovement.UpdateMovement(GameState.IsRewinding);
         if (IsOffscreen())
         {
             IsDisabled = true;

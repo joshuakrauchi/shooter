@@ -24,9 +24,9 @@ public class ProjectileMovement : MonoBehaviour
         Rotation = transform.rotation;
     }
 
-    public void UpdateMovement()
+    public void UpdateMovement(bool isRewinding)
     {
-        if (!GameManager.IsRewinding)
+        if (!isRewinding)
         {
             _timeAlive += Time.deltaTime;
 

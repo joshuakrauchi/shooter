@@ -13,9 +13,9 @@ public class Timer
         TotalTime = totalTime;
     }
 
-    public virtual void UpdateTime()
+    public virtual void UpdateTime(bool isRewinding)
     {
-        ElapsedTime += GameManager.IsRewinding ? -Time.deltaTime : Time.deltaTime;
+        ElapsedTime += isRewinding ? -Time.deltaTime : Time.deltaTime;
     }
 
     public void Reset()

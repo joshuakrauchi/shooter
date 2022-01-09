@@ -11,11 +11,11 @@ public class ShootRandom : ShootBehaviour
         this.projectilesPerCycle = projectilesPerCycle;
     }
 
-    public override void UpdateShoot(Vector2 position)
+    public override void UpdateShoot(Vector2 position, bool isRewinding)
     {
-        CycleTimer.UpdateTime();
+        CycleTimer.UpdateTime(isRewinding);
 
-        if (!CycleTimer.IsFinished(GameManager.IsRewinding) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
+        if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
         for (var i = 0; i < projectilesPerCycle; ++i)
         {

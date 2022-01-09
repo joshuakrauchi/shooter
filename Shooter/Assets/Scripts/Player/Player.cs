@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour, IUpdatable
 {
     [SerializeField] private GameData gameData;
+    [SerializeField] private GameState gameState;
 
     public PlayerCollision PlayerCollision { get; private set; }
     public PlayerController PlayerController { get; private set; }
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour, IUpdatable
         PlayerShoot = GetComponent<PlayerShoot>();
 
         PlayerShoot.NumberOfShots = gameData.Shots;
+        GameManager.Player = this;
     }
 
     public void UpdatePlayerInput()
@@ -28,14 +30,14 @@ public class Player : MonoBehaviour, IUpdatable
             GameManager.UIManager.UpdateDialogue();
         }
 
-        GameManager.IsRewinding = PlayerController.IsRewinding;
+        gameState.IsRewinding = PlayerController.IsRewinding;
     }
 
     public void UpdateUpdatable()
     {
         PlayerCollision.UpdateCollision();
         PlayerMovement.UpdateMovement();
-        PlayerShoot.UpdateShoot(PlayerController.IsShooting);
+        PlayerShoot.UpdateShoot(PlayerController.IsShooting, gameState.IsRewinding);
     }
 
     public void OnCollectibleHit(Collectible collectible)
@@ -46,6 +48,6 @@ public class Player : MonoBehaviour, IUpdatable
 
     public void OnHit()
     {
-        GameManager.OnPlayerHit();
+
     }
 }

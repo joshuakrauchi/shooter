@@ -56,7 +56,7 @@ public class Projectile : TimeObject
         SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
 
-        ProjectileMovement.UpdateMovement();
+        ProjectileMovement.UpdateMovement(GameState.IsRewinding);
         IsDisabled = IsOffscreen();
 
         UpdateTimeData();

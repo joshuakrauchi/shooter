@@ -3,15 +3,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
-    [SerializeField] private UpdatableManager collectibleManager;
+    [SerializeField] private GameState gameState;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private ProjectileManager projectileManager;
-    [SerializeField] private GameState gameState;
+    [SerializeField] private UpdatableManager collectibleManager;
 
-    public static Player Player { get; private set; }
     public static Camera MainCamera { get; private set; }
+    public static LevelManager CurrentLevelManager { get; set; }
+    public static Player Player { get; set; }
     public static Rect ScreenRect { get; private set; }
-    public static UIManager UIManager { get; private set; }
+    public static UIManager UIManager { get; set; }
 
     public static float LevelTime
     {
@@ -26,38 +27,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private static bool _isRewinding;
-
-    public static bool IsRewinding
-    {
-        get => _isRewinding;
-        set => _isRewinding = value && !UIManager.IsDisplayingDialogue;// && RewindCharge > 0f;
-    }
-
-    public static bool BossIsActive { get; set; }
-    public static float ProjectileDamage { get; set; } = 1f;
-    public static LevelManager CurrentLevelManager;
-
-    private bool enemiesArePaused;
-
     private static float _levelTime;
+    private bool enemiesArePaused;
     private ValueSlider rewindSlider;
 
     private void Awake()
     {
-        Player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        UIManager = FindObjectOfType<UIManager>();
-
         MainCamera = Camera.main;
 
         if (MainCamera != null)
         {
             var bottomLeft = MainCamera.ScreenToWorldPoint(Vector2.zero);
             var topRight = MainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-            ScreenRect = new Rect(bottomLeft.x, bottomLeft.y, topRight.x * 2, topRight.y * 2);
+            ScreenRect = Rect.MinMaxRect(bottomLeft.x, bottomLeft.y, topRight.x, topRight.y);
         }
-
-        CurrentLevelManager = FindObjectOfType<LevelManager>();
     }
 
     private void Start()
@@ -74,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsRewinding && !UIManager.IsDisplayingDialogue)
+        if (gameState.IsRewinding && !gameState.IsDisplayingDialogue)
         {
             gameData.RewindCharge -= Time.deltaTime;
         }
@@ -85,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         if (gameState.IsPaused)
         {
-            if (IsRewinding)
+            if (gameState.IsRewinding)
             {
                 gameState.IsPaused = false;
             }
@@ -95,9 +78,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!BossIsActive)
+        if (!gameState.BossIsActive)
         {
-            LevelTime += IsRewinding ? -Time.deltaTime : Time.deltaTime;
+            LevelTime += gameState.IsRewinding ? -Time.deltaTime : Time.deltaTime;
         }
 
         CurrentLevelManager.UpdateEnemyCreation();
@@ -105,14 +88,5 @@ public class GameManager : MonoBehaviour
         projectileManager.UpdateProjectiles();
         collectibleManager.UpdateUpdatables();
         Player.UpdateUpdatable();
-    }
-
-    public static void OnPlayerHit()
-    {
-        //if (!IsRewinding && !GameState.IsPaused)
-        {
-            //RewindCharge -= MaxRewindCharge / 10f;
-            //IsPaused = true;
-        }
     }
 }

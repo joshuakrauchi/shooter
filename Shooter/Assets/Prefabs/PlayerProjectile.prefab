@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff38235d04051e4795176655c580896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   projectileManager: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
 --- !u!1001 &4387279304944741517
 PrefabInstance:

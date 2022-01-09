@@ -6,9 +6,9 @@ public class LockedTimer : Timer
     {
     }
 
-    public override void UpdateTime()
+    public override void UpdateTime(bool isRewinding)
     {
-        if (GameManager.IsRewinding)
+        if (isRewinding)
         {
             if (ElapsedTime > 0f)
             {

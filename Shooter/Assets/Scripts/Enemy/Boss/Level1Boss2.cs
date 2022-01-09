@@ -39,7 +39,7 @@ public class Level1Boss2 : Boss
 
     private bool Phase2()
     {
-        if (BossMovement.IsFinished())
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             if (!_initiatedDialogue)
             {
@@ -70,7 +70,7 @@ public class Level1Boss2 : Boss
             return true;
         }
 
-        if (BossMovement.IsFinished())
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 2f, 3f);
         }
@@ -80,7 +80,7 @@ public class Level1Boss2 : Boss
 
     private bool Phase4()
     {
-        if (BossMovement.IsFinished())
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             ShootBehaviours = new List<ShootBehaviour>
             {

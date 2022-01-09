@@ -3,6 +3,8 @@ using UnityEngine;
 
 public abstract class TimeObject : MonoBehaviour, IUpdatable
 {
+    [field: SerializeField] public GameState GameState { get; private set; }
+
     public LinkedList<ITimeData> TimeData { get; private set; }
 
     private const uint MaxData = 600;
@@ -14,7 +16,7 @@ public abstract class TimeObject : MonoBehaviour, IUpdatable
 
     protected void UpdateTimeData()
     {
-        if (GameManager.IsRewinding)
+        if (GameState.IsRewinding)
         {
             Rewind();
         }

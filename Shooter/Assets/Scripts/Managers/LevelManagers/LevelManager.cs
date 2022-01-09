@@ -36,6 +36,7 @@ public abstract class LevelManager : MonoBehaviour
 
     protected virtual void Awake()
     {
+        GameManager.CurrentLevelManager = this;
         Enemies = new List<EnemySpawn>();
         Bosses = new List<BossSpawn>();
 

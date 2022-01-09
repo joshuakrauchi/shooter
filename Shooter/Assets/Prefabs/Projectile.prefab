@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd78fff5e6aa4a47b69393259959548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   projectileManager: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
 --- !u!114 &8180888819730415870
 MonoBehaviour:

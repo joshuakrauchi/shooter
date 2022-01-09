@@ -7,7 +7,8 @@ public abstract class Enemy : TimeObject
     [SerializeField] private float health = 1f;
     [SerializeField] private float rewindRecharge = 0.1f;
     [SerializeField] private GameObject[] drops;
-    [SerializeField] private GameData gameData;
+    [SerializeField] protected GameData gameData;
+    [SerializeReference] private List<ShootBehaviour> shootBehaviours;
 
     public float Health
     {
@@ -22,11 +23,11 @@ public abstract class Enemy : TimeObject
     }
 
     public EnemyCollision EnemyCollision { get; private set; }
-    [SerializeReference] private List<ShootBehaviour> shootBehaviours;
     public List<ShootBehaviour> ShootBehaviours {
         get => shootBehaviours;
         set => shootBehaviours = value;
     }
+
     public SpriteRenderer SpriteRenderer { get; private set; }
     public bool IsDisabled { get; protected set; }
     public float CreationTime { get; set; }
@@ -54,12 +55,12 @@ public abstract class Enemy : TimeObject
         SpriteRenderer.enabled = !IsDisabled;
         EnemyCollision.Collider.enabled = !IsDisabled;
 
-        if (!IsDisabled && !GameManager.IsRewinding)
+        if (!IsDisabled && !GameState.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
             foreach (var shootBehaviour in ShootBehaviours)
             {
-                shootBehaviour?.UpdateShoot(transform.position);
+                shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
             }
         }
 
@@ -68,7 +69,7 @@ public abstract class Enemy : TimeObject
 
     public void OnHit(Projectile projectile)
     {
-        Health -= GameManager.ProjectileDamage;
+        Health -= gameData.ProjectileDamage;
 
         projectile.IsDisabled = true;
 

@@ -25,23 +25,23 @@ public class BossMovement : MonoBehaviour
         InitialDelayTimer = new Timer(initialDelay);
     }
 
-    public Vector2 GetMovement()
+    public Vector2 GetMovement(bool isRewinding)
     {
-        if (!InitialDelayTimer.IsFinished(false) || GameManager.IsRewinding && MovementTimer.IsFinished(true))
+        if (!InitialDelayTimer.IsFinished(false) || isRewinding && MovementTimer.IsFinished(true))
         {
-            InitialDelayTimer.UpdateTime();
+            InitialDelayTimer.UpdateTime(isRewinding);
         }
         else
         {
-            MovementTimer.UpdateTime();
+            MovementTimer.UpdateTime(isRewinding);
         }
 
         return Vector2.Lerp(StartPosition, EndPosition, Mathf.SmoothStep(0f, 1f, MovementTimer.ElapsedTime / MovementTimer.TotalTime));
     }
 
-    public bool IsFinished()
+    public bool IsFinished(bool isRewinding)
     {
-        return !GameManager.IsRewinding && MovementTimer.IsFinished(false);
+        return !isRewinding && MovementTimer.IsFinished(false);
     }
 
     public void SetRewindData(Vector2 startPosition, Vector2 endPosition, Timer movementTimer, Timer initialDelayTimer)

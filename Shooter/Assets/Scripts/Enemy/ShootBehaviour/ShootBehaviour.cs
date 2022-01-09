@@ -15,6 +15,6 @@ public abstract class ShootBehaviour
         CycleTimer = cycleTimer;
     }
 
-    public abstract void UpdateShoot(Vector2 position);
+    public abstract void UpdateShoot(Vector2 position, bool isRewinding);
     public abstract ShootBehaviour Clone();
 }
