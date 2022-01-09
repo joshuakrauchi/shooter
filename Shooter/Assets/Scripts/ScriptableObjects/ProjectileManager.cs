@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public class ProjectileManager
+[CreateAssetMenu(menuName = "ScriptableObjects/Projectile Manager")]
+public class ProjectileManager : ScriptableObject
 {
-    private static ProjectileManager _instance;
-    public static ProjectileManager Instance => _instance ??= new ProjectileManager();
-    private List<Projectile> _projectiles;
+    private readonly List<Projectile> _projectiles;
 
     private ProjectileManager()
     {
@@ -15,7 +15,7 @@ public class ProjectileManager
     {
         foreach (var projectile in _projectiles.ToArray())
         {
-            projectile.UpdateProjectile();
+            projectile.UpdateUpdatable();
         }
     }
 

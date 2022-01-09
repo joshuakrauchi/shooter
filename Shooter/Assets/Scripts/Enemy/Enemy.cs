@@ -3,9 +3,11 @@ using UnityEngine;
 
 public abstract class Enemy : TimeObject
 {
+    [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private float health = 1f;
     [SerializeField] private float rewindRecharge = 0.1f;
     [SerializeField] private GameObject[] drops;
+    [SerializeField] private GameData gameData;
 
     public float Health
     {
@@ -36,7 +38,7 @@ public abstract class Enemy : TimeObject
         EnemyCollision = GetComponent<EnemyCollision>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         ShootBehaviours = new List<ShootBehaviour>();
-        EnemyManager.Instance.AddEnemy(this);
+        enemyManager.AddEnemy(this);
     }
 
     protected override void Record()
@@ -47,7 +49,7 @@ public abstract class Enemy : TimeObject
         }
     }
 
-    public virtual void UpdateEnemy()
+    public override void UpdateUpdatable()
     {
         SpriteRenderer.enabled = !IsDisabled;
         EnemyCollision.Collider.enabled = !IsDisabled;
@@ -74,7 +76,7 @@ public abstract class Enemy : TimeObject
         {
             Disable();
 
-            GameManager.RewindCharge += RewindRecharge;
+            gameData.RewindCharge += RewindRecharge;
 
             RewindRecharge /= 2f;
         }
@@ -92,7 +94,7 @@ public abstract class Enemy : TimeObject
 
     protected void DestroySelf()
     {
-        EnemyManager.Instance.RemoveEnemy(this);
+        enemyManager.RemoveEnemy(this);
         Destroy(gameObject);
     }
 }

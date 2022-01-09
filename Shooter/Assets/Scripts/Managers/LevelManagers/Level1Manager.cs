@@ -42,7 +42,7 @@ public class Level1Manager : LevelManager
         var eliteArcherShooting = new EnemyDefinition(eliteArcher, new ShootHoming(0, new LockedTimer(1f), fastProjectile, new LockedTimer(0.1f), 3, 15, 15f, 5f, 0f));
         var eliteArcherDoubleShot = new EnemyDefinition(eliteArcher, new ShootHoming(1, new LockedTimer(1f), fastProjectile, new LockedTimer(0.2f), 3, 15, 15f, 2f, 0f));
 
-        /*// 1
+        // 1
         for (var i = 0; i < 10; ++i)
         {
             Enemies.Add(new EnemySpawn(CurrentTime, basicShoot, topM15, VSlide1));
@@ -118,7 +118,7 @@ public class Level1Manager : LevelManager
         // Boss 1
         CurrentTime += 5f;
 
-        Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameManager.Top + 5f)));
+        Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameManager.ScreenRect.yMax + 5f)));
 
         // 5
         CurrentTime += 5f;
@@ -224,9 +224,9 @@ public class Level1Manager : LevelManager
         CurrentTime += 0.25f;
         Enemies.Add(new EnemySpawn(CurrentTime, eliteArcherDoubleShot, topP5Flip, DropLeave));
 
-        CurrentTime += 7f;*/
+        CurrentTime += 7f;
 
-        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.Top + 5f)));
+        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.ScreenRect.yMax + 5f)));
 
         Debug.Log(CurrentTime);
     }

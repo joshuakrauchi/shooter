@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [field: SerializeField] public GameObject RewindBar { get; private set; }
+
+    [SerializeField] private GameState gameState;
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private GameObject background;
     [SerializeField] private GameObject header;
     [SerializeField] private GameObject text;
-    [SerializeField] private GameObject rewindBar;
 
     public bool IsDisplayingDialogue { get; private set; }
 
@@ -19,23 +21,23 @@ public class UIManager : MonoBehaviour
     private Text _text;
 
     private void Awake() {
+        RewindBar = Instantiate(RewindBar, transform);
+
         _textQueue = new Queue<Tuple<string, string>>();
 
         _dialogueCanvas = Instantiate(dialogueBox, transform).GetComponent<Canvas>();
         var backgroundObject = Instantiate(background, _dialogueCanvas.transform);
         _header = Instantiate(header, backgroundObject.transform).GetComponent<Text>();
         _text = Instantiate(text, backgroundObject.transform).GetComponent<Text>();
-
-        Instantiate(rewindBar, transform);
     }
 
-    public void StartDialogue(IEnumerable<Tuple<string, string>> textStrings)
+    public void StartDialogue(IEnumerable<Tuple<string, string>> dialogue)
     {
-        GameManager.IsPaused = true;
+        gameState.IsPaused = true;
 
-        foreach (var t in textStrings)
+        foreach (var d in dialogue)
         {
-            _textQueue.Enqueue(t);
+            _textQueue.Enqueue(d);
         }
 
         _dialogueCanvas.enabled = true;
@@ -52,10 +54,10 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        var dialogue = _textQueue.Dequeue();
+        var (headerText, dialogueText) = _textQueue.Dequeue();
 
-        _header.text = dialogue.Item1;
-        _text.text = dialogue.Item2;
+        _header.text = headerText;
+        _text.text = dialogueText;
     }
 
     public void EndDialogue()
@@ -65,6 +67,6 @@ public class UIManager : MonoBehaviour
         _text.text = "";
 
         IsDisplayingDialogue = false;
-        GameManager.IsPaused = false;
+        gameState.IsPaused = false;
     }
 }

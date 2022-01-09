@@ -31,10 +31,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d51cdc45b50c44bb229d90690e0019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyManager: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
   health: 1
   rewindRecharge: 0.1
   drops:
   - {fileID: 8213909936554195021, guid: 7bd07df2f6f541f43a1594355b437518, type: 3}
+  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  shootBehaviours: []
+  references:
+    version: 1
 --- !u!1001 &6130565159710172282
 PrefabInstance:
   m_ObjectHideFlags: 0

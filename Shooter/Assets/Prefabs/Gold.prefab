@@ -124,3 +124,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialVelocity: 0.4
   gravityPower: -0.01
+  value: 0
+  updatableManager: {fileID: 11400000, guid: 5e22478338c072440a444638130aeea3, type: 2}

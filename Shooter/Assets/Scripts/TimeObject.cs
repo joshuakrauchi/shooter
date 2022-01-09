@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TimeObject : MonoBehaviour
+public abstract class TimeObject : MonoBehaviour, IUpdatable
 {
     public LinkedList<ITimeData> TimeData { get; private set; }
 
@@ -37,4 +37,6 @@ public abstract class TimeObject : MonoBehaviour
 
         TimeData.AddLast(timeData);
     }
+
+    public abstract void UpdateUpdatable();
 }

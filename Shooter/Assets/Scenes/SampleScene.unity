@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewindSlider: {fileID: 0}
-  gameData: {fileID: 0}
+  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  CollectibleManager: {fileID: 11400000, guid: 5e22478338c072440a444638130aeea3, type: 2}
 --- !u!4 &510318363
 Transform:
   m_ObjectHideFlags: 0

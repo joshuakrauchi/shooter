@@ -30,7 +30,7 @@ public class Level1Boss1 : Boss
 
     private bool Phase1()
     {
-        BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.Top - 10f), 2f, 0f);
+        BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.ScreenRect.yMax - 10f), 2f, 0f);
 
         return true;
     }
@@ -64,7 +64,7 @@ public class Level1Boss1 : Boss
         Debug.Log(PhaseTimer.ElapsedTime);
         if (Health <= MaxHealth * 0.75f || PhaseTimer.IsFinished(false))
         {
-            BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.Top - 10f), 1f, 0f);
+            BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.ScreenRect.yMax - 10f), 1f, 0f);
             ShootBehaviours.Clear();
             PhaseTimer = new LockedTimer(10f);
 
@@ -109,7 +109,7 @@ public class Level1Boss1 : Boss
     {
         GameManager.UIManager.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
 
-        BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.Top + 7f), 2f, 0f);
+        BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.ScreenRect.yMax + 7f), 2f, 0f);
 
         return true;
     }

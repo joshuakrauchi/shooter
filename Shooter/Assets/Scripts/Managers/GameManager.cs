@@ -1,12 +1,17 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
-    [SerializeField] private ValueSlider rewindSlider;
     [SerializeField] private GameData gameData;
-    public static UIManager UIManager;
+    [SerializeField] private UpdatableManager collectibleManager;
+    [SerializeField] private EnemyManager enemyManager;
+    [SerializeField] private ProjectileManager projectileManager;
+    [SerializeField] private GameState gameState;
+
+    public static Player Player { get; private set; }
+    public static Camera MainCamera { get; private set; }
+    public static Rect ScreenRect { get; private set; }
+    public static UIManager UIManager { get; private set; }
 
     public static float LevelTime
     {
@@ -21,38 +26,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static float RewindCharge
-    {
-        get => rewindCharge;
-        set
-        {
-            rewindCharge = value;
-
-            if (rewindCharge < 0f)
-            {
-                rewindCharge = 0f;
-            }
-            else if (rewindCharge > _maxRewindCharge)
-            {
-                rewindCharge = _maxRewindCharge;
-            }
-        }
-    }
-
-    public static float MaxRewindCharge
-    {
-        get => _maxRewindCharge;
-        private set => _maxRewindCharge = value;
-    }
-
-
-    public static Player Player { get; private set; }
-    public static Camera MainCamera { get; private set; }
-    public static float Top { get; private set; }
-    public static float Bottom { get; private set; }
-    public static float Left { get; private set; }
-    public static float Right { get; private set; }
-
     private static bool _isRewinding;
 
     public static bool IsRewinding
@@ -62,25 +35,13 @@ public class GameManager : MonoBehaviour
     }
 
     public static bool BossIsActive { get; set; }
-
     public static float ProjectileDamage { get; set; } = 1f;
-    public static float Currency { get; set; }
     public static LevelManager CurrentLevelManager;
-    private static bool _isPaused;
 
-    public static bool IsPaused
-    {
-        get => _isPaused;
-        set
-        {
-            _isPaused = value;
-            EnemyManager.Instance.SetMinionAnimatorSpeed(IsPaused ? 0f : 1f);
-        }
-    }
+    private bool enemiesArePaused;
 
-    private static float _maxRewindCharge;
     private static float _levelTime;
-    private static float rewindCharge = 10f;
+    private ValueSlider rewindSlider;
 
     private void Awake()
     {
@@ -91,23 +52,19 @@ public class GameManager : MonoBehaviour
 
         if (MainCamera != null)
         {
-            var topRight = MainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-            Top = topRight.y;
-            Right = topRight.x;
             var bottomLeft = MainCamera.ScreenToWorldPoint(Vector2.zero);
-            Bottom = bottomLeft.y;
-            Left = bottomLeft.x;
+            var topRight = MainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+            ScreenRect = new Rect(bottomLeft.x, bottomLeft.y, topRight.x * 2, topRight.y * 2);
         }
 
         CurrentLevelManager = FindObjectOfType<LevelManager>();
-        _maxRewindCharge = rewindCharge;
     }
 
     private void Start()
     {
-        rewindSlider = FindObjectOfType<ValueSlider>();
-        rewindSlider.SetMaxValue(RewindCharge);
-        rewindSlider.SetValue(RewindCharge);
+        rewindSlider = UIManager.RewindBar.GetComponent<ValueSlider>();
+        rewindSlider.SetMaxValue(gameData.RewindCharge);
+        rewindSlider.SetValue(gameData.RewindCharge);
     }
 
     private void Update()
@@ -119,16 +76,18 @@ public class GameManager : MonoBehaviour
     {
         if (IsRewinding && !UIManager.IsDisplayingDialogue)
         {
-            RewindCharge -= Time.deltaTime;
+            gameData.RewindCharge -= Time.deltaTime;
         }
 
-        rewindSlider.SetValue(RewindCharge);
+        rewindSlider.SetValue(gameData.RewindCharge);
 
-        if (IsPaused)
+        enemyManager.SetMinionAnimatorSpeed(gameState.IsPaused ? 0f : 1f);
+
+        if (gameState.IsPaused)
         {
             if (IsRewinding)
             {
-                IsPaused = false;
+                gameState.IsPaused = false;
             }
             else
             {
@@ -142,17 +101,17 @@ public class GameManager : MonoBehaviour
         }
 
         CurrentLevelManager.UpdateEnemyCreation();
-        EnemyManager.Instance.UpdateEnemies();
-        ProjectileManager.Instance.UpdateProjectiles();
-        CollectibleManager.Instance.UpdateCollectibles();
-        Player.UpdatePlayer();
+        enemyManager.UpdateEnemies();
+        projectileManager.UpdateProjectiles();
+        collectibleManager.UpdateUpdatables();
+        Player.UpdateUpdatable();
     }
 
     public static void OnPlayerHit()
     {
-        if (!IsRewinding && !IsPaused)
+        //if (!IsRewinding && !GameState.IsPaused)
         {
-            RewindCharge -= MaxRewindCharge / 10f;
+            //RewindCharge -= MaxRewindCharge / 10f;
             //IsPaused = true;
         }
     }

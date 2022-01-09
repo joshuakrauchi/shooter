@@ -1,8 +1,39 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObjects/Game Data")]
 public class GameData: ScriptableObject
 {
-    [field: SerializeField] public uint Shots { get; set; }
-    [field: SerializeField] public uint Currency { get; set; }
+    [SerializeField] private float maxRewindCharge;
+    [SerializeField] private uint shots;
+    [SerializeField] private uint currency;
+
+    public float RewindCharge
+    {
+        get => _rewindCharge;
+        set
+        {
+            _rewindCharge = value;
+
+            if (_rewindCharge < 0f)
+            {
+                _rewindCharge = 0f;
+            }
+            else if (_rewindCharge > maxRewindCharge)
+            {
+                _rewindCharge = maxRewindCharge;
+            }
+        }
+    }
+
+    public uint Shots { get; set; }
+    public uint Currency { get; set; }
+
+    private float _rewindCharge;
+
+    private void OnEnable()
+    {
+        RewindCharge = maxRewindCharge;
+        Shots = shots;
+        Currency = currency;
+    }
 }

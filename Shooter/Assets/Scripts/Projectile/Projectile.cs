@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Projectile : TimeObject
 {
+    [SerializeField] private ProjectileManager projectileManager;
     public ProjectileMovement ProjectileMovement { get; private set; }
     public SpriteRenderer SpriteRenderer { get; private set; }
     public BoxCollider2D Collider { get; private set; }
@@ -18,7 +19,7 @@ public class Projectile : TimeObject
         ProjectileMovement = GetComponent<ProjectileMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Collider = GetComponent<BoxCollider2D>();
-        ProjectileManager.Instance.AddProjectile(this);
+        projectileManager.AddProjectile(this);
     }
 
     protected override void Record()
@@ -50,7 +51,7 @@ public class Projectile : TimeObject
         TimeData.Remove(timeData);
     }
 
-    public void UpdateProjectile()
+    public override void UpdateUpdatable()
     {
         SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
@@ -61,18 +62,18 @@ public class Projectile : TimeObject
         UpdateTimeData();
     }
 
-    private bool IsOffscreen()
+    protected bool IsOffscreen()
     {
         var position = transform.position;
         var spriteSize = SpriteRenderer.bounds.size;
 
-        return position.x < GameManager.Left - OffscreenThreshold - spriteSize.x || position.x > GameManager.Right + OffscreenThreshold + spriteSize.x ||
-               position.y < GameManager.Bottom - OffscreenThreshold - spriteSize.y || position.y > GameManager.Top + OffscreenThreshold + spriteSize.y;
+        return position.x < GameManager.ScreenRect.xMin - OffscreenThreshold - spriteSize.x || position.x > GameManager.ScreenRect.xMax + OffscreenThreshold + spriteSize.x ||
+               position.y < GameManager.ScreenRect.yMin - OffscreenThreshold - spriteSize.y || position.y > GameManager.ScreenRect.yMax + OffscreenThreshold + spriteSize.y;
     }
 
     public void DestroyProjectile()
     {
-        ProjectileManager.Instance.RemoveProjectile(this);
+        projectileManager.RemoveProjectile(this);
         Destroy(gameObject);
     }
 }

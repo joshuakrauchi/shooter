@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class Collectible : MonoBehaviour
+public class Collectible : MonoBehaviour, IUpdatable
 {
     [SerializeField] private float initialVelocity;
     [SerializeField] private float gravityPower;
     [SerializeField] private uint value;
+    [SerializeField] private UpdatableManager updatableManager;
 
     public float InitialVelocity
     {
@@ -30,10 +31,10 @@ public class Collectible : MonoBehaviour
     {
         _velocity = new Vector2(0f, InitialVelocity);
 
-        CollectibleManager.Instance.AddCollectible(this);
+        updatableManager.AddCollectible(this);
     }
 
-    public void UpdateMovement()
+    public void UpdateUpdatable()
     {
         _velocity.y += GravityPower;
 
@@ -42,7 +43,7 @@ public class Collectible : MonoBehaviour
 
     public void DestroySelf()
     {
-        CollectibleManager.Instance.RemoveCollectible(this);
+        updatableManager.RemoveCollectible(this);
         Destroy(gameObject);
     }
 }

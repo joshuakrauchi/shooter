@@ -56,6 +56,6 @@ public class BossMovement : MonoBehaviour
 
     public static Vector2 GetRandomPosition()
     {
-        return new Vector2(Random.Range(GameManager.Left, GameManager.Right), Random.Range(0f, GameManager.Top));
+        return new Vector2(Random.Range(GameManager.ScreenRect.xMin, GameManager.ScreenRect.xMax), Random.Range(0f, GameManager.ScreenRect.yMax));
     }
 }

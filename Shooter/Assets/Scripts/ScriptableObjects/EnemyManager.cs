@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public class EnemyManager
+[CreateAssetMenu(menuName = "ScriptableObjects/Enemy Manager")]
+public class EnemyManager : ScriptableObject
 {
-    private static EnemyManager _instance;
-    public static EnemyManager Instance => _instance ??= new EnemyManager();
-    private List<Enemy> _enemies;
+    private readonly List<Enemy> _enemies;
 
     private EnemyManager()
     {
@@ -15,7 +15,7 @@ public class EnemyManager
     {
         foreach (var enemy in _enemies.ToArray())
         {
-            enemy.UpdateEnemy();
+            enemy.UpdateUpdatable();
         }
     }
 

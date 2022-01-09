@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IUpdatable
 {
     [SerializeField] private GameData gameData;
 
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
         GameManager.IsRewinding = PlayerController.IsRewinding;
     }
 
-    public void UpdatePlayer()
+    public void UpdateUpdatable()
     {
         PlayerCollision.UpdateCollision();
         PlayerMovement.UpdateMovement();

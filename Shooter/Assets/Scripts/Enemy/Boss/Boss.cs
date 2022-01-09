@@ -51,7 +51,7 @@ public abstract class Boss : Enemy
         }
     }
 
-    public override void UpdateEnemy()
+    public override void UpdateUpdatable()
     {
         if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Length)
         {
