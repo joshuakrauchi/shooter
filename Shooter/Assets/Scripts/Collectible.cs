@@ -2,28 +2,10 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour, IUpdatable
 {
-    [SerializeField] private float initialVelocity;
-    [SerializeField] private float gravityPower;
-    [SerializeField] private uint value;
+    [field: SerializeField] public float InitialVelocity { get; private set; }
+    [field: SerializeField] public float GravityPower { get; private set; }
+    [field: SerializeField] public uint Value { get; private set; }
     [SerializeField] private UpdatableManager updatableManager;
-
-    public float InitialVelocity
-    {
-        get => initialVelocity;
-        private set => initialVelocity = value;
-    }
-
-    public float GravityPower
-    {
-        get => gravityPower;
-        private set => gravityPower = value;
-    }
-
-    public uint Value
-    {
-        get => value;
-        private set => this.value = value;
-    }
 
     private Vector2 _velocity;
 

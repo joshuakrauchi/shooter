@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class LevelManager : MonoBehaviour
 {
-    public List<EnemySpawn> Enemies { get; private set; }
+    public List<MinionSpawn> Enemies { get; private set; }
     public List<BossSpawn> Bosses { get; private set; }
     public int EnemyIndex { get; set; }
 
@@ -37,7 +37,7 @@ public abstract class LevelManager : MonoBehaviour
     protected virtual void Awake()
     {
         GameManager.CurrentLevelManager = this;
-        Enemies = new List<EnemySpawn>();
+        Enemies = new List<MinionSpawn>();
         Bosses = new List<BossSpawn>();
 
         origin = new GameObject("SpawnTransforms").transform;
@@ -74,7 +74,7 @@ public abstract class LevelManager : MonoBehaviour
 
         while (EnemyIndex < Enemies.Count && Enemies[EnemyIndex].CreationTime <= GameManager.LevelTime)
         {
-            NPCCreator.CreateEnemy(Enemies[EnemyIndex]);
+            NPCCreator.CreateMinion(Enemies[EnemyIndex]);
             ++EnemyIndex;
         }
 

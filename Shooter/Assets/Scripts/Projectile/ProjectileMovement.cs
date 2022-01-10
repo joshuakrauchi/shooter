@@ -2,13 +2,7 @@ using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
 {
-    [SerializeField] private float speed;
-
-    public float Speed
-    {
-        get => speed;
-        set => speed = value;
-    }
+    [field: SerializeField] public float Speed { get; set; }
 
     public MovePair[] MovePairs { get; set; }
     public ref Vector2 Velocity => ref _velocity;

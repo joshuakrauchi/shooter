@@ -152,9 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d6145add539464f86f0eda9c40cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewindSlider: {fileID: 0}
   gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  CollectibleManager: {fileID: 11400000, guid: 5e22478338c072440a444638130aeea3, type: 2}
+  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  enemyManager: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
+  projectileManager: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  collectibleManager: {fileID: 11400000, guid: 5e22478338c072440a444638130aeea3, type: 2}
 --- !u!4 &510318363
 Transform:
   m_ObjectHideFlags: 0
@@ -300,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcce7691aaa47e74d9139e750662c07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileManager: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
 --- !u!114 &1435785322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
 --- !u!212 &1435785323
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -390,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e98b9f9ea761242addfef947c7a699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MaxOverlapHits>k__BackingField: 5
   overlapFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -404,7 +409,6 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  maxOverlapHits: 5
   enemyTag: Enemy
   collectibleTag: Collectible
 --- !u!61 &1435785326
@@ -566,11 +570,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc05f5145dad57448f16ceda7c4915f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <RewindBar>k__BackingField: {fileID: 274152394573426083, guid: aa8ac15e3d1d4b24188fef17a7788e12, type: 3}
+  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   dialogueBox: {fileID: 9179852636872581091, guid: 8347191855cb2b8419bf338b455543d2, type: 3}
   background: {fileID: 6702645713777206737, guid: a5609df5695f57845bb29b21b310ccba, type: 3}
   header: {fileID: 554251317231782540, guid: f803f70513bf5704c9da156053b1065c, type: 3}
   text: {fileID: 5765920767225325988, guid: 2914f41b7d3f9434f811547e6cacf90f, type: 3}
-  rewindBar: {fileID: 274152394573426083, guid: aa8ac15e3d1d4b24188fef17a7788e12, type: 3}
 --- !u!224 &1499669073
 RectTransform:
   m_ObjectHideFlags: 0

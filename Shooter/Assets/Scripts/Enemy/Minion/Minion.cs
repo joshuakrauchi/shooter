@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Minion : Enemy
 {
+    [field: SerializeReference] public ShootBehaviour ShootBehaviour { get; set; }
     public Animator Animator { get; private set; }
 
     protected override void Awake()
@@ -12,14 +13,26 @@ public class Minion : Enemy
         Animator = GetComponent<Animator>();
     }
 
+    public override void UpdateUpdatable()
+    {
+        SpriteRenderer.enabled = !IsDisabled;
+        EnemyCollision.Collider.enabled = !IsDisabled;
+
+        if (!IsDisabled && !GameState.IsRewinding)
+        {
+            EnemyCollision.UpdateCollision();
+            ShootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
+
+        }
+
+        UpdateTimeData();
+    }
+
     protected override void Record()
     {
         var shootClones = new List<ShootBehaviour>();
 
-        foreach (var shootBehaviour in ShootBehaviours)
-        {
-            shootClones.Add(shootBehaviour?.Clone());
-        }
+        shootClones.Add(ShootBehaviour?.Clone());
 
         AddTimeData(new MinionTimeData(Health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
 
@@ -40,7 +53,7 @@ public class Minion : Enemy
 
         Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
-        ShootBehaviours = timeData.ShootBehaviours;
+        ShootBehaviour = timeData.ShootBehaviours[0];
         TimeData.Remove(timeData);
     }
 }

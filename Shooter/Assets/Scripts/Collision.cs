@@ -2,16 +2,10 @@ using UnityEngine;
 
 public abstract class Collision : MonoBehaviour
 {
+    [field: SerializeField] public uint MaxOverlapHits { get; private set; } = 5;
     [SerializeField] protected ContactFilter2D overlapFilter;
-    [SerializeField] protected uint maxOverlapHits = 5;
 
     public BoxCollider2D Collider { get; private set; }
-
-    public uint MaxOverlapHits
-    {
-        get => maxOverlapHits;
-        private set => maxOverlapHits = value;
-    }
 
     protected Collider2D[] OverlapHits;
 

@@ -8,7 +8,6 @@ public abstract class Enemy : TimeObject
     [SerializeField] private float rewindRecharge = 0.1f;
     [SerializeField] private GameObject[] drops;
     [SerializeField] protected GameData gameData;
-    [SerializeReference] private List<ShootBehaviour> shootBehaviours;
 
     public float Health
     {
@@ -23,10 +22,6 @@ public abstract class Enemy : TimeObject
     }
 
     public EnemyCollision EnemyCollision { get; private set; }
-    public List<ShootBehaviour> ShootBehaviours {
-        get => shootBehaviours;
-        set => shootBehaviours = value;
-    }
 
     public SpriteRenderer SpriteRenderer { get; private set; }
     public bool IsDisabled { get; protected set; }
@@ -38,7 +33,6 @@ public abstract class Enemy : TimeObject
 
         EnemyCollision = GetComponent<EnemyCollision>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
-        ShootBehaviours = new List<ShootBehaviour>();
         enemyManager.AddEnemy(this);
     }
 
@@ -48,23 +42,6 @@ public abstract class Enemy : TimeObject
         {
             DestroySelf();
         }
-    }
-
-    public override void UpdateUpdatable()
-    {
-        SpriteRenderer.enabled = !IsDisabled;
-        EnemyCollision.Collider.enabled = !IsDisabled;
-
-        if (!IsDisabled && !GameState.IsRewinding)
-        {
-            EnemyCollision.UpdateCollision();
-            foreach (var shootBehaviour in ShootBehaviours)
-            {
-                shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
-            }
-        }
-
-        UpdateTimeData();
     }
 
     public void OnHit(Projectile projectile)

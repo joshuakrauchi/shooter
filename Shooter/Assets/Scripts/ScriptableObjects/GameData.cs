@@ -6,6 +6,11 @@ public class GameData: ScriptableObject
     [SerializeField] private float maxRewindCharge;
     [SerializeField] private uint shots;
     [SerializeField] private uint currency;
+    [SerializeField] private uint projectileDamage;
+
+    public uint Currency { get; set; }
+    public uint ProjectileDamage { get; set; }
+    public uint Shots { get; set; }
 
     public float RewindCharge
     {
@@ -25,16 +30,13 @@ public class GameData: ScriptableObject
         }
     }
 
-    public uint Shots { get; set; }
-    public uint Currency { get; set; }
-    public float ProjectileDamage { get; set; } = 1f;
-
     private float _rewindCharge;
 
     private void OnEnable()
     {
-        RewindCharge = maxRewindCharge;
-        Shots = shots;
         Currency = currency;
+        ProjectileDamage = projectileDamage;
+        Shots = shots;
+        RewindCharge = maxRewindCharge;
     }
 }

@@ -23,11 +23,6 @@ public class Timer
         ElapsedTime -= TotalTime;
     }
 
-    public void SetToEnd()
-    {
-        ElapsedTime += TotalTime;
-    }
-
     public bool IsFinished(bool isRewinding)
     {
         return isRewinding ? ElapsedTime <= 0f : ElapsedTime >= TotalTime;

@@ -15,3 +15,4 @@ MonoBehaviour:
   maxRewindCharge: 10
   shots: 1
   currency: 0
+  projectileDamage: 1

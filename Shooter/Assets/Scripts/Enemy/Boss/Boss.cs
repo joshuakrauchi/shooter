@@ -11,11 +11,13 @@ public abstract class Boss : Enemy
     public int PhaseIndex { get; private set; }
     public float MaxHealth { get; private set; }
     public Timer PhaseTimer { get; protected set; }
+    [field: SerializeReference] public List<ShootBehaviour> ShootBehaviours { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
 
+        ShootBehaviours = new List<ShootBehaviour>();
         BossMovement = GetComponent<BossMovement>();
         MaxHealth = Health;
         Disable();
@@ -78,12 +80,12 @@ public abstract class Boss : Enemy
     protected void ActivateBoss()
     {
         IsDisabled = false;
-        GameState.BossIsActive = true;
+        GameState.IsBossActive = true;
     }
 
     protected override void Disable()
     {
         IsDisabled = true;
-        GameState.BossIsActive = false;
+        GameState.IsBossActive = false;
     }
 }

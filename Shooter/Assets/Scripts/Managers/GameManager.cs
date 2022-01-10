@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!gameState.BossIsActive)
+        if (!gameState.IsBossActive)
         {
             LevelTime += gameState.IsRewinding ? -Time.deltaTime : Time.deltaTime;
         }

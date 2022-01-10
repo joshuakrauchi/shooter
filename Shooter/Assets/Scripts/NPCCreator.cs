@@ -1,19 +1,18 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class NPCCreator
 {
-    public static void CreateEnemy(EnemySpawn enemySpawn)
+    public static void CreateMinion(MinionSpawn minionSpawn)
     {
-        var enemyDefinition = enemySpawn.EnemyDefinition;
-        var enemyObject = Object.Instantiate(enemyDefinition.Prefab, enemySpawn.Parent);
+        var minionDefinition = minionSpawn.MinionDefinition;
+        var minionObject = Object.Instantiate(minionDefinition.Prefab, minionSpawn.ParentTransform);
 
-        var enemyAnimator = enemyObject.GetComponent<Animator>();
-        enemyAnimator.SetBool(enemySpawn.AnimationID, true);
+        var minionAnimator = minionObject.GetComponent<Animator>();
+        minionAnimator.SetBool(minionSpawn.AnimationID, true);
 
-        var enemy = enemyObject.GetComponent<Enemy>();
-        enemy.CreationTime = enemySpawn.CreationTime;
-        enemy.ShootBehaviours = new List<ShootBehaviour> {enemyDefinition.ShootBehaviour?.Clone()};
+        var minion = minionObject.GetComponent<Minion>();
+        minion.CreationTime = minionSpawn.CreationTime;
+        minion.ShootBehaviour = minionDefinition.ShootBehaviour.Clone();
     }
 
     public static void CreateBoss(BossSpawn bossSpawn)
