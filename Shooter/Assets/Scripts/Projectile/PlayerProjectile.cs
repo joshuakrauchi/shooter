@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerProjectile : Projectile
 {
     public override void UpdateUpdatable()

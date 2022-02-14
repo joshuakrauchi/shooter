@@ -20,10 +20,10 @@ public class Level1Boss1 : Boss
     {
         base.Awake();
 
-        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new[] {new MoveStraight(1.0f, 0.1f, -0.1f)});
-        smallProjectileStraight = new ProjectileDefinition(fastArrow, new[] {new MoveStraight(1.0f)});
-        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new[] {new MoveStraight(1.0f), new MoveStraight(2.0f, -90f)});
-        boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new[] {new MoveStraight(1.0f)});
+        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new MoveBehaviour[] {new MoveStraight(1.0f, 0.1f, -0.1f)});
+        smallProjectileStraight = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(1.0f)});
+        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(1.0f), new MoveStraight(2.0f, -90f)});
+        boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new MoveBehaviour[] {new MoveStraight(1.0f)});
 
         Phases = new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7};
     }

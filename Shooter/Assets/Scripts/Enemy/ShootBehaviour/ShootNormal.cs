@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+[Serializable]
 public class ShootNormal : ShootBehaviour
 {
-    [SerializeField] private ProjectileDefinition projectileDefinition;
+    [SerializeReference] private ProjectileDefinition projectileDefinition;
     [SerializeField] private uint numberOfProjectiles;
     [SerializeField] private float initialDirection;
     [SerializeField] private float angleBetweenProjectiles;

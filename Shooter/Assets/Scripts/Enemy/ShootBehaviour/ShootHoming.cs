@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+[Serializable]
 public class ShootHoming : ShootBehaviour
 {
-    [SerializeField] private ProjectileDefinition projectileDefinition;
+    [SerializeReference] private ProjectileDefinition projectileDefinition;
     [SerializeField] private Timer shotTimer;
     [SerializeField] private uint shotsPerCycle;
     [SerializeField] private uint projectilesPerCycle;

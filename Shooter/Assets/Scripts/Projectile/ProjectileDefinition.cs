@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class ProjectileDefinition
 {
-    [field: SerializeField] public MoveBehaviour[] MoveBehaviours { get; private set; }
+    [field: SerializeReference] public MoveBehaviour[] MoveBehaviours { get; private set; }
 
     public GameObject Prefab { get; private set; }
 

@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class ShootSpinningFlower : ShootBehaviour
 {
     [SerializeField] private ProjectileDefinition projectileDefinition;

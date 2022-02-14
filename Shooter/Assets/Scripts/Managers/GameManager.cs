@@ -28,8 +28,7 @@ public class GameManager : MonoBehaviour
     }
 
     private static float _levelTime;
-    private bool enemiesArePaused;
-    private ValueSlider rewindSlider;
+    private ValueSlider _rewindSlider;
 
     private void Awake()
     {
@@ -45,9 +44,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        rewindSlider = UIManager.RewindBar.GetComponent<ValueSlider>();
-        rewindSlider.SetMaxValue(gameData.RewindCharge);
-        rewindSlider.SetValue(gameData.RewindCharge);
+        _rewindSlider = UIManager.RewindBar.GetComponent<ValueSlider>();
+        _rewindSlider.SetMaxValue(gameData.RewindCharge);
+        _rewindSlider.SetValue(gameData.RewindCharge);
     }
 
     private void Update()
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour
             gameData.RewindCharge -= Time.deltaTime;
         }
 
-        rewindSlider.SetValue(gameData.RewindCharge);
+        _rewindSlider.SetValue(gameData.RewindCharge);
 
         enemyManager.SetMinionAnimatorSpeed(gameState.IsPaused ? 0f : 1f);
 
@@ -88,5 +87,12 @@ public class GameManager : MonoBehaviour
         projectileManager.UpdateProjectiles();
         collectibleManager.UpdateUpdatables();
         Player.UpdateUpdatable();
+    }
+
+    public static void OnPlayerConfirmDown()
+    {
+        if (!UIManager.IsDisplayingDialogue) return;
+
+        UIManager.UpdateDialogue();
     }
 }

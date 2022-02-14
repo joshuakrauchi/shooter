@@ -25,9 +25,9 @@ public class Player : MonoBehaviour, IUpdatable
     {
         PlayerController.UpdateInput();
 
-        if (PlayerController.IsLeftMouseDown && GameManager.UIManager.IsDisplayingDialogue)
+        if (PlayerController.IsConfirmDown)
         {
-            GameManager.UIManager.UpdateDialogue();
+            GameManager.OnPlayerConfirmDown();
         }
 
         gameState.IsRewinding = PlayerController.IsRewinding;
@@ -48,6 +48,6 @@ public class Player : MonoBehaviour, IUpdatable
 
     public void OnHit()
     {
-
+        gameState.IsPaused = true;
     }
 }

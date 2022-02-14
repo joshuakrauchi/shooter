@@ -1,11 +1,11 @@
-using System;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [field: SerializeField] public float NumberOfShots { get; set; }
+
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float shootDelay;
-    [field: SerializeField] public float NumberOfShots { get; set; }
     [SerializeField] private float armSpan;
 
     public float ShootDelay
@@ -24,7 +24,7 @@ public class PlayerShoot : MonoBehaviour
     public void Awake()
     {
         _shootTimer = new LockedTimer(ShootDelay);
-        _projectileDefinition = new ProjectileDefinition(projectilePrefab, new[] {new MoveStraight(0.0f)});
+        _projectileDefinition = new ProjectileDefinition(projectilePrefab, new MoveBehaviour[] {new MoveStraight(0.0f)});
     }
 
     public void UpdateShoot(bool isShooting, bool isRewinding)

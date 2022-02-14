@@ -11,7 +11,7 @@ public class ProjectileMovement : MonoBehaviour
     private Vector2 _velocity;
     private Quaternion _rotation;
     private float _timeAlive;
-    private uint _moveIndex;
+    private uint _moveBehaviourIndex;
 
     public void Awake()
     {
@@ -26,17 +26,17 @@ public class ProjectileMovement : MonoBehaviour
 
             if (MoveBehaviours.Length == 0) return;
 
-            while (_moveIndex > 0 && MoveBehaviours[_moveIndex - 1].StartTime > _timeAlive)
+            while (_moveBehaviourIndex > 0 && MoveBehaviours[_moveBehaviourIndex - 1].StartTime > _timeAlive)
             {
-                --_moveIndex;
+                --_moveBehaviourIndex;
             }
 
-            while (_moveIndex + 1 < MoveBehaviours.Length && MoveBehaviours[_moveIndex + 1].StartTime <= _timeAlive)
+            while (_moveBehaviourIndex + 1 < MoveBehaviours.Length && MoveBehaviours[_moveBehaviourIndex + 1].StartTime <= _timeAlive)
             {
-                ++_moveIndex;
+                ++_moveBehaviourIndex;
             }
 
-            MoveBehaviours[_moveIndex].UpdateMove(ref Velocity, ref Rotation, Speed, _timeAlive);
+            MoveBehaviours[_moveBehaviourIndex].UpdateMove(ref Velocity, ref Rotation, Speed, _timeAlive);
             transform.Translate(Velocity);
             transform.rotation = Rotation;
         }

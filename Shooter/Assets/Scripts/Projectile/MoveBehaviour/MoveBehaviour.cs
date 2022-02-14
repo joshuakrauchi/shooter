@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public abstract class MoveBehaviour
 {
     [field: SerializeField] public float StartTime { get; private set; }

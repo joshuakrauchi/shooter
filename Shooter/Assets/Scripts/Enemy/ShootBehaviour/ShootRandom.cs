@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+[Serializable]
 public class ShootRandom : ShootBehaviour
 {
     [SerializeField] private ProjectileDefinition projectileDefinition;
