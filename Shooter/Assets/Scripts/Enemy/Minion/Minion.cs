@@ -18,10 +18,10 @@ public class Minion : Enemy
         SpriteRenderer.enabled = !IsDisabled;
         EnemyCollision.Collider.enabled = !IsDisabled;
 
-        if (!IsDisabled && !GameState.IsRewinding)
+        if (!IsDisabled && !gameState.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
-            ShootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
+            ShootBehaviour?.UpdateShoot(transform.position, gameState.IsRewinding);
 
         }
 

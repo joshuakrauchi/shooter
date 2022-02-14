@@ -4,7 +4,7 @@ public class ProjectileMovement : MonoBehaviour
 {
     [field: SerializeField] public float Speed { get; set; }
 
-    public MovePair[] MovePairs { get; set; }
+    public MoveBehaviour[] MoveBehaviours { get; set; }
     public ref Vector2 Velocity => ref _velocity;
     public ref Quaternion Rotation => ref _rotation;
 
@@ -24,19 +24,19 @@ public class ProjectileMovement : MonoBehaviour
         {
             _timeAlive += Time.deltaTime;
 
-            if (MovePairs.Length == 0) return;
+            if (MoveBehaviours.Length == 0) return;
 
-            while (_moveIndex > 0 && MovePairs[_moveIndex - 1].StartTime > _timeAlive)
+            while (_moveIndex > 0 && MoveBehaviours[_moveIndex - 1].StartTime > _timeAlive)
             {
                 --_moveIndex;
             }
 
-            while (_moveIndex + 1 < MovePairs.Length && MovePairs[_moveIndex + 1].StartTime <= _timeAlive)
+            while (_moveIndex + 1 < MoveBehaviours.Length && MoveBehaviours[_moveIndex + 1].StartTime <= _timeAlive)
             {
                 ++_moveIndex;
             }
 
-            MovePairs[_moveIndex].MoveBehaviour.UpdateMove(ref Velocity, ref Rotation, Speed, _timeAlive);
+            MoveBehaviours[_moveIndex].UpdateMove(ref Velocity, ref Rotation, Speed, _timeAlive);
             transform.Translate(Velocity);
             transform.rotation = Rotation;
         }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a738ca18923e0d46a6d7682c0c333dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   enemyManager: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
   health: 500
   rewindRecharge: 0.1

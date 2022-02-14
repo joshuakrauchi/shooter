@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55b73e244cc674c8f9e2a3da64f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  enemyManager: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
   health: 200
   rewindRecharge: 0.1
   drops: []
+  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <ShootBehaviours>k__BackingField: []
+  fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
+  references:
+    version: 1
 --- !u!1001 &1785026681207629853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128,7 +135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4203282110089882886, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
       propertyPath: m_Name
-      value: Boss
+      value: LevelXBossX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}

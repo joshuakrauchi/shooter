@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff38235d04051e4795176655c580896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   projectileManager: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
 --- !u!1001 &4387279304944741517
 PrefabInstance:
@@ -99,6 +99,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8180888819730415870, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: ySpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180888819730415870, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
+      propertyPath: <Speed>k__BackingField
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8966563801101554868, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}

@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class MoveSin : MoveBehaviour
 {
     [SerializeField] private float xAmplitude;
@@ -11,7 +13,7 @@ public class MoveSin : MoveBehaviour
     [SerializeField] private float xTranslation;
     [SerializeField] private float yTranslation;
 
-    public MoveSin()
+    public MoveSin(float startTime) : base(startTime)
     {
         xAmplitude = 1f;
         yAmplitude = 1f;
@@ -23,7 +25,7 @@ public class MoveSin : MoveBehaviour
         yTranslation = 0f;
     }
 
-    public MoveSin(float xAmplitude, float yAmplitude, float xPeriod, float yPeriod, float xPhaseShift, float yPhaseShift, float xTranslation, float yTranslation)
+    public MoveSin(float startTime, float xAmplitude, float yAmplitude, float xPeriod, float yPeriod, float xPhaseShift, float yPhaseShift, float xTranslation, float yTranslation) : base(startTime)
     {
         this.xAmplitude = xAmplitude;
         this.yAmplitude = yAmplitude;

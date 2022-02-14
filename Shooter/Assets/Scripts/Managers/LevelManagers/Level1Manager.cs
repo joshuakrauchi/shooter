@@ -7,6 +7,7 @@ public class Level1Manager : LevelManager
     [SerializeField] private GameObject eliteArcher;
     [SerializeField] private GameObject boss1;
     [SerializeField] private GameObject boss2;
+    [SerializeField] private GameObject boss3;
     [SerializeField] private GameObject slowArrow;
     [SerializeField] private GameObject fastArrow;
     [SerializeField] private GameObject bigArrow;
@@ -28,11 +29,11 @@ public class Level1Manager : LevelManager
     {
         base.Awake();
 
-        var smallProjectile = new ProjectileDefinition(smallArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.05f))});
-        var slowingProjectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.05f))});
-        var projectile = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.05f))});
-        var fastProjectile = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
-        var bigProjectile = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
+        var smallProjectile = new ProjectileDefinition(smallArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
+        var slowingProjectile = new ProjectileDefinition(slowArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
+        var projectile = new ProjectileDefinition(slowArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
+        var fastProjectile = new ProjectileDefinition(fastArrow, new[] {new MoveStraight(0.0f)});
+        var bigProjectile = new ProjectileDefinition(bigArrow, new[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
 
         var basicShoot = new MinionDefinition(footSoldier, new ShootHoming(2, new LockedTimer(1f), smallProjectile, new LockedTimer(0f), 1, 3, 20, 2f, 0f));
         var archerSingleShot = new MinionDefinition(archer, new ShootHoming(1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 1, 15, 10f, 2f, -0.05f));
@@ -228,6 +229,6 @@ public class Level1Manager : LevelManager
 
         Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.ScreenRect.yMax + 5f)));
 
-        Debug.Log(CurrentTime);
+        Debug.Log(CurrentTime + " " + Enemies.Count);
     }
 }

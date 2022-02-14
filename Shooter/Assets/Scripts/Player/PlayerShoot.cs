@@ -24,7 +24,7 @@ public class PlayerShoot : MonoBehaviour
     public void Awake()
     {
         _shootTimer = new LockedTimer(ShootDelay);
-        _projectileDefinition = new ProjectileDefinition(projectilePrefab, new[] {new MovePair(0f, new MoveStraight())});
+        _projectileDefinition = new ProjectileDefinition(projectilePrefab, new[] {new MoveStraight(0.0f)});
     }
 
     public void UpdateShoot(bool isShooting, bool isRewinding)

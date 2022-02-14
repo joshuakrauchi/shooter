@@ -25,7 +25,7 @@ public static class NPCCreator
         var projectileObject = Object.Instantiate(projectileDefinition.Prefab, position, rotation);
 
         var projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
-        projectileMovement.MovePairs = projectileDefinition.MovePairs;
+        projectileMovement.MoveBehaviours = projectileDefinition.MoveBehaviours;
 
         return projectileMovement;
     }

@@ -629,6 +629,7 @@ MonoBehaviour:
   eliteArcher: {fileID: 683005738966507240, guid: c7fbd6463e131b34f8f2a3ab8f924d6b, type: 3}
   boss1: {fileID: 4244372823298466490, guid: a0c9a13d19670eb4ab039f92efe2af7d, type: 3}
   boss2: {fileID: 2389709943541849936, guid: 214ee0b08a1859c4cb32fba46e182ffe, type: 3}
+  boss3: {fileID: 2490700051862570267, guid: b063d2d476a741048be14cfbcc1bdf54, type: 3}
   slowArrow: {fileID: 7528613875248914025, guid: 9d8a02e44c3b2144dbf186ba75d55d52, type: 3}
   fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
   bigArrow: {fileID: 2714373215205119015, guid: 52937ba3e53190348b06c91a8e14826e, type: 3}

@@ -6,12 +6,13 @@ public abstract class Boss : Enemy
 {
     public delegate bool PhaseBehaviour();
 
+    [field: SerializeReference] public List<ShootBehaviour> ShootBehaviours { get; set; }
+
     public BossMovement BossMovement { get; protected set; }
     public PhaseBehaviour[] Phases { get; protected set; }
     public int PhaseIndex { get; private set; }
     public float MaxHealth { get; private set; }
     public Timer PhaseTimer { get; protected set; }
-    [field: SerializeReference] public List<ShootBehaviour> ShootBehaviours { get; set; }
 
     protected override void Awake()
     {
@@ -60,17 +61,17 @@ public abstract class Boss : Enemy
             ++PhaseIndex;
         }
 
-        PhaseTimer?.UpdateTime(GameState.IsRewinding);
+        PhaseTimer?.UpdateTime(gameState.IsRewinding);
 
-        transform.position = BossMovement.GetMovement(GameState.IsRewinding);
+        transform.position = BossMovement.GetMovement(gameState.IsRewinding);
         EnemyCollision.Collider.enabled = !IsDisabled;
 
-        if (!IsDisabled && !GameState.IsRewinding)
+        if (!IsDisabled && !gameState.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
             foreach (var shootBehaviour in ShootBehaviours)
             {
-                shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
+                shootBehaviour?.UpdateShoot(transform.position, gameState.IsRewinding);
             }
         }
 
@@ -80,12 +81,12 @@ public abstract class Boss : Enemy
     protected void ActivateBoss()
     {
         IsDisabled = false;
-        GameState.IsBossActive = true;
+        gameState.IsBossActive = true;
     }
 
     protected override void Disable()
     {
         IsDisabled = true;
-        GameState.IsBossActive = false;
+        gameState.IsBossActive = false;
     }
 }

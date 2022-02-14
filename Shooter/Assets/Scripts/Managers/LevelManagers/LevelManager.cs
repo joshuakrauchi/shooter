@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,6 +77,7 @@ public abstract class LevelManager : MonoBehaviour
         {
             NPCCreator.CreateMinion(Enemies[EnemyIndex]);
             ++EnemyIndex;
+
         }
 
         if (Bosses.Count > 0 && Bosses[0].CreationTime <= GameManager.LevelTime)

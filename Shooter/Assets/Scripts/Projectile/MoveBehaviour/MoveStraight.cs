@@ -1,26 +1,28 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class MoveStraight : MoveBehaviour
 {
     [SerializeField] private float? newRotation;
     [SerializeField] private float minSpeed;
     [SerializeField] private float multiplier;
 
-    public MoveStraight(float? newRotation = null)
+    public MoveStraight(float startTime, float? newRotation = null) : base(startTime)
     {
         this.newRotation = newRotation;
         minSpeed = 0f;
         multiplier = 0f;
     }
 
-    public MoveStraight(float minSpeed, float multiplier)
+    public MoveStraight(float startTime, float minSpeed, float multiplier) : base(startTime)
     {
         newRotation = null;
         this.minSpeed = minSpeed;
         this.multiplier = multiplier;
     }
 
-    public MoveStraight(float newRotation, float minSpeed, float multiplier)
+    public MoveStraight(float startTime, float newRotation, float minSpeed, float multiplier) : base(startTime)
     {
         this.newRotation = newRotation;
         this.minSpeed = minSpeed;

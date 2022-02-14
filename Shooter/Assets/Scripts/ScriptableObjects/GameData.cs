@@ -12,6 +12,7 @@ public class GameData: ScriptableObject
     public uint ProjectileDamage { get; set; }
     public uint Shots { get; set; }
 
+    private float _rewindCharge;
     public float RewindCharge
     {
         get => _rewindCharge;
@@ -29,8 +30,6 @@ public class GameData: ScriptableObject
             }
         }
     }
-
-    private float _rewindCharge;
 
     private void OnEnable()
     {

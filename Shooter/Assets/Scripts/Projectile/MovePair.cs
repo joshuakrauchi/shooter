@@ -4,20 +4,8 @@ using UnityEngine;
 [Serializable]
 public class MovePair
 {
-    [SerializeField] private float startTime;
-    [SerializeReference] private MoveBehaviour moveBehaviour;
-
-    public float StartTime
-    {
-        get => startTime;
-        private set => startTime = value;
-    }
-
-    public MoveBehaviour MoveBehaviour
-    {
-        get => moveBehaviour;
-        private set => moveBehaviour = value;
-    }
+    [field: SerializeField] public float StartTime { get; private set; }
+    [field: SerializeReference] public MoveBehaviour MoveBehaviour { get; private set; }
 
     public MovePair(float startTime, MoveBehaviour moveBehaviour)
     {

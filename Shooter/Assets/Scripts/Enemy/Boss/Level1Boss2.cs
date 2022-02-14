@@ -20,12 +20,11 @@ public class Level1Boss2 : Boss
     {
         base.Awake();
 
-        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new[] {new MovePair(0f, new MoveStraight(0.1f, -0.1f))});
-        smallProjectileStraight = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight())});
-        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
-        boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight())});
-        boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new[] {new MovePair(0f, new MoveStraight()), new MovePair(2f, new MoveStraight(-90f))});
-
+        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.1f)});
+        smallProjectileStraight = new ProjectileDefinition(fastArrow, new[] {new MoveStraight(0.0f)});
+        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
+        boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new[] {new MoveStraight(0.0f)});
+        boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
 
         Phases = new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7};
     }
@@ -39,7 +38,7 @@ public class Level1Boss2 : Boss
 
     private bool Phase2()
     {
-        if (BossMovement.IsFinished(GameState.IsRewinding))
+        if (BossMovement.IsFinished(gameState.IsRewinding))
         {
             if (!_initiatedDialogue)
             {
@@ -70,7 +69,7 @@ public class Level1Boss2 : Boss
             return true;
         }
 
-        if (BossMovement.IsFinished(GameState.IsRewinding))
+        if (BossMovement.IsFinished(gameState.IsRewinding))
         {
             BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 2f, 3f);
         }
@@ -80,7 +79,7 @@ public class Level1Boss2 : Boss
 
     private bool Phase4()
     {
-        if (BossMovement.IsFinished(GameState.IsRewinding))
+        if (BossMovement.IsFinished(gameState.IsRewinding))
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
