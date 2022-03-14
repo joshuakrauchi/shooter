@@ -1,29 +1,15 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Enemy : TimeObject
 {
-    [SerializeField] private EnemyManager enemyManager;
-    [SerializeField] private float health = 1f;
-    [SerializeField] private float rewindRecharge = 0.1f;
-    [SerializeField] private GameObject[] drops;
+    [field: SerializeField] public float Health { get; protected set; } = 1f;
+    [field: SerializeField] public float RewindRecharge { get; protected set; }= 0.1f;
+    [SerializeField] protected EnemyManager enemyManager;
+    [SerializeField] protected GameObject[] drops;
     [SerializeField] protected GameData gameData;
 
-    public float Health
-    {
-        get => health;
-        protected set => health = value;
-    }
-
-    public float RewindRecharge
-    {
-        get => rewindRecharge;
-        private set => rewindRecharge = value;
-    }
-
-    public EnemyCollision EnemyCollision { get; private set; }
-
-    public SpriteRenderer SpriteRenderer { get; private set; }
+    public EnemyCollision EnemyCollision { get; protected set; }
+    public SpriteRenderer SpriteRenderer { get; protected set; }
     public bool IsDisabled { get; protected set; }
     public float CreationTime { get; set; }
 
@@ -44,9 +30,9 @@ public abstract class Enemy : TimeObject
         }
     }
 
-    public void OnHit(Projectile projectile)
+    public void OnHit(PlayerProjectile projectile)
     {
-        Health -= gameData.ProjectileDamage;
+        Health -= projectile.Damage;
 
         projectile.IsDisabled = true;
 

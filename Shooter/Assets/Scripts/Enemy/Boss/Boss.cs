@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +9,9 @@ public abstract class Boss : Enemy
 
     public BossMovement BossMovement { get; protected set; }
     public PhaseBehaviour[] Phases { get; protected set; }
+    public Timer PhaseTimer { get; protected set; }
     public int PhaseIndex { get; private set; }
     public float MaxHealth { get; private set; }
-    public Timer PhaseTimer { get; protected set; }
 
     protected override void Awake()
     {

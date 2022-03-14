@@ -22,7 +22,6 @@ public class Minion : Enemy
         {
             EnemyCollision.UpdateCollision();
             ShootBehaviour?.UpdateShoot(transform.position, gameState.IsRewinding);
-
         }
 
         UpdateTimeData();
@@ -30,9 +29,7 @@ public class Minion : Enemy
 
     protected override void Record()
     {
-        var shootClones = new List<ShootBehaviour>();
-
-        shootClones.Add(ShootBehaviour?.Clone());
+        var shootClones = new List<ShootBehaviour> {ShootBehaviour?.Clone()};
 
         AddTimeData(new MinionTimeData(Health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
 

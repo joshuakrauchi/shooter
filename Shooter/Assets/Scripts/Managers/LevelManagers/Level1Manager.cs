@@ -44,7 +44,7 @@ public class Level1Manager : LevelManager
         var eliteArcherDoubleShot = new MinionDefinition(eliteArcher, new ShootHoming(1, new LockedTimer(1f), fastProjectile, new LockedTimer(0.2f), 3, 15, 15f, 2f, 0f));
 
         // 1
-        for (var i = 0; i < 10; ++i)
+        /*for (var i = 0; i < 10; ++i)
         {
             Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topM15, VSlide1));
             CurrentTime += 0.25f;
@@ -227,7 +227,9 @@ public class Level1Manager : LevelManager
 
         CurrentTime += 7f;
 
-        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.ScreenRect.yMax + 5f)));
+        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.ScreenRect.yMax + 5f)));*/
+
+
 
         Debug.Log(CurrentTime + " " + Enemies.Count);
     }

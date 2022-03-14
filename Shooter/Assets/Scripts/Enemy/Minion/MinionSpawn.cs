@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MinionSpawn
 {
-    public float CreationTime { get; set; }
+    public float CreationTime { get; private set; }
     public MinionDefinition MinionDefinition { get; private set; }
     public Transform ParentTransform { get; private set; }
     public int AnimationID { get; private set; }
