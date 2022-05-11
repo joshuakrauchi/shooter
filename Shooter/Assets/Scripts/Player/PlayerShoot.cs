@@ -33,7 +33,7 @@ public class PlayerShoot : MonoBehaviour
 
         if (!_shootTimer.IsFinished(false) || !isShooting) return;
 
-        var position = transform.position;
+        Vector3 position = transform.position;
         for (var i = 0; i < NumberOfShots; ++i)
         {
             NPCCreator.CreateProjectile(_projectileDefinition, new Vector2(position.x + armSpan * i, position.y), Quaternion.Euler(0f, 0f, 90f));

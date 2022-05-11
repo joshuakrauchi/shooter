@@ -2,16 +2,18 @@ using UnityEngine;
 
 public abstract class Enemy : TimeObject
 {
-    [field: SerializeField] public float Health { get; protected set; } = 1f;
-    [field: SerializeField] public float RewindRecharge { get; protected set; }= 0.1f;
-    [SerializeField] protected EnemyManager enemyManager;
-    [SerializeField] protected GameObject[] drops;
     [SerializeField] protected GameData gameData;
-
-    public EnemyCollision EnemyCollision { get; protected set; }
-    public SpriteRenderer SpriteRenderer { get; protected set; }
-    public bool IsDisabled { get; protected set; }
+    [SerializeField] protected EnemyManager enemyManager;
+    [SerializeField] protected float health = 1f;
+    [SerializeField] private float rewindRecharge = 0.1f;
+    [SerializeField] protected GameObject[] droppedObjects;
+    
     public float CreationTime { get; set; }
+
+    protected EnemyCollision EnemyCollision { get; private set; }
+    protected SpriteRenderer SpriteRenderer { get; private set; }
+    // If disabled, collision and updating are disabled for this object.
+    protected bool IsDisabled;
 
     protected override void Awake()
     {
@@ -24,6 +26,7 @@ public abstract class Enemy : TimeObject
 
     protected override void Record()
     {
+        // If never rewound to a non-dead state, it has been dead for a full cycle and can never be revived.
         if (((EnemyTimeData) TimeData.First.Value).IsDisabled)
         {
             DestroySelf();
@@ -32,25 +35,24 @@ public abstract class Enemy : TimeObject
 
     public void OnHit(PlayerProjectile projectile)
     {
-        Health -= projectile.Damage;
+        health -= projectile.Damage;
 
-        projectile.IsDisabled = true;
+        projectile.OnHit();
 
-        if (Health <= 0f)
-        {
-            Disable();
-
-            gameData.RewindCharge += RewindRecharge;
-
-            RewindRecharge /= 2f;
-        }
+        if (health > 0.0f) return;
+        
+        OnDeath();
     }
 
-    protected virtual void Disable()
+    protected virtual void OnDeath()
     {
-        if (drops.Length > 0)
+        gameData.RewindCharge += rewindRecharge;
+
+        rewindRecharge /= 2f;
+        
+        if (droppedObjects.Length > 0)
         {
-            NPCCreator.CreateCollectible(drops[0], transform.position);
+            NPCCreator.CreateCollectible(droppedObjects[0], transform.position);
         }
 
         IsDisabled = true;

@@ -13,8 +13,7 @@ public class EnemyCollision : Collision
 
     protected override void HandleOverlapCollision(Collider2D hit)
     {
-        var projectile = hit.gameObject.GetComponent<PlayerProjectile>();
-        if (projectile)
+        if (hit.gameObject.GetComponent<PlayerProjectile>() is { } projectile)
         {
             _enemy.OnHit(projectile);
         }

@@ -7,7 +7,8 @@ public class GameData: ScriptableObject
     [SerializeField] private uint shots;
     [SerializeField] private uint currency;
     [SerializeField] private uint projectileDamage;
-
+    
+    public Player Player { get; set; }
     public uint Currency { get; set; }
     public uint ProjectileDamage { get; set; }
     public uint Shots { get; set; }

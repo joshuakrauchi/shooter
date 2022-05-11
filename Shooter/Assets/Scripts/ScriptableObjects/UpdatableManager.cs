@@ -13,7 +13,7 @@ public class UpdatableManager : ScriptableObject
 
     public void UpdateUpdatables()
     {
-        foreach (var updatable in _updatables)
+        foreach (IUpdatable updatable in _updatables)
         {
             updatable.UpdateUpdatable();
         }

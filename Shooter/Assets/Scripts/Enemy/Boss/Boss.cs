@@ -19,19 +19,19 @@ public abstract class Boss : Enemy
 
         ShootBehaviours = new List<ShootBehaviour>();
         BossMovement = GetComponent<BossMovement>();
-        MaxHealth = Health;
-        Disable();
+        MaxHealth = health;
+        OnDeath();
     }
 
     protected override void Record()
     {
         var shootClones = new List<ShootBehaviour>();
-        foreach (var shootBehaviour in ShootBehaviours)
+        foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
         {
             shootClones.Add(shootBehaviour.Clone());
         }
 
-        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.Clone(),
+        AddTimeData(new BossTimeData(health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.Clone(),
             BossMovement.InitialDelayTimer.Clone()));
     }
 
@@ -39,9 +39,9 @@ public abstract class Boss : Enemy
     {
         if (TimeData.Count <= 0) return;
 
-        var timeData = (BossTimeData) TimeData.Last.Value;
+        BossTimeData timeData = (BossTimeData) TimeData.Last.Value;
 
-        Health = timeData.Health;
+        health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
         ShootBehaviours = timeData.ShootBehaviours;
         PhaseIndex = timeData.PhaseIndex;
@@ -55,6 +55,8 @@ public abstract class Boss : Enemy
 
     public override void UpdateUpdatable()
     {
+        base.UpdateUpdatable();
+        
         if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Length)
         {
             ++PhaseIndex;
@@ -68,13 +70,12 @@ public abstract class Boss : Enemy
         if (!IsDisabled && !gameState.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
-            foreach (var shootBehaviour in ShootBehaviours)
+            foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
             {
                 shootBehaviour?.UpdateShoot(transform.position, gameState.IsRewinding);
             }
         }
 
-        UpdateTimeData();
     }
 
     protected void ActivateBoss()
@@ -83,7 +84,7 @@ public abstract class Boss : Enemy
         gameState.IsBossActive = true;
     }
 
-    protected override void Disable()
+    protected override void OnDeath()
     {
         IsDisabled = true;
         gameState.IsBossActive = false;

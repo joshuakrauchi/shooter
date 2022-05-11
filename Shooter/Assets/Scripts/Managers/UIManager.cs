@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
         _textQueue = new Queue<Tuple<string, string>>();
 
         _dialogueCanvas = Instantiate(dialogueBox, transform).GetComponent<Canvas>();
-        var backgroundObject = Instantiate(background, _dialogueCanvas.transform);
+        GameObject backgroundObject = Instantiate(background, _dialogueCanvas.transform);
         _header = Instantiate(header, backgroundObject.transform).GetComponent<Text>();
         _text = Instantiate(text, backgroundObject.transform).GetComponent<Text>();
         GameManager.UIManager = this;

@@ -13,7 +13,7 @@ public class ProjectileManager : ScriptableObject
 
     public void UpdateProjectiles()
     {
-        foreach (var projectile in _projectiles.ToArray())
+        foreach (Projectile projectile in _projectiles.ToArray())
         {
             projectile.UpdateUpdatable();
         }
@@ -31,7 +31,7 @@ public class ProjectileManager : ScriptableObject
 
     public void ClearProjectiles()
     {
-        foreach (var projectile in _projectiles.ToArray())
+        foreach (Projectile projectile in _projectiles.ToArray())
         {
             projectile.DestroyProjectile();
         }

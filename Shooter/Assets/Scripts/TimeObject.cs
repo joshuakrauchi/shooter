@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public abstract class TimeObject : MonoBehaviour, IUpdatable
 {
     [SerializeField] protected GameState gameState;
 
-    public LinkedList<ITimeData> TimeData { get; private set; }
+    protected LinkedList<ITimeData> TimeData { get; private set; }
 
     private const uint MaxData = 600;
 
@@ -40,5 +41,8 @@ public abstract class TimeObject : MonoBehaviour, IUpdatable
         TimeData.AddLast(timeData);
     }
 
-    public abstract void UpdateUpdatable();
+    public virtual void UpdateUpdatable()
+    {
+        UpdateTimeData();
+    }
 }

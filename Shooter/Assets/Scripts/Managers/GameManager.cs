@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 
     public static Camera MainCamera { get; private set; }
     public static LevelManager CurrentLevelManager { get; set; }
-    public static Player Player { get; set; }
     public static Rect ScreenRect { get; private set; }
     public static UIManager UIManager { get; set; }
 
@@ -36,8 +35,8 @@ public class GameManager : MonoBehaviour
 
         if (MainCamera != null)
         {
-            var bottomLeft = MainCamera.ScreenToWorldPoint(Vector2.zero);
-            var topRight = MainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+            Vector3 bottomLeft = MainCamera.ScreenToWorldPoint(Vector2.zero);
+            Vector3 topRight = MainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
             ScreenRect = Rect.MinMaxRect(bottomLeft.x, bottomLeft.y, topRight.x, topRight.y);
         }
     }
@@ -51,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Player.UpdatePlayerInput();
+        gameData.Player.UpdatePlayerInput();
     }
 
     private void FixedUpdate()
@@ -86,7 +85,7 @@ public class GameManager : MonoBehaviour
         enemyManager.UpdateEnemies();
         projectileManager.UpdateProjectiles();
         collectibleManager.UpdateUpdatables();
-        Player.UpdateUpdatable();
+        gameData.Player.UpdateUpdatable();
     }
 
     public static void OnPlayerConfirmDown()

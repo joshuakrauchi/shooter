@@ -11,11 +11,13 @@ public class ShootSuccessiveHoming : ShootBehaviour
     [SerializeField] private float angleBetweenProjectiles;
     [SerializeField] private float angleVariation;
 
+    private GameObject _target;
     private uint _shotsFired;
     private float _currentAngle;
 
-    public ShootSuccessiveHoming(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, Timer betweenShotsTimer, uint numberOfProjectiles, float angleBetweenProjectiles, float angleVariation) : base(totalCycles, cycleTimer)
+    public ShootSuccessiveHoming(GameObject target, uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, Timer betweenShotsTimer, uint numberOfProjectiles, float angleBetweenProjectiles, float angleVariation) : base(totalCycles, cycleTimer)
     {
+        _target = target;
         this.projectileDefinition = projectileDefinition;
         this.betweenShotsTimer = betweenShotsTimer;
         this.numberOfProjectiles = numberOfProjectiles;
@@ -37,7 +39,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
 
         if (_shotsFired == 0)
         {
-            var direction = (Vector2)GameManager.Player.transform.position - position;
+            Vector2 direction = (Vector2)_target.transform.position - position;
             _currentAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - angleBetweenProjectiles * Mathf.Floor(numberOfProjectiles / 2f);
         }
 
@@ -55,7 +57,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootSuccessiveHoming(TotalCycles, CycleTimer.Clone(), projectileDefinition, betweenShotsTimer.Clone(), numberOfProjectiles, angleBetweenProjectiles, angleVariation)
+        return new ShootSuccessiveHoming(_target, TotalCycles, CycleTimer.Clone(), projectileDefinition, betweenShotsTimer.Clone(), numberOfProjectiles, angleBetweenProjectiles, angleVariation)
         {
             CurrentCycles = CurrentCycles,
             _shotsFired = _shotsFired,

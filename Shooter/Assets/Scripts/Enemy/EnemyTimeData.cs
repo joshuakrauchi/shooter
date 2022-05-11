@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 public abstract class EnemyTimeData : ITimeData
 {
-    public float Health { get; private set; }
-    public bool IsDisabled { get; private set; }
-    public List<ShootBehaviour> ShootBehaviours { get; private set; }
+    public float Health { get; }
+    public bool IsDisabled { get; }
+    public List<ShootBehaviour> ShootBehaviours { get; }
 
     public EnemyTimeData(float health, bool isDisabled, List<ShootBehaviour> shootBehaviours)
     {

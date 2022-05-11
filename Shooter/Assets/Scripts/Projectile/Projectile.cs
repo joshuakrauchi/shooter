@@ -4,13 +4,11 @@ public class Projectile : TimeObject
 {
     [SerializeField] private ProjectileManager projectileManager;
 
-    public bool IsDisabled { get; set; }
+    protected bool IsDisabled;
 
     protected BoxCollider2D Collider;
     protected ProjectileMovement ProjectileMovement;
     protected SpriteRenderer SpriteRenderer;
-
-    private uint _disablesFound;
 
     private const float OffscreenThreshold = 2f;
 
@@ -29,16 +27,7 @@ public class Projectile : TimeObject
     {
         AddTimeData(new ProjectileTimeData(transform.position, IsDisabled));
 
-        if (IsDisabled)
-        {
-            ++_disablesFound;
-        }
-        else
-        {
-            _disablesFound = 0;
-        }
-
-        if (_disablesFound >= TimeData.Count)
+        if (((ProjectileTimeData) TimeData.First.Value).IsDisabled)
         {
             DestroyProjectile();
         }
@@ -48,7 +37,7 @@ public class Projectile : TimeObject
     {
         if (TimeData.Count <= 0) return;
 
-        var timeData = (ProjectileTimeData) TimeData.Last.Value;
+        ProjectileTimeData timeData = (ProjectileTimeData) TimeData.Last.Value;
         transform.position = timeData.Position;
         IsDisabled = timeData.IsDisabled;
         TimeData.Remove(timeData);
@@ -56,22 +45,27 @@ public class Projectile : TimeObject
 
     public override void UpdateUpdatable()
     {
+        base.UpdateUpdatable();
+
         SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
 
         ProjectileMovement.UpdateMovement(gameState.IsRewinding);
         IsDisabled = IsOffscreen();
-
-        UpdateTimeData();
     }
 
     protected bool IsOffscreen()
     {
-        var position = transform.position;
-        var extents = SpriteRenderer.bounds.extents;
+        Vector3 position = transform.position;
+        Vector3 extents = SpriteRenderer.bounds.extents;
 
         return position.x < GameManager.ScreenRect.xMin - OffscreenThreshold - extents.x || position.x > GameManager.ScreenRect.xMax + OffscreenThreshold + extents.x ||
                position.y < GameManager.ScreenRect.yMin - OffscreenThreshold - extents.y || position.y > GameManager.ScreenRect.yMax + OffscreenThreshold + extents.y;
+    }
+
+    public void OnHit()
+    {
+        IsDisabled = true;
     }
 
     public void DestroyProjectile()

@@ -5,39 +5,40 @@ public class Player : MonoBehaviour, IUpdatable
     [SerializeField] private GameData gameData;
     [SerializeField] private GameState gameState;
 
-    public PlayerCollision PlayerCollision { get; private set; }
-    public PlayerController PlayerController { get; private set; }
-    public PlayerMovement PlayerMovement { get; private set; }
-    public PlayerShoot PlayerShoot { get; private set; }
+    private PlayerCollision _playerCollision;
+    private PlayerController _playerController;
+    private PlayerMovement _playerMovement;
+    private PlayerShoot _playerShoot;
 
     private void Awake()
     {
-        PlayerCollision = GetComponent<PlayerCollision>();
-        PlayerController = GetComponent<PlayerController>();
-        PlayerMovement = GetComponent<PlayerMovement>();
-        PlayerShoot = GetComponent<PlayerShoot>();
+        _playerCollision = GetComponent<PlayerCollision>();
+        _playerController = GetComponent<PlayerController>();
+        _playerMovement = GetComponent<PlayerMovement>();
+        _playerShoot = GetComponent<PlayerShoot>();
 
-        PlayerShoot.NumberOfShots = gameData.Shots;
-        GameManager.Player = this;
+        _playerShoot.NumberOfShots = gameData.Shots;
+
+        gameData.Player = this;
     }
 
     public void UpdatePlayerInput()
     {
-        PlayerController.UpdateInput();
+        _playerController.UpdateInput();
 
-        if (PlayerController.IsConfirmDown)
+        if (_playerController.IsConfirmDown)
         {
             GameManager.OnPlayerConfirmDown();
         }
 
-        gameState.IsRewinding = PlayerController.IsRewinding;
+        gameState.IsRewinding = _playerController.IsRewinding;
     }
 
     public void UpdateUpdatable()
     {
-        PlayerCollision.UpdateCollision();
-        PlayerMovement.UpdateMovement();
-        PlayerShoot.UpdateShoot(PlayerController.IsShooting, gameState.IsRewinding);
+        _playerCollision.UpdateCollision();
+        _playerMovement.UpdateMovement();
+        _playerShoot.UpdateShoot(_playerController.IsShooting, gameState.IsRewinding);
     }
 
     public void OnCollectibleHit(Collectible collectible)

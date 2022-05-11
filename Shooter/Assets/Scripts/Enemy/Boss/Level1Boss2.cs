@@ -49,7 +49,7 @@ public class Level1Boss2 : Boss
             ShootBehaviours = new List<ShootBehaviour>
             {
                 //new ShootHoming(0, new LockedTimer(0.1f), smallProjectileStraight, 1, 0f, 5f),
-                new ShootSuccessiveHoming(0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 15f, 5f)
+                new ShootSuccessiveHoming(gameData.Player.gameObject, 0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 15f, 5f)
             };
 
             ActivateBoss();
@@ -62,7 +62,7 @@ public class Level1Boss2 : Boss
 
     private bool Phase3()
     {
-        if (Health <= MaxHealth * 0.75f)
+        if (health <= MaxHealth * 0.75f)
         {
             BossMovement.ResetMovement(transform.position, new Vector2(0f, 5f), 2f, 0f);
 
@@ -95,7 +95,7 @@ public class Level1Boss2 : Boss
 
     private bool Phase5()
     {
-        if (Health <= MaxHealth * 0.5f)
+        if (health <= MaxHealth * 0.5f)
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
@@ -111,7 +111,7 @@ public class Level1Boss2 : Boss
 
     private bool Phase6()
     {
-        if (Health <= MaxHealth * 0.25f)
+        if (health <= MaxHealth * 0.25f)
         {
             ShootBehaviours = new List<ShootBehaviour>
             {

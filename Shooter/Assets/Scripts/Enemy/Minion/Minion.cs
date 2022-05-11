@@ -15,6 +15,8 @@ public class Minion : Enemy
 
     public override void UpdateUpdatable()
     {
+        base.UpdateUpdatable();
+        
         SpriteRenderer.enabled = !IsDisabled;
         EnemyCollision.Collider.enabled = !IsDisabled;
 
@@ -24,14 +26,13 @@ public class Minion : Enemy
             ShootBehaviour?.UpdateShoot(transform.position, gameState.IsRewinding);
         }
 
-        UpdateTimeData();
     }
 
     protected override void Record()
     {
         var shootClones = new List<ShootBehaviour> {ShootBehaviour?.Clone()};
 
-        AddTimeData(new MinionTimeData(Health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+        AddTimeData(new MinionTimeData(health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
 
         base.Record();
     }
@@ -45,10 +46,10 @@ public class Minion : Enemy
 
         if (TimeData.Count <= 0) return;
 
-        var timeData = (MinionTimeData) TimeData.Last.Value;
+        MinionTimeData timeData = (MinionTimeData) TimeData.Last.Value;
         Animator.Play(0, 0, timeData.AnimationTime);
 
-        Health = timeData.Health;
+        health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
         ShootBehaviour = timeData.ShootBehaviours[0];
         TimeData.Remove(timeData);

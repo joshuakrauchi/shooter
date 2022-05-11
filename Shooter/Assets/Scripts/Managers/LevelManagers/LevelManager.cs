@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class LevelManager : MonoBehaviour
 {
+    [SerializeField] protected GameData gameData;
+    
     public List<MinionSpawn> Enemies { get; private set; }
     public List<BossSpawn> Bosses { get; private set; }
     public int EnemyIndex { get; set; }

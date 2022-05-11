@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void UpdateMovement()
     {
-        var position = transform.position;
-        var newPosition = Vector3.MoveTowards(position, GameManager.MainCamera.ScreenToWorldPoint(Input.mousePosition), MoveSpeed);
+        Vector3 position = transform.position;
+        Vector3 newPosition = Vector3.MoveTowards(position, GameManager.MainCamera.ScreenToWorldPoint(Input.mousePosition), MoveSpeed);
 
         // Lock new position to within screen bounds.
         if (newPosition.x < GameManager.ScreenRect.xMin)

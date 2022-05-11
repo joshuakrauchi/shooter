@@ -22,7 +22,7 @@ public class PlayerCollision : Collision
         }
         else if (hit.CompareTag(collectibleTag))
         {
-            var collectible = hit.GetComponent<Collectible>();
+            Collectible collectible = hit.GetComponent<Collectible>();
             Player.OnCollectibleHit(collectible);
         }
     }

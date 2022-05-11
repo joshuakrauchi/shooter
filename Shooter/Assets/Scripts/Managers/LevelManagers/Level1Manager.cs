@@ -29,22 +29,22 @@ public class Level1Manager : LevelManager
     {
         base.Awake();
 
-        var smallProjectile = new ProjectileDefinition(smallArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
-        var slowingProjectile = new ProjectileDefinition(slowArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
-        var projectile = new ProjectileDefinition(slowArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
-        var fastProjectile = new ProjectileDefinition(fastArrow, new[] {new MoveStraight(0.0f)});
-        var bigProjectile = new ProjectileDefinition(bigArrow, new[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
+        ProjectileDefinition smallProjectile = new ProjectileDefinition(smallArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
+        ProjectileDefinition slowingProjectile = new ProjectileDefinition(slowArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
+        ProjectileDefinition projectile = new ProjectileDefinition(slowArrow, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
+        ProjectileDefinition fastProjectile = new ProjectileDefinition(fastArrow, new[] {new MoveStraight(0.0f)});
+        ProjectileDefinition bigProjectile = new ProjectileDefinition(bigArrow, new[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
 
-        var basicShoot = new MinionDefinition(footSoldier, new ShootHoming(2, new LockedTimer(1f), smallProjectile, new LockedTimer(0f), 1, 3, 20, 2f, 0f));
-        var archerSingleShot = new MinionDefinition(archer, new ShootHoming(1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 1, 15, 10f, 2f, -0.05f));
-        var archerDoubleShot = new MinionDefinition(archer, new ShootHoming(1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 2, 15, 10f, 2f, -0.05f));
-        var archerNarrowShot = new MinionDefinition(archer, new ShootHoming(2, new LockedTimer(1f), slowingProjectile, new LockedTimer(0f), 1, 15, 5f, 2f, -0.05f));
+        MinionDefinition basicShoot = new MinionDefinition(footSoldier, new ShootHoming(gameData.Player.gameObject, 2, new LockedTimer(1f), smallProjectile, new LockedTimer(0f), 1, 3, 20, 2f, 0f));
+        MinionDefinition archerSingleShot = new MinionDefinition(archer, new ShootHoming(gameData.Player.gameObject, 1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 1, 15, 10f, 2f, -0.05f));
+        MinionDefinition archerDoubleShot = new MinionDefinition(archer, new ShootHoming(gameData.Player.gameObject, 1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 2, 15, 10f, 2f, -0.05f));
+        MinionDefinition archerNarrowShot = new MinionDefinition(archer, new ShootHoming(gameData.Player.gameObject, 2, new LockedTimer(1f), slowingProjectile, new LockedTimer(0f), 1, 15, 5f, 2f, -0.05f));
 
-        var eliteArcherShooting = new MinionDefinition(eliteArcher, new ShootHoming(0, new LockedTimer(1f), fastProjectile, new LockedTimer(0.1f), 3, 15, 15f, 5f, 0f));
-        var eliteArcherDoubleShot = new MinionDefinition(eliteArcher, new ShootHoming(1, new LockedTimer(1f), fastProjectile, new LockedTimer(0.2f), 3, 15, 15f, 2f, 0f));
+        MinionDefinition eliteArcherShooting = new MinionDefinition(eliteArcher, new ShootHoming(gameData.Player.gameObject, 0, new LockedTimer(1f), fastProjectile, new LockedTimer(0.1f), 3, 15, 15f, 5f, 0f));
+        MinionDefinition eliteArcherDoubleShot = new MinionDefinition(eliteArcher, new ShootHoming(gameData.Player.gameObject, 1, new LockedTimer(1f), fastProjectile, new LockedTimer(0.2f), 3, 15, 15f, 2f, 0f));
 
         // 1
-        /*for (var i = 0; i < 10; ++i)
+        for (var i = 0; i < 10; ++i)
         {
             Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topM15, VSlide1));
             CurrentTime += 0.25f;
@@ -227,7 +227,7 @@ public class Level1Manager : LevelManager
 
         CurrentTime += 7f;
 
-        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.ScreenRect.yMax + 5f)));*/
+        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameManager.ScreenRect.yMax + 5f)));
 
 
 

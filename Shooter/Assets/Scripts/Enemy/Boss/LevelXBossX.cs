@@ -44,7 +44,7 @@ public class LevelXBossX : Boss
 
     private bool Phase3()
     {
-        if (Health <= MaxHealth * 0.9f)
+        if (health <= MaxHealth * 0.9f)
         {
             BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.ScreenRect.yMax - 10f), 1f, 0f);
             ShootBehaviours = new List<ShootBehaviour>();

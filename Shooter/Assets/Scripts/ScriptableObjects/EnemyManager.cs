@@ -13,7 +13,7 @@ public class EnemyManager : ScriptableObject
 
     public void UpdateEnemies()
     {
-        foreach (var enemy in _enemies.ToArray())
+        foreach (Enemy enemy in _enemies.ToArray())
         {
             enemy.UpdateUpdatable();
         }
@@ -31,7 +31,7 @@ public class EnemyManager : ScriptableObject
 
     public void SetMinionAnimatorSpeed(float speed)
     {
-        foreach (var enemy in _enemies)
+        foreach (Enemy enemy in _enemies)
         {
             if (enemy is Minion minion)
             {
