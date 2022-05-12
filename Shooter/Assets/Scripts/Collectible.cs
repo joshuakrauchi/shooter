@@ -1,22 +1,22 @@
 using UnityEngine;
 
-public class Collectible : MonoBehaviour, IUpdatable
+public class Collectible : MonoBehaviour, IUpdateable
 {
     [field: SerializeField] public float InitialVelocity { get; private set; }
     [field: SerializeField] public float GravityPower { get; private set; }
     [field: SerializeField] public uint Value { get; private set; }
-    [SerializeField] private UpdatableManager updatableManager;
+    [SerializeField] private UpdateableManager updateableManager;
 
     private Vector2 _velocity;
 
     private void Awake()
     {
-        _velocity = new Vector2(0f, InitialVelocity);
+        _velocity = new Vector2(0.0f, InitialVelocity);
 
-        updatableManager.AddCollectible(this);
+        updateableManager.AddUpdateable(this);
     }
 
-    public void UpdateUpdatable()
+    public void UpdateUpdateable()
     {
         _velocity.y += GravityPower;
 
@@ -25,7 +25,7 @@ public class Collectible : MonoBehaviour, IUpdatable
 
     public void DestroySelf()
     {
-        updatableManager.RemoveCollectible(this);
+        updateableManager.RemoveUpdateable(this);
         Destroy(gameObject);
     }
 }

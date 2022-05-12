@@ -15,14 +15,14 @@ public class MoveSin : MoveBehaviour
 
     public MoveSin(float startTime) : base(startTime)
     {
-        xAmplitude = 1f;
-        yAmplitude = 1f;
-        xPeriod = 1f;
-        yPeriod = 1f;
-        xPhaseShift = 0f;
-        yPhaseShift = 0f;
-        xTranslation = 0f;
-        yTranslation = 0f;
+        xAmplitude = 1.0f;
+        yAmplitude = 1.0f;
+        xPeriod = 1.0f;
+        yPeriod = 1.0f;
+        xPhaseShift = 0.0f;
+        yPhaseShift = 0.0f;
+        xTranslation = 0.0f;
+        yTranslation = 0.0f;
     }
 
     public MoveSin(float startTime, float xAmplitude, float yAmplitude, float xPeriod, float yPeriod, float xPhaseShift, float yPhaseShift, float xTranslation, float yTranslation) : base(startTime)

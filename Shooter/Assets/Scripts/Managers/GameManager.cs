@@ -1,51 +1,25 @@
 using UnityEngine;
 
+/**
+ * The GameManager handles updating every IUpdateable object based on the
+ * game's state, such as if the game is paused or the player is rewinding.
+ * It also initializes some values in ScriptableObjects.
+ */
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
     [SerializeField] private GameState gameState;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private ProjectileManager projectileManager;
-    [SerializeField] private UpdatableManager collectibleManager;
+    [SerializeField] private UpdateableManager collectibleManager;
 
-    public static Camera MainCamera { get; private set; }
-    public static LevelManager CurrentLevelManager { get; set; }
-    public static Rect ScreenRect { get; private set; }
-    public static UIManager UIManager { get; set; }
-
-    public static float LevelTime
-    {
-        get => _levelTime;
-        private set
-        {
-            _levelTime = value;
-            if (_levelTime < 0f)
-            {
-                _levelTime = 0f;
-            }
-        }
-    }
-
-    private static float _levelTime;
-    private ValueSlider _rewindSlider;
+    private bool _hasPausedAnimators;
 
     private void Awake()
     {
-        MainCamera = Camera.main;
-
-        if (MainCamera != null)
-        {
-            Vector3 bottomLeft = MainCamera.ScreenToWorldPoint(Vector2.zero);
-            Vector3 topRight = MainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-            ScreenRect = Rect.MinMaxRect(bottomLeft.x, bottomLeft.y, topRight.x, topRight.y);
-        }
-    }
-
-    private void Start()
-    {
-        _rewindSlider = UIManager.RewindBar.GetComponent<ValueSlider>();
-        _rewindSlider.SetMaxValue(gameData.RewindCharge);
-        _rewindSlider.SetValue(gameData.RewindCharge);
+        gameData.Initialize();
+        uiManager.Initialize();
     }
 
     private void Update()
@@ -55,43 +29,41 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameState.IsRewinding && !gameState.IsDisplayingDialogue)
+        if ((gameState.IsPaused || gameState.IsRewinding) && !_hasPausedAnimators)
         {
-            gameData.RewindCharge -= Time.deltaTime;
+            enemyManager.SetMinionAnimatorSpeed(0.0f);
+            _hasPausedAnimators = true;
         }
-
-        _rewindSlider.SetValue(gameData.RewindCharge);
-
-        enemyManager.SetMinionAnimatorSpeed(gameState.IsPaused ? 0f : 1f);
-
+        
         if (gameState.IsPaused)
         {
             if (gameState.IsRewinding)
             {
                 gameState.IsPaused = false;
             }
-            else
-            {
-                return;
-            }
+            else return;
+        }
+
+        if (gameState.IsRewinding)
+        {
+            gameData.RewindCharge -= Time.deltaTime;
+        }
+        
+        if (!gameState.IsPaused && !gameState.IsRewinding && _hasPausedAnimators)
+        {
+            enemyManager.SetMinionAnimatorSpeed(1.0f);
+            _hasPausedAnimators = false;
         }
 
         if (!gameState.IsBossActive)
         {
-            LevelTime += gameState.IsRewinding ? -Time.deltaTime : Time.deltaTime;
+            gameData.LevelTime += gameState.IsRewinding ? -Time.deltaTime : Time.deltaTime;
         }
 
-        CurrentLevelManager.UpdateEnemyCreation();
-        enemyManager.UpdateEnemies();
+        gameData.CurrentLevelManager.UpdateEnemyCreation();
         projectileManager.UpdateProjectiles();
-        collectibleManager.UpdateUpdatables();
-        gameData.Player.UpdateUpdatable();
-    }
-
-    public static void OnPlayerConfirmDown()
-    {
-        if (!UIManager.IsDisplayingDialogue) return;
-
-        UIManager.UpdateDialogue();
+        enemyManager.UpdateEnemies();
+        collectibleManager.UpdateUpdateables();
+        gameData.Player.UpdateUpdateable();
     }
 }

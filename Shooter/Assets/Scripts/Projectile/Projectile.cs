@@ -43,9 +43,9 @@ public class Projectile : TimeObject
         TimeData.Remove(timeData);
     }
 
-    public override void UpdateUpdatable()
+    public override void UpdateUpdateable()
     {
-        base.UpdateUpdatable();
+        base.UpdateUpdateable();
 
         SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
@@ -59,8 +59,8 @@ public class Projectile : TimeObject
         Vector3 position = transform.position;
         Vector3 extents = SpriteRenderer.bounds.extents;
 
-        return position.x < GameManager.ScreenRect.xMin - OffscreenThreshold - extents.x || position.x > GameManager.ScreenRect.xMax + OffscreenThreshold + extents.x ||
-               position.y < GameManager.ScreenRect.yMin - OffscreenThreshold - extents.y || position.y > GameManager.ScreenRect.yMax + OffscreenThreshold + extents.y;
+        return position.x < gameData.ScreenRect.xMin - OffscreenThreshold - extents.x || position.x > gameData.ScreenRect.xMax + OffscreenThreshold + extents.x ||
+               position.y < gameData.ScreenRect.yMin - OffscreenThreshold - extents.y || position.y > gameData.ScreenRect.yMax + OffscreenThreshold + extents.y;
     }
 
     public void OnHit()

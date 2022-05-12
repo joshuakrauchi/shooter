@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Enemy Manager")]
+[CreateAssetMenu(fileName = "EnemyManager", menuName = "ScriptableObjects/EnemyManager")]
 public class EnemyManager : ScriptableObject
 {
     private readonly List<Enemy> _enemies;
@@ -15,7 +15,7 @@ public class EnemyManager : ScriptableObject
     {
         foreach (Enemy enemy in _enemies.ToArray())
         {
-            enemy.UpdateUpdatable();
+            enemy.UpdateUpdateable();
         }
     }
 

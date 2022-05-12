@@ -10,7 +10,7 @@ public class LockedTimer : Timer
     {
         if (isRewinding)
         {
-            if (ElapsedTime > 0f)
+            if (ElapsedTime > 0.0f)
             {
                 ElapsedTime -= Time.deltaTime;
             }

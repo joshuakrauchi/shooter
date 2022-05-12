@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public abstract class TimeObject : MonoBehaviour, IUpdatable
+public abstract class TimeObject : MonoBehaviour, IUpdateable
 {
+    [SerializeField] protected GameData gameData;
     [SerializeField] protected GameState gameState;
 
     protected LinkedList<ITimeData> TimeData { get; private set; }
@@ -41,7 +41,7 @@ public abstract class TimeObject : MonoBehaviour, IUpdatable
         TimeData.AddLast(timeData);
     }
 
-    public virtual void UpdateUpdatable()
+    public virtual void UpdateUpdateable()
     {
         UpdateTimeData();
     }

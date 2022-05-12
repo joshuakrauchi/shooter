@@ -4,8 +4,6 @@ public class PlayerProjectile : Projectile
 {
     [field: SerializeField] public float Damage { get; private set; }
 
-    [SerializeField] private GameData gameData;
-
     protected override void Awake()
     {
         base.Awake();
@@ -13,7 +11,7 @@ public class PlayerProjectile : Projectile
         Damage = gameData.ProjectileDamage;
     }
 
-    public override void UpdateUpdatable()
+    public override void UpdateUpdateable()
     {
         SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;

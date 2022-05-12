@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BossMovement : MonoBehaviour
 {
+    [SerializeField] private GameData gameData;
     public Vector2 StartPosition { get; private set; }
     public Vector2 EndPosition { get; private set; }
 
@@ -11,8 +12,8 @@ public class BossMovement : MonoBehaviour
 
     public void Awake()
     {
-        InitialDelayTimer = new Timer(0f);
-        MovementTimer = new Timer(0f);
+        InitialDelayTimer = new Timer(0.0f);
+        MovementTimer = new Timer(0.0f);
         StartPosition = transform.position;
         EndPosition = StartPosition;
     }
@@ -36,7 +37,7 @@ public class BossMovement : MonoBehaviour
             MovementTimer.UpdateTime(isRewinding);
         }
 
-        return Vector2.Lerp(StartPosition, EndPosition, Mathf.SmoothStep(0f, 1f, MovementTimer.ElapsedTime / MovementTimer.TotalTime));
+        return Vector2.Lerp(StartPosition, EndPosition, Mathf.SmoothStep(0.0f, 1.0f, MovementTimer.ElapsedTime / MovementTimer.TotalTime));
     }
 
     public bool IsFinished(bool isRewinding)
@@ -54,8 +55,8 @@ public class BossMovement : MonoBehaviour
         InitialDelayTimer = initialDelayTimer;
     }
 
-    public static Vector2 GetRandomPosition()
+    public Vector2 GetRandomPosition()
     {
-        return new Vector2(Random.Range(GameManager.ScreenRect.xMin, GameManager.ScreenRect.xMax), Random.Range(0f, GameManager.ScreenRect.yMax));
+        return new Vector2(Random.Range(gameData.ScreenRect.xMin, gameData.ScreenRect.xMax), Random.Range(0.0f, gameData.ScreenRect.yMax));
     }
 }

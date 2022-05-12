@@ -31,7 +31,7 @@ public class Level1Boss2 : Boss
 
     private bool Phase1()
     {
-        BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.ScreenRect.yMax - 10f), 2f, 0f);
+        BossMovement.ResetMovement(transform.position, new Vector2(0f, gameData.ScreenRect.yMax - 10f), 2f, 0f);
 
         return true;
     }
@@ -42,7 +42,7 @@ public class Level1Boss2 : Boss
         {
             if (!_initiatedDialogue)
             {
-                GameManager.UIManager.StartDialogue(new[] {Tuple.Create("Boss", "im gonna kill u"), Tuple.Create("you", "mhm")});
+                uiManager.StartDialogue(new[] {Tuple.Create("Boss", "im gonna kill u"), Tuple.Create("you", "mhm")});
                 _initiatedDialogue = true;
             }
 

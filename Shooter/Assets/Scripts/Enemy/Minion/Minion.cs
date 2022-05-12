@@ -13,9 +13,9 @@ public class Minion : Enemy
         Animator = GetComponent<Animator>();
     }
 
-    public override void UpdateUpdatable()
+    public override void UpdateUpdateable()
     {
-        base.UpdateUpdatable();
+        base.UpdateUpdateable();
         
         SpriteRenderer.enabled = !IsDisabled;
         EnemyCollision.Collider.enabled = !IsDisabled;
@@ -39,7 +39,7 @@ public class Minion : Enemy
 
     protected override void Rewind()
     {
-        if (CreationTime > GameManager.LevelTime)
+        if (CreationTime > gameData.LevelTime)
         {
             DestroySelf();
         }

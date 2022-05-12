@@ -2,7 +2,6 @@ using UnityEngine;
 
 public abstract class Enemy : TimeObject
 {
-    [SerializeField] protected GameData gameData;
     [SerializeField] protected EnemyManager enemyManager;
     [SerializeField] protected float health = 1f;
     [SerializeField] private float rewindRecharge = 0.1f;
@@ -41,10 +40,10 @@ public abstract class Enemy : TimeObject
 
         if (health > 0.0f) return;
         
-        OnDeath();
+        Disable();
     }
 
-    protected virtual void OnDeath()
+    protected virtual void Disable()
     {
         gameData.RewindCharge += rewindRecharge;
 

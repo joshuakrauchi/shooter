@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Projectile Manager")]
+[CreateAssetMenu(fileName = "ProjectileManager", menuName = "ScriptableObjects/ProjectileManager")]
 public class ProjectileManager : ScriptableObject
 {
     private readonly List<Projectile> _projectiles;
@@ -15,7 +15,7 @@ public class ProjectileManager : ScriptableObject
     {
         foreach (Projectile projectile in _projectiles.ToArray())
         {
-            projectile.UpdateUpdatable();
+            projectile.UpdateUpdateable();
         }
     }
 

@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+[CreateAssetMenu(menuName = "ScriptableObjects/UIManager")]
+public class UIManager : ScriptableObject, IUpdateable
 {
     [field: SerializeField] public GameObject RewindBar { get; private set; }
 
+    [SerializeField] private GameData gameData;
     [SerializeField] private GameState gameState;
     [SerializeField] private GameObject dialogueBox;
-    [SerializeField] private GameObject background;
-    [SerializeField] private GameObject header;
-    [SerializeField] private GameObject text;
 
     public bool IsDisplayingDialogue { get; private set; }
 
@@ -19,17 +18,30 @@ public class UIManager : MonoBehaviour
     private Canvas _dialogueCanvas;
     private Text _header;
     private Text _text;
+    private ValueSlider _rewindSlider;
+    private bool _initialized;
 
-    private void Awake() {
-        RewindBar = Instantiate(RewindBar, transform);
+    public void Initialize()
+    {
+        if (_initialized) return;
+        _initialized = true;
+
+        _rewindSlider = Instantiate(RewindBar).GetComponent<ValueSlider>();
+        
+
+        _rewindSlider.SetMaxValue(gameData.RewindCharge);
+        _rewindSlider.SetValue(gameData.RewindCharge);
 
         _textQueue = new Queue<Tuple<string, string>>();
 
-        _dialogueCanvas = Instantiate(dialogueBox, transform).GetComponent<Canvas>();
-        GameObject backgroundObject = Instantiate(background, _dialogueCanvas.transform);
-        _header = Instantiate(header, backgroundObject.transform).GetComponent<Text>();
-        _text = Instantiate(text, backgroundObject.transform).GetComponent<Text>();
-        GameManager.UIManager = this;
+        GameObject instantiatedDialogueBox = Instantiate(dialogueBox);
+        _header = instantiatedDialogueBox.transform.GetChild(0).GetComponent<Text>();
+        _text = instantiatedDialogueBox.transform.GetChild(1).GetComponent<Text>();
+    }
+
+    public void UpdateUpdateable()
+    {
+        
     }
 
     public void StartDialogue(IEnumerable<Tuple<string, string>> dialogue)

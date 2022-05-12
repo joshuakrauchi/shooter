@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour, IUpdatable
+public class Player : MonoBehaviour, IUpdateable
 {
     [SerializeField] private GameData gameData;
     [SerializeField] private GameState gameState;
+    [SerializeField] private UIManager uiManager;
 
     private PlayerCollision _playerCollision;
     private PlayerController _playerController;
@@ -28,13 +29,15 @@ public class Player : MonoBehaviour, IUpdatable
 
         if (_playerController.IsConfirmDown)
         {
-            GameManager.OnPlayerConfirmDown();
+            if (!uiManager.IsDisplayingDialogue) return;
+
+            uiManager.UpdateDialogue();
         }
 
         gameState.IsRewinding = _playerController.IsRewinding;
     }
 
-    public void UpdateUpdatable()
+    public void UpdateUpdateable()
     {
         _playerCollision.UpdateCollision();
         _playerMovement.UpdateMovement();

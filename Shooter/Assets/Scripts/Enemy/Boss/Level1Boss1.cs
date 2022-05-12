@@ -30,7 +30,7 @@ public class Level1Boss1 : Boss
 
     private bool Phase1()
     {
-        BossMovement.ResetMovement(transform.position, new Vector2(0f, GameManager.ScreenRect.yMax - 10f), 2f, 0f);
+        BossMovement.ResetMovement(transform.position, new Vector2(0f, gameData.ScreenRect.yMax - 10f), 2f, 0f);
 
         return true;
     }
@@ -41,12 +41,12 @@ public class Level1Boss1 : Boss
         {
             if (!_initiatedDialogue)
             {
-                GameManager.UIManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "fine lol")});
+                uiManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "fine lol")});
                 _initiatedDialogue = true;
             }
             else
             {
-                GameManager.UIManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
+                uiManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
             }
 
             ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(gameData.Player.gameObject, 0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 20f, 5f)};
@@ -64,7 +64,7 @@ public class Level1Boss1 : Boss
         Debug.Log(PhaseTimer.ElapsedTime);
         if (health <= MaxHealth * 0.75f || PhaseTimer.IsFinished(false))
         {
-            BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.ScreenRect.yMax - 10f), 1f, 0f);
+            BossMovement.ResetMovement(transform.position, new Vector2(0, gameData.ScreenRect.yMax - 10f), 1f, 0f);
             ShootBehaviours.Clear();
             PhaseTimer = new LockedTimer(10f);
 
@@ -107,9 +107,9 @@ public class Level1Boss1 : Boss
 
     private bool Phase6()
     {
-        GameManager.UIManager.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
+        uiManager.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
 
-        BossMovement.ResetMovement(transform.position, new Vector2(0, GameManager.ScreenRect.yMax + 7f), 2f, 0f);
+        BossMovement.ResetMovement(transform.position, new Vector2(0, gameData.ScreenRect.yMax + 7f), 2f, 0f);
 
         return true;
     }
@@ -118,7 +118,7 @@ public class Level1Boss1 : Boss
     {
         if (BossMovement.IsFinished(gameState.IsRewinding))
         {
-            OnDeath();
+            Disable();
         }
 
         return false;

@@ -13,6 +13,8 @@ public abstract class Boss : Enemy
     public int PhaseIndex { get; private set; }
     public float MaxHealth { get; private set; }
 
+    [SerializeField] protected UIManager uiManager;
+
     protected override void Awake()
     {
         base.Awake();
@@ -20,7 +22,7 @@ public abstract class Boss : Enemy
         ShootBehaviours = new List<ShootBehaviour>();
         BossMovement = GetComponent<BossMovement>();
         MaxHealth = health;
-        OnDeath();
+        Disable();
     }
 
     protected override void Record()
@@ -53,9 +55,9 @@ public abstract class Boss : Enemy
         }
     }
 
-    public override void UpdateUpdatable()
+    public override void UpdateUpdateable()
     {
-        base.UpdateUpdatable();
+        base.UpdateUpdateable();
         
         if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Length)
         {
@@ -84,7 +86,7 @@ public abstract class Boss : Enemy
         gameState.IsBossActive = true;
     }
 
-    protected override void OnDeath()
+    protected override void Disable()
     {
         IsDisabled = true;
         gameState.IsBossActive = false;

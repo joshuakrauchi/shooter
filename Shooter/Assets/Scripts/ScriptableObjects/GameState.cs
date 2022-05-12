@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Game State")]
+[CreateAssetMenu(fileName = "GameState", menuName = "ScriptableObjects/GameState")]
 public class GameState : ScriptableObject
 {
     [field: SerializeField] public bool IsBossActive { get; set; }
