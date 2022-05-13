@@ -1,29 +1,18 @@
 using UnityEngine;
 
-public class BossMovement : MonoBehaviour
+public class BossMovement
 {
-    [SerializeField] private GameData gameData;
-    public Vector2 StartPosition { get; private set; }
-    public Vector2 EndPosition { get; private set; }
+    private Vector2 StartPosition { get; }
+    private Vector2 EndPosition { get; }
+    private Timer InitialDelayTimer { get; }
+    private Timer MovementTimer { get; }
 
-    public Timer InitialDelayTimer { get; private set; }
-
-    public Timer MovementTimer { get; private set; }
-
-    public void Awake()
-    {
-        InitialDelayTimer = new Timer(0.0f);
-        MovementTimer = new Timer(0.0f);
-        StartPosition = transform.position;
-        EndPosition = StartPosition;
-    }
-
-    public void ResetMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay)
+    public BossMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay)
     {
         StartPosition = startPosition;
         EndPosition = endPosition;
-        MovementTimer = new Timer(totalTime);
         InitialDelayTimer = new Timer(initialDelay);
+        MovementTimer = new Timer(totalTime);
     }
 
     public Vector2 GetMovement(bool isRewinding)
@@ -37,6 +26,8 @@ public class BossMovement : MonoBehaviour
             MovementTimer.UpdateTime(isRewinding);
         }
 
+        if (MovementTimer.TotalTime <= 0.0f) return StartPosition;
+
         return Vector2.Lerp(StartPosition, EndPosition, Mathf.SmoothStep(0.0f, 1.0f, MovementTimer.ElapsedTime / MovementTimer.TotalTime));
     }
 
@@ -45,18 +36,8 @@ public class BossMovement : MonoBehaviour
         return !isRewinding && MovementTimer.IsFinished(false);
     }
 
-    public void SetRewindData(Vector2 startPosition, Vector2 endPosition, Timer movementTimer, Timer initialDelayTimer)
+    public static Vector2 GetRandomPosition(float xMin, float xMax, float yMin, float yMax)
     {
-        if (StartPosition == startPosition && EndPosition == endPosition) return;
-
-        StartPosition = startPosition;
-        EndPosition = endPosition;
-        MovementTimer = movementTimer;
-        InitialDelayTimer = initialDelayTimer;
-    }
-
-    public Vector2 GetRandomPosition()
-    {
-        return new Vector2(Random.Range(gameData.ScreenRect.xMin, gameData.ScreenRect.xMax), Random.Range(0.0f, gameData.ScreenRect.yMax));
+        return new Vector2(Random.Range(xMin, xMax), Random.Range(yMin, yMax));
     }
 }

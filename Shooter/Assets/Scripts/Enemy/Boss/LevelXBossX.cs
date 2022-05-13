@@ -14,7 +14,7 @@ public class LevelXBossX : Boss
 
     private bool Phase1()
     {
-        BossMovement.ResetMovement(transform.position, new Vector2(0f, 0), 1f, 0f);
+        ResetMovement(transform.position, new Vector2(0f, 0), 1f, 0f);
         IsDisabled = false;
 
         return true;
@@ -22,9 +22,9 @@ public class LevelXBossX : Boss
 
     private bool Phase2()
     {
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
-            ShootBehaviours = new List<ShootBehaviour> {new ShootSpinningFlower(1, new LockedTimer(5f), new ProjectileDefinition(fastArrow, new MoveBehaviour[]
+            ShootBehaviours = new List<ShootBehaviour> {new ShootSpinningFlower(1, new Timer(5f), new ProjectileDefinition(fastArrow, new MoveBehaviour[]
             {
                 new MoveStraight(0.0f),
                 new MoveSin(1.0f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f),
@@ -44,9 +44,9 @@ public class LevelXBossX : Boss
 
     private bool Phase3()
     {
-        if (health <= MaxHealth * 0.9f)
+        if (Health <= MaxHealth * 0.9f)
         {
-            BossMovement.ResetMovement(transform.position, new Vector2(0, gameData.ScreenRect.yMax - 10f), 1f, 0f);
+            ResetMovement(transform.position, new Vector2(0, GameData.ScreenRect.yMax - 10f), 1f, 0f);
             ShootBehaviours = new List<ShootBehaviour>();
 
             return true;
@@ -57,7 +57,7 @@ public class LevelXBossX : Boss
 
     private bool Phase4()
     {
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             ShootBehaviours = new List<ShootBehaviour>
             {

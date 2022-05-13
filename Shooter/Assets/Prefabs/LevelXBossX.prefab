@@ -115,7 +115,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelXBossX
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5316285780021556633, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
 --- !u!1 &2490700051862570267 stripped
 GameObject:
@@ -134,14 +135,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55b73e244cc674c8f9e2a3da64f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
-  enemyManager: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
-  health: 200
-  rewindRecharge: 0.1
-  droppedObjects: []
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  <EnemyManager>k__BackingField: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
+  <Health>k__BackingField: 1
+  <RewindRecharge>k__BackingField: 0.1
+  <DroppedObjects>k__BackingField: []
   <ShootBehaviours>k__BackingField: []
-  uiManager: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
+  <UIManager>k__BackingField: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
   fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
   references:
     version: 2

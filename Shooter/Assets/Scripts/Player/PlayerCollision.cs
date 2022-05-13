@@ -5,7 +5,7 @@ public class PlayerCollision : Collision
     [SerializeField] private string enemyTag;
     [SerializeField] private string collectibleTag;
 
-    public Player Player { get; private set; }
+    private Player Player { get; set; }
 
     protected override void Awake()
     {

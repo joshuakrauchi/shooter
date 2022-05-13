@@ -102,9 +102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7d1d9c30ba27443984f6085c9e3377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
-  uiManager: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  <UIManager>k__BackingField: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
 --- !u!114 &925190438885594581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcce7691aaa47e74d9139e750662c07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileManager: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
 --- !u!114 &925190438885594577
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc05f5145dad57448f16ceda7c4915f, type: 3}
   m_Name: UIManager
   m_EditorClassIdentifier: 
-  <RewindBar>k__BackingField: {fileID: 274152394573426083, guid: aa8ac15e3d1d4b24188fef17a7788e12, type: 3}
-  gameData: {fileID: 0}
+  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
-  dialogueBox: {fileID: 6702645713777206737, guid: a5609df5695f57845bb29b21b310ccba, type: 3}
+  mainUICanvas: {fileID: 1594439048015332077, guid: f48d9a71ff7d2814cb023055e30a9c6f, type: 3}
+  rewindBar: {fileID: 274152394573426083, guid: aa8ac15e3d1d4b24188fef17a7788e12, type: 3}
+  dialogueBox: {fileID: 8563632364438112618, guid: 2cc38533daacdeb439fb98677e328f52, type: 3}

@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Projectile : TimeObject
 {
-    [SerializeField] private ProjectileManager projectileManager;
+    [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
 
-    protected bool IsDisabled;
+    protected bool IsDisabled { get; set; }
 
-    protected BoxCollider2D Collider;
-    protected ProjectileMovement ProjectileMovement;
-    protected SpriteRenderer SpriteRenderer;
+    protected BoxCollider2D Collider { get; private set; }
+    protected ProjectileMovement ProjectileMovement { get; private set; }
+    protected SpriteRenderer SpriteRenderer { get; private set; }
 
     private const float OffscreenThreshold = 2f;
 
@@ -20,7 +20,7 @@ public class Projectile : TimeObject
         ProjectileMovement = GetComponent<ProjectileMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
 
-        projectileManager.AddProjectile(this);
+        ProjectileManager.AddProjectile(this);
     }
 
     protected override void Record()
@@ -50,7 +50,7 @@ public class Projectile : TimeObject
         SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
 
-        ProjectileMovement.UpdateMovement(gameState.IsRewinding);
+        ProjectileMovement.UpdateMovement(GameState.IsRewinding);
         IsDisabled = IsOffscreen();
     }
 
@@ -59,8 +59,8 @@ public class Projectile : TimeObject
         Vector3 position = transform.position;
         Vector3 extents = SpriteRenderer.bounds.extents;
 
-        return position.x < gameData.ScreenRect.xMin - OffscreenThreshold - extents.x || position.x > gameData.ScreenRect.xMax + OffscreenThreshold + extents.x ||
-               position.y < gameData.ScreenRect.yMin - OffscreenThreshold - extents.y || position.y > gameData.ScreenRect.yMax + OffscreenThreshold + extents.y;
+        return position.x < GameData.ScreenRect.xMin - OffscreenThreshold - extents.x || position.x > GameData.ScreenRect.xMax + OffscreenThreshold + extents.x ||
+               position.y < GameData.ScreenRect.yMin - OffscreenThreshold - extents.y || position.y > GameData.ScreenRect.yMax + OffscreenThreshold + extents.y;
     }
 
     public void OnHit()
@@ -70,7 +70,7 @@ public class Projectile : TimeObject
 
     public void DestroyProjectile()
     {
-        projectileManager.RemoveProjectile(this);
+        ProjectileManager.RemoveProjectile(this);
         Destroy(gameObject);
     }
 }

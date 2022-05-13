@@ -31,25 +31,25 @@ public class Level1Boss2 : Boss
 
     private bool Phase1()
     {
-        BossMovement.ResetMovement(transform.position, new Vector2(0f, gameData.ScreenRect.yMax - 10f), 2f, 0f);
+        ResetMovement(transform.position, new Vector2(0f, GameData.ScreenRect.yMax - 10f), 2f, 0f);
 
         return true;
     }
 
     private bool Phase2()
     {
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             if (!_initiatedDialogue)
             {
-                uiManager.StartDialogue(new[] {Tuple.Create("Boss", "im gonna kill u"), Tuple.Create("you", "mhm")});
+                UIManager.StartDialogue(new[] {Tuple.Create("Boss", "im gonna kill u"), Tuple.Create("you", "mhm")});
                 _initiatedDialogue = true;
             }
 
             ShootBehaviours = new List<ShootBehaviour>
             {
                 //new ShootHoming(0, new LockedTimer(0.1f), smallProjectileStraight, 1, 0f, 5f),
-                new ShootSuccessiveHoming(gameData.Player.gameObject, 0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 15f, 5f)
+                new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 15f, 5f)
             };
 
             ActivateBoss();
@@ -62,16 +62,17 @@ public class Level1Boss2 : Boss
 
     private bool Phase3()
     {
-        if (health <= MaxHealth * 0.75f)
+        if (Health <= MaxHealth * 0.75f)
         {
-            BossMovement.ResetMovement(transform.position, new Vector2(0f, 5f), 2f, 0f);
+            ResetMovement(transform.position, new Vector2(0f, 5f), 2f, 0f);
 
             return true;
         }
 
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
-            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 2f, 3f);
+            Rect screenRect = GameData.ScreenRect;
+            ResetMovement(transform.position, BossMovement.GetRandomPosition(screenRect.xMin, screenRect.xMax, 0.0f, screenRect.yMax), 2.0f, 3.0f);
         }
 
         return false;
@@ -79,12 +80,12 @@ public class Level1Boss2 : Boss
 
     private bool Phase4()
     {
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootNormal(0, new LockedTimer(0.25f), boss2SmallProjectileRain, 5, 90f, 10f, 10f),
-                new ShootNormal(0, new LockedTimer(0.5f), boss2BigProjectileRain, 7, 90f, 12f, 2f)
+                new ShootNormal(0, new Timer(0.25f), boss2SmallProjectileRain, 5, 90f, 10f, 10f),
+                new ShootNormal(0, new Timer(0.5f), boss2BigProjectileRain, 7, 90f, 12f, 2f)
             };
 
             return true;
@@ -95,12 +96,12 @@ public class Level1Boss2 : Boss
 
     private bool Phase5()
     {
-        if (health <= MaxHealth * 0.5f)
+        if (Health <= MaxHealth * 0.5f)
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootRandom(0, new LockedTimer(0.1f), slowingProjectileStraight, 10),
-                new ShootSpiral(0, new LockedTimer(0.3f), boss2BigProjectileStraight, 1, 20f, 0f)
+                new ShootRandom(0, new Timer(0.1f), slowingProjectileStraight, 10),
+                new ShootSpiral(0, new Timer(0.3f), boss2BigProjectileStraight, 1, 20f, 0f)
             };
 
             return true;
@@ -111,11 +112,11 @@ public class Level1Boss2 : Boss
 
     private bool Phase6()
     {
-        if (health <= MaxHealth * 0.25f)
+        if (Health <= MaxHealth * 0.25f)
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootRandom(0, new LockedTimer(0.1f), boss2BigProjectileStraight, 5),
+                new ShootRandom(0, new Timer(0.1f), boss2BigProjectileStraight, 5),
             };
 
             return true;

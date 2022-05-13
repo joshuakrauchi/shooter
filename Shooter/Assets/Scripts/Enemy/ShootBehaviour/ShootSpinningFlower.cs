@@ -50,7 +50,7 @@ public class ShootSpinningFlower : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootSpinningFlower(TotalCycles, CycleTimer.Clone(), projectileDefinition, petals, projectilesPerPetal, angleBetweenProjectiles, projectileSpeed, petalOffset)
+        return new ShootSpinningFlower(TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, petals, projectilesPerPetal, angleBetweenProjectiles, projectileSpeed, petalOffset)
         {
             CurrentCycles = CurrentCycles
         };

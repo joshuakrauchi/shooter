@@ -13,7 +13,7 @@ public class TestLevelManager : LevelManager
         base.Awake();
 
         ProjectileDefinition projectileDefinition = new(projectile, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
-        MinionDefinition basicShoot = new(enemy, new ShootHoming(gameData.Player.gameObject, 2, new LockedTimer(1f), projectileDefinition, new LockedTimer(0f), 1, 3, 20, 2f, 0f));
+        MinionDefinition basicShoot = new(enemy, new ShootHoming(gameData.Player.gameObject, 2, new Timer(1f), projectileDefinition, new Timer(0f), 1, 3, 20, 2f, 0f));
 
         Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, top, Test));
 

@@ -20,10 +20,10 @@ public class Minion : Enemy
         SpriteRenderer.enabled = !IsDisabled;
         EnemyCollision.Collider.enabled = !IsDisabled;
 
-        if (!IsDisabled && !gameState.IsRewinding)
+        if (!IsDisabled && !GameState.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
-            ShootBehaviour?.UpdateShoot(transform.position, gameState.IsRewinding);
+            ShootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
         }
 
     }
@@ -32,14 +32,14 @@ public class Minion : Enemy
     {
         var shootClones = new List<ShootBehaviour> {ShootBehaviour?.Clone()};
 
-        AddTimeData(new MinionTimeData(health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+        AddTimeData(new MinionTimeData(Health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
 
         base.Record();
     }
 
     protected override void Rewind()
     {
-        if (CreationTime > gameData.LevelTime)
+        if (CreationTime > GameData.LevelTime)
         {
             DestroySelf();
         }
@@ -49,7 +49,7 @@ public class Minion : Enemy
         MinionTimeData timeData = (MinionTimeData) TimeData.Last.Value;
         Animator.Play(0, 0, timeData.AnimationTime);
 
-        health = timeData.Health;
+        Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
         ShootBehaviour = timeData.ShootBehaviours[0];
         TimeData.Remove(timeData);

@@ -64,7 +64,7 @@ public class ShootHoming : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootHoming(_target, TotalCycles, CycleTimer.Clone(), projectileDefinition, shotTimer.Clone(), shotsPerCycle, projectilesPerCycle, angleBetweenProjectiles, angleVariation, speedChangeBetweenShots)
+        return new ShootHoming(_target, TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, shotTimer.DeepCopy(), shotsPerCycle, projectilesPerCycle, angleBetweenProjectiles, angleVariation, speedChangeBetweenShots)
         {
             CurrentCycles = CurrentCycles,
             _currentShots = _currentShots

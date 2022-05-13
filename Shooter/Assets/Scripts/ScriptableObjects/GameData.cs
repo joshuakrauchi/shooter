@@ -23,9 +23,9 @@ public class GameData : ScriptableObject
         set
         {
             _levelTime = value;
-            if (_levelTime < 0f)
+            if (_levelTime < 0.0f)
             {
-                _levelTime = 0f;
+                _levelTime = 0.0f;
             }
         }
     }
@@ -37,9 +37,9 @@ public class GameData : ScriptableObject
         {
             _rewindCharge = value;
 
-            if (_rewindCharge < 0f)
+            if (_rewindCharge < 0.0f)
             {
-                _rewindCharge = 0f;
+                _rewindCharge = 0.0f;
             }
             else if (_rewindCharge > MaxRewindCharge)
             {
@@ -67,7 +67,8 @@ public class GameData : ScriptableObject
         Currency = initialCurrency;
         LevelTime = 0.0f;
         ProjectileDamage = initialProjectileDamage;
-        RewindCharge = initialRewindCharge;
+        MaxRewindCharge = initialRewindCharge;
+        RewindCharge = MaxRewindCharge;
         Shots = initialShots;
     }
 }

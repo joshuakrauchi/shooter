@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38d9838f8002f647b8c90463839286b, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  maxRewindCharge: 10
-  shots: 1
-  currency: 0
-  projectileDamage: 1
+  initialCurrency: 100
+  initialProjectileDamage: 1
+  initialRewindCharge: 10
+  initialShots: 1

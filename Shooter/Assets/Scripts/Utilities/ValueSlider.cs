@@ -15,7 +15,7 @@ public class ValueSlider : MonoBehaviour
         _slider.maxValue = value;
     }
 
-    public void SetValue(float value)
+    public void SetCurrentValue(float value)
     {
         _slider.value = value;
     }

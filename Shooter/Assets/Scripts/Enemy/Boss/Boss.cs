@@ -3,25 +3,24 @@ using UnityEngine;
 
 public abstract class Boss : Enemy
 {
-    public delegate bool PhaseBehaviour();
+    protected delegate bool PhaseBehaviour();
 
-    [field: SerializeReference] public List<ShootBehaviour> ShootBehaviours { get; set; }
+    [field: SerializeReference] protected List<ShootBehaviour> ShootBehaviours { get; set; }
+    [field: SerializeField] protected UIManager UIManager { get; set; }
 
-    public BossMovement BossMovement { get; protected set; }
-    public PhaseBehaviour[] Phases { get; protected set; }
-    public Timer PhaseTimer { get; protected set; }
-    public int PhaseIndex { get; private set; }
-    public float MaxHealth { get; private set; }
+    protected float MaxHealth { get; private set; }
+    protected BossMovement BossMovement { get; private set; }
+    protected PhaseBehaviour[] Phases { get; set; }
+    protected Timer PhaseTimer { get; set; }
 
-    [SerializeField] protected UIManager uiManager;
-
+    private int PhaseIndex { get; set; }
+    
     protected override void Awake()
     {
         base.Awake();
 
         ShootBehaviours = new List<ShootBehaviour>();
-        BossMovement = GetComponent<BossMovement>();
-        MaxHealth = health;
+        MaxHealth = Health;
         Disable();
     }
 
@@ -33,8 +32,7 @@ public abstract class Boss : Enemy
             shootClones.Add(shootBehaviour.Clone());
         }
 
-        AddTimeData(new BossTimeData(health, IsDisabled, shootClones, PhaseIndex, BossMovement.StartPosition, BossMovement.EndPosition, BossMovement.MovementTimer.Clone(),
-            BossMovement.InitialDelayTimer.Clone()));
+        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement, PhaseTimer));
     }
 
     protected override void Rewind()
@@ -43,52 +41,57 @@ public abstract class Boss : Enemy
 
         BossTimeData timeData = (BossTimeData) TimeData.Last.Value;
 
-        health = timeData.Health;
+        Health = timeData.Health;
         IsDisabled = timeData.IsDisabled;
         ShootBehaviours = timeData.ShootBehaviours;
         PhaseIndex = timeData.PhaseIndex;
-        BossMovement.SetRewindData(timeData.StartPosition, timeData.EndPosition, timeData.TotalTime, timeData.InitialDelay);
-
-        if (TimeData.Count > 1)
-        {
-            TimeData.Remove(timeData);
-        }
+        BossMovement = timeData.BossMovement;
+        PhaseTimer = timeData.PhaseTimer;
+        
+        TimeData.Remove(timeData);
     }
 
     public override void UpdateUpdateable()
     {
         base.UpdateUpdateable();
+
+        Debug.Log(PhaseIndex);
         
+        // Check if the current phase is done (returns true) and that there is another phase.
         if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Length)
         {
             ++PhaseIndex;
         }
 
-        PhaseTimer?.UpdateTime(gameState.IsRewinding);
+        PhaseTimer?.UpdateTime(GameState.IsRewinding);
 
-        transform.position = BossMovement.GetMovement(gameState.IsRewinding);
+        transform.position = BossMovement.GetMovement(GameState.IsRewinding);
         EnemyCollision.Collider.enabled = !IsDisabled;
 
-        if (!IsDisabled && !gameState.IsRewinding)
+        if (!IsDisabled && !GameState.IsRewinding)
         {
             EnemyCollision.UpdateCollision();
             foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
             {
-                shootBehaviour?.UpdateShoot(transform.position, gameState.IsRewinding);
+                shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
             }
         }
-
     }
 
     protected void ActivateBoss()
     {
         IsDisabled = false;
-        gameState.IsBossActive = true;
+        GameState.IsBossActive = true;
     }
 
     protected override void Disable()
     {
         IsDisabled = true;
-        gameState.IsBossActive = false;
+        GameState.IsBossActive = false;
+    }
+
+    protected void ResetMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay)
+    {
+        BossMovement = new BossMovement(startPosition, endPosition, totalTime, initialDelay);
     }
 }

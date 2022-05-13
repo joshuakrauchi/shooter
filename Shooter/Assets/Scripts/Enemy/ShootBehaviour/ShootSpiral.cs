@@ -39,7 +39,7 @@ public class ShootSpiral : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootSpiral(TotalCycles, CycleTimer.Clone(), projectileDefinition, directions, angleIncreasePerCycle, angleVariation)
+        return new ShootSpiral(TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, directions, angleIncreasePerCycle, angleVariation)
         {
             CurrentCycles = CurrentCycles,
             _currentAngle = _currentAngle

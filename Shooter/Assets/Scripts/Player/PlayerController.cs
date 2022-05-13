@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private ProjectileManager projectileManager;
+    [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
 
     public bool IsShooting { get; private set; }
     public bool IsRewinding { get; private set; }
@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            projectileManager.ClearProjectiles();
+            ProjectileManager.ClearProjectiles();
         }
     }
 }

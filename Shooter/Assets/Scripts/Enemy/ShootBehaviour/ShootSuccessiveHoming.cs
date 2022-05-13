@@ -57,7 +57,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootSuccessiveHoming(_target, TotalCycles, CycleTimer.Clone(), projectileDefinition, betweenShotsTimer.Clone(), numberOfProjectiles, angleBetweenProjectiles, angleVariation)
+        return new ShootSuccessiveHoming(_target, TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, betweenShotsTimer.DeepCopy(), numberOfProjectiles, angleBetweenProjectiles, angleVariation)
         {
             CurrentCycles = CurrentCycles,
             _shotsFired = _shotsFired,

@@ -7,63 +7,64 @@ using UnityEngine;
  */
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameData gameData;
-    [SerializeField] private GameState gameState;
-    [SerializeField] private UIManager uiManager;
-    [SerializeField] private EnemyManager enemyManager;
-    [SerializeField] private ProjectileManager projectileManager;
-    [SerializeField] private UpdateableManager collectibleManager;
+    [field: SerializeField] private GameData GameData { get; set; }
+    [field: SerializeField] private GameState GameState { get; set; }
+    [field: SerializeField] private UIManager UIManager { get; set; }
+    [field: SerializeField] private EnemyManager EnemyManager { get; set; }
+    [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
+    [field: SerializeField] private UpdateableManager CollectibleManager { get; set; }
 
-    private bool _hasPausedAnimators;
+    private bool HasPausedAnimators { get; set; }
 
     private void Awake()
     {
-        gameData.Initialize();
-        uiManager.Initialize();
+        GameData.Initialize();
+        UIManager.Initialize();
     }
 
     private void Update()
     {
-        gameData.Player.UpdatePlayerInput();
+        GameData.Player.UpdatePlayerInput();
     }
 
     private void FixedUpdate()
     {
-        if ((gameState.IsPaused || gameState.IsRewinding) && !_hasPausedAnimators)
+        if ((GameState.IsPaused || GameState.IsRewinding) && !HasPausedAnimators)
         {
-            enemyManager.SetMinionAnimatorSpeed(0.0f);
-            _hasPausedAnimators = true;
+            EnemyManager.SetMinionAnimatorSpeed(0.0f);
+            HasPausedAnimators = true;
         }
         
-        if (gameState.IsPaused)
+        if (GameState.IsPaused)
         {
-            if (gameState.IsRewinding)
+            if (GameState.IsRewinding && !GameState.IsDisplayingDialogue)
             {
-                gameState.IsPaused = false;
+                GameState.IsPaused = false;
             }
             else return;
         }
 
-        if (gameState.IsRewinding)
+        if (GameState.IsRewinding)
         {
-            gameData.RewindCharge -= Time.deltaTime;
+            GameData.RewindCharge -= Time.deltaTime;
         }
         
-        if (!gameState.IsPaused && !gameState.IsRewinding && _hasPausedAnimators)
+        if (!GameState.IsPaused && !GameState.IsRewinding && HasPausedAnimators)
         {
-            enemyManager.SetMinionAnimatorSpeed(1.0f);
-            _hasPausedAnimators = false;
+            EnemyManager.SetMinionAnimatorSpeed(1.0f);
+            HasPausedAnimators = false;
         }
 
-        if (!gameState.IsBossActive)
+        if (!GameState.IsBossActive)
         {
-            gameData.LevelTime += gameState.IsRewinding ? -Time.deltaTime : Time.deltaTime;
+            GameData.LevelTime += GameState.IsRewinding ? -Time.deltaTime : Time.deltaTime;
         }
 
-        gameData.CurrentLevelManager.UpdateEnemyCreation();
-        projectileManager.UpdateProjectiles();
-        enemyManager.UpdateEnemies();
-        collectibleManager.UpdateUpdateables();
-        gameData.Player.UpdateUpdateable();
+        GameData.CurrentLevelManager.UpdateEnemyCreation();
+        UIManager.UpdateUpdateable();
+        ProjectileManager.UpdateProjectiles();
+        EnemyManager.UpdateEnemies();
+        CollectibleManager.UpdateUpdateables();
+        GameData.Player.UpdateUpdateable();
     }
 }

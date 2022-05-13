@@ -2,56 +2,56 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IUpdateable
 {
-    [SerializeField] private GameData gameData;
-    [SerializeField] private GameState gameState;
-    [SerializeField] private UIManager uiManager;
+    [field: SerializeField] private GameData GameData { get; set; }
+    [field: SerializeField] private GameState GameState { get; set; }
+    [field: SerializeField] private UIManager UIManager { get; set; }
 
-    private PlayerCollision _playerCollision;
-    private PlayerController _playerController;
-    private PlayerMovement _playerMovement;
-    private PlayerShoot _playerShoot;
+    private PlayerCollision PlayerCollision { get; set; }
+    private PlayerController PlayerController { get; set; }
+    private PlayerMovement PlayerMovement { get; set; }
+    private PlayerShoot PlayerShoot { get; set; }
 
     private void Awake()
     {
-        _playerCollision = GetComponent<PlayerCollision>();
-        _playerController = GetComponent<PlayerController>();
-        _playerMovement = GetComponent<PlayerMovement>();
-        _playerShoot = GetComponent<PlayerShoot>();
+        PlayerCollision = GetComponent<PlayerCollision>();
+        PlayerController = GetComponent<PlayerController>();
+        PlayerMovement = GetComponent<PlayerMovement>();
+        PlayerShoot = GetComponent<PlayerShoot>();
 
-        _playerShoot.NumberOfShots = gameData.Shots;
+        PlayerShoot.NumberOfShots = GameData.Shots;
 
-        gameData.Player = this;
+        GameData.Player = this;
     }
 
     public void UpdatePlayerInput()
     {
-        _playerController.UpdateInput();
+        PlayerController.UpdateInput();
 
-        if (_playerController.IsConfirmDown)
+        if (PlayerController.IsConfirmDown)
         {
-            if (!uiManager.IsDisplayingDialogue) return;
+            if (!GameState.IsDisplayingDialogue) return;
 
-            uiManager.UpdateDialogue();
+            UIManager.UpdateDialogue();
         }
 
-        gameState.IsRewinding = _playerController.IsRewinding;
+        GameState.IsRewinding = PlayerController.IsRewinding;
     }
 
     public void UpdateUpdateable()
     {
-        _playerCollision.UpdateCollision();
-        _playerMovement.UpdateMovement();
-        _playerShoot.UpdateShoot(_playerController.IsShooting, gameState.IsRewinding);
+        PlayerCollision.UpdateCollision();
+        PlayerMovement.UpdateMovement();
+        PlayerShoot.UpdateShoot(PlayerController.IsShooting, GameState.IsRewinding);
     }
 
     public void OnCollectibleHit(Collectible collectible)
     {
-        gameData.Currency += collectible.Value;
+        GameData.Currency += collectible.Value;
         collectible.DestroySelf();
     }
 
     public void OnHit()
     {
-        gameState.IsPaused = true;
+        GameState.IsPaused = true;
     }
 }

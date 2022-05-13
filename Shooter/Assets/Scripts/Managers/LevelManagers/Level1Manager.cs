@@ -35,14 +35,14 @@ public class Level1Manager : LevelManager
         ProjectileDefinition fastProjectile = new(fastArrow, new[] {new MoveStraight(0.0f)});
         ProjectileDefinition bigProjectile = new(bigArrow, new[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
 
-        MinionDefinition basicShoot = new(footSoldier, new ShootHoming(gameData.Player.gameObject, 2, new LockedTimer(1f), smallProjectile, new LockedTimer(0f), 1, 3, 20, 2f, 0f));
-        MinionDefinition archerSingleShot = new(archer, new ShootHoming(gameData.Player.gameObject, 1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 1, 15, 10f, 2f, -0.05f));
-        MinionDefinition archerDoubleShot = new(archer, new ShootHoming(gameData.Player.gameObject, 1, new LockedTimer(1f), slowingProjectile, new LockedTimer(0.1f), 2, 15, 10f, 2f, -0.05f));
-        MinionDefinition archerNarrowShot = new(archer, new ShootHoming(gameData.Player.gameObject, 2, new LockedTimer(1f), slowingProjectile, new LockedTimer(0f), 1, 15, 5f, 2f, -0.05f));
+        MinionDefinition basicShoot = new(footSoldier, new ShootHoming(gameData.Player.gameObject, 2, new Timer(1f), smallProjectile, new Timer(0f), 1, 3, 20, 2f, 0f));
+        MinionDefinition archerSingleShot = new(archer, new ShootHoming(gameData.Player.gameObject, 1, new Timer(1f), slowingProjectile, new Timer(0.1f), 1, 15, 10f, 2f, -0.05f));
+        MinionDefinition archerDoubleShot = new(archer, new ShootHoming(gameData.Player.gameObject, 1, new Timer(1f), slowingProjectile, new Timer(0.1f), 2, 15, 10f, 2f, -0.05f));
+        MinionDefinition archerNarrowShot = new(archer, new ShootHoming(gameData.Player.gameObject, 2, new Timer(1f), slowingProjectile, new Timer(0f), 1, 15, 5f, 2f, -0.05f));
 
-        MinionDefinition eliteArcherShooting = new(eliteArcher, new ShootHoming(gameData.Player.gameObject, 0, new LockedTimer(1f), fastProjectile, new LockedTimer(0.1f), 3, 15, 15f, 5f, 0f));
-        MinionDefinition eliteArcherDoubleShot = new(eliteArcher, new ShootHoming(gameData.Player.gameObject, 1, new LockedTimer(1f), fastProjectile, new LockedTimer(0.2f), 3, 15, 15f, 2f, 0f));
-
+        MinionDefinition eliteArcherShooting = new(eliteArcher, new ShootHoming(gameData.Player.gameObject, 0, new Timer(1f), fastProjectile, new Timer(0.1f), 3, 15, 15f, 5f, 0f));
+        MinionDefinition eliteArcherDoubleShot = new(eliteArcher, new ShootHoming(gameData.Player.gameObject, 1, new Timer(1f), fastProjectile, new Timer(0.2f), 3, 15, 15f, 2f, 0f));
+        /*
         // 1
         for (var i = 0; i < 10; ++i)
         {
@@ -117,7 +117,7 @@ public class Level1Manager : LevelManager
         }
 
         // Boss 1
-        CurrentTime += 5f;
+        CurrentTime += 5f;*/
 
         Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, gameData.ScreenRect.yMax + 5f)));
 

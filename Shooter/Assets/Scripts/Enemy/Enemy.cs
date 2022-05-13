@@ -2,15 +2,16 @@ using UnityEngine;
 
 public abstract class Enemy : TimeObject
 {
-    [SerializeField] protected EnemyManager enemyManager;
-    [SerializeField] protected float health = 1f;
-    [SerializeField] private float rewindRecharge = 0.1f;
-    [SerializeField] protected GameObject[] droppedObjects;
-    
+    [field: SerializeField] private EnemyManager EnemyManager { get; set; }
+    [field: SerializeField] protected float Health { get; set; } = 1.0f;
+    [field: SerializeField] private float RewindRecharge { get; set; } = 0.1f;
+    [field: SerializeField] private GameObject[] DroppedObjects { get; set; }
+
     public float CreationTime { get; set; }
 
     protected EnemyCollision EnemyCollision { get; private set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
+
     // If disabled, collision and updating are disabled for this object.
     protected bool IsDisabled;
 
@@ -20,7 +21,7 @@ public abstract class Enemy : TimeObject
 
         EnemyCollision = GetComponent<EnemyCollision>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
-        enemyManager.AddEnemy(this);
+        EnemyManager.AddEnemy(this);
     }
 
     protected override void Record()
@@ -34,24 +35,24 @@ public abstract class Enemy : TimeObject
 
     public void OnHit(PlayerProjectile projectile)
     {
-        health -= projectile.Damage;
+        Health -= projectile.Damage;
 
         projectile.OnHit();
 
-        if (health > 0.0f) return;
-        
+        if (Health > 0.0f) return;
+
         Disable();
     }
 
     protected virtual void Disable()
     {
-        gameData.RewindCharge += rewindRecharge;
+        GameData.RewindCharge += RewindRecharge;
 
-        rewindRecharge /= 2f;
-        
-        if (droppedObjects.Length > 0)
+        RewindRecharge /= 2.0f;
+
+        if (DroppedObjects.Length > 0)
         {
-            NPCCreator.CreateCollectible(droppedObjects[0], transform.position);
+            NPCCreator.CreateCollectible(DroppedObjects[0], transform.position);
         }
 
         IsDisabled = true;
@@ -59,7 +60,7 @@ public abstract class Enemy : TimeObject
 
     protected void DestroySelf()
     {
-        enemyManager.RemoveEnemy(this);
+        EnemyManager.RemoveEnemy(this);
         Destroy(gameObject);
     }
 }

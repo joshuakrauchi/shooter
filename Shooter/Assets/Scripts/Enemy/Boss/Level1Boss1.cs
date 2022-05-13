@@ -30,27 +30,27 @@ public class Level1Boss1 : Boss
 
     private bool Phase1()
     {
-        BossMovement.ResetMovement(transform.position, new Vector2(0f, gameData.ScreenRect.yMax - 10f), 2f, 0f);
+        ResetMovement(transform.position, new Vector2(0f, GameData.ScreenRect.yMax - 10f), 2f, 0f);
 
         return true;
     }
 
     private bool Phase2()
     {
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             if (!_initiatedDialogue)
             {
-                uiManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "fine lol")});
+                UIManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "fine lol")});
                 _initiatedDialogue = true;
             }
             else
             {
-                uiManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
+                UIManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
             }
 
-            ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(gameData.Player.gameObject, 0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 20f, 5f)};
-            PhaseTimer = new LockedTimer(10f);
+            ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 20f, 5f)};
+            PhaseTimer = new Timer(10.0f);
 
             ActivateBoss();
             return true;
@@ -62,18 +62,19 @@ public class Level1Boss1 : Boss
     private bool Phase3()
     {
         Debug.Log(PhaseTimer.ElapsedTime);
-        if (health <= MaxHealth * 0.75f || PhaseTimer.IsFinished(false))
+        if (Health <= MaxHealth * 0.75f || PhaseTimer.IsFinished(false))
         {
-            BossMovement.ResetMovement(transform.position, new Vector2(0, gameData.ScreenRect.yMax - 10f), 1f, 0f);
+            ResetMovement(transform.position, new Vector2(0.0f, GameData.ScreenRect.yMax - 10.0f), 1.0f, 0.0f);
             ShootBehaviours.Clear();
-            PhaseTimer = new LockedTimer(10f);
+            PhaseTimer = new Timer(10.0f);
 
             return true;
         }
 
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
-            BossMovement.ResetMovement(transform.position, BossMovement.GetRandomPosition(), 1f, 2f);
+            Rect screenRect = GameData.ScreenRect;
+            ResetMovement(transform.position, BossMovement.GetRandomPosition(screenRect.xMin, screenRect.xMax, 0.0f, screenRect.yMax), 1.0f, 2.0f);
         }
 
         return false;
@@ -81,12 +82,14 @@ public class Level1Boss1 : Boss
 
     private bool Phase4()
     {
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
+            ResetMovement(transform.position, transform.position, 0.0f, 0.0f);
+            
             ShootBehaviours.AddRange(new ShootBehaviour[]
             {
-                new ShootSuccessiveHoming(gameData.Player.gameObject, 0, new LockedTimer(0.5f), boss2BigProjectileStraight, new LockedTimer(0.25f), 5, 20f, 5f),
-                new ShootHoming(gameData.Player.gameObject, 0, new LockedTimer(0.25f), smallProjectileStraight, new LockedTimer(0.25f), 2, 10, 10f, 2f, 0f)
+                new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 20f, 5f),
+                new ShootHoming(GameData.Player.gameObject, 0, new Timer(0.25f), smallProjectileStraight, new Timer(0.25f), 2, 10, 10f, 2f, 0f)
             });
 
             return true;
@@ -97,8 +100,9 @@ public class Level1Boss1 : Boss
 
     private bool Phase5()
     {
-        if (health <= MaxHealth * 0.5f || PhaseTimer.IsFinished(false))
+        if (Health <= MaxHealth * 0.5f || PhaseTimer.IsFinished(false))
         {
+            PhaseTimer = null;
             return true;
         }
 
@@ -107,16 +111,16 @@ public class Level1Boss1 : Boss
 
     private bool Phase6()
     {
-        uiManager.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
+        UIManager.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
 
-        BossMovement.ResetMovement(transform.position, new Vector2(0, gameData.ScreenRect.yMax + 7f), 2f, 0f);
+        ResetMovement(transform.position, new Vector2(0, GameData.ScreenRect.yMax + 7f), 2f, 0f);
 
         return true;
     }
 
     private bool Phase7()
     {
-        if (BossMovement.IsFinished(gameState.IsRewinding))
+        if (BossMovement.IsFinished(GameState.IsRewinding))
         {
             Disable();
         }

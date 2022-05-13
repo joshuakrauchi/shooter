@@ -8,7 +8,7 @@ public class PlayerProjectile : Projectile
     {
         base.Awake();
 
-        Damage = gameData.ProjectileDamage;
+        Damage = GameData.ProjectileDamage;
     }
 
     public override void UpdateUpdateable()
@@ -16,7 +16,7 @@ public class PlayerProjectile : Projectile
         SpriteRenderer.enabled = !IsDisabled;
         Collider.enabled = !IsDisabled;
 
-        ProjectileMovement.UpdateMovement(gameState.IsRewinding);
+        ProjectileMovement.UpdateMovement(GameState.IsRewinding);
         if (IsOffscreen())
         {
             IsDisabled = true;

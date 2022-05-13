@@ -127,7 +127,8 @@ PrefabInstance:
       propertyPath: initialDelay
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5316285780021556633, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
 --- !u!1 &4244372823298466490 stripped
 GameObject:
@@ -146,14 +147,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59780320a6ed75448ee79ba9de42dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
-  enemyManager: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
-  health: 500
-  rewindRecharge: 0.1
-  droppedObjects: []
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  <EnemyManager>k__BackingField: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
+  <Health>k__BackingField: 1
+  <RewindRecharge>k__BackingField: 0.1
+  <DroppedObjects>k__BackingField: []
   <ShootBehaviours>k__BackingField: []
-  uiManager: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
+  <UIManager>k__BackingField: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
   slowArrow: {fileID: 7528613875248914025, guid: 9d8a02e44c3b2144dbf186ba75d55d52, type: 3}
   fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
   bigArrow: {fileID: 2714373215205119015, guid: 52937ba3e53190348b06c91a8e14826e, type: 3}

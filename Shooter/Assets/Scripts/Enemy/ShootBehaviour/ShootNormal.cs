@@ -40,7 +40,7 @@ public class ShootNormal : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootNormal(TotalCycles, CycleTimer.Clone(), projectileDefinition, numberOfProjectiles, initialDirection, angleBetweenProjectiles, angleVariation)
+        return new ShootNormal(TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, numberOfProjectiles, initialDirection, angleBetweenProjectiles, angleVariation)
         {
             CurrentCycles = CurrentCycles
         };

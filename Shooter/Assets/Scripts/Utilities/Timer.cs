@@ -15,12 +15,29 @@ public class Timer
 
     public virtual void UpdateTime(bool isRewinding)
     {
-        ElapsedTime += isRewinding ? -Time.deltaTime : Time.deltaTime;
+        if (isRewinding)
+        {
+            if (ElapsedTime > 0.0f)
+            {
+                ElapsedTime -= Time.deltaTime;
+            }
+        }
+        else if (ElapsedTime < TotalTime)
+        {
+            ElapsedTime += Time.deltaTime;
+        }
     }
 
     public void Reset()
     {
-        ElapsedTime -= TotalTime;
+        if (IsFinished(false))
+        {
+            ElapsedTime = 0.0f;
+        }
+        else
+        {
+            ElapsedTime -= TotalTime;
+        }
     }
 
     public bool IsFinished(bool isRewinding)
@@ -28,7 +45,7 @@ public class Timer
         return isRewinding ? ElapsedTime <= 0f : ElapsedTime >= TotalTime;
     }
 
-    public Timer Clone()
+    public Timer DeepCopy()
     {
         return (Timer) MemberwiseClone();
     }
