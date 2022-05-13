@@ -27,7 +27,7 @@ public class UIManager : ScriptableObject, IUpdateable
 
         TextQueue = new Queue<Tuple<string, string>>();
 
-        DialogueBoxCanvas = Instantiate(DialogueBox, parentTransform).GetComponent<Canvas>();
+        DialogueBoxCanvas = Instantiate(DialogueBox).GetComponent<Canvas>();
         var texts = DialogueBoxCanvas.GetComponentsInChildren<TextMeshProUGUI>();
         DialogueBoxNameText = texts[0];
         DialogueBoxDialogueText = texts[1];
@@ -37,6 +37,8 @@ public class UIManager : ScriptableObject, IUpdateable
 
     public void StartDialogue(IEnumerable<Tuple<string, string>> dialogue)
     {
+        if (GameState.IsRewinding) return;
+        
         GameState.IsPaused = true;
 
         foreach (var entry in dialogue)

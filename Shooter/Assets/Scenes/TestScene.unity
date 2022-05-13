@@ -275,12 +275,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d6145add539464f86f0eda9c40cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  gameState: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
-  uiManager: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
-  enemyManager: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
-  projectileManager: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
-  collectibleManager: {fileID: 11400000, guid: 5e22478338c072440a444638130aeea3, type: 2}
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  <UIManager>k__BackingField: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
+  <EnemyManager>k__BackingField: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  <CollectibleManager>k__BackingField: {fileID: 11400000, guid: 5e22478338c072440a444638130aeea3, type: 2}
 --- !u!4 &2007412060
 Transform:
   m_ObjectHideFlags: 0

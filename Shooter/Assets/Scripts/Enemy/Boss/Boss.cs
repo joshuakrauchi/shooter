@@ -55,16 +55,15 @@ public abstract class Boss : Enemy
     {
         base.UpdateUpdateable();
 
-        Debug.Log(PhaseIndex);
-        
+        // The phase timer must be rewound before updating the phases, or else it will appear to have been finished.
+        PhaseTimer?.UpdateTime(GameState.IsRewinding);
+
         // Check if the current phase is done (returns true) and that there is another phase.
         if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Length)
         {
             ++PhaseIndex;
         }
-
-        PhaseTimer?.UpdateTime(GameState.IsRewinding);
-
+        
         transform.position = BossMovement.GetMovement(GameState.IsRewinding);
         EnemyCollision.Collider.enabled = !IsDisabled;
 
