@@ -27,20 +27,17 @@ public class Projectile : TimeObject
     {
         AddTimeData(new ProjectileTimeData(transform.position, IsDisabled));
 
-        if (((ProjectileTimeData) TimeData.First.Value).IsDisabled)
+        if (((ProjectileTimeData)TimeData.First.Value).IsDisabled)
         {
             DestroyProjectile();
         }
     }
 
-    protected override void Rewind()
+    protected override void Rewind(ITimeData timeData)
     {
-        if (TimeData.Count <= 0) return;
-
-        ProjectileTimeData timeData = (ProjectileTimeData) TimeData.Last.Value;
-        transform.position = timeData.Position;
-        IsDisabled = timeData.IsDisabled;
-        TimeData.Remove(timeData);
+        ProjectileTimeData projectileTimeData = (ProjectileTimeData)TimeData.Last.Value;
+        transform.position = projectileTimeData.Position;
+        IsDisabled = projectileTimeData.IsDisabled;
     }
 
     public override void UpdateUpdateable()

@@ -14,62 +14,72 @@ public abstract class Boss : Enemy
     protected Timer PhaseTimer { get; set; }
 
     private int PhaseIndex { get; set; }
-    
+
     protected override void Awake()
     {
         base.Awake();
 
-        ShootBehaviours = new List<ShootBehaviour>();
+        BossMovement = null;
+        ShootBehaviours = null;
         MaxHealth = Health;
-        Disable();
     }
 
     protected override void Record()
     {
-        var shootClones = new List<ShootBehaviour>();
-        foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
+        base.Record();
+        
+        List<ShootBehaviour> shootClones = null;
+        
+        if (ShootBehaviours != null)
         {
-            shootClones.Add(shootBehaviour.Clone());
+            shootClones = new List<ShootBehaviour>();
+            foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
+            {
+                shootClones.Add(shootBehaviour.Clone());
+            }
         }
 
-        AddTimeData(new BossTimeData(Health, IsDisabled, shootClones, PhaseIndex, BossMovement, PhaseTimer));
+        AddTimeData(new BossTimeData(Health, IsDisabled, BossMovement, PhaseIndex, shootClones, PhaseTimer));
     }
 
-    protected override void Rewind()
+    protected override void Rewind(ITimeData timeData)
     {
-        if (TimeData.Count <= 0) return;
-
-        BossTimeData timeData = (BossTimeData) TimeData.Last.Value;
-
-        Health = timeData.Health;
-        IsDisabled = timeData.IsDisabled;
-        ShootBehaviours = timeData.ShootBehaviours;
-        PhaseIndex = timeData.PhaseIndex;
-        BossMovement = timeData.BossMovement;
-        PhaseTimer = timeData.PhaseTimer;
+        base.Rewind(timeData);
         
-        TimeData.Remove(timeData);
+        BossTimeData bossTimeData = (BossTimeData)timeData;
+
+        ShootBehaviours = bossTimeData.ShootBehaviours;
+        PhaseIndex = bossTimeData.PhaseIndex;
+        BossMovement = bossTimeData.BossMovement;
+        PhaseTimer = bossTimeData.PhaseTimer;
     }
 
     public override void UpdateUpdateable()
     {
         base.UpdateUpdateable();
 
+        EnemyCollision.enabled = GameState.IsBossActive;
+        
         // The phase timer must be rewound before updating the phases, or else it will appear to have been finished.
         PhaseTimer?.UpdateTime(GameState.IsRewinding);
 
         // Check if the current phase is done (returns true) and that there is another phase.
-        if (Phases[PhaseIndex].Invoke() && PhaseIndex + 1 < Phases.Length)
+        if (Phases[PhaseIndex].Invoke())
         {
-            ++PhaseIndex;
+            if (PhaseIndex + 1 < Phases.Length)
+            {
+                ++PhaseIndex;
+            }
+            else
+            {
+                IsDisabled = true;
+            }
         }
-        
-        transform.position = BossMovement.GetMovement(GameState.IsRewinding);
-        EnemyCollision.Collider.enabled = !IsDisabled;
 
-        if (!IsDisabled && !GameState.IsRewinding)
+        transform.position = BossMovement.GetMovement(GameState.IsRewinding);
+
+        if (!IsDisabled && !GameState.IsRewinding && GameState.IsBossActive)
         {
-            EnemyCollision.UpdateCollision();
             foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
             {
                 shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
@@ -77,15 +87,10 @@ public abstract class Boss : Enemy
         }
     }
 
-    protected void ActivateBoss()
-    {
-        IsDisabled = false;
-        GameState.IsBossActive = true;
-    }
-
     protected override void Disable()
     {
-        IsDisabled = true;
+        base.Disable();
+        
         GameState.IsBossActive = false;
     }
 

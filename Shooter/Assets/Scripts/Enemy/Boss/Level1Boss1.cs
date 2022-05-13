@@ -52,7 +52,6 @@ public class Level1Boss1 : Boss
             ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 20f, 5f)};
             PhaseTimer = new Timer(10.0f);
 
-            ActivateBoss();
             return true;
         }
 
@@ -120,11 +119,6 @@ public class Level1Boss1 : Boss
 
     private bool Phase7()
     {
-        if (BossMovement.IsFinished(GameState.IsRewinding))
-        {
-            Disable();
-        }
-
-        return false;
+        return BossMovement.IsFinished(GameState.IsRewinding);
     }
 }

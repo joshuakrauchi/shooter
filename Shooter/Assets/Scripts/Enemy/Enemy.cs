@@ -13,7 +13,7 @@ public abstract class Enemy : TimeObject
     protected SpriteRenderer SpriteRenderer { get; private set; }
 
     // If disabled, collision and updating are disabled for this object.
-    protected bool IsDisabled;
+    protected bool IsDisabled { get; set; }
 
     protected override void Awake()
     {
@@ -24,13 +24,35 @@ public abstract class Enemy : TimeObject
         EnemyManager.AddEnemy(this);
     }
 
+    public override void UpdateUpdateable()
+    {
+        base.UpdateUpdateable();
+
+        EnemyCollision.Collider.enabled = !IsDisabled;
+        SpriteRenderer.enabled = !IsDisabled;
+
+        if (IsDisabled || GameState.IsRewinding) return;
+
+        EnemyCollision.UpdateCollision();
+    }
+
     protected override void Record()
     {
+        if (TimeData.Count <= 0) return;
+
         // If never rewound to a non-dead state, it has been dead for a full cycle and can never be revived.
-        if (((EnemyTimeData) TimeData.First.Value).IsDisabled)
+        if (((EnemyTimeData)TimeData.First.Value).IsDisabled)
         {
             DestroySelf();
         }
+    }
+
+    protected override void Rewind(ITimeData timeData)
+    {
+        EnemyTimeData enemyTimeData = (EnemyTimeData)timeData;
+
+        Health = enemyTimeData.Health;
+        IsDisabled = enemyTimeData.IsDisabled;
     }
 
     public void OnHit(PlayerProjectile projectile)
@@ -44,6 +66,9 @@ public abstract class Enemy : TimeObject
         Disable();
     }
 
+    /**
+     * Note: "Disable" is used as the name of the callback when a minion's animation clip is finished.
+     */
     protected virtual void Disable()
     {
         GameData.RewindCharge += RewindRecharge;
@@ -54,8 +79,6 @@ public abstract class Enemy : TimeObject
         {
             NPCCreator.CreateCollectible(DroppedObjects[0], transform.position);
         }
-
-        IsDisabled = true;
     }
 
     protected void DestroySelf()

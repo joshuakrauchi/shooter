@@ -2,14 +2,16 @@ using System.Collections.Generic;
 
 public class BossTimeData : EnemyTimeData
 {
-    public int PhaseIndex { get; }
     public BossMovement BossMovement { get; }
+    public int PhaseIndex { get; }
+    public List<ShootBehaviour> ShootBehaviours { get; }
     public Timer PhaseTimer { get; }
 
-    public BossTimeData(float health, bool isDisabled, List<ShootBehaviour> shootBehaviours, int phaseIndex, BossMovement bossMovement, Timer phaseTimer) : base(health, isDisabled, shootBehaviours)
+    public BossTimeData(float health, bool isDisabled, BossMovement bossMovement, int phaseIndex, List<ShootBehaviour> shootBehaviours, Timer phaseTimer) : base(health, isDisabled)
     {
-        PhaseIndex = phaseIndex;
         BossMovement = bossMovement;
+        PhaseIndex = phaseIndex;
+        ShootBehaviours = shootBehaviours;
         PhaseTimer = phaseTimer;
     }
 }

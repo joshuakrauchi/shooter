@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-
 public class MinionTimeData : EnemyTimeData
 {
-    public float AnimationTime { get; private set; }
+    public float AnimationTime { get; }
+    public ShootBehaviour ShootBehaviour { get; }
 
-    public MinionTimeData(float health, bool isDisabled, List<ShootBehaviour> shootBehaviours, float animationTime) : base(health, isDisabled, shootBehaviours)
+    public MinionTimeData(float health, bool isDisabled, float animationTime, ShootBehaviour shootBehaviour) : base(health, isDisabled)
     {
         AnimationTime = animationTime;
+        ShootBehaviour = shootBehaviour;
     }
 }

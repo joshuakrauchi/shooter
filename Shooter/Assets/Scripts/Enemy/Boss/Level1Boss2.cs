@@ -52,8 +52,6 @@ public class Level1Boss2 : Boss
                 new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 15f, 5f)
             };
 
-            ActivateBoss();
-
             return true;
         }
 

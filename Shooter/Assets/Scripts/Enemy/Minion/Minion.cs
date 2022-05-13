@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Minion : Enemy
@@ -17,8 +16,7 @@ public class Minion : Enemy
     {
         base.UpdateUpdateable();
         
-        SpriteRenderer.enabled = !IsDisabled;
-        EnemyCollision.Collider.enabled = !IsDisabled;
+        
 
         if (!IsDisabled && !GameState.IsRewinding)
         {
@@ -30,28 +28,31 @@ public class Minion : Enemy
 
     protected override void Record()
     {
-        var shootClones = new List<ShootBehaviour> {ShootBehaviour?.Clone()};
-
-        AddTimeData(new MinionTimeData(Health, IsDisabled, shootClones, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
-
         base.Record();
+
+        ShootBehaviour shootClone = ShootBehaviour?.Clone();
+
+        AddTimeData(new MinionTimeData(Health, IsDisabled, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime, shootClone));
     }
 
-    protected override void Rewind()
+    protected override void Rewind(ITimeData timeData)
     {
+        base.Rewind(timeData);
+        
         if (CreationTime > GameData.LevelTime)
         {
             DestroySelf();
         }
 
-        if (TimeData.Count <= 0) return;
+        MinionTimeData minionTimeData = (MinionTimeData) TimeData.Last.Value;
+        Animator.Play(0, 0, minionTimeData.AnimationTime);
+        ShootBehaviour = minionTimeData.ShootBehaviour;
+    }
 
-        MinionTimeData timeData = (MinionTimeData) TimeData.Last.Value;
-        Animator.Play(0, 0, timeData.AnimationTime);
-
-        Health = timeData.Health;
-        IsDisabled = timeData.IsDisabled;
-        ShootBehaviour = timeData.ShootBehaviours[0];
-        TimeData.Remove(timeData);
+    protected override void Disable()
+    {
+        base.Disable();
+        
+        IsDisabled = true;
     }
 }

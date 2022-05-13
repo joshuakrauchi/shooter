@@ -19,7 +19,12 @@ public abstract class TimeObject : MonoBehaviour, IUpdateable
     {
         if (GameState.IsRewinding)
         {
-            Rewind();
+            if (TimeData.Count <= 0) return;
+            
+            ITimeData timeData = TimeData.Last.Value;
+            Rewind(timeData);
+            
+            TimeData.RemoveLast();
         }
         else
         {
@@ -27,7 +32,7 @@ public abstract class TimeObject : MonoBehaviour, IUpdateable
         }
     }
 
-    protected abstract void Rewind();
+    protected abstract void Rewind(ITimeData timeData);
 
     protected abstract void Record();
 
