@@ -22,7 +22,7 @@ public class Level1Boss1 : Boss
 
         slowingProjectileStraight = new ProjectileDefinition(slowArrow, new MoveBehaviour[] {new MoveStraight(1.0f, 0.1f, -0.1f)});
         smallProjectileStraight = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(1.0f)});
-        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(1.0f), new MoveStraight(2.0f, -90f)});
+        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(1.0f), new MoveStraight(2.0f, -90.0f)});
         boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new MoveBehaviour[] {new MoveStraight(1.0f)});
 
         Phases = new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7};
@@ -51,6 +51,7 @@ public class Level1Boss1 : Boss
 
             ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 20f, 5f)};
             PhaseTimer = new Timer(10.0f);
+            GameState.IsBossActive = true;
 
             return true;
         }
@@ -60,7 +61,6 @@ public class Level1Boss1 : Boss
 
     private bool Phase3()
     {
-        Debug.Log(PhaseTimer.ElapsedTime);
         if (Health <= MaxHealth * 0.75f || PhaseTimer.IsFinished(false))
         {
             ResetMovement(transform.position, new Vector2(0.0f, GameData.ScreenRect.yMax - 10.0f), 1.0f, 0.0f);
@@ -101,7 +101,6 @@ public class Level1Boss1 : Boss
     {
         if (Health <= MaxHealth * 0.5f || PhaseTimer.IsFinished(false))
         {
-            PhaseTimer = null;
             return true;
         }
 
@@ -111,6 +110,7 @@ public class Level1Boss1 : Boss
     private bool Phase6()
     {
         UIManager.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
+        GameState.IsBossActive = false;
 
         ResetMovement(transform.position, new Vector2(0, GameData.ScreenRect.yMax + 7f), 2f, 0f);
 

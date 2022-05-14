@@ -4,16 +4,13 @@ using UnityEngine;
 [Serializable]
 public class Timer
 {
-    [field: SerializeField] public float TotalTime { get; private set; }
+    [field: SerializeField] public float TimeToFinish { get; private set; }
 
-    public float ElapsedTime { get; protected set; }
+    public float ElapsedTime { get; private set; }
 
-    public Timer(float totalTime)
-    {
-        TotalTime = totalTime;
-    }
+    public Timer(float timeToFinish) => TimeToFinish = timeToFinish;
 
-    public virtual void UpdateTime(bool isRewinding)
+    public void UpdateTime(bool isRewinding)
     {
         if (isRewinding)
         {
@@ -22,31 +19,15 @@ public class Timer
                 ElapsedTime -= Time.deltaTime;
             }
         }
-        else if (ElapsedTime < TotalTime)
+        else
         {
             ElapsedTime += Time.deltaTime;
         }
     }
 
-    public void Reset()
-    {
-        if (IsFinished(false))
-        {
-            ElapsedTime = 0.0f;
-        }
-        else
-        {
-            ElapsedTime -= TotalTime;
-        }
-    }
+    public void Reset() => ElapsedTime = 0.0f;
 
-    public bool IsFinished(bool isRewinding)
-    {
-        return isRewinding ? ElapsedTime <= 0f : ElapsedTime >= TotalTime;
-    }
+    public bool IsFinished(bool isRewinding) => isRewinding ? ElapsedTime <= 0f : ElapsedTime >= TimeToFinish;
 
-    public Timer DeepCopy()
-    {
-        return (Timer) MemberwiseClone();
-    }
+    public Timer DeepCopy() => (Timer) MemberwiseClone();
 }

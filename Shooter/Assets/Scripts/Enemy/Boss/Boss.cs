@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Boss : Enemy
@@ -19,35 +20,31 @@ public abstract class Boss : Enemy
     {
         base.Awake();
 
-        BossMovement = null;
-        ShootBehaviours = null;
+        BossMovement = new BossMovement(transform.position);
+        ShootBehaviours = new List<ShootBehaviour>();
         MaxHealth = Health;
+        PhaseTimer = new Timer(0.0f);
     }
 
     protected override void Record()
     {
-        base.Record();
-        
         List<ShootBehaviour> shootClones = null;
-        
+
         if (ShootBehaviours != null)
         {
-            shootClones = new List<ShootBehaviour>();
-            foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
-            {
-                shootClones.Add(shootBehaviour.Clone());
-            }
+            shootClones = ShootBehaviours.Select(shootBehaviour => shootBehaviour.Clone()).ToList();
         }
 
-        AddTimeData(new BossTimeData(Health, IsDisabled, BossMovement, PhaseIndex, shootClones, PhaseTimer));
+        AddTimeData(new BossTimeData(IsDisabled, Health, GameState.IsBossActive, BossMovement, PhaseIndex, shootClones, PhaseTimer));
     }
 
     protected override void Rewind(ITimeData timeData)
     {
         base.Rewind(timeData);
-        
-        BossTimeData bossTimeData = (BossTimeData)timeData;
 
+        BossTimeData bossTimeData = (BossTimeData) timeData;
+
+        GameState.IsBossActive = bossTimeData.IsBossActive;
         ShootBehaviours = bossTimeData.ShootBehaviours;
         PhaseIndex = bossTimeData.PhaseIndex;
         BossMovement = bossTimeData.BossMovement;
@@ -58,40 +55,32 @@ public abstract class Boss : Enemy
     {
         base.UpdateUpdateable();
 
-        EnemyCollision.enabled = GameState.IsBossActive;
-        
+        EnemyCollision.Collider.enabled = !IsDisabled && GameState.IsBossActive;
+
+        if (IsDisabled) return;
+
         // The phase timer must be rewound before updating the phases, or else it will appear to have been finished.
-        PhaseTimer?.UpdateTime(GameState.IsRewinding);
+        PhaseTimer.UpdateTime(GameState.IsRewinding);
 
         // Check if the current phase is done (returns true) and that there is another phase.
         if (Phases[PhaseIndex].Invoke())
         {
-            if (PhaseIndex + 1 < Phases.Length)
+            ++PhaseIndex;
+
+            if (PhaseIndex >= Phases.Length)
             {
-                ++PhaseIndex;
-            }
-            else
-            {
-                IsDisabled = true;
+                Disable();
             }
         }
 
         transform.position = BossMovement.GetMovement(GameState.IsRewinding);
 
-        if (!IsDisabled && !GameState.IsRewinding && GameState.IsBossActive)
-        {
-            foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
-            {
-                shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
-            }
-        }
-    }
+        if (GameState.IsRewinding || !GameState.IsBossActive) return;
 
-    protected override void Disable()
-    {
-        base.Disable();
-        
-        GameState.IsBossActive = false;
+        foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
+        {
+            shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
+        }
     }
 
     protected void ResetMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay)

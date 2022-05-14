@@ -4,12 +4,13 @@ using UnityEngine;
 public abstract class LevelManager : MonoBehaviour
 {
     [SerializeField] protected GameData gameData;
-    
-    public List<MinionSpawn> Enemies { get; private set; }
-    public List<BossSpawn> Bosses { get; private set; }
-    public int EnemyIndex { get; set; }
 
-    protected float CurrentTime = 1f;
+    protected List<MinionSpawn> Minions { get; private set; }
+    protected List<BossSpawn> Bosses { get; private set; }
+    private int MinionIndex { get; set; }
+    private int BossIndex { get; set; }
+
+    protected float CurrentTime;
     protected Transform origin;
     protected Transform top;
     protected Transform topFlip;
@@ -39,7 +40,7 @@ public abstract class LevelManager : MonoBehaviour
     protected virtual void Awake()
     {
         gameData.CurrentLevelManager = this;
-        Enemies = new List<MinionSpawn>();
+        Minions = new List<MinionSpawn>();
         Bosses = new List<BossSpawn>();
 
         origin = new GameObject("SpawnTransforms").transform;
@@ -69,22 +70,26 @@ public abstract class LevelManager : MonoBehaviour
 
     public void UpdateEnemyCreation()
     {
-        while (Enemies.Count > 0 && EnemyIndex > 0 && Enemies[EnemyIndex - 1].CreationTime > gameData.LevelTime)
+        while (Minions.Count > 0 && MinionIndex > 0 && Minions[MinionIndex - 1].CreationTime > gameData.LevelTime)
         {
-            --EnemyIndex;
+            --MinionIndex;
         }
 
-        while (EnemyIndex < Enemies.Count && Enemies[EnemyIndex].CreationTime <= gameData.LevelTime)
+        while (MinionIndex < Minions.Count && Minions[MinionIndex].CreationTime <= gameData.LevelTime)
         {
-            NPCCreator.CreateMinion(Enemies[EnemyIndex]);
-            ++EnemyIndex;
-
+            NPCCreator.CreateMinion(Minions[MinionIndex]);
+            ++MinionIndex;
+        }
+        
+        while (Bosses.Count > 0 && BossIndex > 0 && Bosses[BossIndex - 1].CreationTime > gameData.LevelTime)
+        {
+            --BossIndex;
         }
 
-        if (Bosses.Count > 0 && Bosses[0].CreationTime <= gameData.LevelTime)
+        while (BossIndex < Bosses.Count && Bosses[BossIndex].CreationTime <= gameData.LevelTime)
         {
-            NPCCreator.CreateBoss(Bosses[0]);
-            Bosses.RemoveAt(0);
+            NPCCreator.CreateBoss(Bosses[BossIndex]);
+            ++BossIndex;
         }
     }
 }

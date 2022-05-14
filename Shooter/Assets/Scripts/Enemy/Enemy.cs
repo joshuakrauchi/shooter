@@ -11,10 +11,7 @@ public abstract class Enemy : TimeObject
 
     protected EnemyCollision EnemyCollision { get; private set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
-
-    // If disabled, collision and updating are disabled for this object.
-    protected bool IsDisabled { get; set; }
-
+    
     protected override void Awake()
     {
         base.Awake();
@@ -27,32 +24,38 @@ public abstract class Enemy : TimeObject
     public override void UpdateUpdateable()
     {
         base.UpdateUpdateable();
-
-        EnemyCollision.Collider.enabled = !IsDisabled;
+        
+        // This must be put here instead of in Rewind() because
+        // it may not be called if this TimeObject has no TimeData.
+        // This occurs when bosses activate themselves, as the LevelTime
+        // doesn't update when a boss is active, but a boss may rewind and
+        // set themselves back to inactive, but due to the ordering of events,
+        // the time may not decrement successfully and the boss will run out of
+        // TimeData before rewinding to a point where they don't exist.
+        // Putting this here is pretty failsafe anyways.
+        if (CreationTime > GameData.LevelTime)
+        {
+            DestroySelf();
+        }
+        
         SpriteRenderer.enabled = !IsDisabled;
 
-        if (IsDisabled || GameState.IsRewinding) return;
+        if (!EnemyCollision.Collider.enabled || GameState.IsRewinding) return;
 
         EnemyCollision.UpdateCollision();
     }
 
-    protected override void Record()
-    {
-        if (TimeData.Count <= 0) return;
-
-        // If never rewound to a non-dead state, it has been dead for a full cycle and can never be revived.
-        if (((EnemyTimeData)TimeData.First.Value).IsDisabled)
-        {
-            DestroySelf();
-        }
-    }
-
     protected override void Rewind(ITimeData timeData)
     {
-        EnemyTimeData enemyTimeData = (EnemyTimeData)timeData;
+        EnemyTimeData enemyTimeData = (EnemyTimeData) timeData;
 
         Health = enemyTimeData.Health;
         IsDisabled = enemyTimeData.IsDisabled;
+    }
+
+    protected override void OnFullyDisabled()
+    {
+        DestroySelf();
     }
 
     public void OnHit(PlayerProjectile projectile)
@@ -69,7 +72,7 @@ public abstract class Enemy : TimeObject
     /**
      * Note: "Disable" is used as the name of the callback when a minion's animation clip is finished.
      */
-    protected virtual void Disable()
+    protected void Disable()
     {
         GameData.RewindCharge += RewindRecharge;
 
@@ -79,9 +82,11 @@ public abstract class Enemy : TimeObject
         {
             NPCCreator.CreateCollectible(DroppedObjects[0], transform.position);
         }
+
+        IsDisabled = true;
     }
 
-    protected void DestroySelf()
+    private void DestroySelf()
     {
         EnemyManager.RemoveEnemy(this);
         Destroy(gameObject);

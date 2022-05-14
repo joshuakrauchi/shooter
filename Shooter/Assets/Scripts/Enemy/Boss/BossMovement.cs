@@ -7,6 +7,14 @@ public class BossMovement
     private Timer InitialDelayTimer { get; }
     private Timer MovementTimer { get; }
 
+    public BossMovement(Vector2 currentPosition)
+    {
+        StartPosition = currentPosition;
+        EndPosition = StartPosition;
+        InitialDelayTimer = new Timer(0.0f);
+        MovementTimer = new Timer(0.0f);
+    }
+    
     public BossMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay)
     {
         StartPosition = startPosition;
@@ -26,9 +34,9 @@ public class BossMovement
             MovementTimer.UpdateTime(isRewinding);
         }
 
-        if (MovementTimer.TotalTime <= 0.0f) return StartPosition;
+        if (MovementTimer.TimeToFinish <= 0.0f) return StartPosition;
 
-        return Vector2.Lerp(StartPosition, EndPosition, Mathf.SmoothStep(0.0f, 1.0f, MovementTimer.ElapsedTime / MovementTimer.TotalTime));
+        return Vector2.Lerp(StartPosition, EndPosition, Mathf.SmoothStep(0.0f, 1.0f, MovementTimer.ElapsedTime / MovementTimer.TimeToFinish));
     }
 
     public bool IsFinished(bool isRewinding)

@@ -3,9 +3,7 @@ using UnityEngine;
 public class Projectile : TimeObject
 {
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
-
-    protected bool IsDisabled { get; set; }
-
+    
     protected BoxCollider2D Collider { get; private set; }
     protected ProjectileMovement ProjectileMovement { get; private set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
@@ -26,18 +24,18 @@ public class Projectile : TimeObject
     protected override void Record()
     {
         AddTimeData(new ProjectileTimeData(transform.position, IsDisabled));
-
-        if (((ProjectileTimeData)TimeData.First.Value).IsDisabled)
-        {
-            DestroyProjectile();
-        }
     }
 
     protected override void Rewind(ITimeData timeData)
     {
-        ProjectileTimeData projectileTimeData = (ProjectileTimeData)TimeData.Last.Value;
+        ProjectileTimeData projectileTimeData = (ProjectileTimeData) timeData;
         transform.position = projectileTimeData.Position;
         IsDisabled = projectileTimeData.IsDisabled;
+    }
+    
+    protected override void OnFullyDisabled()
+    {
+        DestroyProjectile();
     }
 
     public override void UpdateUpdateable()

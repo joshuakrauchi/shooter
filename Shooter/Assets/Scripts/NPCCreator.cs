@@ -17,7 +17,8 @@ public static class NPCCreator
 
     public static void CreateBoss(BossSpawn bossSpawn)
     {
-        Object.Instantiate(bossSpawn.Prefab, bossSpawn.Position, Quaternion.identity);
+        Boss boss = Object.Instantiate(bossSpawn.Prefab, bossSpawn.Position, Quaternion.identity).GetComponent<Boss>();
+        boss.CreationTime = bossSpawn.CreationTime;
     }
 
     public static ProjectileMovement CreateProjectile(ProjectileDefinition projectileDefinition, Vector2 position, Quaternion rotation)

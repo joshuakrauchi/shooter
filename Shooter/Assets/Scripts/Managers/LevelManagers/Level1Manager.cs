@@ -116,8 +116,8 @@ public class Level1Manager : LevelManager
             CurrentTime += 0.25f;
         }
 
-        // Boss 1
-        CurrentTime += 5f;*/
+        // Boss 1*/
+        CurrentTime += 5f;
 
         Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, gameData.ScreenRect.yMax + 5f)));
 
@@ -126,31 +126,31 @@ public class Level1Manager : LevelManager
 
         for (var i = 0; i < 5; ++i)
         {
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topM15, VSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, topM15, VSlide1));
 
             CurrentTime += 0.25f;
         }
 
         for (var i = 0; i < 5; ++i)
         {
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topM15, VSlide1));
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topP15Flip, VSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, topM15, VSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, topP15Flip, VSlide1));
 
             CurrentTime += 0.25f;
         }
 
         for (var i = 0; i < 5; ++i)
         {
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topP15Flip, VSlide1));
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, topP15Flip, VSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
 
             CurrentTime += 0.25f;
         }
 
         for (var i = 0; i < 5; ++i)
         {
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topFlip, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, topFlip, HSlide1));
 
             CurrentTime += 0.25f;
         }
@@ -160,30 +160,30 @@ public class Level1Manager : LevelManager
 
         for (var i = 0; i < 5; ++i)
         {
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topFlip, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, topFlip, HSlide1));
 
             CurrentTime += 0.25f;
         }
 
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM15, DropLeave));
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM15, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
 
         for (var i = 0; i < 5; ++i)
         {
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topFlip, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, topFlip, HSlide1));
 
             CurrentTime += 0.25f;
         }
 
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM20, DropLeave));
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP20Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM20, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP20Flip, DropLeave));
 
         for (var i = 0; i < 10; ++i)
         {
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
-            Enemies.Add(new MinionSpawn(CurrentTime, basicShoot, topFlip, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, top, HSlide1));
+            Minions.Add(new MinionSpawn(CurrentTime, basicShoot, topFlip, HSlide1));
 
             CurrentTime += 0.25f;
         }
@@ -191,39 +191,39 @@ public class Level1Manager : LevelManager
         // 7
         CurrentTime += 7f;
 
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
         CurrentTime += 1f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerSingleShot, topM15, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerSingleShot, topM15, DropLeave));
         CurrentTime += 1f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerSingleShot, topP5Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerSingleShot, topP5Flip, DropLeave));
         CurrentTime += 1f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM5, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM5, DropLeave));
         CurrentTime += 1f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP20Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP20Flip, DropLeave));
         CurrentTime += 0.75f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerSingleShot, topM20, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerSingleShot, topM20, DropLeave));
         CurrentTime += 0.75f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerSingleShot, topP10Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerSingleShot, topP10Flip, DropLeave));
         CurrentTime += 0.75f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM10, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM10, DropLeave));
         CurrentTime += 0.75f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topP15Flip, DropLeave));
         CurrentTime += 0.5f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerSingleShot, topM5, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerSingleShot, topM5, DropLeave));
         CurrentTime += 0.5f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerSingleShot, topP20Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerSingleShot, topP20Flip, DropLeave));
         CurrentTime += 0.5f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM10, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerDoubleShot, topM10, DropLeave));
         CurrentTime += 0.5f;
-        Enemies.Add(new MinionSpawn(CurrentTime, eliteArcherDoubleShot, top, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, eliteArcherDoubleShot, top, DropLeave));
         CurrentTime += 0.25f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerSingleShot, topM15, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerSingleShot, topM15, DropLeave));
         CurrentTime += 0.25f;
-        Enemies.Add(new MinionSpawn(CurrentTime, archerSingleShot, topP15Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, archerSingleShot, topP15Flip, DropLeave));
         CurrentTime += 0.25f;
-        Enemies.Add(new MinionSpawn(CurrentTime, eliteArcherDoubleShot, topM5, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, eliteArcherDoubleShot, topM5, DropLeave));
         CurrentTime += 0.25f;
-        Enemies.Add(new MinionSpawn(CurrentTime, eliteArcherDoubleShot, topP5Flip, DropLeave));
+        Minions.Add(new MinionSpawn(CurrentTime, eliteArcherDoubleShot, topP5Flip, DropLeave));
 
         CurrentTime += 7f;
 
@@ -231,6 +231,6 @@ public class Level1Manager : LevelManager
 
 
 
-        Debug.Log(CurrentTime + " " + Enemies.Count);
+        Debug.Log(CurrentTime + " " + Minions.Count);
     }
 }

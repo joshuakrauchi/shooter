@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         {
             GameData.LevelTime += GameState.IsRewinding ? -Time.deltaTime : Time.deltaTime;
         }
-
+        
         GameData.CurrentLevelManager.UpdateEnemyCreation();
         UIManager.UpdateUpdateable();
         ProjectileManager.UpdateProjectiles();

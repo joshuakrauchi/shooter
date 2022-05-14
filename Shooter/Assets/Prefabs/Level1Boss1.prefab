@@ -150,7 +150,7 @@ MonoBehaviour:
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   <EnemyManager>k__BackingField: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
-  <Health>k__BackingField: 1
+  <Health>k__BackingField: 500
   <RewindRecharge>k__BackingField: 0.1
   <DroppedObjects>k__BackingField: []
   <ShootBehaviours>k__BackingField: []

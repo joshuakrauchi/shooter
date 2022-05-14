@@ -1,11 +1,11 @@
 public abstract class EnemyTimeData : ITimeData
 {
-    public float Health { get; }
     public bool IsDisabled { get; }
-
-    public EnemyTimeData(float health, bool isDisabled)
+    public float Health { get; }
+    
+    protected EnemyTimeData(bool isDisabled, float health)
     {
-        Health = health;
         IsDisabled = isDisabled;
+        Health = health;
     }
 }
