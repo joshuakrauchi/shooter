@@ -11,11 +11,22 @@ public class TestLevelManager : LevelManager
     protected override void Awake()
     {
         base.Awake();
+        
+        //ProjectileDefinition projectileDefinition = new(projectile, new MoveBehaviour[] {new MoveStraight(0.0f, 0.1f, -0.05f), new MoveSin(2.0f, 0.0f, 5.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f)});
+        ProjectileDefinition projectileDefinition = new(projectile, new MoveBehaviour[] {new MoveStraight(0.0f)});
 
-        ProjectileDefinition projectileDefinition = new(projectile, new[] {new MoveStraight(0.0f, 0.1f, -0.05f)});
-        MinionDefinition basicShoot = new(enemy, new ShootHoming(gameData.Player.gameObject, 2, new Timer(1f), projectileDefinition, new Timer(0f), 1, 3, 20, 2f, 0f));
+        var x = new ShootSpinningFlower(1, new Timer(5f), new ProjectileDefinition(projectile, new MoveBehaviour[]
+        {
+            new MoveStraight(0.0f),
+            new MoveSin(1.0f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f),
+            new MoveStraight(3.0f)
+        }), 8, 30, 2f, 0.25f, 0f);
 
-        Minions.Add(new MinionSpawn(CurrentTime, basicShoot, top, Test));
+        var y = new ShootHoming(gameData.Player.gameObject, 0, new Timer(4.0f), projectileDefinition, new Timer(0.25f), 10, 1, 0.0f, 0.0f, 0.0f);
+
+        MinionDefinition basicShoot = new(enemy, y);
+
+        Minions.Add(new MinionSpawn(CurrentTime + 1.0f, basicShoot, top, Test));
 
     }
 

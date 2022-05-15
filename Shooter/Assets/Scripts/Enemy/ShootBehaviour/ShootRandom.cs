@@ -22,7 +22,7 @@ public class ShootRandom : ShootBehaviour
 
         for (var i = 0; i < projectilesPerCycle; ++i)
         {
-            NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, Random.Range(-180f, 180f)));
+            NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, Random.Range(-180.0f, 180.0f)));
         }
 
         CycleTimer.Reset();

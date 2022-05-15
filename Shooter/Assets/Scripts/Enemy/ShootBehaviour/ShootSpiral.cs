@@ -26,10 +26,10 @@ public class ShootSpiral : ShootBehaviour
 
         if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
-        var angleBetweenProjectiles = 360f / directions;
+        var angleBetweenProjectiles = 360.0f / directions;
         for (var i = 0; i < directions; ++i)
         {
-            NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, _currentAngle + angleBetweenProjectiles * i + Random.Range(-angleVariation, angleVariation)));
+            NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + angleBetweenProjectiles * i + Random.Range(-angleVariation, angleVariation)));
         }
 
         _currentAngle += angleIncreasePerCycle;

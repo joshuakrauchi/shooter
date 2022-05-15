@@ -52,6 +52,6 @@ public class Player : MonoBehaviour, IUpdateable
 
     public void OnHit()
     {
-        GameState.IsPaused = true;
+        //GameState.IsPaused = true;
     }
 }

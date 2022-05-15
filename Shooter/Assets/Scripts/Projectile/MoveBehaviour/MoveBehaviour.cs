@@ -6,7 +6,7 @@ public abstract class MoveBehaviour
 {
     [field: SerializeField] public float StartTime { get; private set; }
 
-    public MoveBehaviour(float startTime)
+    protected MoveBehaviour(float startTime)
     {
         StartTime = startTime;
     }

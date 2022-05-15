@@ -8,7 +8,7 @@ public class ShootHoming : ShootBehaviour
     [SerializeReference] private ProjectileDefinition projectileDefinition;
     [SerializeField] private Timer shotTimer;
     [SerializeField] private uint shotsPerCycle;
-    [SerializeField] private uint projectilesPerCycle;
+    [SerializeField] private uint projectilesPerShot;
     [SerializeField] private float angleBetweenProjectiles;
     [SerializeField] private float angleVariation;
     [SerializeField] private float speedChangeBetweenShots;
@@ -16,13 +16,13 @@ public class ShootHoming : ShootBehaviour
     private GameObject _target;
     private uint _currentShots;
 
-    public ShootHoming(GameObject target, uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, Timer shotTimer, uint shotsPerCycle, uint projectilesPerCycle, float angleBetweenProjectiles, float angleVariation, float speedChangeBetweenShots) : base(totalCycles, cycleTimer)
+    public ShootHoming(GameObject target, uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, Timer shotTimer, uint shotsPerCycle, uint projectilesPerShot, float angleBetweenProjectiles, float angleVariation, float speedChangeBetweenShots) : base(totalCycles, cycleTimer)
     {
         _target = target;
         this.projectileDefinition = projectileDefinition;
         this.shotTimer = shotTimer;
         this.shotsPerCycle = shotsPerCycle;
-        this.projectilesPerCycle = projectilesPerCycle;
+        this.projectilesPerShot = projectilesPerShot;
         this.angleBetweenProjectiles = angleBetweenProjectiles;
         this.angleVariation = angleVariation;
         this.speedChangeBetweenShots = speedChangeBetweenShots;
@@ -43,11 +43,11 @@ public class ShootHoming : ShootBehaviour
         Vector2 direction = (Vector2)_target.transform.position - position;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        angle -= angleBetweenProjectiles * Mathf.Floor(projectilesPerCycle / 2f) + Random.Range(-angleVariation, angleVariation);
+        angle -= angleBetweenProjectiles * Mathf.Floor(projectilesPerShot / 2.0f) + Random.Range(-angleVariation, angleVariation);
 
-        for (var i = 0; i < projectilesPerCycle; ++i)
+        for (var i = 0; i < projectilesPerShot; ++i)
         {
-            ProjectileMovement projectileMovement = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, angle));
+            ProjectileMovement projectileMovement = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, angle));
             projectileMovement.Speed += speedChangeBetweenShots * _currentShots;
             angle += angleBetweenProjectiles;
         }
@@ -64,7 +64,7 @@ public class ShootHoming : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootHoming(_target, TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, shotTimer.DeepCopy(), shotsPerCycle, projectilesPerCycle, angleBetweenProjectiles, angleVariation, speedChangeBetweenShots)
+        return new ShootHoming(_target, TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, shotTimer.DeepCopy(), shotsPerCycle, projectilesPerShot, angleBetweenProjectiles, angleVariation, speedChangeBetweenShots)
         {
             CurrentCycles = CurrentCycles,
             _currentShots = _currentShots

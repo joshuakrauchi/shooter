@@ -26,11 +26,11 @@ public class ShootNormal : ShootBehaviour
 
         if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
-        var currentAngle = initialDirection - angleBetweenProjectiles * Mathf.Floor(numberOfProjectiles / 2f) + Random.Range(-angleVariation, angleVariation);
+        var currentAngle = initialDirection - angleBetweenProjectiles * Mathf.Floor(numberOfProjectiles / 2.0f) + Random.Range(-angleVariation, angleVariation);
 
         for (var i = 0; i < numberOfProjectiles; ++i)
         {
-            NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, currentAngle));
+            NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, currentAngle));
             currentAngle += angleBetweenProjectiles;
         }
 

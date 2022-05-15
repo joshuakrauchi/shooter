@@ -28,18 +28,18 @@ public class ShootSpinningFlower : ShootBehaviour
         if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
 
         var projectilesPerSide = projectilesPerPetal / 2;
-        var angleBetweenPetals = 360f / petals;
+        var angleBetweenPetals = 360.0f / petals;
         for (var i = 0; i < petals; ++i)
         {
-            ProjectileMovement middleProjectile = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, angleBetweenPetals * i + petalOffset));
+            ProjectileMovement middleProjectile = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, angleBetweenPetals * i + petalOffset));
             middleProjectile.Speed = projectileSpeed;
 
             for (var j = 0; j < projectilesPerSide; ++j)
             {
-                ProjectileMovement projectileMovement1 = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, angleBetweenPetals * i + angleBetweenProjectiles * (j + 1) + petalOffset));
+                ProjectileMovement projectileMovement1 = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, angleBetweenPetals * i + angleBetweenProjectiles * (j + 1) + petalOffset));
                 projectileMovement1.Speed = projectileSpeed - projectileSpeed * (j + 1) / projectilesPerSide;
 
-                ProjectileMovement projectileMovement2 = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0f, 0f, angleBetweenPetals * i + -angleBetweenProjectiles * (j + 1) + petalOffset));
+                ProjectileMovement projectileMovement2 = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, angleBetweenPetals * i + -angleBetweenProjectiles * (j + 1) + petalOffset));
                 projectileMovement2.Speed = projectileSpeed - projectileSpeed * (j + 1) / projectilesPerSide;
             }
         }
