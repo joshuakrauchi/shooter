@@ -337,11 +337,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594576, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.63237
+      value: -15.3
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594576, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.3467255
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594576, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_LocalPosition.z
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e01787f9e231694892834a0377004ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   footSoldier: {fileID: 4291872295983173431, guid: cfc56b117712b9d438c5dcedf9ed5a17, type: 3}
   archer: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
   eliteArcher: {fileID: 683005738966507240, guid: c7fbd6463e131b34f8f2a3ab8f924d6b, type: 3}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class NPCCreator
 {
-    public static void CreateMinion(MinionSpawn minionSpawn)
+    public static void CreateMinion(MinionSpawn minionSpawn, float animationClipStartTime)
     {
         MinionDefinition minionDefinition = minionSpawn.MinionDefinition;
         GameObject minionObject = Object.Instantiate(minionDefinition.Prefab, minionSpawn.ParentTransform);

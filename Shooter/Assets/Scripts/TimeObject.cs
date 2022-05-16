@@ -6,10 +6,10 @@ public abstract class TimeObject : MonoBehaviour, IUpdateable
     [field: SerializeField] protected GameData GameData { get; private set; }
     [field: SerializeField] protected GameState GameState { get; private set; }
     
+    protected LinkedList<ITimeData> TimeData { get; private set; }
+
     // If a TimeObject IsDisabled for the full length of a TimeData list, it calls a handler.
     protected bool IsDisabled { get; set; }
-
-    private LinkedList<ITimeData> TimeData { get; set; }
 
     private const uint MaxData = 1000;
 
@@ -18,7 +18,7 @@ public abstract class TimeObject : MonoBehaviour, IUpdateable
         TimeData = new LinkedList<ITimeData>();
     }
 
-    protected void UpdateTimeData()
+    private void UpdateTimeData()
     {
         if (GameState.IsRewinding)
         {

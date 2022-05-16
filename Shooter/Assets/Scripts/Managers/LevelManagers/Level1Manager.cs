@@ -29,13 +29,13 @@ public class Level1Manager : LevelManager
     {
         base.Awake();
 
-        MinionDefinition basicShoot = new(footSoldier, new ShootHoming(gameData.Player.gameObject, 2, new Timer(1f), smallArrow, new Timer(0f), 1, 3, 20, 2f, 0f));
-        MinionDefinition archerSingleShot = new(archer, new ShootHoming(gameData.Player.gameObject, 1, new Timer(1f), slowingArrow, new Timer(0.1f), 1, 15, 10f, 2f, -0.05f));
-        MinionDefinition archerDoubleShot = new(archer, new ShootHoming(gameData.Player.gameObject, 1, new Timer(1f), slowingArrow, new Timer(0.1f), 2, 15, 10f, 2f, -0.05f));
+        MinionDefinition basicShoot = new(footSoldier, new ShootHoming(GameData.Player.gameObject, 2, new Timer(1f), smallArrow, new Timer(0f), 1, 3, 20, 2f, 0f));
+        MinionDefinition archerSingleShot = new(archer, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), slowingArrow, new Timer(0.1f), 1, 15, 10f, 2f, -0.05f));
+        MinionDefinition archerDoubleShot = new(archer, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), slowingArrow, new Timer(0.1f), 2, 15, 10f, 2f, -0.05f));
 
-        MinionDefinition eliteArcherShooting = new(eliteArcher, new ShootHoming(gameData.Player.gameObject, 0, new Timer(1f), fastArrow, new Timer(0.1f), 3, 15, 15f, 5f, 0f));
-        MinionDefinition eliteArcherDoubleShot = new(eliteArcher, new ShootHoming(gameData.Player.gameObject, 1, new Timer(1f), fastArrow, new Timer(0.2f), 3, 15, 15f, 2f, 0f));
-        
+        MinionDefinition eliteArcherShooting = new(eliteArcher, new ShootHoming(GameData.Player.gameObject, 0, new Timer(1f), fastArrow, new Timer(0.1f), 3, 15, 15f, 5f, 0f));
+        MinionDefinition eliteArcherDoubleShot = new(eliteArcher, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), fastArrow, new Timer(0.2f), 3, 15, 15f, 2f, 0f));
+
         // 1
         for (var i = 0; i < 10; ++i)
         {
@@ -112,7 +112,7 @@ public class Level1Manager : LevelManager
         // Boss 1
         CurrentTime += 5f;
 
-        Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, gameData.ScreenRect.yMax + 5f)));
+        Bosses.Add(new BossSpawn(CurrentTime, boss1, new Vector2(0f, GameData.ScreenRect.yMax + 5f)));
 
         // 5
         CurrentTime += 5f;
@@ -220,7 +220,7 @@ public class Level1Manager : LevelManager
 
         CurrentTime += 7f;
 
-        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, gameData.ScreenRect.yMax + 5f)));
+        Bosses.Add(new BossSpawn(CurrentTime, boss2, new Vector2(0f, GameData.ScreenRect.yMax + 5f)));
 
 
 
