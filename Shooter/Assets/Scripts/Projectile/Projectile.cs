@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class Projectile : TimeObject
+public abstract class Projectile : TimeObject
 {
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
-    
+
     protected BoxCollider2D Collider { get; private set; }
     protected ProjectileMovement ProjectileMovement { get; private set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
 
-    private const float OffscreenThreshold = 2f;
+    private const float OffscreenThreshold = 2.0f;
 
     protected override void Awake()
     {
@@ -32,7 +32,7 @@ public class Projectile : TimeObject
         transform.position = projectileTimeData.Position;
         IsDisabled = projectileTimeData.IsDisabled;
     }
-    
+
     protected override void OnFullyDisabled()
     {
         DestroyProjectile();
@@ -46,7 +46,6 @@ public class Projectile : TimeObject
         Collider.enabled = !IsDisabled;
 
         ProjectileMovement.UpdateMovement(GameState.IsRewinding);
-        IsDisabled = IsOffscreen();
     }
 
     protected bool IsOffscreen()

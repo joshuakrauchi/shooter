@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class ShootSuccessiveHoming : ShootBehaviour
 {
-    [SerializeField] private ProjectileDefinition projectileDefinition;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Timer betweenShotsTimer;
     [SerializeField] private uint numberOfProjectiles;
     [SerializeField] private float angleBetweenProjectiles;
@@ -15,10 +15,10 @@ public class ShootSuccessiveHoming : ShootBehaviour
     private uint _shotsFired;
     private float _currentAngle;
 
-    public ShootSuccessiveHoming(GameObject target, uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, Timer betweenShotsTimer, uint numberOfProjectiles, float angleBetweenProjectiles, float angleVariation) : base(totalCycles, cycleTimer)
+    public ShootSuccessiveHoming(GameObject target, uint totalCycles, Timer cycleTimer, GameObject projectilePrefab, Timer betweenShotsTimer, uint numberOfProjectiles, float angleBetweenProjectiles, float angleVariation) : base(totalCycles, cycleTimer)
     {
         _target = target;
-        this.projectileDefinition = projectileDefinition;
+        this.projectilePrefab = projectilePrefab;
         this.betweenShotsTimer = betweenShotsTimer;
         this.numberOfProjectiles = numberOfProjectiles;
         this.angleBetweenProjectiles = angleBetweenProjectiles;
@@ -43,7 +43,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
             _currentAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - angleBetweenProjectiles * Mathf.Floor(numberOfProjectiles / 2.0f);
         }
 
-        NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + Random.Range(-angleVariation, angleVariation)));
+        NPCCreator.CreateProjectile(projectilePrefab, position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + Random.Range(-angleVariation, angleVariation)));
         _currentAngle += angleBetweenProjectiles;
         ++_shotsFired;
 
@@ -57,7 +57,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootSuccessiveHoming(_target, TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, betweenShotsTimer.DeepCopy(), numberOfProjectiles, angleBetweenProjectiles, angleVariation)
+        return new ShootSuccessiveHoming(_target, TotalCycles, CycleTimer.DeepCopy(), projectilePrefab, betweenShotsTimer.DeepCopy(), numberOfProjectiles, angleBetweenProjectiles, angleVariation)
         {
             CurrentCycles = CurrentCycles,
             _shotsFired = _shotsFired,

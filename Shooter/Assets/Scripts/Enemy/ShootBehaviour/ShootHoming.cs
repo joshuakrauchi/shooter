@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class ShootHoming : ShootBehaviour
 {
-    [SerializeReference] private ProjectileDefinition projectileDefinition;
+    [SerializeReference] private GameObject projectilePrefab;
     [SerializeField] private Timer shotTimer;
     [SerializeField] private uint shotsPerCycle;
     [SerializeField] private uint projectilesPerShot;
@@ -16,10 +16,10 @@ public class ShootHoming : ShootBehaviour
     private GameObject _target;
     private uint _currentShots;
 
-    public ShootHoming(GameObject target, uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, Timer shotTimer, uint shotsPerCycle, uint projectilesPerShot, float angleBetweenProjectiles, float angleVariation, float speedChangeBetweenShots) : base(totalCycles, cycleTimer)
+    public ShootHoming(GameObject target, uint totalCycles, Timer cycleTimer, GameObject projectilePrefab, Timer shotTimer, uint shotsPerCycle, uint projectilesPerShot, float angleBetweenProjectiles, float angleVariation, float speedChangeBetweenShots) : base(totalCycles, cycleTimer)
     {
         _target = target;
-        this.projectileDefinition = projectileDefinition;
+        this.projectilePrefab = projectilePrefab;
         this.shotTimer = shotTimer;
         this.shotsPerCycle = shotsPerCycle;
         this.projectilesPerShot = projectilesPerShot;
@@ -47,7 +47,7 @@ public class ShootHoming : ShootBehaviour
 
         for (var i = 0; i < projectilesPerShot; ++i)
         {
-            ProjectileMovement projectileMovement = NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, angle));
+            ProjectileMovement projectileMovement = NPCCreator.CreateProjectile(projectilePrefab, position, Quaternion.Euler(0.0f, 0.0f, angle));
             projectileMovement.Speed += speedChangeBetweenShots * _currentShots;
             angle += angleBetweenProjectiles;
         }
@@ -64,7 +64,7 @@ public class ShootHoming : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootHoming(_target, TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, shotTimer.DeepCopy(), shotsPerCycle, projectilesPerShot, angleBetweenProjectiles, angleVariation, speedChangeBetweenShots)
+        return new ShootHoming(_target, TotalCycles, CycleTimer.DeepCopy(), projectilePrefab, shotTimer.DeepCopy(), shotsPerCycle, projectilesPerShot, angleBetweenProjectiles, angleVariation, speedChangeBetweenShots)
         {
             CurrentCycles = CurrentCycles,
             _currentShots = _currentShots

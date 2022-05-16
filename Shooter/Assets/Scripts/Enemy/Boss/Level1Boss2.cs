@@ -8,11 +8,11 @@ public class Level1Boss2 : Boss
     [SerializeField] private GameObject fastArrow;
     [SerializeField] private GameObject bigArrow;
 
-    private ProjectileDefinition slowingProjectileStraight;
+    /*private ProjectileDefinition slowingProjectileStraight;
     private ProjectileDefinition smallProjectileStraight;
     private ProjectileDefinition boss2SmallProjectileRain;
     private ProjectileDefinition boss2BigProjectileStraight;
-    private ProjectileDefinition boss2BigProjectileRain;
+    private ProjectileDefinition boss2BigProjectileRain;*/
 
     private bool _initiatedDialogue;
 
@@ -20,11 +20,11 @@ public class Level1Boss2 : Boss
     {
         base.Awake();
 
-        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new MoveBehaviour[] {new MoveStraight(0.0f, 0.1f, -0.1f)});
+/*        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new MoveBehaviour[] {new MoveStraight(0.0f, 0.1f, -0.1f)});
         smallProjectileStraight = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(0.0f)});
         boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
         boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new MoveBehaviour[] {new MoveStraight(0.0f)});
-        boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new MoveBehaviour[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
+        boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new MoveBehaviour[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});*/
 
         Phases = new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7};
     }
@@ -49,7 +49,7 @@ public class Level1Boss2 : Boss
             ShootBehaviours = new List<ShootBehaviour>
             {
                 //new ShootHoming(0, new LockedTimer(0.1f), smallProjectileStraight, 1, 0f, 5f),
-                new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 15f, 5f)
+                new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), bigArrow, new Timer(0.25f), 5, 15f, 5f)
             };
 
             return true;
@@ -82,8 +82,8 @@ public class Level1Boss2 : Boss
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootNormal(0, new Timer(0.25f), boss2SmallProjectileRain, 5, 90f, 10f, 10f),
-                new ShootNormal(0, new Timer(0.5f), boss2BigProjectileRain, 7, 90f, 12f, 2f)
+                new ShootNormal(0, new Timer(0.25f), fastArrow, 5, 90f, 10f, 10f),
+                new ShootNormal(0, new Timer(0.5f), bigArrow, 7, 90f, 12f, 2f)
             };
 
             return true;
@@ -98,8 +98,8 @@ public class Level1Boss2 : Boss
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootRandom(0, new Timer(0.1f), slowingProjectileStraight, 10),
-                new ShootSpiral(0, new Timer(0.3f), boss2BigProjectileStraight, 1, 20f, 0f)
+                new ShootRandom(0, new Timer(0.1f), slowArrow, 10),
+                new ShootSpiral(0, new Timer(0.3f), bigArrow, 1, 20f, 0f)
             };
 
             return true;
@@ -114,7 +114,7 @@ public class Level1Boss2 : Boss
         {
             ShootBehaviours = new List<ShootBehaviour>
             {
-                new ShootRandom(0, new Timer(0.1f), boss2BigProjectileStraight, 5),
+                new ShootRandom(0, new Timer(0.1f), bigArrow, 5),
             };
 
             return true;

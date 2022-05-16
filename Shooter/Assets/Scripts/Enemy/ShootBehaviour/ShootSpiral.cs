@@ -5,16 +5,16 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class ShootSpiral : ShootBehaviour
 {
-    [SerializeField] private ProjectileDefinition projectileDefinition;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private uint directions;
     [SerializeField] private float angleIncreasePerCycle;
     [SerializeField] private float angleVariation;
 
     private float _currentAngle;
 
-    public ShootSpiral(uint totalCycles, Timer cycleTimer, ProjectileDefinition projectileDefinition, uint directions, float angleIncreasePerCycle, float angleVariation) : base(totalCycles, cycleTimer)
+    public ShootSpiral(uint totalCycles, Timer cycleTimer, GameObject projectilePrefab, uint directions, float angleIncreasePerCycle, float angleVariation) : base(totalCycles, cycleTimer)
     {
-        this.projectileDefinition = projectileDefinition;
+        this.projectilePrefab = projectilePrefab;
         this.directions = directions;
         this.angleIncreasePerCycle = angleIncreasePerCycle;
         this.angleVariation = angleVariation;
@@ -29,7 +29,7 @@ public class ShootSpiral : ShootBehaviour
         var angleBetweenProjectiles = 360.0f / directions;
         for (var i = 0; i < directions; ++i)
         {
-            NPCCreator.CreateProjectile(projectileDefinition, position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + angleBetweenProjectiles * i + Random.Range(-angleVariation, angleVariation)));
+            NPCCreator.CreateProjectile(projectilePrefab, position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + angleBetweenProjectiles * i + Random.Range(-angleVariation, angleVariation)));
         }
 
         _currentAngle += angleIncreasePerCycle;
@@ -39,7 +39,7 @@ public class ShootSpiral : ShootBehaviour
 
     public override ShootBehaviour Clone()
     {
-        return new ShootSpiral(TotalCycles, CycleTimer.DeepCopy(), projectileDefinition, directions, angleIncreasePerCycle, angleVariation)
+        return new ShootSpiral(TotalCycles, CycleTimer.DeepCopy(), projectilePrefab, directions, angleIncreasePerCycle, angleVariation)
         {
             CurrentCycles = CurrentCycles,
             _currentAngle = _currentAngle

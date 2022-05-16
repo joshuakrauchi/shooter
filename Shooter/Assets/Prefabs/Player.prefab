@@ -173,10 +173,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f7cb14817e8c940993bc76834e7b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ProjectilePrefab>k__BackingField: {fileID: 2810963475559622834, guid: 627860f7046ca4e4aa96f9efb8addba9, type: 3}
   <NumberOfShots>k__BackingField: 1
-  projectilePrefab: {fileID: 2810963475559622834, guid: 627860f7046ca4e4aa96f9efb8addba9, type: 3}
+  <ArmSpan>k__BackingField: 0
   shootDelay: 0.075
-  armSpan: 0.25
 --- !u!61 &925190438885594578
 BoxCollider2D:
   m_ObjectHideFlags: 0

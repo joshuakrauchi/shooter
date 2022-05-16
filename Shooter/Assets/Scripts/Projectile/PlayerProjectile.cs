@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerProjectile : Projectile
 {
-    [field: SerializeField] public float Damage { get; private set; }
+    [field: SerializeField] public float Damage { get; private set; } = 1.0f;
 
     protected override void Awake()
     {
@@ -13,15 +13,11 @@ public class PlayerProjectile : Projectile
 
     public override void UpdateUpdateable()
     {
-        SpriteRenderer.enabled = !IsDisabled;
-        Collider.enabled = !IsDisabled;
+        base.UpdateUpdateable();
 
-        ProjectileMovement.UpdateMovement(GameState.IsRewinding);
         if (IsOffscreen())
         {
             IsDisabled = true;
         }
-
-        UpdateTimeData();
     }
 }

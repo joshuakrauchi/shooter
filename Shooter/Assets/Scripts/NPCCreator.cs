@@ -21,18 +21,15 @@ public static class NPCCreator
         boss.CreationTime = bossSpawn.CreationTime;
     }
 
-    public static ProjectileMovement CreateProjectile(ProjectileDefinition projectileDefinition, Vector2 position, Quaternion rotation)
+    public static ProjectileMovement CreateProjectile(GameObject projectilePrefab, Vector2 position, Quaternion rotation)
     {
-        GameObject projectileObject = Object.Instantiate(projectileDefinition.Prefab, position, rotation);
-
-        ProjectileMovement projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
-        projectileMovement.MoveBehaviours = projectileDefinition.MoveBehaviours;
+        ProjectileMovement projectileMovement = Object.Instantiate(projectilePrefab, position, rotation).GetComponent<ProjectileMovement>();
 
         return projectileMovement;
     }
 
-    public static void CreateCollectible(GameObject collectible, Vector2 position)
+    public static void CreateCollectible(GameObject collectiblePrefab, Vector2 position)
     {
-        Object.Instantiate(collectible, position, Quaternion.identity);
+        Object.Instantiate(collectiblePrefab, position, Quaternion.identity);
     }
 }

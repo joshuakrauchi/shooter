@@ -18,5 +18,10 @@ public class PlayerController : MonoBehaviour
         {
             ProjectileManager.ClearProjectiles();
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Application.targetFrameRate = Application.targetFrameRate == 60 ? 10 : 60;
+        }
     }
 }
