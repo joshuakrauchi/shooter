@@ -2,17 +2,26 @@ using UnityEngine;
 
 public static class NPCCreator
 {
-    public static void CreateMinion(MinionSpawn minionSpawn, float animationClipStartTime)
+    public static void CreateMinion(MinionSpawn minionSpawn)
     {
         MinionDefinition minionDefinition = minionSpawn.MinionDefinition;
         GameObject minionObject = Object.Instantiate(minionDefinition.Prefab, minionSpawn.ParentTransform);
 
         Animator minionAnimator = minionObject.GetComponent<Animator>();
-        minionAnimator.SetBool(minionSpawn.AnimationID, true);
+        minionAnimator.Play(minionSpawn.AnimationName);
 
         Minion minion = minionObject.GetComponent<Minion>();
         minion.CreationTime = minionSpawn.CreationTime;
         minion.ShootBehaviour = minionDefinition.ShootBehaviour.Clone();
+        
+        var animationClips = minionAnimator.runtimeAnimatorController.animationClips;
+
+        foreach (AnimationClip clip in animationClips)
+        {
+            if (clip.name != minionSpawn.AnimationName) continue;
+            
+            minion.AnimationLength = clip.length;
+        }
     }
 
     public static void CreateBoss(BossSpawn bossSpawn)

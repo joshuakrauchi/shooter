@@ -14,16 +14,16 @@ public class Level1Manager : LevelManager
     [SerializeField] private GameObject bigArrow;
     [SerializeField] private GameObject anonArrow;
 
-    private readonly int HDangle = Animator.StringToHash("HDangle");
-    private readonly int HSlide1 = Animator.StringToHash("HSlide1");
-    private readonly int HSlide2 = Animator.StringToHash("HSlide2");
-    private readonly int Test = Animator.StringToHash("Test");
-    private readonly int VDangle = Animator.StringToHash("VDangle");
-    private readonly int VSlide1 = Animator.StringToHash("VSlide1");
-    private readonly int VSlide2 = Animator.StringToHash("VSlide2");
-    private readonly int Wave = Animator.StringToHash("Wave");
-    private readonly int VStraight = Animator.StringToHash("VStraight");
-    private readonly int DropLeave = Animator.StringToHash("DropLeave");
+    private const string HDangle = "HDangle";
+    private const string HSlide1 = "HSlide1";
+    private const string HSlide2 = "HSlide2";
+    private const string Test = "Test";
+    private const string VDangle = "VDangle";
+    private const string VSlide1 = "VSlide1";
+    private const string VSlide2 = "VSlide2";
+    private const string Wave = "Wave";
+    private const string VStraight = "VStraight";
+    private const string DropLeave = "DropLeave";
 
     protected override void Awake()
     {

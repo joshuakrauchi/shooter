@@ -81,7 +81,7 @@ public abstract class LevelManager : MonoBehaviour
         {
             MinionSpawn minionSpawn = Minions[MinionIndex];
             
-            NPCCreator.CreateMinion(minionSpawn, GameData.LevelTime - minionSpawn.CreationTime);
+            NPCCreator.CreateMinion(minionSpawn);
             ++MinionIndex;
         }
         
