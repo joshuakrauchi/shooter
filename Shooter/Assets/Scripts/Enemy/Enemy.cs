@@ -66,13 +66,10 @@ public abstract class Enemy : TimeObject
 
         if (Health > 0.0f) return;
 
-        Disable();
+        OnZeroHealth();
     }
 
-    /**
-     * Note: "Disable" is used as the name of the callback when a minion's animation clip is finished.
-     */
-    protected void Disable()
+    private void OnZeroHealth()
     {
         GameData.RewindCharge += RewindRecharge;
 

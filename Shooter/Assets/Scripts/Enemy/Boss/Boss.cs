@@ -69,7 +69,7 @@ public abstract class Boss : Enemy
 
             if (PhaseIndex >= Phases.Length)
             {
-                Disable();
+                IsDisabled = true;
             }
         }
 

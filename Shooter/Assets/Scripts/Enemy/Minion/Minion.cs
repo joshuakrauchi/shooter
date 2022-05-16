@@ -20,7 +20,14 @@ public class Minion : Enemy
     {
         base.UpdateUpdateable();
 
-        Animator.SetFloat(MotionTime, (GameData.LevelTime - CreationTime) / AnimationLength);
+        var newMotionTime = (GameData.LevelTime - CreationTime) / AnimationLength;
+
+        if (!IsDisabled && newMotionTime >= 1.0f)
+        {
+            IsDisabled = true;
+        }
+        
+        Animator.SetFloat(MotionTime, newMotionTime);
 
         EnemyCollision.Collider.enabled = !IsDisabled;
 
