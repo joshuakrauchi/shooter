@@ -8,8 +8,6 @@ public abstract class Projectile : TimeObject
     protected ProjectileMovement ProjectileMovement { get; private set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
 
-    private const float OffscreenThreshold = 2.0f;
-
     protected override void Awake()
     {
         base.Awake();
@@ -46,15 +44,6 @@ public abstract class Projectile : TimeObject
         Collider.enabled = !IsDisabled;
 
         ProjectileMovement.UpdateMovement(GameState.IsRewinding);
-    }
-
-    protected bool IsOffscreen()
-    {
-        Vector3 position = transform.position;
-        Vector3 extents = SpriteRenderer.bounds.extents;
-
-        return position.x < GameData.ScreenRect.xMin - OffscreenThreshold - extents.x || position.x > GameData.ScreenRect.xMax + OffscreenThreshold + extents.x ||
-               position.y < GameData.ScreenRect.yMin - OffscreenThreshold - extents.y || position.y > GameData.ScreenRect.yMax + OffscreenThreshold + extents.y;
     }
 
     public void OnHit()

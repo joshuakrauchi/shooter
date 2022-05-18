@@ -15,7 +15,7 @@ public class PlayerProjectile : Projectile
     {
         base.UpdateUpdateable();
 
-        if (IsOffscreen())
+        if (Utilities.IsOffscreen(transform.position, SpriteRenderer.bounds.extents, GameData.ScreenRect))
         {
             IsDisabled = true;
         }

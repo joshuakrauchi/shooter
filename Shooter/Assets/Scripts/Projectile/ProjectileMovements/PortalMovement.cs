@@ -2,48 +2,86 @@
 
 public class PortalMovement : ProjectileMovement
 {
+    [field: SerializeField] private GameData GameData { get; set; }
+    [field: SerializeField] private GameState GameState { get; set; }
+    [field: SerializeField] private float DistanceToScreenEdgeBeforeTeleport { get; set; } = 5.0f;
+    [field: SerializeField] private float DistanceToPlayerAfterTeleport { get; set; } = 15.0f;
+
     private bool HasTeleported { get; set; }
+    private SpriteRenderer SpriteRenderer { get; set; }
+    private Transform CachedTransform { get; set; }
     
+    private Vector2 _intersection;
+    private Timer teleportDelay;
 
     private void Awake()
     {
-        // Get vector for direction of projectile
-        // Find point of intersection with one of the four sides of the screen
-        // 4/5s of the way there or so, change position and rotation.
-    }
-    
-    protected bool IsOffscreen()
-    {
-        Vector3 position = transform.position;
-        Vector3 extents = SpriteRenderer.bounds.extents;
+        CachedTransform = transform;
+        SpriteRenderer = GetComponent<SpriteRenderer>();
 
-        return position.x < GameData.ScreenRect.xMin - OffscreenThreshold - extents.x || position.x > GameData.ScreenRect.xMax + OffscreenThreshold + extents.x ||
-               position.y < GameData.ScreenRect.yMin - OffscreenThreshold - extents.y || position.y > GameData.ScreenRect.yMax + OffscreenThreshold + extents.y;
+        SetIntersectionPoint();
+        
+        teleportDelay = new Timer(1.5f);
     }
-    
+
     protected override void UpdateTransform()
     {
-        if (!HasTeleported)
+        if (!HasTeleported && Vector2.Distance(CachedTransform.position, _intersection) <= DistanceToScreenEdgeBeforeTeleport)
         {
-            
-        }
-        Vector2 velocity = new()
-        {
-            x = Speed,
-            y = 0.0f
-        };
+            Teleport();
 
-        transform.Translate(velocity);
+            HasTeleported = true;
+        }
+
+        if (HasTeleported && !teleportDelay.IsFinished(false))
+        {
+            teleportDelay.UpdateTime(GameState.IsRewinding);
+            return;
+        }
+
+        CachedTransform.Translate(GetStraightMovement());
     }
 
-    private Vector2 sds()
+    private void SetIntersectionPoint()
     {
-        Vector2 velocity = new()
-        {
-            x = Speed,
-            y = 0.0f
-        };
+        Vector2 origin = CachedTransform.position;
+        Vector2 travelPoint = CachedTransform.right * 100.0f;
+        Rect screenRect = GameData.ScreenRect;
 
-        transform.Translate(velocity);
+        Vector2 bottomRight = new(screenRect.xMax, screenRect.yMin);
+        
+        // Check bottom screen side.
+        if (Utilities.GetLineIntersection(origin, travelPoint, screenRect.min, bottomRight, ref _intersection)) return;
+        
+        // Check right screen side.
+        if (Utilities.GetLineIntersection(origin, travelPoint, screenRect.max, bottomRight, ref _intersection)) return;
+        
+        Vector2 topLeft = new(screenRect.xMin, screenRect.yMax);
+
+        // Check top screen side.
+        if (Utilities.GetLineIntersection(origin, travelPoint, screenRect.max, topLeft, ref _intersection)) return;
+        
+        // Check left screen side.
+        Utilities.GetLineIntersection(origin, travelPoint, screenRect.min, topLeft, ref _intersection);
+    }
+
+    private void Teleport()
+    {
+        Vector2 playerPosition = GameData.Player.transform.position;
+        var randomRotation = Random.Range(-180.0f, 180.0f);
+        Vector2 newPosition = playerPosition + (Vector2) (Quaternion.Euler(0.0f, 0.0f, randomRotation) * Vector3.right) * DistanceToPlayerAfterTeleport;
+
+        // If the projectile is offscreen, rotate it 90 degrees until it isn't.
+        for (var i = 0; i < 3; ++i)
+        {
+            if (!Utilities.IsOffscreen(newPosition, SpriteRenderer.bounds.extents, GameData.ScreenRect)) break;
+
+            randomRotation += 90.0f;
+            newPosition = Quaternion.Euler(0.0f, 0.0f, 90.0f) * newPosition;
+        }
+
+        CachedTransform.position = newPosition;
+
+        CachedTransform.rotation = Quaternion.Euler(0.0f, 0.0f, randomRotation + 180.0f);
     }
 }

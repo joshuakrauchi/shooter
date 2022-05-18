@@ -73,11 +73,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8658724961254510046, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 8658724961254510046, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 8658724961254510046, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
       propertyPath: m_LocalScale.z
@@ -130,7 +130,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2280625812692114773, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
   m_PrefabInstance: {fileID: 8910950862153794592}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7810647100422041911
+--- !u!114 &103627037240897644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,9 +139,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7209250968108194165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d63e7407cda4b77a74b937b9d672d99, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eb3fe7c5a094cbc8c8e3dab83f9b5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 0.25
+  <IsVariableSpeed>k__BackingField: 1
   <MinimumSpeed>k__BackingField: 0.1
   <SpeedOverTimeMultiplier>k__BackingField: -0.05
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}

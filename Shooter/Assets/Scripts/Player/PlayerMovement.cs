@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 newPosition = Vector3.MoveTowards(position, gameData.MainCamera.ScreenToWorldPoint(Input.mousePosition), MoveSpeed);
 
         // Lock new position to within screen bounds.
-        if (newPosition.x < gameData.ScreenRect.xMin)
+        /*if (newPosition.x < gameData.ScreenRect.xMin)
         {
             newPosition.x = gameData.ScreenRect.xMin;
         }
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         else if (newPosition.y > gameData.ScreenRect.yMax)
         {
             newPosition.y = gameData.ScreenRect.yMax;
-        }
+        }*/
 
         newPosition.z = position.z;
 
