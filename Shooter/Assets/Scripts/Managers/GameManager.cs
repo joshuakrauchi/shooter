@@ -29,6 +29,15 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // For later fun
+        /*
+        var rotation = GameData.MainCamera.transform.rotation;
+        GameData.MainCamera.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotation.eulerAngles.z + 0.25f);
+        
+        GameData.UpdateScreenRect();
+        */
+        
+        
         if ((GameState.IsPaused || GameState.IsRewinding) && !HasPausedAnimators)
         {
             EnemyManager.SetMinionAnimatorSpeed(0.0f);

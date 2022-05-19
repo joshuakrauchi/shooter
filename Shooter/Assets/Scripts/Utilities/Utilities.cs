@@ -2,8 +2,11 @@
 
 public static class Utilities
 {
-    public static bool IsOffscreen(Vector2 position, Vector2 spriteExtents, Rect screenRect) => position.x < screenRect.xMin - spriteExtents.x || position.x > screenRect.xMax + spriteExtents.x ||
-                                                                                                position.y < screenRect.yMin - spriteExtents.y || position.y > screenRect.yMax + spriteExtents.y;
+    private const float OffscreenOffset = 1.0f;
+
+    public static bool IsOffscreen(Vector2 position, Vector2 spriteExtents, Rect screenRect) =>
+        position.x < screenRect.xMin - spriteExtents.x - OffscreenOffset || position.x > screenRect.xMax + spriteExtents.x + OffscreenOffset ||
+        position.y < screenRect.yMin - spriteExtents.y - OffscreenOffset || position.y > screenRect.yMax + spriteExtents.y + OffscreenOffset;
 
     public static bool IsSameSign(float first, float second)
     {
