@@ -24,7 +24,7 @@ public class LevelXBossX : Boss
     {
         if (BossMovement.IsFinished(GameState.IsRewinding))
         {
-            ShootBehaviours = new List<ShootBehaviour> {new ShootSpinningFlower(1, new Timer(5f), fastArrow, 8, 30, 2f, 0.25f, 0f)};
+            //ShootBehaviours = new List<ShootBehaviour> {new ShootSpinningFlower(1, new Timer(5f), fastArrow, 8, 30, 2f, 0.25f, 0f)};
 
             //new ShootRain(0, new LockedTimer(0.2f), ProjectileDefinitions[1])};
             //ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(0, new LockedTimer(1f), ProjectileDefinitions[2], new LockedTimer(0.25f), 5, 20f, 5f)};

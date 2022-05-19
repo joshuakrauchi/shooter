@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Minion : Enemy
 {
-    [field: SerializeReference] public ShootBehaviour ShootBehaviour { get; set; }
-    
     public Animator Animator { get; private set; }
     public float AnimationLength { get; set; } = 1.0f;
+
+    private ShootBehaviour ShootBehaviour { get; set; }
 
     private static readonly int MotionTime = Animator.StringToHash("MotionTime");
 
@@ -14,6 +14,7 @@ public class Minion : Enemy
         base.Awake();
 
         Animator = GetComponent<Animator>();
+        ShootBehaviour = GetComponent<ShootBehaviour>();
     }
 
     public override void UpdateUpdateable()
@@ -33,12 +34,12 @@ public class Minion : Enemy
 
         if (IsDisabled || GameState.IsRewinding) return;
 
-        ShootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
+        ShootBehaviour.UpdateShoot(GameState.IsRewinding);
     }
 
     protected override void Record()
     {
-        ShootBehaviour shootClone = ShootBehaviour?.Clone();
+        ShootBehaviour shootClone = ShootBehaviour;
         
         AddTimeData(new MinionTimeData(IsDisabled, Health, shootClone));
     }
@@ -46,6 +47,8 @@ public class Minion : Enemy
     protected override void Rewind(ITimeData timeData)
     {
         base.Rewind(timeData);
+
+        return;
 
         MinionTimeData minionTimeData = (MinionTimeData) timeData;
         ShootBehaviour = minionTimeData.ShootBehaviour;

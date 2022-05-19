@@ -2,32 +2,33 @@ using UnityEngine;
 
 public static class NPCCreator
 {
-    public static void CreateMinion(MinionSpawn minionSpawn)
+    public static void CreateMinion(MinionData minionData)
     {
-        MinionDefinition minionDefinition = minionSpawn.MinionDefinition;
-        GameObject minionObject = Object.Instantiate(minionDefinition.Prefab, minionSpawn.ParentTransform);
+        GameObject minionObject = Object.Instantiate(minionData.MinionPrefab, minionData.ParentTransform);
 
         Animator minionAnimator = minionObject.GetComponent<Animator>();
-        minionAnimator.Play(minionSpawn.AnimationName);
+        minionAnimator.Play(minionData.AnimationName);
 
         Minion minion = minionObject.GetComponent<Minion>();
-        minion.CreationTime = minionSpawn.CreationTime;
-        minion.ShootBehaviour = minionDefinition.ShootBehaviour.Clone();
+        minion.CreationTime = minionData.CreationTime;
         
         var animationClips = minionAnimator.runtimeAnimatorController.animationClips;
 
+        // Loop through the animation clips in the animator to find the active one,
+        // and get the length of the clip. This is used for manually setting the
+        // playback position of the animation clip.
         foreach (AnimationClip clip in animationClips)
         {
-            if (clip.name != minionSpawn.AnimationName) continue;
+            if (clip.name != minionData.AnimationName) continue;
             
             minion.AnimationLength = clip.length;
         }
     }
 
-    public static void CreateBoss(BossSpawn bossSpawn)
+    public static void CreateBoss(BossData bossData)
     {
-        Boss boss = Object.Instantiate(bossSpawn.Prefab, bossSpawn.Position, Quaternion.identity).GetComponent<Boss>();
-        boss.CreationTime = bossSpawn.CreationTime;
+        Boss boss = Object.Instantiate(bossData.BossPrefab, bossData.Position, Quaternion.identity).GetComponent<Boss>();
+        boss.CreationTime = bossData.CreationTime;
     }
 
     public static ProjectileMovement CreateProjectile(GameObject projectilePrefab, Vector2 position, Quaternion rotation)

@@ -28,11 +28,12 @@ public abstract class Boss : Enemy
 
     protected override void Record()
     {
+        return;
         List<ShootBehaviour> shootClones = null;
 
         if (ShootBehaviours != null)
         {
-            shootClones = ShootBehaviours.Select(shootBehaviour => shootBehaviour.Clone()).ToList();
+            //shootClones = ShootBehaviours.Select(shootBehaviour => shootBehaviour.Clone()).ToList();
         }
 
         AddTimeData(new BossTimeData(IsDisabled, Health, GameState.IsBossActive, BossMovement, PhaseIndex, shootClones, PhaseTimer));
@@ -40,6 +41,8 @@ public abstract class Boss : Enemy
 
     protected override void Rewind(ITimeData timeData)
     {
+        return;
+        
         base.Rewind(timeData);
 
         BossTimeData bossTimeData = (BossTimeData) timeData;
@@ -79,7 +82,7 @@ public abstract class Boss : Enemy
 
         foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
         {
-            shootBehaviour?.UpdateShoot(transform.position, GameState.IsRewinding);
+            shootBehaviour.UpdateShoot(GameState.IsRewinding);
         }
     }
 

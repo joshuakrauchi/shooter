@@ -1,20 +1,31 @@
-using System;
 using UnityEngine;
 
-[Serializable]
-public abstract class ShootBehaviour
+public abstract class ShootBehaviour: MonoBehaviour
 {
-    [field: SerializeField] public uint TotalCycles { get; private set; }
-    [field: SerializeField] public Timer CycleTimer { get; private set; }
+    [field: SerializeField] protected GameObject ProjectilePrefab { get; private set; }
 
-    protected uint CurrentCycles;
+    // A "Cycle" is a full iteration of a ShootBehaviour. A single cycle can hold one to many "shots".
+    // There can be a delay between cycles, so you can do rapid fire shots split up by short pauses.
+    // "0" TotalCycles means repeat infinitely.
+    [field: SerializeField] private uint TotalCycles { get; set; }
+    [field: SerializeField] private Timer CycleTimer { get; set; } = new Timer(1.0f);
 
-    public ShootBehaviour(uint totalCycles, Timer cycleTimer)
+    private uint CurrentCycles { get; set; }
+
+    public void UpdateShoot(bool isRewinding)
     {
-        TotalCycles = totalCycles;
-        CycleTimer = cycleTimer;
+        CycleTimer.UpdateTime(isRewinding);
+
+        if (!CycleTimer.IsFinished(false) || TotalCycles != 0 && CurrentCycles == TotalCycles) return;
+
+        if (!UpdateCycle(isRewinding)) return;
+
+        ++CurrentCycles;
+        CycleTimer.Reset();
     }
 
-    public abstract void UpdateShoot(Vector2 position, bool isRewinding);
-    public abstract ShootBehaviour Clone();
+    /**
+     * Returns true if the cycle is completely finished.
+     */
+    protected abstract bool UpdateCycle(bool isRewinding);
 }

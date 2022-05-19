@@ -19,11 +19,11 @@ public class TestLevelManager : LevelManager
             new MoveStraight(3.0f)
         }), 8, 30, 2f, 0.25f, 0f);
 */
-        var y = new ShootHoming(GameData.Player.gameObject, 0, new Timer(4.0f), projectile, new Timer(0.25f), 10, 1, 0.0f, 0.0f, 0.0f);
+        //var y = new ShootHoming(GameData.Player.gameObject, 0, new Timer(4.0f), projectile, new Timer(0.25f), 10, 1, 0.0f, 0.0f, 0.0f);
 
-        MinionDefinition basicShoot = new(enemy, y);
+        //MinionDefinition basicShoot = new(enemy, y);
 
-        Minions.Add(new MinionSpawn(CurrentTime + 1.0f, basicShoot, TopTransforms[0], "Test"));
+        //Minions.Add(new MinionSpawn(CurrentTime + 1.0f, basicShoot, TopTransforms[0], "Test"));
 
     }
 

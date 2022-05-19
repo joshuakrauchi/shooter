@@ -49,7 +49,7 @@ public class Level1Boss2 : Boss
             ShootBehaviours = new List<ShootBehaviour>
             {
                 //new ShootHoming(0, new LockedTimer(0.1f), smallProjectileStraight, 1, 0f, 5f),
-                new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), bigArrow, new Timer(0.25f), 5, 15f, 5f)
+                //new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), bigArrow, new Timer(0.25f), 5, 15f, 5f)
             };
 
             return true;
@@ -80,11 +80,11 @@ public class Level1Boss2 : Boss
     {
         if (BossMovement.IsFinished(GameState.IsRewinding))
         {
-            ShootBehaviours = new List<ShootBehaviour>
+            /*ShootBehaviours = new List<ShootBehaviour>
             {
                 new ShootNormal(0, new Timer(0.25f), fastArrow, 5, 90f, 10f, 10f),
                 new ShootNormal(0, new Timer(0.5f), bigArrow, 7, 90f, 12f, 2f)
-            };
+            };*/
 
             return true;
         }
@@ -96,11 +96,11 @@ public class Level1Boss2 : Boss
     {
         if (Health <= MaxHealth * 0.5f)
         {
-            ShootBehaviours = new List<ShootBehaviour>
+            /*ShootBehaviours = new List<ShootBehaviour>
             {
                 new ShootRandom(0, new Timer(0.1f), slowArrow, 10),
                 new ShootSpiral(0, new Timer(0.3f), bigArrow, 1, 20f, 0f)
-            };
+            };*/
 
             return true;
         }
@@ -112,10 +112,10 @@ public class Level1Boss2 : Boss
     {
         if (Health <= MaxHealth * 0.25f)
         {
-            ShootBehaviours = new List<ShootBehaviour>
+            /*ShootBehaviours = new List<ShootBehaviour>
             {
                 new ShootRandom(0, new Timer(0.1f), bigArrow, 5),
-            };
+            };*/
 
             return true;
         }

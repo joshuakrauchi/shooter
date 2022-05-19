@@ -9,14 +9,12 @@ public class PortalMovement : ProjectileMovement
 
     private bool HasTeleported { get; set; }
     private SpriteRenderer SpriteRenderer { get; set; }
-    private Transform CachedTransform { get; set; }
-    
+
     private Vector2 _intersection;
     private Timer teleportDelay;
 
     private void Awake()
     {
-        CachedTransform = transform;
         SpriteRenderer = GetComponent<SpriteRenderer>();
 
         SetIntersectionPoint();
@@ -26,7 +24,7 @@ public class PortalMovement : ProjectileMovement
 
     protected override void UpdateTransform()
     {
-        if (!HasTeleported && Vector2.Distance(CachedTransform.position, _intersection) <= DistanceToScreenEdgeBeforeTeleport)
+        if (!HasTeleported && Vector2.Distance(transform.position, _intersection) <= DistanceToScreenEdgeBeforeTeleport)
         {
             Teleport();
 
@@ -39,13 +37,13 @@ public class PortalMovement : ProjectileMovement
             return;
         }
 
-        CachedTransform.Translate(GetStraightMovement());
+        transform.Translate(GetStraightMovement());
     }
 
     private void SetIntersectionPoint()
     {
-        Vector2 origin = CachedTransform.position;
-        Vector2 travelPoint = CachedTransform.right * 100.0f;
+        Vector2 origin = transform.position;
+        Vector2 travelPoint = transform.right * 100.0f;
         Rect screenRect = GameData.ScreenRect;
 
         Vector2 bottomRight = new(screenRect.xMax, screenRect.yMin);
@@ -80,8 +78,8 @@ public class PortalMovement : ProjectileMovement
             newPosition = playerPosition + (Vector2) (Quaternion.Euler(0.0f, 0.0f, randomRotation) * Vector3.right) * DistanceToPlayerAfterTeleport;
         }
 
-        CachedTransform.position = newPosition;
+        transform.position = newPosition;
 
-        CachedTransform.rotation = Quaternion.Euler(0.0f, 0.0f, randomRotation + 180.0f);
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, randomRotation + 180.0f);
     }
 }

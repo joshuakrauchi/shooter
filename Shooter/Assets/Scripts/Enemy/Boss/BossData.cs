@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class BossSpawn
+public class BossData
 {
     public float CreationTime { get; }
-    public GameObject Prefab { get; }
+    public GameObject BossPrefab { get; }
     public Vector2 Position { get; }
 
-    public BossSpawn(float creationTime, GameObject prefab, Vector2 position)
+    public BossData(float creationTime, GameObject bossPrefab, Vector2 position)
     {
         CreationTime = creationTime;
-        Prefab = prefab;
+        BossPrefab = bossPrefab;
         Position = position;
     }
 }

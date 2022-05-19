@@ -5,8 +5,8 @@ public abstract class LevelManager : MonoBehaviour
 {
     [field: SerializeField] protected GameData GameData { get; private set; }
 
-    protected List<MinionSpawn> Minions { get; private set; }
-    protected List<BossSpawn> Bosses { get; private set; }
+    protected List<MinionData> Minions { get; private set; }
+    protected List<BossData> Bosses { get; private set; }
     private int MinionIndex { get; set; }
     private int BossIndex { get; set; }
 
@@ -20,8 +20,8 @@ public abstract class LevelManager : MonoBehaviour
     protected virtual void Awake()
     {
         GameData.CurrentLevelManager = this;
-        Minions = new List<MinionSpawn>();
-        Bosses = new List<BossSpawn>();
+        Minions = new List<MinionData>();
+        Bosses = new List<BossData>();
 
         CurrentTime = 2.5f;
 
@@ -46,9 +46,9 @@ public abstract class LevelManager : MonoBehaviour
 
         while (MinionIndex < Minions.Count && Minions[MinionIndex].CreationTime <= GameData.LevelTime)
         {
-            MinionSpawn minionSpawn = Minions[MinionIndex];
+            MinionData minionData = Minions[MinionIndex];
             
-            NPCCreator.CreateMinion(minionSpawn);
+            NPCCreator.CreateMinion(minionData);
             ++MinionIndex;
         }
         
@@ -64,8 +64,8 @@ public abstract class LevelManager : MonoBehaviour
         }
     }
 
-    public void AddMinion(MinionDefinition minionDefinition, Transform parentTransform, string animationName)
+    protected void AddMinion(GameObject minionPrefab, Transform parentTransform, string animationName)
     {
-        Minions.Add(new MinionSpawn(CurrentTime, minionDefinition, parentTransform, animationName));
+        Minions.Add(new MinionData(CurrentTime, minionPrefab, parentTransform, animationName));
     }
 }
