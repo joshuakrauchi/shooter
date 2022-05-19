@@ -63,12 +63,9 @@ public class GameData : ScriptableObject
         if (!MainCamera) return;
         
         Vector3 bottomLeft = MainCamera.ScreenToWorldPoint(Vector2.zero);
-
-        Debug.Log(bottomLeft);
-        
         Vector3 topRight = MainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        ScreenRect = Rect.MinMaxRect(bottomLeft.x < 0 ? bottomLeft.x : -bottomLeft.x, bottomLeft.y < 0 ? bottomLeft.y : -bottomLeft.y, topRight.x > 0 ? topRight.x : -topRight.x, topRight.y > 0 ? topRight.y : -topRight.y);
         
+        ScreenRect = Rect.MinMaxRect(bottomLeft.x < 0 ? bottomLeft.x : -bottomLeft.x, bottomLeft.y < 0 ? bottomLeft.y : -bottomLeft.y, topRight.x > 0 ? topRight.x : -topRight.x, topRight.y > 0 ? topRight.y : -topRight.y);
     }
 
     private void OnEnable()

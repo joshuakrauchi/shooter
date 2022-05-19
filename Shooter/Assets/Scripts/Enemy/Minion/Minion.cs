@@ -32,25 +32,21 @@ public class Minion : Enemy
 
         EnemyCollision.Collider.enabled = !IsDisabled;
 
-        if (IsDisabled || GameState.IsRewinding) return;
+        if (IsDisabled) return;
 
         ShootBehaviour.UpdateShoot(GameState.IsRewinding);
     }
 
     protected override void Record()
     {
-        ShootBehaviour shootClone = ShootBehaviour;
-        
-        AddTimeData(new MinionTimeData(IsDisabled, Health, shootClone));
+        AddTimeData(new MinionTimeData(IsDisabled, Health, ShootBehaviour.GetRecordData()));
     }
 
     protected override void Rewind(ITimeData timeData)
     {
         base.Rewind(timeData);
 
-        return;
-
         MinionTimeData minionTimeData = (MinionTimeData) timeData;
-        ShootBehaviour = minionTimeData.ShootBehaviour;
+        ShootBehaviour.SetRewindData(minionTimeData.ShootTimeData);
     }
 }

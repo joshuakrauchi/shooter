@@ -64,7 +64,7 @@ public class Level1Boss1 : Boss
         if (Health <= MaxHealth * 0.75f || PhaseTimer.IsFinished(false))
         {
             ResetMovement(transform.position, new Vector2(0.0f, GameData.ScreenRect.yMax - 10.0f), 1.0f, 0.0f);
-            ShootBehaviours.Clear();
+            //ShootBehaviours.Clear();
             PhaseTimer = new Timer(10.0f);
 
             return true;

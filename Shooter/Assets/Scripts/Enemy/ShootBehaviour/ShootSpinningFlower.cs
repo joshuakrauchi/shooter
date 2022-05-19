@@ -8,6 +8,18 @@ public class ShootSpinningFlower : ShootBehaviour
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float petalOffset;
 
+    public override ShootTimeData GetRecordData()
+    {
+        return new ShootTimeData(CycleTimer, CurrentCycles);
+    }
+
+    public override void SetRewindData(ShootTimeData shootTimeData)
+    {
+        base.SetRewindData(shootTimeData);
+        
+        
+    }
+    
     protected override bool UpdateCycle(bool isRewinding)
     {
         var projectilesPerSide = projectilesPerPetal / 2;

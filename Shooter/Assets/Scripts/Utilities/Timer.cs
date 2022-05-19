@@ -28,6 +28,4 @@ public class Timer
     public void Reset() => ElapsedTime = 0.0f;
 
     public bool IsFinished(bool isRewinding) => isRewinding ? ElapsedTime <= 0f : ElapsedTime >= TimeToFinish;
-
-    public Timer DeepCopy() => (Timer) MemberwiseClone();
 }

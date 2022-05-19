@@ -155,10 +155,10 @@ MonoBehaviour:
   <CycleTimer>k__BackingField:
     <TimeToFinish>k__BackingField: 1
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  shotTimer:
+  <ShotTimer>k__BackingField:
     <TimeToFinish>k__BackingField: 0
-  shotsPerCycle: 1
-  projectilesPerShot: 3
-  angleBetweenProjectiles: 20
-  angleVariation: 2
-  speedChangeBetweenShots: 0
+  <ShotsPerCycle>k__BackingField: 1
+  <ProjectilesPerShot>k__BackingField: 3
+  <AngleBetweenProjectiles>k__BackingField: 20
+  <AngleVariation>k__BackingField: 2
+  <SpeedChangeBetweenShots>k__BackingField: 0

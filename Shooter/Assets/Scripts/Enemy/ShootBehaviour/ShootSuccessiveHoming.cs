@@ -13,6 +13,18 @@ public class ShootSuccessiveHoming : ShootBehaviour
     private GameObject _target;
     private uint _shotsFired;
     private float _currentAngle;
+    
+    public override ShootTimeData GetRecordData()
+    {
+        return new ShootTimeData(CycleTimer, CurrentCycles);
+    }
+
+    public override void SetRewindData(ShootTimeData shootTimeData)
+    {
+        base.SetRewindData(shootTimeData);
+        
+        
+    }
 
     protected override bool UpdateCycle(bool isRewinding)
     {

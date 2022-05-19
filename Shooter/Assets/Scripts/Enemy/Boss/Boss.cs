@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public abstract class Boss : Enemy
 {
     protected delegate bool PhaseBehaviour();
 
-    [field: SerializeReference] protected List<ShootBehaviour> ShootBehaviours { get; set; }
+    [field: SerializeReference] protected ShootBehaviour[] ShootBehaviours { get; set; }
     [field: SerializeField] protected UIManager UIManager { get; set; }
 
     protected float MaxHealth { get; private set; }
@@ -21,37 +19,48 @@ public abstract class Boss : Enemy
         base.Awake();
 
         BossMovement = new BossMovement(transform.position);
-        ShootBehaviours = new List<ShootBehaviour>();
+        ShootBehaviours = GetComponents<ShootBehaviour>();
         MaxHealth = Health;
         PhaseTimer = new Timer(0.0f);
     }
 
     protected override void Record()
     {
-        return;
-        List<ShootBehaviour> shootClones = null;
+        var numberOfShootBehaviours = ShootBehaviours.Length;
+        var shootTimeData = new ShootBehaviour.ShootTimeData[numberOfShootBehaviours];
 
-        if (ShootBehaviours != null)
+        for (var i = 0; i < numberOfShootBehaviours; ++i)
         {
-            //shootClones = ShootBehaviours.Select(shootBehaviour => shootBehaviour.Clone()).ToList();
+            ShootBehaviour shootBehaviour = ShootBehaviours[i];
+            if (!shootBehaviour.enabled) return;
+            
+            shootTimeData[i] = shootBehaviour.GetRecordData();
         }
 
-        AddTimeData(new BossTimeData(IsDisabled, Health, GameState.IsBossActive, BossMovement, PhaseIndex, shootClones, PhaseTimer));
+        AddTimeData(new BossTimeData(IsDisabled, Health, GameState.IsBossActive, BossMovement, PhaseIndex, PhaseTimer, shootTimeData));
     }
 
     protected override void Rewind(ITimeData timeData)
     {
-        return;
-        
         base.Rewind(timeData);
 
         BossTimeData bossTimeData = (BossTimeData) timeData;
 
         GameState.IsBossActive = bossTimeData.IsBossActive;
-        ShootBehaviours = bossTimeData.ShootBehaviours;
-        PhaseIndex = bossTimeData.PhaseIndex;
         BossMovement = bossTimeData.BossMovement;
+        PhaseIndex = bossTimeData.PhaseIndex;
         PhaseTimer = bossTimeData.PhaseTimer;
+
+        for (var i = 0; i < bossTimeData.ShootTimeData.Length; ++i)
+        {
+            ShootBehaviour.ShootTimeData shootTimeData = bossTimeData.ShootTimeData[i];
+            // If the ShootTimeData is null/default, the corresponding ShootBehaviour was disabled at the time of recording.
+            ShootBehaviours[i].enabled = shootTimeData != default;
+
+            if (shootTimeData == default) return;
+            
+            ShootBehaviours[i].SetRewindData(bossTimeData.ShootTimeData[i]);
+        }
     }
 
     public override void UpdateUpdateable()
@@ -78,10 +87,12 @@ public abstract class Boss : Enemy
 
         transform.position = BossMovement.GetMovement(GameState.IsRewinding);
 
-        if (GameState.IsRewinding || !GameState.IsBossActive) return;
+        if (!GameState.IsBossActive) return;
 
         foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
         {
+            if (!shootBehaviour.enabled) return;
+            
             shootBehaviour.UpdateShoot(GameState.IsRewinding);
         }
     }

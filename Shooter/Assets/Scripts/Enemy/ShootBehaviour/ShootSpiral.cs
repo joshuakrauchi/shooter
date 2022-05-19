@@ -9,6 +9,18 @@ public class ShootSpiral : ShootBehaviour
 
     private float _currentAngle;
     
+    public override ShootTimeData GetRecordData()
+    {
+        return new ShootTimeData(CycleTimer, CurrentCycles);
+    }
+
+    public override void SetRewindData(ShootTimeData shootTimeData)
+    {
+        base.SetRewindData(shootTimeData);
+        
+        
+    }
+    
     protected override bool UpdateCycle(bool isRewinding)
     {
         var angleBetweenProjectiles = 360.0f / directions;

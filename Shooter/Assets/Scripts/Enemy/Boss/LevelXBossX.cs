@@ -42,7 +42,6 @@ public class LevelXBossX : Boss
         if (Health <= MaxHealth * 0.9f)
         {
             ResetMovement(transform.position, new Vector2(0, GameData.ScreenRect.yMax - 10f), 1f, 0f);
-            ShootBehaviours = new List<ShootBehaviour>();
 
             return true;
         }
@@ -54,11 +53,6 @@ public class LevelXBossX : Boss
     {
         if (BossMovement.IsFinished(GameState.IsRewinding))
         {
-            ShootBehaviours = new List<ShootBehaviour>
-            {
-                //new ShootSuccessiveHoming(0, new LockedTimer(1f), ProjectileDefinitions[0], new LockedTimer(0.25f), 5, 20f, 5f),
-                //new ShootHoming(0, new LockedTimer(0.25f), ProjectileDefinitions[1], 10, 10f, 10f)
-            };
 
             return true;
         }

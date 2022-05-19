@@ -39,8 +39,8 @@ public class Level1Manager : LevelManager
         //MinionDefinition eliteArcherDoubleShot = new(eliteArcher, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), fastArrow, new Timer(0.2f), 3, 15, 15f, 2f, 0f));
 
         Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[-3], VSlide1));
-        
-        
+
+        return;
         // 1
         for (var i = 0; i < 10; ++i)
         {

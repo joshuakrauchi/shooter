@@ -36,8 +36,7 @@ public class GameManager : MonoBehaviour
         
         GameData.UpdateScreenRect();
         */
-        
-        
+
         if ((GameState.IsPaused || GameState.IsRewinding) && !HasPausedAnimators)
         {
             EnemyManager.SetMinionAnimatorSpeed(0.0f);

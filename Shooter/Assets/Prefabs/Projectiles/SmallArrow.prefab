@@ -136,3 +136,5 @@ MonoBehaviour:
   <SpeedOverTimeMultiplier>k__BackingField: -0.05
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  <DistanceToScreenEdgeBeforeTeleport>k__BackingField: 5
+  <DistanceToPlayerAfterTeleport>k__BackingField: 15

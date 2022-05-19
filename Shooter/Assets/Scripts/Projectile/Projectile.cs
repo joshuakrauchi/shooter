@@ -21,13 +21,14 @@ public abstract class Projectile : TimeObject
 
     protected override void Record()
     {
-        AddTimeData(new ProjectileTimeData(transform.position, IsDisabled));
+        AddTimeData(new ProjectileTimeData(transform.position, transform.rotation, IsDisabled));
     }
 
     protected override void Rewind(ITimeData timeData)
     {
         ProjectileTimeData projectileTimeData = (ProjectileTimeData) timeData;
         transform.position = projectileTimeData.Position;
+        transform.rotation = projectileTimeData.Rotation;
         IsDisabled = projectileTimeData.IsDisabled;
     }
 

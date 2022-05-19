@@ -46,11 +46,7 @@ public class Level1Boss2 : Boss
                 _initiatedDialogue = true;
             }
 
-            ShootBehaviours = new List<ShootBehaviour>
-            {
-                //new ShootHoming(0, new LockedTimer(0.1f), smallProjectileStraight, 1, 0f, 5f),
-                //new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), bigArrow, new Timer(0.25f), 5, 15f, 5f)
-            };
+
 
             return true;
         }

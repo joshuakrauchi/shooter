@@ -3,50 +3,74 @@ using Random = UnityEngine.Random;
 
 public class ShootHoming : ShootBehaviour
 {
-    [field: SerializeField] private GameData GameData { get; set; }
-    [SerializeField] private Timer shotTimer;
-    [SerializeField] private uint shotsPerCycle = 1;
-    [SerializeField] private uint projectilesPerShot = 3;
-    [SerializeField] private float angleBetweenProjectiles = 20;
-    [SerializeField] private float angleVariation = 2;
-    [SerializeField] private float speedChangeBetweenShots = 0;
+    private class ShootHomingTimeData : ShootTimeData
+    {
+        public Timer ShotTimer { get; }
+        public uint CurrentShots { get; }
 
-    private Transform _target;
-    private uint _currentShots;
+        public ShootHomingTimeData(Timer cycleTimer, uint currentCycles, Timer shotTimer, uint currentShots) : base(cycleTimer, currentCycles)
+        {
+            ShotTimer = shotTimer;
+            CurrentShots = currentShots;
+        }
+    }
+
+    [field: SerializeField] private GameData GameData { get; set; }
+    [field: SerializeField] private Timer ShotTimer { get; set; } = new(0.0f);
+    [field: SerializeField] private uint ShotsPerCycle { get; set; } = 1;
+    [field: SerializeField] private uint ProjectilesPerShot { get; set; } = 3;
+    [field: SerializeField] private float AngleBetweenProjectiles { get; set; } = 20.0f;
+    [field: SerializeField] private float AngleVariation { get; set; } = 2.0f;
+    [field: SerializeField] private float SpeedChangeBetweenShots { get; set; }
+
+    private Transform Target { get; set; }
+    private uint CurrentShots { get; set; }
 
     private void Awake()
     {
-        _target = GameData.Player.transform;
-        shotTimer = new Timer(0.0f);
-        
-        
+        Target = GameData.Player.transform;
+    }
+
+    public override ShootTimeData GetRecordData()
+    {
+        return new ShootHomingTimeData(CycleTimer, CurrentCycles, ShotTimer, CurrentShots);
+    }
+
+    public override void SetRewindData(ShootTimeData shootTimeData)
+    {
+        base.SetRewindData(shootTimeData);
+
+        ShootHomingTimeData shootHomingTimeData = (ShootHomingTimeData) shootTimeData;
+
+        ShotTimer = shootHomingTimeData.ShotTimer;
+        CurrentShots = shootHomingTimeData.CurrentShots;
     }
 
     protected override bool UpdateCycle(bool isRewinding)
     {
-        shotTimer.UpdateTime(isRewinding);
+        ShotTimer.UpdateTime(isRewinding);
 
-        if (!shotTimer.IsFinished(false)) return false;
+        if (!ShotTimer.IsFinished(false)) return false;
 
-        shotTimer.Reset();
+        ShotTimer = new Timer(ShotTimer.TimeToFinish);
 
-        Vector2 direction = _target.position - transform.position;
+        Vector2 direction = Target.position - transform.position;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        angle -= angleBetweenProjectiles * Mathf.Floor(projectilesPerShot / 2.0f) + Random.Range(-angleVariation, angleVariation);
+        angle -= AngleBetweenProjectiles * Mathf.Floor(ProjectilesPerShot / 2.0f) + Random.Range(-AngleVariation, AngleVariation);
 
-        for (var i = 0; i < projectilesPerShot; ++i)
+        for (var i = 0; i < ProjectilesPerShot; ++i)
         {
             ProjectileMovement projectileMovement = NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, angle));
-            projectileMovement.Speed += speedChangeBetweenShots * _currentShots;
-            angle += angleBetweenProjectiles;
+            projectileMovement.Speed += SpeedChangeBetweenShots * CurrentShots;
+            angle += AngleBetweenProjectiles;
         }
 
-        ++_currentShots;
+        ++CurrentShots;
 
-        if (_currentShots != shotsPerCycle) return false;
-        
-        _currentShots = 0;
+        if (CurrentShots < ShotsPerCycle) return false;
+
+        CurrentShots = 0;
         return true;
     }
 }
