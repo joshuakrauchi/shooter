@@ -11,31 +11,11 @@ public abstract class LevelManager : MonoBehaviour
     private int BossIndex { get; set; }
 
     protected float CurrentTime { get; set; }
-    protected Transform origin;
-    protected Transform top;
-    protected Transform topFlip;
-    protected Transform topM5;
-    protected Transform topM5Flip;
-    protected Transform topM10;
-    protected Transform topM10Flip;
-    protected Transform topM15;
-    protected Transform topM15Flip;
-    protected Transform topM20;
-    protected Transform topM20Flip;
-    protected Transform topM25;
-    protected Transform topM25Flip;
-    protected Transform topP5;
-    protected Transform topP5Flip;
-    protected Transform topP10;
-    protected Transform topP10Flip;
-    protected Transform topP15;
-    protected Transform topP15Flip;
-    protected Transform topP20;
-    protected Transform topP20Flip;
-    protected Transform topP25;
-    protected Transform topP25Flip;
+    protected Transform Origin { get; private set; }
+    protected Dictionary<int, Transform> TopTransforms { get; private set; }
+    protected Dictionary<int, Transform> TopTransformsFlipped { get; private set; }
 
-    private const float Padding = 2f;
+    private const float Padding = 2.0f;
 
     protected virtual void Awake()
     {
@@ -45,29 +25,16 @@ public abstract class LevelManager : MonoBehaviour
 
         CurrentTime = 2.5f;
 
-        origin = new GameObject("SpawnTransforms").transform;
-        top = Instantiate(origin, new Vector3(0f, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topFlip = Instantiate(origin, new Vector3(0f, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topM5 = Instantiate(origin, new Vector3(-5, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topM5Flip = Instantiate(origin, new Vector3(-5, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topM10 = Instantiate(origin, new Vector3(-10, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topM10Flip = Instantiate(origin, new Vector3(-10, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topM15 = Instantiate(origin, new Vector3(-15, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topM15Flip = Instantiate(origin, new Vector3(-15, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topM20 = Instantiate(origin, new Vector3(-20, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topM20Flip = Instantiate(origin, new Vector3(-20, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topM25 = Instantiate(origin, new Vector3(-25, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topM25Flip = Instantiate(origin, new Vector3(-25, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topP5 = Instantiate(origin, new Vector3(5, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topP5Flip = Instantiate(origin, new Vector3(5, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topP10 = Instantiate(origin, new Vector3(10, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topP10Flip = Instantiate(origin, new Vector3(10, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topP15 = Instantiate(origin, new Vector3(15, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topP15Flip = Instantiate(origin, new Vector3(15, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topP20 = Instantiate(origin, new Vector3(20, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topP20Flip = Instantiate(origin, new Vector3(20, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
-        topP25 = Instantiate(origin, new Vector3(25, GameData.ScreenRect.yMax + Padding, 0f), Quaternion.identity).transform;
-        topP25Flip = Instantiate(origin, new Vector3(25, GameData.ScreenRect.yMax + Padding, 0f), new Quaternion(0f, 180f, 0f, 0f)).transform;
+        TopTransforms = new Dictionary<int, Transform>();
+        TopTransformsFlipped = new Dictionary<int, Transform>();
+        
+        Origin = new GameObject("SpawnTransforms").transform;
+        
+        for (var i = -5; i <= 5; ++i)
+        {
+            TopTransforms[i] = Instantiate(Origin, new Vector3(5.0f * i, GameData.ScreenRect.yMax + Padding, 0.0f), Quaternion.identity).transform;
+            TopTransformsFlipped[i] = Instantiate(Origin, new Vector3(5.0f * i, GameData.ScreenRect.yMax + Padding, 0.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f)).transform;
+        }
     }
 
     public void UpdateEnemyCreation()
@@ -95,5 +62,10 @@ public abstract class LevelManager : MonoBehaviour
             NPCCreator.CreateBoss(Bosses[BossIndex]);
             ++BossIndex;
         }
+    }
+
+    public void AddMinion(MinionDefinition minionDefinition, Transform parentTransform, string animationName)
+    {
+        Minions.Add(new MinionSpawn(CurrentTime, minionDefinition, parentTransform, animationName));
     }
 }

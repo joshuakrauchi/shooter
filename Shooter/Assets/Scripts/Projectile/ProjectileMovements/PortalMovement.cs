@@ -77,7 +77,7 @@ public class PortalMovement : ProjectileMovement
             if (!Utilities.IsOffscreen(newPosition, SpriteRenderer.bounds.extents, GameData.ScreenRect)) break;
 
             randomRotation += 90.0f;
-            newPosition = Quaternion.Euler(0.0f, 0.0f, 90.0f) * newPosition;
+            newPosition = playerPosition + (Vector2) (Quaternion.Euler(0.0f, 0.0f, randomRotation) * Vector3.right) * DistanceToPlayerAfterTeleport;
         }
 
         CachedTransform.position = newPosition;

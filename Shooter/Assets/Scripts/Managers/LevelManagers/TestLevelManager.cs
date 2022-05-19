@@ -23,7 +23,7 @@ public class TestLevelManager : LevelManager
 
         MinionDefinition basicShoot = new(enemy, y);
 
-        Minions.Add(new MinionSpawn(CurrentTime + 1.0f, basicShoot, top, "Test"));
+        Minions.Add(new MinionSpawn(CurrentTime + 1.0f, basicShoot, TopTransforms[0], "Test"));
 
     }
 
