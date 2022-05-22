@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     {
         GameData.Initialize();
         UIManager.Initialize();
+        Physics2D.simulationMode = SimulationMode2D.Script;
     }
 
     private void Update()
