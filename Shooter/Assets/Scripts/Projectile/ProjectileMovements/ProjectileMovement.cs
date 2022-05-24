@@ -34,7 +34,7 @@ public class ProjectileMovement : MonoBehaviour
 
     protected virtual void UpdateTransform()
     {
-        transform.Translate(GetStraightMovement());
+        transform.Translate(GetStraightMovement() * Time.deltaTime);
     }
 
     protected Vector2 GetStraightMovement()

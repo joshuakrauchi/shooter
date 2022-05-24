@@ -79,6 +79,18 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5231007007027146894, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231007007027146894, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
+      propertyPath: m_Color.g
+      value: 0.62925303
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231007007027146894, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
+      propertyPath: m_Color.r
+      value: 0.45660377
+      objectReference: {fileID: 0}
     - target: {fileID: 8180888819730415870, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: speed
       value: 1
@@ -143,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e391cda7a1e6e5245ba09d9de87a9210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 1
+  <Speed>k__BackingField: 30
   <IsVariableSpeed>k__BackingField: 0
   <MinimumSpeed>k__BackingField: 0.1
   <SpeedOverTimeMultiplier>k__BackingField: -0.05

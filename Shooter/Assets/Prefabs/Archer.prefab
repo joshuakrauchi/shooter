@@ -121,3 +121,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
+--- !u!1 &1848247785009964483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7131659608439137991, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
+  m_PrefabInstance: {fileID: 8889812307936264964}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3758080963911452563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848247785009964483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9266c0f979babd6469dfdd822e55ef71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ProjectilePrefab>k__BackingField: {fileID: 7209250968108194165, guid: d2b2c0a6dd91ab64d8d3a6332b43946b, type: 3}
+  <TotalCycles>k__BackingField: 1
+  <CycleTimer>k__BackingField:
+    <TimeToFinish>k__BackingField: 1
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <ShotTimer>k__BackingField:
+    <TimeToFinish>k__BackingField: 0
+  <ShotsPerCycle>k__BackingField: 1
+  <ProjectilesPerShot>k__BackingField: 15
+  <AngleBetweenProjectiles>k__BackingField: 5
+  <AngleVariation>k__BackingField: 2
+  <SpeedChangeBetweenShots>k__BackingField: 0

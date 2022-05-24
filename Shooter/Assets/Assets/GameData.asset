@@ -15,4 +15,4 @@ MonoBehaviour:
   initialCurrency: 100
   initialProjectileDamage: 1
   initialRewindCharge: 10
-  initialShots: 100
+  initialShots: 1

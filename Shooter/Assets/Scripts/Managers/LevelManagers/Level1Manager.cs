@@ -40,7 +40,6 @@ public class Level1Manager : LevelManager
 
         Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[-3], VSlide1));
 
-        return;
         // 1
         for (var i = 0; i < 10; ++i)
         {

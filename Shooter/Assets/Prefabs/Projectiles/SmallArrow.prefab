@@ -8,6 +8,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1270318951511546993, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1270318951511546993, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1270318951511546993, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.5
       objectReference: {fileID: 0}
@@ -57,6 +65,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3651743481664205393, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
       propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538898765567781348, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
+      propertyPath: m_Color.b
+      value: 0.48490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538898765567781348, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
+      propertyPath: m_Color.g
+      value: 0.81808037
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538898765567781348, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8658724961254510046, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
@@ -118,7 +138,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2280625812692114773, guid: bf631c8942745f143a6eab6be8e7c155, type: 3}
   m_PrefabInstance: {fileID: 1823708139033674041}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-471544010106902192
+--- !u!114 &-10376803573461995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,14 +147,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 498058925674781804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eb3fe7c5a094cbc8c8e3dab83f9b5f0, type: 3}
+  m_Script: {fileID: 11500000, guid: e391cda7a1e6e5245ba09d9de87a9210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 0.25
+  <Speed>k__BackingField: 10
   <IsVariableSpeed>k__BackingField: 1
   <MinimumSpeed>k__BackingField: 0.1
   <SpeedOverTimeMultiplier>k__BackingField: -0.05
-  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
-  <DistanceToScreenEdgeBeforeTeleport>k__BackingField: 5
-  <DistanceToPlayerAfterTeleport>k__BackingField: 15
