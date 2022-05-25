@@ -13,6 +13,13 @@ public class ProjectileMovement : MonoBehaviour
 
     protected float TimeAlive { get; private set; }
 
+    private Rigidbody2D Rigidbody { get; set; }
+
+    private void Awake()
+    {
+        Rigidbody = GetComponent<Rigidbody2D>();
+    }
+
     public void UpdateMovement(bool isRewinding)
     {
         if (!isRewinding)
@@ -34,7 +41,7 @@ public class ProjectileMovement : MonoBehaviour
 
     protected virtual void UpdateTransform()
     {
-        transform.Translate(GetStraightMovement() * Time.deltaTime);
+        Rigidbody.MovePosition(Rigidbody.position + (Vector2) transform.TransformDirection(GetStraightMovement() * Time.deltaTime));
     }
 
     protected Vector2 GetStraightMovement()

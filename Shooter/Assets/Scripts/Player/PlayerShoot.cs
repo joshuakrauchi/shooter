@@ -40,7 +40,7 @@ public class PlayerShoot : MonoBehaviour
         Vector3 position = transform.position;
         for (var i = 0; i < NumberOfShots; ++i)
         {
-            ProjectileManager.CreateProjectile(ProjectilePrefab, new Vector2(position.x + ArmSpan * i, position.y), Quaternion.Euler(0f, 0f, 90f));
+            ProjectileManager.CreateProjectile(ProjectilePrefab, new Vector2(position.x + ArmSpan * i, position.y), Quaternion.Euler(0f, 0f, 90.0f));
         }
 
         ShootTimer.Reset();

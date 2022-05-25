@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f7cb14817e8c940993bc76834e7b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <ProjectilePrefab>k__BackingField: {fileID: 2810963475559622834, guid: 627860f7046ca4e4aa96f9efb8addba9, type: 3}
   <NumberOfShots>k__BackingField: 1
   <ArmSpan>k__BackingField: 0

@@ -5,15 +5,15 @@ public abstract class TimeObject : MonoBehaviour, IUpdateable
 {
     [field: SerializeField] protected GameData GameData { get; private set; }
     [field: SerializeField] protected GameState GameState { get; private set; }
-    
-    protected LinkedList<ITimeData> TimeData { get; private set; }
+
+    private LinkedList<ITimeData> TimeData { get; set; }
 
     protected bool IsDisabled { get; set; }
 
     // If the whole list is full of TimeData is disabled, it's safe to remove from the world.
-    [field: SerializeField] private uint DisabledTimeDataRunCount { get; set; }
+    private uint DisabledTimeDataRunCount { get; set; }
 
-    private const uint MaxData = 100;
+    private const uint MaxData = 50;
 
     protected virtual void Awake()
     {

@@ -155,6 +155,7 @@ MonoBehaviour:
   <CycleTimer>k__BackingField:
     <TimeToFinish>k__BackingField: 1
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <ShotTimer>k__BackingField:
     <TimeToFinish>k__BackingField: 0
   <ShotsPerCycle>k__BackingField: 1

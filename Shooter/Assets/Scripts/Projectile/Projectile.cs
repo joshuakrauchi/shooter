@@ -7,6 +7,7 @@ public abstract class Projectile : TimeObject, IPoolable
     public int PoolID { get; set; }
 
     protected BoxCollider2D Collider { get; private set; }
+    protected Rigidbody2D Rigidbody { get; set; }
     protected ProjectileMovement ProjectileMovement { get; private set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
 
@@ -15,19 +16,20 @@ public abstract class Projectile : TimeObject, IPoolable
         base.Awake();
 
         Collider = GetComponent<BoxCollider2D>();
+        Rigidbody = GetComponent<Rigidbody2D>();
         ProjectileMovement = GetComponent<ProjectileMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected override void Record()
     {
-        AddTimeData(new ProjectileTimeData(transform.position, transform.rotation, IsDisabled));
+        AddTimeData(new ProjectileTimeData(Rigidbody.position, transform.rotation, IsDisabled));
     }
 
     protected override void Rewind(ITimeData timeData)
     {
         ProjectileTimeData projectileTimeData = (ProjectileTimeData) timeData;
-        transform.position = projectileTimeData.Position;
+        Rigidbody.position = projectileTimeData.Position;
         transform.rotation = projectileTimeData.Rotation;
         IsDisabled = projectileTimeData.IsDisabled;
     }
@@ -42,6 +44,7 @@ public abstract class Projectile : TimeObject, IPoolable
         base.UpdateUpdateable();
 
         SpriteRenderer.enabled = !IsDisabled;
+        Rigidbody.simulated = !IsDisabled;
 
         ProjectileMovement.UpdateMovement(GameState.IsRewinding);
     }
