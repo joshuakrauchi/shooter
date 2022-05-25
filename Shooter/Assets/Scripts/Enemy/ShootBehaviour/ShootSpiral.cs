@@ -26,7 +26,7 @@ public class ShootSpiral : ShootBehaviour
         var angleBetweenProjectiles = 360.0f / directions;
         for (var i = 0; i < directions; ++i)
         {
-            NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + angleBetweenProjectiles * i + Random.Range(-angleVariation, angleVariation)));
+            //NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + angleBetweenProjectiles * i + Random.Range(-angleVariation, angleVariation)));
         }
 
         _currentAngle += angleIncreasePerCycle;

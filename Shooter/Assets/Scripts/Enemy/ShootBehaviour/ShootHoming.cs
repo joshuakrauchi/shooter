@@ -16,6 +16,7 @@ public class ShootHoming : ShootBehaviour
     }
 
     [field: SerializeField] private GameData GameData { get; set; }
+    [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
     [field: SerializeField] private Timer ShotTimer { get; set; } = new(0.0f);
     [field: SerializeField] private uint ShotsPerCycle { get; set; } = 1;
     [field: SerializeField] private uint ProjectilesPerShot { get; set; } = 3;
@@ -61,7 +62,7 @@ public class ShootHoming : ShootBehaviour
 
         for (var i = 0; i < ProjectilesPerShot; ++i)
         {
-            ProjectileMovement projectileMovement = NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, angle));
+            ProjectileMovement projectileMovement = ProjectileManager.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, angle)).GetComponent<ProjectileMovement>();
             projectileMovement.Speed += SpeedChangeBetweenShots * CurrentShots;
             angle += AngleBetweenProjectiles;
         }

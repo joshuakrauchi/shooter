@@ -1,15 +1,16 @@
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ProjectileManager", menuName = "ScriptableObjects/ProjectileManager")]
 public class ProjectileManager : ScriptableObject
 {
+    private Dictionary<int, Stack<GameObject>> ProjectilePool { get; set; }
+    
     private readonly List<Projectile> _projectiles;
 
     private ProjectileManager()
     {
+        ProjectilePool = new Dictionary<int, Stack<GameObject>>();
         _projectiles = new List<Projectile>();
     }
 
@@ -21,14 +22,27 @@ public class ProjectileManager : ScriptableObject
         }
     }
 
-    public void AddProjectile(Projectile projectile)
+    public void AddProjectilePool(GameObject projectilePrefab, uint initialAmount)
     {
-        _projectiles.Add(projectile);
+        var projectileID = projectilePrefab.GetInstanceID();
+
+        if (!ProjectilePool.ContainsKey(projectileID))
+        {
+            ProjectilePool.Add(projectileID, new Stack<GameObject>());
+        }
+
+        var projectileStack = ProjectilePool[projectileID];
+
+        while (projectileStack.Count < initialAmount)
+        {
+            projectileStack.Push(Instantiate(projectilePrefab, new Vector3(1000.0f, 1000.0f, 1000.0f), Quaternion.identity));
+        }
     }
 
     public void RemoveProjectile(Projectile projectile)
     {
         _projectiles.Remove(projectile);
+        ProjectilePool[projectile.PoolID].Push(projectile.gameObject);
     }
 
     public void ClearProjectiles()
@@ -37,5 +51,39 @@ public class ProjectileManager : ScriptableObject
         {
             projectile.DestroyProjectile();
         }
+    }
+
+    public GameObject CreateProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation)
+    {
+        var projectileID = projectilePrefab.GetInstanceID();
+
+        if (!ProjectilePool.ContainsKey(projectileID))
+        {
+            ProjectilePool.Add(projectileID, new Stack<GameObject>());
+        }
+        
+        var projectileStack = ProjectilePool[projectileID];
+
+        GameObject projectileObject;
+        if (projectileStack.Count <= 0)
+        {
+            projectileObject = Instantiate(projectilePrefab, position, rotation);
+        }
+        else
+        {
+            projectileObject = projectileStack.Pop();
+            
+            Transform projectileTransform = projectileObject.transform;
+            projectileTransform.position = position;
+            projectileTransform.rotation = rotation;
+        }
+        
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+
+        projectile.PoolID = projectileID;
+        projectile.ActivatePoolable();
+        _projectiles.Add(projectile);
+
+        return projectileObject;
     }
 }

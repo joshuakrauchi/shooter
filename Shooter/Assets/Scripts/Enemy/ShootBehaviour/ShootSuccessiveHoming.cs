@@ -40,7 +40,7 @@ public class ShootSuccessiveHoming : ShootBehaviour
             _currentAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - angleBetweenProjectiles * Mathf.Floor(numberOfProjectiles / 2.0f);
         }
 
-        NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + Random.Range(-angleVariation, angleVariation)));
+        //NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, _currentAngle + Random.Range(-angleVariation, angleVariation)));
         _currentAngle += angleBetweenProjectiles;
         ++_shotsFired;
 

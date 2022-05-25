@@ -31,13 +31,6 @@ public static class NPCCreator
         boss.CreationTime = bossData.CreationTime;
     }
 
-    public static ProjectileMovement CreateProjectile(GameObject projectilePrefab, Vector2 position, Quaternion rotation)
-    {
-        ProjectileMovement projectileMovement = Object.Instantiate(projectilePrefab, position, rotation).GetComponent<ProjectileMovement>();
-
-        return projectileMovement;
-    }
-
     public static void CreateCollectible(GameObject collectiblePrefab, Vector2 position)
     {
         Object.Instantiate(collectiblePrefab, position, Quaternion.identity);

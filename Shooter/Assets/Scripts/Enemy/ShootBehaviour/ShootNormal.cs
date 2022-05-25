@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class ShootNormal : ShootBehaviour
 {
+    
     [SerializeField] private uint numberOfProjectiles;
     [SerializeField] private float initialDirection;
     [SerializeField] private float angleBetweenProjectiles;
@@ -28,7 +29,7 @@ public class ShootNormal : ShootBehaviour
 
         for (var i = 0; i < numberOfProjectiles; ++i)
         {
-            NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, currentAngle));
+            //NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, currentAngle));
             currentAngle += angleBetweenProjectiles;
         }
         

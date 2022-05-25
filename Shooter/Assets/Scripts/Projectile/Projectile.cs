@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public abstract class Projectile : TimeObject
+public abstract class Projectile : TimeObject, IPoolable
 {
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
+    
+    public int PoolID { get; set; }
 
     protected BoxCollider2D Collider { get; private set; }
     protected ProjectileMovement ProjectileMovement { get; private set; }
@@ -15,8 +17,6 @@ public abstract class Projectile : TimeObject
         Collider = GetComponent<BoxCollider2D>();
         ProjectileMovement = GetComponent<ProjectileMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
-
-        ProjectileManager.AddProjectile(this);
     }
 
     protected override void Record()
@@ -42,9 +42,13 @@ public abstract class Projectile : TimeObject
         base.UpdateUpdateable();
 
         SpriteRenderer.enabled = !IsDisabled;
-        Collider.enabled = !IsDisabled;
 
         ProjectileMovement.UpdateMovement(GameState.IsRewinding);
+    }
+    
+    public void ActivatePoolable()
+    {
+        IsDisabled = false;
     }
 
     public void OnHit()
@@ -55,6 +59,5 @@ public abstract class Projectile : TimeObject
     public void DestroyProjectile()
     {
         ProjectileManager.RemoveProjectile(this);
-        Destroy(gameObject);
     }
 }
