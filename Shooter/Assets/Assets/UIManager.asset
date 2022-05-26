@@ -16,4 +16,5 @@ MonoBehaviour:
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   <MainUICanvas>k__BackingField: {fileID: 1594439048015332077, guid: f48d9a71ff7d2814cb023055e30a9c6f, type: 3}
   <RewindBar>k__BackingField: {fileID: 274152394573426083, guid: aa8ac15e3d1d4b24188fef17a7788e12, type: 3}
+  <SpecialBar>k__BackingField: {fileID: 274152394573426083, guid: 495acf3cd9b119148ada55921af6cf6a, type: 3}
   <DialogueBox>k__BackingField: {fileID: 8563632364438112618, guid: 2cc38533daacdeb439fb98677e328f52, type: 3}

@@ -10,6 +10,7 @@ public class Player : MonoBehaviour, IUpdateable
     private PlayerController PlayerController { get; set; }
     private PlayerMovement PlayerMovement { get; set; }
     private PlayerShoot PlayerShoot { get; set; }
+    private PlayerSpecialShoot PlayerSpecialShoot { get; set; }
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour, IUpdateable
         PlayerController = GetComponent<PlayerController>();
         PlayerMovement = GetComponent<PlayerMovement>();
         PlayerShoot = GetComponent<PlayerShoot>();
+        PlayerSpecialShoot = GetComponent<PlayerSpecialShoot>();
 
         PlayerShoot.NumberOfShots = GameData.Shots;
 
@@ -42,6 +44,7 @@ public class Player : MonoBehaviour, IUpdateable
         PlayerCollision.UpdateCollision();
         PlayerMovement.UpdateMovement();
         PlayerShoot.UpdateShoot(PlayerController.IsShooting, GameState.IsRewinding);
+        PlayerSpecialShoot.UpdateSpecialShoot(PlayerController.IsSpecialHeld);
     }
 
     public void OnCollectibleHit(Collectible collectible)

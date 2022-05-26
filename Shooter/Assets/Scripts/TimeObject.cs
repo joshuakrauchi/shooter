@@ -13,7 +13,7 @@ public abstract class TimeObject : MonoBehaviour, IUpdateable
     // If the whole list is full of TimeData is disabled, it's safe to remove from the world.
     private uint DisabledTimeDataRunCount { get; set; }
 
-    private const uint MaxData = 50;
+    private const uint MaxData = 500;
 
     protected virtual void Awake()
     {

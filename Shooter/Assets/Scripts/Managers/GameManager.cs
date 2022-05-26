@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         {
             GameData.RewindCharge -= Time.deltaTime;
         }
-        
+
         if (!GameState.IsPaused && !GameState.IsRewinding && HasPausedAnimators)
         {
             EnemyManager.SetMinionAnimatorSpeed(1.0f);

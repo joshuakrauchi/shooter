@@ -10,10 +10,12 @@ public class UIManager : ScriptableObject, IUpdateable
     [field: SerializeField] private GameState GameState { get; set; }
     [field: SerializeField] private GameObject MainUICanvas { get; set; }
     [field: SerializeField] private GameObject RewindBar { get; set; }
+    [field: SerializeField] private GameObject SpecialBar { get; set; }
     [field: SerializeField] private GameObject DialogueBox { get; set; }
 
     private Queue<Tuple<string, string>> TextQueue { get; set; }
     private ValueSlider RewindSlider { get; set; }
+    private ValueSlider SpecialSlider { get; set; }
     private Canvas DialogueBoxCanvas { get; set; }
     private TextMeshProUGUI DialogueBoxNameText { get; set; }
     private TextMeshProUGUI DialogueBoxDialogueText { get; set; }
@@ -23,7 +25,9 @@ public class UIManager : ScriptableObject, IUpdateable
         Transform parentTransform = Instantiate(MainUICanvas).transform;
 
         RewindSlider = Instantiate(RewindBar, parentTransform).GetComponent<ValueSlider>();
+        SpecialSlider = Instantiate(SpecialBar, parentTransform).GetComponent<ValueSlider>();
         RewindSlider.SetMaxValue(GameData.MaxRewindCharge);
+        SpecialSlider.SetMaxValue(GameData.MaxSpecialCharge);
 
         TextQueue = new Queue<Tuple<string, string>>();
 
@@ -79,5 +83,6 @@ public class UIManager : ScriptableObject, IUpdateable
     public void UpdateUpdateable()
     {
         RewindSlider.SetCurrentValue(GameData.RewindCharge);
+        SpecialSlider.SetCurrentValue(GameData.SpecialCharge);
     }
 }

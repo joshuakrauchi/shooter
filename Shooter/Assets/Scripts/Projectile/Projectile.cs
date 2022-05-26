@@ -23,13 +23,13 @@ public abstract class Projectile : TimeObject, IPoolable
 
     protected override void Record()
     {
-        AddTimeData(new ProjectileTimeData(Rigidbody.position, transform.rotation, IsDisabled));
+        AddTimeData(new ProjectileTimeData(transform.position, transform.rotation, IsDisabled));
     }
 
     protected override void Rewind(ITimeData timeData)
     {
         ProjectileTimeData projectileTimeData = (ProjectileTimeData) timeData;
-        Rigidbody.position = projectileTimeData.Position;
+        transform.position = projectileTimeData.Position;
         transform.rotation = projectileTimeData.Rotation;
         IsDisabled = projectileTimeData.IsDisabled;
     }

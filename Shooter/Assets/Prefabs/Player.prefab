@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 925190438885594580}
   - component: {fileID: 925190438885594579}
   - component: {fileID: 925190438885594578}
+  - component: {fileID: 6477631525986665402}
+  - component: {fileID: 1936937168188544580}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -204,3 +206,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.05}
   m_EdgeRadius: 0
+--- !u!114 &6477631525986665402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925190438885594587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02366868fb4018f48a1b7ecdba2d65bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1936937168188544580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925190438885594587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d20f8c4b43ac09448f154591eae5e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <CurrencyCost>k__BackingField: 100
+  <ChargeCost>k__BackingField: 0.25
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  <ProjectilePrefab>k__BackingField: {fileID: 2810963475559622834, guid: 11cb5d474ea8deb47bf8f6e8f7c1f625, type: 3}
