@@ -232,6 +232,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <CurrencyCost>k__BackingField: 100
-  <ChargeCost>k__BackingField: 0.25
+  <ChargeCost>k__BackingField: 1
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <ProjectilePrefab>k__BackingField: {fileID: 2810963475559622834, guid: 11cb5d474ea8deb47bf8f6e8f7c1f625, type: 3}

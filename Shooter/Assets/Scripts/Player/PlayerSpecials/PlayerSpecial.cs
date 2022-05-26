@@ -9,6 +9,8 @@ public abstract class PlayerSpecial : MonoBehaviour
 
     public abstract void UpdateShoot(bool isShooting);
 
+    protected bool CanShoot() => ChargeCost <= GameData.SpecialCharge;
+
     protected void DecreaseSpecialCharge()
     {
         GameData.SpecialCharge -= ChargeCost;

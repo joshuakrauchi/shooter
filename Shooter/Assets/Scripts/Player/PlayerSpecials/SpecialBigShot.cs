@@ -9,7 +9,7 @@ public class SpecialBigShot : PlayerSpecial
     
     public override void UpdateShoot(bool isShooting)
     {
-        if (!HasShot && isShooting)
+        if (!HasShot && isShooting && CanShoot())
         {
             Shoot();
             
