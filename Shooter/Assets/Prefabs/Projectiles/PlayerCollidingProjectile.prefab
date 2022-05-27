@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1578316402993923355, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Size.x
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1578316402993923355, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Size.y
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1578316402993923355, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Name
-      value: PlayerProjectile 1
+      value: PlayerCollidingProjectile
       objectReference: {fileID: 0}
     - target: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Layer
@@ -139,22 +139,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
   m_PrefabInstance: {fileID: 4387279304944741517}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-2252079804125363239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2810963475559622834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ff38235d04051e4795176655c580896, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
-  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
-  <Damage>k__BackingField: 3
 --- !u!114 &2132065397227646081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,3 +155,46 @@ MonoBehaviour:
   <IsVariableSpeed>k__BackingField: 0
   <MinimumSpeed>k__BackingField: 0.1
   <SpeedOverTimeMultiplier>k__BackingField: -0.05
+--- !u!114 &4719650598345931308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2810963475559622834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aee919618ad43dca85f7c59167b586f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxOverlapHits>k__BackingField: 10
+  overlapFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+--- !u!114 &9128600727271739837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2810963475559622834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1aa534083b4b2448c06cb644949c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  <Damage>k__BackingField: 1

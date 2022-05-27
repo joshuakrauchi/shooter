@@ -127,4 +127,4 @@ MonoBehaviour:
   <InitialVelocity>k__BackingField: 0.4
   <GravityPower>k__BackingField: -0.01
   <Value>k__BackingField: 1
-  updateableManager: {fileID: 11400000, guid: 5e22478338c072440a444638130aeea3, type: 2}
+  <UpdateableManager>k__BackingField: {fileID: 11400000, guid: 5e22478338c072440a444638130aeea3, type: 2}

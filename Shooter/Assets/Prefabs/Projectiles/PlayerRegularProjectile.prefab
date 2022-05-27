@@ -49,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_TagString
@@ -131,22 +131,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
   m_PrefabInstance: {fileID: 4387279304944741517}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-2252079804125363239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2810963475559622834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ff38235d04051e4795176655c580896, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
-  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
-  <Damage>k__BackingField: 1
 --- !u!114 &2132065397227646081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +147,19 @@ MonoBehaviour:
   <IsVariableSpeed>k__BackingField: 0
   <MinimumSpeed>k__BackingField: 0.1
   <SpeedOverTimeMultiplier>k__BackingField: -0.05
+--- !u!114 &8466914954775505484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2810963475559622834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c8fb4e4ca74cbfa6851bcbb75d38ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  <Damage>k__BackingField: 1

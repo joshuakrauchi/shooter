@@ -7,7 +7,7 @@ public abstract class Collision : MonoBehaviour
 
     public BoxCollider2D Collider { get; private set; }
 
-    protected Collider2D[] OverlapHits;
+    protected Collider2D[] OverlapHits { get; private set; }
 
     protected virtual void Awake()
     {

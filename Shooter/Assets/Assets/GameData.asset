@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38d9838f8002f647b8c90463839286b, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  initialCurrency: 100
-  initialProjectileDamage: 1
-  initialRewindCharge: 10
-  initialShots: 100
+  <ResetValues>k__BackingField: 1
+  <InitialCurrency>k__BackingField: 100
+  <InitialProjectileDamage>k__BackingField: 1
+  <InitialRewindCharge>k__BackingField: 10
+  <InitialSpecialCharge>k__BackingField: 10000
+  <InitialShots>k__BackingField: 1

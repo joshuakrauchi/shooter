@@ -12,10 +12,13 @@ public class UIManager : ScriptableObject, IUpdateable
     [field: SerializeField] private GameObject RewindBar { get; set; }
     [field: SerializeField] private GameObject SpecialBar { get; set; }
     [field: SerializeField] private GameObject DialogueBox { get; set; }
+    [field: SerializeField] private GameObject BossHealthBar { get; set; }
 
     private Queue<Tuple<string, string>> TextQueue { get; set; }
+    private Canvas BossHealthBarCanvas { get; set; }
     private ValueSlider RewindSlider { get; set; }
     private ValueSlider SpecialSlider { get; set; }
+    private ValueSlider BossHealthSlider { get; set; }
     private Canvas DialogueBoxCanvas { get; set; }
     private TextMeshProUGUI DialogueBoxNameText { get; set; }
     private TextMeshProUGUI DialogueBoxDialogueText { get; set; }
@@ -26,8 +29,11 @@ public class UIManager : ScriptableObject, IUpdateable
 
         RewindSlider = Instantiate(RewindBar, parentTransform).GetComponent<ValueSlider>();
         SpecialSlider = Instantiate(SpecialBar, parentTransform).GetComponent<ValueSlider>();
+        BossHealthBarCanvas = Instantiate(BossHealthBar).GetComponent<Canvas>();
         RewindSlider.SetMaxValue(GameData.MaxRewindCharge);
         SpecialSlider.SetMaxValue(GameData.MaxSpecialCharge);
+        BossHealthSlider = BossHealthBarCanvas.GetComponentInChildren<ValueSlider>();
+        BossHealthBarCanvas.enabled = false;
 
         TextQueue = new Queue<Tuple<string, string>>();
 
@@ -84,5 +90,17 @@ public class UIManager : ScriptableObject, IUpdateable
     {
         RewindSlider.SetCurrentValue(GameData.RewindCharge);
         SpecialSlider.SetCurrentValue(GameData.SpecialCharge);
+    }
+
+    public void ResetBossHealthBar(float maxHealth)
+    {
+        BossHealthSlider.SetMaxValue(maxHealth);
+    }
+    
+    public void UpdateBossHealthBar(bool isActive, float currentHealth)
+    {
+        BossHealthBarCanvas.enabled = isActive;
+        
+        BossHealthSlider.SetCurrentValue(currentHealth);
     }
 }

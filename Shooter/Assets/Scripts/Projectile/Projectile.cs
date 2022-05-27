@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Projectile : TimeObject, IPoolable
 {
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
-    
+
     public int PoolID { get; set; }
 
     protected BoxCollider2D Collider { get; private set; }
@@ -48,15 +48,14 @@ public abstract class Projectile : TimeObject, IPoolable
 
         ProjectileMovement.UpdateMovement(GameState.IsRewinding);
     }
-    
+
     public void ActivatePoolable()
     {
         IsDisabled = false;
     }
 
-    public void OnHit()
+    public virtual void OnHit()
     {
-        IsDisabled = true;
     }
 
     public void DestroyProjectile()

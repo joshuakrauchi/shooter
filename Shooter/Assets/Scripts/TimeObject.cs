@@ -26,6 +26,11 @@ public abstract class TimeObject : MonoBehaviour, IUpdateable
         {
             if (TimeData.Count <= 0) return;
 
+            if (DisabledTimeDataRunCount > 0)
+            {
+                --DisabledTimeDataRunCount;
+            }
+
             ITimeData timeData = TimeData.Last.Value;
             Rewind(timeData);
 

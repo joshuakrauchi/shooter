@@ -51,7 +51,6 @@ public class Level1Boss1 : Boss
 
             //ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 20f, 5f)};
             PhaseTimer = new Timer(10.0f);
-            GameState.IsBossActive = true;
 
             return true;
         }
@@ -61,6 +60,8 @@ public class Level1Boss1 : Boss
 
     private bool Phase3()
     {
+        GameState.IsBossActive = true;
+
         if (Health <= MaxHealth * 0.75f || PhaseTimer.IsFinished(false))
         {
             ResetMovement(transform.position, new Vector2(0.0f, GameData.ScreenRect.yMax - 10.0f), 1.0f, 0.0f);

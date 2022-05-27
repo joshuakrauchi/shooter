@@ -22,6 +22,7 @@ public abstract class Boss : Enemy
         ShootBehaviours = GetComponents<ShootBehaviour>();
         MaxHealth = Health;
         PhaseTimer = new Timer(0.0f);
+        UIManager.ResetBossHealthBar(MaxHealth);
     }
 
     protected override void Record()
@@ -86,6 +87,8 @@ public abstract class Boss : Enemy
         }
 
         transform.position = BossMovement.GetMovement(GameState.IsRewinding);
+        
+        UIManager.UpdateBossHealthBar(GameState.IsBossActive, Health);
 
         if (!GameState.IsBossActive) return;
 
