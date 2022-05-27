@@ -22,7 +22,7 @@ public class SpecialRay : PlayerSpecial
 
     public override void UpdateShoot(bool isShooting)
     {
-        if (!isShooting)
+        if (!isShooting || !CanShoot())
         {
             if (!IsActive) return;
             

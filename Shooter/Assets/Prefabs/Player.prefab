@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 925190438885594579}
   - component: {fileID: 925190438885594578}
   - component: {fileID: 6477631525986665402}
+  - component: {fileID: -6606561848096864546}
   - component: {fileID: -3405365262747518118}
   - component: {fileID: 1936937168188544580}
   m_Layer: 0
@@ -79,9 +80,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingLayerID: 298079237
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: b217793539048e540b89ed704e51c89e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -219,6 +220,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02366868fb4018f48a1b7ecdba2d65bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6606561848096864546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925190438885594587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247437728ee9dac48a1162d805e1080e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <CurrencyCost>k__BackingField: 100
+  <ChargeCost>k__BackingField: 1
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  <AOEPrefab>k__BackingField: {fileID: 6646111290756534633, guid: 5dc56bc51a33d8b488ebb8996d51be3d, type: 3}
 --- !u!114 &-3405365262747518118
 MonoBehaviour:
   m_ObjectHideFlags: 0
