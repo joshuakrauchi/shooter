@@ -49,13 +49,9 @@ public abstract class Projectile : TimeObject, IPoolable
         ProjectileMovement.UpdateMovement(GameState.IsRewinding);
     }
 
-    public void ActivatePoolable()
+    public virtual void ActivatePoolable()
     {
         IsDisabled = false;
-    }
-
-    public virtual void OnHit()
-    {
     }
 
     public void DestroyProjectile()

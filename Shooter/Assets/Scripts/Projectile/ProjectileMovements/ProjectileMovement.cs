@@ -11,9 +11,8 @@ public class ProjectileMovement : MonoBehaviour
     // Only takes effect if IsVariableSpeed.
     [field: SerializeField] private float SpeedOverTimeMultiplier { get; set; } = -0.05f;
 
+    protected Rigidbody2D Rigidbody { get; private set; }
     protected float TimeAlive { get; private set; }
-
-    private Rigidbody2D Rigidbody { get; set; }
 
     private void Awake()
     {

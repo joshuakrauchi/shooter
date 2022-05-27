@@ -1,5 +1,9 @@
-public class PlayerRegularProjectile : PlayerProjectile
+using UnityEngine;
+
+public class PlayerRegularProjectile : Projectile, IDamager
 {
+    [field: SerializeField] public float Damage { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -17,10 +21,8 @@ public class PlayerRegularProjectile : PlayerProjectile
         }
     }
 
-    public override void OnHit()
+    public void OnDamage()
     {
-        base.OnHit();
-        
         IsDisabled = true;
     }
 }

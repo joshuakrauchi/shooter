@@ -58,12 +58,10 @@ public abstract class Enemy : TimeObject
         DestroySelf();
     }
 
-    public void OnHit(PlayerProjectile projectile)
+    public void OnHit(float damageAmount)
     {
-        Health -= projectile.Damage;
-
-        projectile.OnHit();
-
+        Health -= damageAmount;
+        
         if (Health > 0.0f) return;
 
         OnZeroHealth();

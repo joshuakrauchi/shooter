@@ -10,10 +10,8 @@ public class EnemyProjectile : Projectile
         }
     }
 
-    public override void OnHit()
+    public void OnHit()
     {
-        base.OnHit();
-
         IsDisabled = true;
     }
 }

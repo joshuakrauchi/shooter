@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IUpdateable
     private PlayerMovement PlayerMovement { get; set; }
     private PlayerShoot PlayerShoot { get; set; }
     private PlayerSpecialShoot PlayerSpecialShoot { get; set; }
+    private bool HasCycledWeapons { get; set; }
 
     private void Awake()
     {
@@ -45,6 +46,18 @@ public class Player : MonoBehaviour, IUpdateable
         PlayerMovement.UpdateMovement();
         PlayerShoot.UpdateShoot(PlayerController.IsShooting, GameState.IsRewinding);
         PlayerSpecialShoot.UpdateSpecialShoot(PlayerController.IsSpecialHeld);
+
+        if (PlayerController.ScrollDelta != 0)
+        {
+            if (HasCycledWeapons) return;
+            
+            PlayerSpecialShoot.CyclePlayerSpecial(PlayerController.ScrollDelta > 0);
+            HasCycledWeapons = true;
+        }
+        else
+        {
+            HasCycledWeapons = false;
+        }
     }
 
     public void OnCollectibleHit(Collectible collectible)

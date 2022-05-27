@@ -1,12 +1,16 @@
-public class PlayerCollidingProjectile : PlayerProjectile
+using UnityEngine;
+
+public class PlayerCollidingProjectile : Projectile, IDamager
 {
-    private PlayerCollidingProjectileCollision PlayerCollidingProjectileCollision { get; set; }
+    [field: SerializeField] public float Damage { get; set; }
+
+    private PlayerProjectileCollision PlayerProjectileCollision { get; set; }
     
     protected override void Awake()
     {
         base.Awake();
 
-        PlayerCollidingProjectileCollision = GetComponent<PlayerCollidingProjectileCollision>();
+        PlayerProjectileCollision = GetComponent<PlayerProjectileCollision>();
     }
 
     public override void UpdateUpdateable()
@@ -20,7 +24,12 @@ public class PlayerCollidingProjectile : PlayerProjectile
 
         if (!GameState.IsRewinding)
         {
-            PlayerCollidingProjectileCollision.UpdateCollision();
+            PlayerProjectileCollision.UpdateCollision();
         }
+    }
+
+    public void OnDamage()
+    {
+        // This projectile is piercing.
     }
 }

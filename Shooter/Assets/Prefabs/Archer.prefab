@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: health
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6347382726450541797, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
+      propertyPath: <Health>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7131659608439137991, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
       propertyPath: m_Name
       value: Archer

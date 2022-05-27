@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Collision : MonoBehaviour
 {
     [field: SerializeField] public uint MaxOverlapHits { get; private set; } = 5;
-    [SerializeField] protected ContactFilter2D overlapFilter;
+    [field: SerializeField] protected ContactFilter2D OverlapFilter { get; private set; }
 
     public BoxCollider2D Collider { get; private set; }
 
@@ -19,7 +19,7 @@ public abstract class Collision : MonoBehaviour
 
     public virtual void UpdateCollision()
     {
-        Collider.OverlapCollider(overlapFilter, OverlapHits);
+        Collider.OverlapCollider(OverlapFilter, OverlapHits);
 
         for (var i = 0; i < OverlapHits.Length; ++i)
         {

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 925190438885594579}
   - component: {fileID: 925190438885594578}
   - component: {fileID: 6477631525986665402}
+  - component: {fileID: -3405365262747518118}
   - component: {fileID: 1936937168188544580}
   m_Layer: 0
   m_Name: Player
@@ -133,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxOverlapHits>k__BackingField: 5
-  overlapFilter:
+  <OverlapFilter>k__BackingField:
     useTriggers: 0
     useLayerMask: 0
     useDepth: 0
@@ -218,6 +219,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02366868fb4018f48a1b7ecdba2d65bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3405365262747518118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925190438885594587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4198af9898eaa43a1e9e14920c071c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <CurrencyCost>k__BackingField: 100
+  <ChargeCost>k__BackingField: 1
+  <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
+  <RayPrefab>k__BackingField: {fileID: 5191304978102523479, guid: 349c508070da03a41a034e56cb9fb42a, type: 3}
+  <RayOffset>k__BackingField: {x: 0, y: 6, z: 0}
 --- !u!114 &1936937168188544580
 MonoBehaviour:
   m_ObjectHideFlags: 0

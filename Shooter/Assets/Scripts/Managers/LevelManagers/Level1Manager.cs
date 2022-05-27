@@ -38,8 +38,6 @@ public class Level1Manager : LevelManager
         //MinionDefinition eliteArcherShooting = new(eliteArcher, new ShootHoming(GameData.Player.gameObject, 0, new Timer(1f), fastArrow, new Timer(0.1f), 3, 15, 15f, 5f, 0f));
         //MinionDefinition eliteArcherDoubleShot = new(eliteArcher, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), fastArrow, new Timer(0.2f), 3, 15, 15f, 2f, 0f));
 
-        /*
-        
         Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[-3], VSlide1));
 
         // 1
@@ -113,7 +111,6 @@ public class Level1Manager : LevelManager
 
             CurrentTime += 0.25f;
         }
-        */
 
         // Boss 1
         CurrentTime += 5f;

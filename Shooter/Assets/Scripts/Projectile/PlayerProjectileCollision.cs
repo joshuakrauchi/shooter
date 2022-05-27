@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerCollidingProjectileCollision : Collision
+public class PlayerProjectileCollision : Collision
 {
     protected override void HandleOverlapCollision(Collider2D hit)
     {

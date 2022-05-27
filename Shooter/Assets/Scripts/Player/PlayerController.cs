@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public bool IsRewinding { get; private set; }
     public bool IsConfirmDown { get; private set; }
     public bool IsSpecialHeld { get; private set; }
+    public float ScrollDelta { get; private set; }
 
     public void UpdateInput()
     {
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
         IsRewinding = Input.GetMouseButton(1);
         IsConfirmDown = Input.GetMouseButtonDown(0);
         IsSpecialHeld = Input.GetKey(KeyCode.X);
+        ScrollDelta = Input.mouseScrollDelta.y;
 
         if (Input.GetKeyDown(KeyCode.R))
         {

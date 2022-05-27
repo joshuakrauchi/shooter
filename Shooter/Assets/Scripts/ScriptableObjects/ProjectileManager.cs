@@ -5,14 +5,12 @@ using UnityEngine;
 public class ProjectileManager : ScriptableObject
 {
     private Dictionary<int, Stack<GameObject>> ProjectilePool { get; set; }
-    private Vector3 DefaultPosition { get; set; }
     
     private readonly List<Projectile> _projectiles;
 
     private ProjectileManager()
     {
         ProjectilePool = new Dictionary<int, Stack<GameObject>>();
-        DefaultPosition = new Vector3(1000.0f, 1000.0f, 1000.0f);
         
         _projectiles = new List<Projectile>();
     }
@@ -38,7 +36,7 @@ public class ProjectileManager : ScriptableObject
 
         while (projectileStack.Count < initialAmount)
         {
-            projectileStack.Push(Instantiate(projectilePrefab, DefaultPosition, Quaternion.identity));
+            projectileStack.Push(Instantiate(projectilePrefab, Utilities.OffscreenPosition, Quaternion.identity));
         }
     }
 
@@ -46,7 +44,7 @@ public class ProjectileManager : ScriptableObject
     {
         _projectiles.Remove(projectile);
 
-        projectile.transform.position = DefaultPosition;
+        projectile.transform.position = Utilities.OffscreenPosition;
         ProjectilePool[projectile.PoolID].Push(projectile.gameObject);
     }
 
