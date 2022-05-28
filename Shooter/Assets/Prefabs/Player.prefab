@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: -6606561848096864546}
   - component: {fileID: -3405365262747518118}
   - component: {fileID: 1936937168188544580}
+  - component: {fileID: -7296470723485265370}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -220,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02366868fb4018f48a1b7ecdba2d65bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <UIManager>k__BackingField: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
 --- !u!114 &-6606561848096864546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <IsEquipped>k__BackingField: 0
   <CurrencyCost>k__BackingField: 100
   <ChargeCost>k__BackingField: 1
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
@@ -250,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <IsEquipped>k__BackingField: 0
   <CurrencyCost>k__BackingField: 100
   <ChargeCost>k__BackingField: 1
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
@@ -268,7 +272,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <IsEquipped>k__BackingField: 1
   <CurrencyCost>k__BackingField: 100
   <ChargeCost>k__BackingField: 1
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <ProjectilePrefab>k__BackingField: {fileID: 2810963475559622834, guid: 11cb5d474ea8deb47bf8f6e8f7c1f625, type: 3}
+--- !u!114 &-7296470723485265370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925190438885594587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15940340d5d70784f96ea3b362692eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <IsEquipped>k__BackingField: 0
+  <CurrencyCost>k__BackingField: 100
+  <ChargeCost>k__BackingField: 1
+  <SpecialSideRaysContainer>k__BackingField: {fileID: 426644444907790368, guid: 99db160f4a63aa14ea76c96f9d25a738, type: 3}

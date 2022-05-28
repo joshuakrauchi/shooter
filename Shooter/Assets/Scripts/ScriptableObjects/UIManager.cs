@@ -13,6 +13,7 @@ public class UIManager : ScriptableObject, IUpdateable
     [field: SerializeField] private GameObject SpecialBar { get; set; }
     [field: SerializeField] private GameObject DialogueBox { get; set; }
     [field: SerializeField] private GameObject BossHealthBar { get; set; }
+    [field: SerializeField] private GameObject SpecialNumber { get; set; }
 
     private Queue<Tuple<string, string>> TextQueue { get; set; }
     private Canvas BossHealthBarCanvas { get; set; }
@@ -22,6 +23,7 @@ public class UIManager : ScriptableObject, IUpdateable
     private Canvas DialogueBoxCanvas { get; set; }
     private TextMeshProUGUI DialogueBoxNameText { get; set; }
     private TextMeshProUGUI DialogueBoxDialogueText { get; set; }
+    private TextMeshProUGUI SpecialNumberText { get; set; }
 
     public void Initialize()
     {
@@ -34,6 +36,8 @@ public class UIManager : ScriptableObject, IUpdateable
         SpecialSlider.SetMaxValue(GameData.MaxSpecialCharge);
         BossHealthSlider = BossHealthBarCanvas.GetComponentInChildren<ValueSlider>();
         BossHealthBarCanvas.enabled = false;
+        SpecialNumberText = Instantiate(SpecialNumber, parentTransform).GetComponent<TextMeshProUGUI>();
+        SetSpecialNumberText(0);
 
         TextQueue = new Queue<Tuple<string, string>>();
 
@@ -102,5 +106,10 @@ public class UIManager : ScriptableObject, IUpdateable
         BossHealthBarCanvas.enabled = isActive;
         
         BossHealthSlider.SetCurrentValue(currentHealth);
+    }
+
+    public void SetSpecialNumberText(int number)
+    {
+        SpecialNumberText.text = number.ToString();
     }
 }

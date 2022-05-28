@@ -19,3 +19,4 @@ MonoBehaviour:
   <SpecialBar>k__BackingField: {fileID: 274152394573426083, guid: 495acf3cd9b119148ada55921af6cf6a, type: 3}
   <DialogueBox>k__BackingField: {fileID: 8563632364438112618, guid: 2cc38533daacdeb439fb98677e328f52, type: 3}
   <BossHealthBar>k__BackingField: {fileID: 3021991013332592239, guid: 91f7719b7087fe94ea78b3f0642d90ab, type: 3}
+  <SpecialNumber>k__BackingField: {fileID: 1299091588055975954, guid: 5cc2af9769452204e8bd0467f8310bb9, type: 3}

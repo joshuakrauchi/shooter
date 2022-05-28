@@ -15,7 +15,7 @@ public class SpecialRay : PlayerSpecial
     {
         CachedTransform = transform;
 
-        GameObject rayObject = Instantiate(RayPrefab, Utilities.OffscreenPosition, Quaternion.identity);
+        GameObject rayObject = Instantiate(RayPrefab, Utilities.OffscreenPosition, RayPrefab.transform.rotation);
         RayTransform = rayObject.transform;
         PlayerRayCollision = rayObject.GetComponent<PlayerRayCollision>();
     }
