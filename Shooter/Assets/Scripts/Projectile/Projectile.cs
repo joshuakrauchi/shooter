@@ -52,6 +52,8 @@ public abstract class Projectile : TimeObject, IPoolable
     public virtual void ActivatePoolable()
     {
         IsDisabled = false;
+        
+        ProjectileMovement.ActivatePoolable();
     }
 
     public void DestroyProjectile()

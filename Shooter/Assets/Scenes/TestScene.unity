@@ -123,6 +123,29 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &18966219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 925190438885594587, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
+  m_PrefabInstance: {fileID: 659855210}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &18966233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18966219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d20f8c4b43ac09448f154591eae5e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <IsEquipped>k__BackingField: 1
+  <CurrencyCost>k__BackingField: 100
+  <ChargeCost>k__BackingField: 1
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  <ProjectilePrefab>k__BackingField: {fileID: 427503875058362613, guid: ec144bf298e9b544188ebe9857335d7e, type: 3}
 --- !u!1 &86459343
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,8 +387,8 @@ MonoBehaviour:
   basicShoot: {fileID: 4291872295983173431, guid: cfc56b117712b9d438c5dcedf9ed5a17, type: 3}
   archerSingleShot: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
   archerDoubleShot: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
-  eliteArcherShooting: {fileID: 683005738966507240, guid: c7fbd6463e131b34f8f2a3ab8f924d6b, type: 3}
-  eliteArcherDoubleShot: {fileID: 683005738966507240, guid: c7fbd6463e131b34f8f2a3ab8f924d6b, type: 3}
+  eliteArcherShooting: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
+  eliteArcherDoubleShot: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
   boss1: {fileID: 4244372823298466490, guid: a0c9a13d19670eb4ab039f92efe2af7d, type: 3}
   boss2: {fileID: 4244372823298466490, guid: a0c9a13d19670eb4ab039f92efe2af7d, type: 3}
   boss3: {fileID: 4244372823298466490, guid: a0c9a13d19670eb4ab039f92efe2af7d, type: 3}
@@ -396,9 +419,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7296470723485265370, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
+      propertyPath: <IsEquipped>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6606561848096864546, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
+      propertyPath: <IsEquipped>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -3405365262747518118, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: <RayRange>k__BackingField
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3405365262747518118, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
+      propertyPath: <IsEquipped>k__BackingField
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594576, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_RootOrder
@@ -406,11 +441,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594576, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.92
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594576, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.96
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594576, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_LocalPosition.z
@@ -471,6 +506,10 @@ PrefabInstance:
     - target: {fileID: 925190438885594587, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936937168188544580, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
+      propertyPath: <IsEquipped>k__BackingField
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}

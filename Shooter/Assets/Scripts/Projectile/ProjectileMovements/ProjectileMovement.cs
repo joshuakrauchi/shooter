@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
 {
-    [field: SerializeField] public float Speed { get; set; } = 0.25f;
+    [field: SerializeField] public float Speed { get; set; } = 5.0f;
     [field: SerializeField] private bool IsVariableSpeed { get; set; }
 
     // Only takes effect if IsVariableSpeed.
@@ -14,33 +14,32 @@ public class ProjectileMovement : MonoBehaviour
     protected Rigidbody2D Rigidbody { get; private set; }
     protected float TimeAlive { get; private set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
     }
 
     public void UpdateMovement(bool isRewinding)
     {
-        if (!isRewinding)
+        TimeAlive += isRewinding ? -Time.deltaTime : Time.deltaTime;
+        
+        if (TimeAlive < 0)
         {
-            TimeAlive += Time.deltaTime;
-
-            UpdateTransform();
+            GetComponent<Projectile>().DestroyProjectile();
         }
-        else
-        {
-            TimeAlive -= Time.deltaTime;
 
-            if (TimeAlive < 0)
-            {
-                GetComponent<Projectile>().DestroyProjectile();
-            }
-        }
+        UpdateTransform(isRewinding);
     }
 
-    protected virtual void UpdateTransform()
+    protected virtual void UpdateTransform(bool isRewinding)
     {
+        if (isRewinding) return;
+
         Rigidbody.MovePosition(Rigidbody.position + (Vector2) transform.TransformDirection(GetStraightMovement() * Time.deltaTime));
+    }
+
+    public virtual void ActivatePoolable()
+    {
     }
 
     protected Vector2 GetStraightMovement()

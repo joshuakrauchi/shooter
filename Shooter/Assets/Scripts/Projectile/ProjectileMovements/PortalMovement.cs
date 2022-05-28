@@ -13,8 +13,10 @@ public class PortalMovement : ProjectileMovement
     private Vector2 _intersection;
     private Timer teleportDelay;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         SpriteRenderer = GetComponent<SpriteRenderer>();
 
         SetIntersectionPoint();
@@ -22,7 +24,7 @@ public class PortalMovement : ProjectileMovement
         teleportDelay = new Timer(1.5f);
     }
 
-    protected override void UpdateTransform()
+    protected override void UpdateTransform(bool isRewinding)
     {
         if (!HasTeleported && Vector2.Distance(transform.position, _intersection) <= DistanceToScreenEdgeBeforeTeleport)
         {
