@@ -9,6 +9,7 @@ public class GameData : ScriptableObject
     [field: SerializeField] private float InitialRewindCharge { get; set; } = 10.0f;
     [field: SerializeField] private float InitialSpecialCharge { get; set; } = 10.0f;
     [field: SerializeField] private uint InitialShots { get; set; } = 1;
+    [field: SerializeField] private float InitialShootDelay { get; set; } = 0.1f;
 
     public LevelManager CurrentLevelManager { get; set; }
     public Player Player { get; set; }
@@ -16,7 +17,23 @@ public class GameData : ScriptableObject
     public Rect ScreenRect { get; private set; }
     public uint Currency { get; set; }
     public uint ProjectileDamage { get; set; }
-    public uint Shots { get; set; }
+    public uint NumberOfShots { get; set; }
+    public float ShootDelay { get; set; }
+    public uint NextLevelExperience { get; set; } = 100;
+
+    public uint Experience
+    {
+        get => _experience;
+        set
+        {
+            _experience = value;
+
+            while (_experience >= NextLevelExperience)
+            {
+                LevelUp();
+            }
+        }
+    }
 
     public float MaxRewindCharge
     {
@@ -56,6 +73,7 @@ public class GameData : ScriptableObject
         set => _levelTime.Value = value;
     }
 
+    private uint _experience;
     private float _maxRewindCharge;
     private float _maxSpecialCharge;
     private LockedFloat _rewindCharge;
@@ -69,6 +87,7 @@ public class GameData : ScriptableObject
         UpdateScreenRect();
 
         InitializeValues();
+        Player.UpdateStats();
     }
 
     public void UpdateScreenRect()
@@ -99,10 +118,22 @@ public class GameData : ScriptableObject
         ProjectileDamage = InitialProjectileDamage;
         MaxRewindCharge = InitialRewindCharge;
         MaxSpecialCharge = InitialSpecialCharge;
-        Shots = InitialShots;
+        NumberOfShots = InitialShots;
+        ShootDelay = InitialShootDelay;
 
         RewindCharge = MaxRewindCharge;
         SpecialCharge = MaxSpecialCharge;
         _levelTime = new LockedFloat(0.0f, 0.0f, float.MaxValue);
+    }
+
+    private void LevelUp()
+    {
+        ShootDelay -= 0.1f;
+        NumberOfShots += 1;
+        ProjectileDamage += 1;
+        
+        Player.UpdateStats();
+        
+        NextLevelExperience *= 2;
     }
 }

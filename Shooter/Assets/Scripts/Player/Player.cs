@@ -20,9 +20,7 @@ public class Player : MonoBehaviour, IUpdateable
         PlayerMovement = GetComponent<PlayerMovement>();
         PlayerShoot = GetComponent<PlayerShoot>();
         PlayerSpecialShoot = GetComponent<PlayerSpecialShoot>();
-
-        PlayerShoot.NumberOfShots = GameData.Shots;
-
+        
         GameData.Player = this;
     }
 
@@ -69,5 +67,10 @@ public class Player : MonoBehaviour, IUpdateable
     public void OnHit()
     {
         //GameState.IsPaused = true;
+    }
+
+    public void UpdateStats()
+    {
+        PlayerShoot.UpdateStats();
     }
 }

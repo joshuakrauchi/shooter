@@ -6,7 +6,7 @@ public class ShopItem : MonoBehaviour
 
     public void BuyItem()
     {
-        ++gameData.Shots;
+        ++gameData.NumberOfShots;
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 }

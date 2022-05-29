@@ -2,29 +2,13 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [field: SerializeField] private GameData GameData { get; set; }
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
     [field: SerializeField] private GameObject ProjectilePrefab { get; set; }
-    [field: SerializeField] public float NumberOfShots { get; set; }
+    [field: SerializeField] private float NumberOfShots { get; set; }
     [field: SerializeField] private float ArmSpan { get; set; }
     
-    [SerializeField] private float shootDelay;
-
-    public float ShootDelay
-    {
-        get => shootDelay;
-        set
-        {
-            shootDelay = value;
-            ShootTimer = new Timer(ShootDelay);
-        }
-    }
-
     private Timer ShootTimer { get; set; }
-
-    public void Awake()
-    {
-        ShootTimer = new Timer(ShootDelay);
-    }
 
     public void Start()
     {
@@ -44,5 +28,11 @@ public class PlayerShoot : MonoBehaviour
         }
 
         ShootTimer.Reset();
+    }
+
+    public void UpdateStats()
+    {
+        NumberOfShots = GameData.NumberOfShots;
+        ShootTimer = new Timer(GameData.ShootDelay);
     }
 }
