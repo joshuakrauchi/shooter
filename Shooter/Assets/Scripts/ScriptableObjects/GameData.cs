@@ -114,6 +114,8 @@ public class GameData : ScriptableObject
 
     private void InitializeValues()
     {
+        Experience = 0;
+        NextLevelExperience = 100;
         Currency = InitialCurrency;
         ProjectileDamage = InitialProjectileDamage;
         MaxRewindCharge = InitialRewindCharge;
@@ -128,7 +130,8 @@ public class GameData : ScriptableObject
 
     private void LevelUp()
     {
-        ShootDelay -= 0.1f;
+        Debug.Log("LEVEL UP!");
+        ShootDelay -= 0.05f;
         NumberOfShots += 1;
         ProjectileDamage += 1;
         

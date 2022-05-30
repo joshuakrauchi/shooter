@@ -75,7 +75,7 @@ public abstract class Enemy : TimeObject
 
         if (DroppedObjects.Length > 0)
         {
-            NPCCreator.CreateCollectible(DroppedObjects[0], transform.position);
+            NPCCreator.CreateCollectible(DroppedObjects[Random.Range(0, DroppedObjects.Length)], transform.position);
         }
 
         IsDisabled = true;

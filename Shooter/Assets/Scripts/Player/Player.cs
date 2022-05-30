@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, IUpdateable
         PlayerMovement = GetComponent<PlayerMovement>();
         PlayerShoot = GetComponent<PlayerShoot>();
         PlayerSpecialShoot = GetComponent<PlayerSpecialShoot>();
-        
+
         GameData.Player = this;
     }
 
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour, IUpdateable
         if (PlayerController.ScrollDelta != 0)
         {
             if (HasCycledWeapons) return;
-            
+
             PlayerSpecialShoot.CyclePlayerSpecial(PlayerController.ScrollDelta > 0);
             HasCycledWeapons = true;
         }
@@ -60,7 +60,19 @@ public class Player : MonoBehaviour, IUpdateable
 
     public void OnCollectibleHit(Collectible collectible)
     {
-        GameData.Currency += collectible.Value;
+        if (collectible.CompareTag("Currency"))
+        {
+            GameData.Currency += collectible.Value;
+        }
+        else if (collectible.CompareTag("Experience"))
+        {
+            GameData.Experience += collectible.Value;
+        }
+        else if (collectible.CompareTag("SpecialCharge"))
+        {
+            GameData.SpecialCharge += collectible.Value;
+        }
+
         collectible.DestroySelf();
     }
 

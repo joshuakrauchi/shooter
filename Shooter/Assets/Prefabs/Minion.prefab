@@ -99,11 +99,7 @@ MonoBehaviour:
   <EnemyManager>k__BackingField: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
   <Health>k__BackingField: 1
   <RewindRecharge>k__BackingField: 0.1
-  <DroppedObjects>k__BackingField: []
-  <ShootBehaviour>k__BackingField:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+  <DroppedObjects>k__BackingField:
+  - {fileID: 7474135901270007978, guid: 0bd1f7ee30f4005418af3973ebd7e83a, type: 3}
+  - {fileID: 5361075786836078176, guid: 89ea0c060c3c32b4fa19c32fb213fdba, type: 3}
+  - {fileID: 8608253056961060505, guid: 63612ba1501576c4bb88771cbcddc05b, type: 3}

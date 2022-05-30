@@ -16,11 +16,11 @@ public class PlayerCollision : Collision
 
     protected override void HandleOverlapCollision(Collider2D hit)
     {
-        if (hit.CompareTag(enemyTag))
+        if (hit.GetComponent<Enemy>() is { })
         {
             Player.OnHit();
         }
-        else if (hit.CompareTag(collectibleTag))
+        else if (hit.GetComponent<Collectible>() is { })
         {
             Collectible collectible = hit.GetComponent<Collectible>();
             Player.OnCollectibleHit(collectible);

@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour, IUpdateable
 {
-    [field: SerializeField] public float InitialVelocity { get; private set; }
-    [field: SerializeField] public float GravityPower { get; private set; }
     [field: SerializeField] public uint Value { get; private set; }
-    
+
     [field: SerializeField] private UpdateableManager UpdateableManager { get; set; }
+    [field: SerializeField] private float InitialVelocity { get; set; } = 0.4f;
+    [field: SerializeField] private float TerminalVelocity { get; set; } = 0.1f;
+    [field: SerializeField] private float GravityPower { get; set; } = -0.01f;
 
     private Vector2 _velocity;
 
@@ -19,9 +20,14 @@ public class Collectible : MonoBehaviour, IUpdateable
 
     public void UpdateUpdateable()
     {
-        _velocity.y += GravityPower;
+        _velocity.y += GravityPower * Time.deltaTime;
 
-        transform.Translate(_velocity);
+        if (_velocity.y < TerminalVelocity)
+        {
+            _velocity.y = TerminalVelocity;
+        }
+
+        transform.Translate(_velocity * Time.deltaTime);
     }
 
     public void DestroySelf()

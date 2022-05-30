@@ -485,8 +485,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594579, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: <ArmSpan>k__BackingField
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 925190438885594579, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
+      propertyPath: <GameData>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
     - target: {fileID: 925190438885594579, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: <ProjectileManager>k__BackingField
       value: 

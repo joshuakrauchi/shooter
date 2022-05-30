@@ -71,14 +71,6 @@ PrefabInstance:
       propertyPath: rewindRecharge
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 6347382726450541797, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
-      propertyPath: <DroppedObjects>k__BackingField.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347382726450541797, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
-      propertyPath: <DroppedObjects>k__BackingField.Array.data[0]
-      value: 
-      objectReference: {fileID: 8213909936554195021, guid: 7bd07df2f6f541f43a1594355b437518, type: 3}
     - target: {fileID: 7131659608439137991, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
       propertyPath: m_Name
       value: FootSoldier
