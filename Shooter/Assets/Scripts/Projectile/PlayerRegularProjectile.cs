@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PlayerRegularProjectile : Projectile, IDamager
 {
-    [field: SerializeField] public float Damage { get; set; }
+    [field: SerializeField] public float DamageMultiplier { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
 
-        Damage = GameData.ProjectileDamage;
+        DamageMultiplier = GameData.ProjectileDamage;
     }
 
     public override void UpdateUpdateable()

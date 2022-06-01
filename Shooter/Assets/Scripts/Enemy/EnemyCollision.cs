@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class EnemyCollision : Collision
 {
-    private Enemy _enemy;
+    [field: SerializeField] private GameData GameData { get; set; }
+    private Enemy Enemy { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
 
-        _enemy = GetComponent<Enemy>();
+        Enemy = GetComponent<Enemy>();
     }
 
     protected override void HandleOverlapCollision(Collider2D hit)
     {
         if (hit.GetComponent<IDamager>() is { } damager)
         {
-            _enemy.OnHit(damager.Damage);
+            Enemy.OnHit(GameData.ProjectileDamage * damager.DamageMultiplier);
             
             damager.OnDamage();
         }

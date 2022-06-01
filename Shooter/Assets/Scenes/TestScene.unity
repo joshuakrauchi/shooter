@@ -419,21 +419,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -7296470723485265370, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
-      propertyPath: <IsEquipped>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -6606561848096864546, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
-      propertyPath: <IsEquipped>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -3405365262747518118, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: <RayRange>k__BackingField
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: -3405365262747518118, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
-      propertyPath: <IsEquipped>k__BackingField
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 925190438885594576, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_RootOrder
@@ -510,10 +498,6 @@ PrefabInstance:
     - target: {fileID: 925190438885594587, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1936937168188544580, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
-      propertyPath: <IsEquipped>k__BackingField
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}

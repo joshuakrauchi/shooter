@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAOEProjectile : Projectile, IDamager
 {
-    [field: SerializeField] public float Damage { get; set; } = 1.0f;
+    [field: SerializeField] public float DamageMultiplier { get; set; } = 1.0f;
     [field: SerializeField] private float TimeToLive { get; set; } = 1.0f;
 
     private PlayerProjectileCollision PlayerProjectileCollision { get; set; }

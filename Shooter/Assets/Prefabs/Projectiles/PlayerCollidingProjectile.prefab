@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxOverlapHits>k__BackingField: 10
-  overlapFilter:
+  <OverlapFilter>k__BackingField:
     useTriggers: 0
     useLayerMask: 0
     useDepth: 0
@@ -197,4 +197,4 @@ MonoBehaviour:
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
-  <Damage>k__BackingField: 1
+  <DamageMultiplier>k__BackingField: 2

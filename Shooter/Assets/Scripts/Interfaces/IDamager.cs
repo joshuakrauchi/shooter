@@ -1,6 +1,6 @@
 public interface IDamager
 {
-    public float Damage { get; set; }
+    public float DamageMultiplier { get; set; }
 
     public void OnDamage();
 }
