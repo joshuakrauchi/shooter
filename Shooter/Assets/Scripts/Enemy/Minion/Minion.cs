@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Minion : Enemy
 {
+    [field: SerializeField] private GameObject[] DroppedObjects { get; set; }
+    [field: SerializeField] private float DropRate { get; set; } = 0.5f;
+    
     public Animator Animator { get; private set; }
     public float AnimationLength { get; set; } = 1.0f;
 
@@ -48,5 +51,21 @@ public class Minion : Enemy
 
         MinionTimeData minionTimeData = (MinionTimeData) timeData;
         ShootBehaviour.SetRewindData(minionTimeData.ShootTimeData);
+    }
+
+    protected override void OnZeroHealth()
+    {
+        base.OnZeroHealth();
+        
+        if (HasDied) return;
+        
+        GameData.RewindCharge += RewindRecharge;
+        
+        if (DroppedObjects.Length > 0 && Random.value >= DropRate)
+        {
+            NPCCreator.CreateCollectible(DroppedObjects[Random.Range(0, DroppedObjects.Length)], transform.position);
+        }
+        
+        HasDied = true;
     }
 }

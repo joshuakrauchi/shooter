@@ -152,12 +152,9 @@ MonoBehaviour:
   <EnemyManager>k__BackingField: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
   <Health>k__BackingField: 500
   <RewindRecharge>k__BackingField: 0.1
-  <DroppedObjects>k__BackingField: []
   <ShootBehaviours>k__BackingField: []
   <UIManager>k__BackingField: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
+  <DroppedObjects>k__BackingField: []
   slowArrow: {fileID: 7528613875248914025, guid: 9d8a02e44c3b2144dbf186ba75d55d52, type: 3}
   fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
   bigArrow: {fileID: 2714373215205119015, guid: 52937ba3e53190348b06c91a8e14826e, type: 3}
-  references:
-    version: 2
-    RefIds: []

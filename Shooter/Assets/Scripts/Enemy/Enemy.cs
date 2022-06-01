@@ -4,16 +4,13 @@ public abstract class Enemy : TimeObject
 {
     [field: SerializeField] private EnemyManager EnemyManager { get; set; }
     [field: SerializeField] protected float Health { get; set; } = 1.0f;
-    [field: SerializeField] private float RewindRecharge { get; set; } = 0.1f;
-    [field: SerializeField] private GameObject[] DroppedObjects { get; set; }
-    [field: SerializeField] private float DropRate { get; set; } = 0.5f;
+    [field: SerializeField] protected float RewindRecharge { get; private set; } = 0.1f;
 
     public float CreationTime { get; set; }
 
     protected EnemyCollision EnemyCollision { get; private set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
-    
-    private bool HasDied { get; set; }
+    protected bool HasDied { get; set; }
     
     protected override void Awake()
     {
@@ -70,20 +67,9 @@ public abstract class Enemy : TimeObject
         OnZeroHealth();
     }
 
-    private void OnZeroHealth()
+    protected virtual void OnZeroHealth()
     {
         IsDisabled = true;
-
-        if (HasDied) return;
-        
-        GameData.RewindCharge += RewindRecharge;
-        
-        if (DroppedObjects.Length > 0 && Random.value >= DropRate)
-        {
-            NPCCreator.CreateCollectible(DroppedObjects[Random.Range(0, DroppedObjects.Length)], transform.position);
-        }
-        
-        HasDied = true;
     }
 
     private void DestroySelf()

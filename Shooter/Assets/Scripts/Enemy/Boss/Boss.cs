@@ -6,6 +6,8 @@ public abstract class Boss : Enemy
 
     [field: SerializeReference] protected ShootBehaviour[] ShootBehaviours { get; set; }
     [field: SerializeField] protected UIManager UIManager { get; set; }
+    
+    [field: SerializeField] private FloatGameObjectPair[] DroppedObjects { get; set; }
 
     protected float MaxHealth { get; private set; }
     protected BossMovement BossMovement { get; private set; }
@@ -103,5 +105,24 @@ public abstract class Boss : Enemy
     protected void ResetMovement(Vector2 startPosition, Vector2 endPosition, float totalTime, float initialDelay)
     {
         BossMovement = new BossMovement(startPosition, endPosition, totalTime, initialDelay);
+    }
+
+    protected override void OnZeroHealth()
+    {
+        base.OnZeroHealth();
+        
+        if (HasDied) return;
+        
+        GameData.RewindCharge += RewindRecharge;
+        
+        foreach(FloatGameObjectPair pair in DroppedObjects)
+        {
+            for (var i = 0; i < pair.Quantity; ++i)
+            {
+                NPCCreator.CreateCollectible(pair.GameObject, (Vector2) transform.position + new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)));
+            }
+        }
+        
+        HasDied = true;
     }
 }
