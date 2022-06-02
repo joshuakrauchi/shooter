@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Name
-      value: PlayerSineProjectile
+      value: PlayerSineProjectile1
       objectReference: {fileID: 0}
     - target: {fileID: 3957471538627455803, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Sprite
@@ -72,6 +72,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8966563801101554868, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966563801101554868, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966563801101554868, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -90,6 +98,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
   m_PrefabInstance: {fileID: 3439184893399114923}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-8903592691599724472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3772401697725538452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bcc4aaefa5c76344a5e83e8c831b505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Speed>k__BackingField: 10
+  <IsVariableSpeed>k__BackingField: 0
+  <MinimumSpeed>k__BackingField: 0.1
+  <SpeedOverTimeMultiplier>k__BackingField: -0.05
+  <Amplitude>k__BackingField: 0.2
+  <PhaseShift>k__BackingField: 1.5707964
+  <Period>k__BackingField: 2
 --- !u!114 &-520676546074031196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,25 +133,6 @@ MonoBehaviour:
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <DamageMultiplier>k__BackingField: 1
---- !u!114 &1618431215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3772401697725538452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcc4aaefa5c76344a5e83e8c831b505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 10
-  <IsVariableSpeed>k__BackingField: 0
-  <MinimumSpeed>k__BackingField: 0.1
-  <SpeedOverTimeMultiplier>k__BackingField: -0.05
-  <Amplitude>k__BackingField: 5
-  <PhaseShift>k__BackingField: 9
-  <Period>k__BackingField: 4
 --- !u!114 &5511183014983615750
 MonoBehaviour:
   m_ObjectHideFlags: 0

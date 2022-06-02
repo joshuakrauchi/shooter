@@ -40,6 +40,7 @@ public class ProjectileMovement : MonoBehaviour
 
     public virtual void ActivatePoolable()
     {
+        TimeAlive = 0.0f;
     }
 
     protected Vector2 GetStraightMovement()
