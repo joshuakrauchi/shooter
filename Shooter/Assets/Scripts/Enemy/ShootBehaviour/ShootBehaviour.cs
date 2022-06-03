@@ -17,12 +17,18 @@ public abstract class ShootBehaviour : MonoBehaviour
     [field: SerializeField] protected GameObject ProjectilePrefab { get; private set; }
 
     // A "Cycle" is a full iteration of a ShootBehaviour. A single cycle can hold one to many "shots".
-    // There can be a delay between cycles, so you can do rapid fire shots split up by short pauses.
     // "0" TotalCycles means repeat infinitely.
     [field: SerializeField] private uint TotalCycles { get; set; }
-    [field: SerializeField] protected Timer CycleTimer { get; private set; } = new(1.0f);
+    // There can be a delay between cycles, so you can do rapid fire shots split up by short pauses.
+    [field: SerializeField] private float TimeBetweenCycles { get; set; } = 1.0f;
 
     protected uint CurrentCycles { get; private set; }
+    protected Timer CycleTimer { get; private set; }
+
+    protected virtual void Awake()
+    {
+        CycleTimer = new Timer(TimeBetweenCycles);
+    }
 
     public void UpdateShoot(bool isRewinding)
     {

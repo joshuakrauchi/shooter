@@ -17,7 +17,7 @@ public class ShootHoming : ShootBehaviour
 
     [field: SerializeField] private GameData GameData { get; set; }
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
-    [field: SerializeField] private Timer ShotTimer { get; set; } = new(0.0f);
+    [field: SerializeField] private float TimeBetweenShots { get; set; }
     [field: SerializeField] private uint ShotsPerCycle { get; set; } = 1;
     [field: SerializeField] private uint ProjectilesPerShot { get; set; } = 3;
     [field: SerializeField] private float AngleBetweenProjectiles { get; set; } = 20.0f;
@@ -25,11 +25,15 @@ public class ShootHoming : ShootBehaviour
     [field: SerializeField] private float SpeedChangeBetweenShots { get; set; }
 
     private Transform Target { get; set; }
+    private Timer ShotTimer { get; set; }
     private uint CurrentShots { get; set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         Target = GameData.Player.transform;
+        ShotTimer = new Timer(TimeBetweenShots);
     }
 
     public override ShootTimeData GetRecordData()
