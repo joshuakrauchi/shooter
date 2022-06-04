@@ -384,19 +384,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
-  basicShoot: {fileID: 4291872295983173431, guid: cfc56b117712b9d438c5dcedf9ed5a17, type: 3}
-  archerSingleShot: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
-  archerDoubleShot: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
-  eliteArcherShooting: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
-  eliteArcherDoubleShot: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
-  boss1: {fileID: 4244372823298466490, guid: a0c9a13d19670eb4ab039f92efe2af7d, type: 3}
-  boss2: {fileID: 4244372823298466490, guid: a0c9a13d19670eb4ab039f92efe2af7d, type: 3}
-  boss3: {fileID: 4244372823298466490, guid: a0c9a13d19670eb4ab039f92efe2af7d, type: 3}
-  slowingArrow: {fileID: 7209250968108194165, guid: d2b2c0a6dd91ab64d8d3a6332b43946b, type: 3}
-  smallArrow: {fileID: 498058925674781804, guid: 1fe959921ba5c6345abba3710f026dc9, type: 3}
-  fastArrow: {fileID: 5557571970379859148, guid: 2bfe4d46be0ea284e9ecda0a56ba1fe5, type: 3}
-  bigArrow: {fileID: 5557571970379859148, guid: 2bfe4d46be0ea284e9ecda0a56ba1fe5, type: 3}
-  anonArrow: {fileID: 5557571970379859148, guid: 2bfe4d46be0ea284e9ecda0a56ba1fe5, type: 3}
+  <Soldier>k__BackingField: {fileID: 4291872295983173431, guid: cfc56b117712b9d438c5dcedf9ed5a17, type: 3}
+  <SergeantSingle>k__BackingField: {fileID: 1848247785009964483, guid: 4b92200a468f4834f86591dd99df6771, type: 3}
+  <SergeantDouble>k__BackingField: {fileID: 1848247785009964483, guid: 0cc242199ddfd7e4b975d5a3ccdd6422, type: 3}
+  <LieutenantConstant>k__BackingField: {fileID: 683005738966507240, guid: 6a65541535cc3eb49870628d4cd0244f, type: 3}
+  <LieutenantDouble>k__BackingField: {fileID: 683005738966507240, guid: c7fbd6463e131b34f8f2a3ab8f924d6b, type: 3}
+  <General1>k__BackingField: {fileID: 4244372823298466490, guid: a0c9a13d19670eb4ab039f92efe2af7d, type: 3}
+  <General2>k__BackingField: {fileID: 2389709943541849936, guid: 214ee0b08a1859c4cb32fba46e182ffe, type: 3}
 --- !u!4 &497832410
 Transform:
   m_ObjectHideFlags: 0

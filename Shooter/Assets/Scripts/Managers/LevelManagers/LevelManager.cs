@@ -5,8 +5,8 @@ public abstract class LevelManager : MonoBehaviour
 {
     [field: SerializeField] protected GameData GameData { get; private set; }
 
-    protected List<MinionData> Minions { get; private set; }
-    protected List<BossData> Bosses { get; private set; }
+    private List<MinionData> Minions { get; set; }
+    private List<BossData> Bosses { get; set; }
     private int MinionIndex { get; set; }
     private int BossIndex { get; set; }
 
@@ -27,9 +27,9 @@ public abstract class LevelManager : MonoBehaviour
 
         TopTransforms = new Dictionary<int, Transform>();
         TopTransformsFlipped = new Dictionary<int, Transform>();
-        
+
         Origin = new GameObject("SpawnTransforms").transform;
-        
+
         for (var i = -5; i <= 5; ++i)
         {
             TopTransforms[i] = Instantiate(Origin, new Vector3(5.0f * i, GameData.ScreenRect.yMax + Padding, 0.0f), Quaternion.identity).transform;
@@ -47,11 +47,11 @@ public abstract class LevelManager : MonoBehaviour
         while (MinionIndex < Minions.Count && Minions[MinionIndex].CreationTime <= GameData.LevelTime)
         {
             MinionData minionData = Minions[MinionIndex];
-            
+
             NPCCreator.CreateMinion(minionData);
             ++MinionIndex;
         }
-        
+
         while (Bosses.Count > 0 && BossIndex > 0 && Bosses[BossIndex - 1].CreationTime > GameData.LevelTime)
         {
             --BossIndex;
@@ -64,8 +64,7 @@ public abstract class LevelManager : MonoBehaviour
         }
     }
 
-    protected void AddMinion(GameObject minionPrefab, Transform parentTransform, string animationName)
-    {
-        Minions.Add(new MinionData(CurrentTime, minionPrefab, parentTransform, animationName));
-    }
+    protected void AddMinion(GameObject minionPrefab, Transform parentTransform, string animationName) => Minions.Add(new MinionData(CurrentTime, minionPrefab, parentTransform, animationName));
+
+    protected void AddBoss(GameObject bossPrefab, Vector2 position) => Bosses.Add(new BossData(CurrentTime, bossPrefab, position));
 }

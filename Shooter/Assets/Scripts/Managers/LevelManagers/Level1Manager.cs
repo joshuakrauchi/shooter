@@ -2,19 +2,13 @@ using UnityEngine;
 
 public class Level1Manager : LevelManager
 {
-    [SerializeField] private GameObject basicShoot;
-    [SerializeField] private GameObject archerSingleShot;
-    [SerializeField] private GameObject archerDoubleShot;
-    [SerializeField] private GameObject eliteArcherShooting;
-    [SerializeField] private GameObject eliteArcherDoubleShot;
-    [SerializeField] private GameObject boss1;
-    [SerializeField] private GameObject boss2;
-    [SerializeField] private GameObject boss3;
-    [SerializeField] private GameObject slowingArrow;
-    [SerializeField] private GameObject smallArrow;
-    [SerializeField] private GameObject fastArrow;
-    [SerializeField] private GameObject bigArrow;
-    [SerializeField] private GameObject anonArrow;
+    [field: SerializeField] private GameObject Soldier { get; set; }
+    [field: SerializeField] private GameObject SergeantSingle { get; set; }
+    [field: SerializeField] private GameObject SergeantDouble { get; set; }
+    [field: SerializeField] private GameObject LieutenantConstant { get; set; }
+    [field: SerializeField] private GameObject LieutenantDouble { get; set; }
+    [field: SerializeField] private GameObject General1 { get; set; }
+    [field: SerializeField] private GameObject General2 { get; set; }
 
     private const string HDangle = "HDangle";
     private const string HSlide1 = "HSlide1";
@@ -31,153 +25,146 @@ public class Level1Manager : LevelManager
     {
         base.Awake();
 
-        //MinionDefinition basicShoot = new(footSoldier, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), smallArrow, new Timer(0f), 1, 3, 20, 2f, 0f));
-        //MinionDefinition archerSingleShot = new(archer, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), slowingArrow, new Timer(0.1f), 1, 15, 10f, 2f, -0.05f));
-        //MinionDefinition archerDoubleShot = new(archer, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), slowingArrow, new Timer(0.1f), 2, 15, 10f, 2f, -0.05f));
-
-        //MinionDefinition eliteArcherShooting = new(eliteArcher, new ShootHoming(GameData.Player.gameObject, 0, new Timer(1f), fastArrow, new Timer(0.1f), 3, 15, 15f, 5f, 0f));
-        //MinionDefinition eliteArcherDoubleShot = new(eliteArcher, new ShootHoming(GameData.Player.gameObject, 1, new Timer(1f), fastArrow, new Timer(0.2f), 3, 15, 15f, 2f, 0f));
-        
         // 1
         for (var i = 0; i < 10; ++i)
         {
-            AddMinion(basicShoot, TopTransforms[-3], VSlide1);
+            AddMinion(Soldier, TopTransforms[-3], VSlide1);
             CurrentTime += 0.25f;
         }
 
         for (var i = 0; i < 10; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[-3], VSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[3], VSlide1));
+            AddMinion(Soldier, TopTransforms[-3], VSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[3], VSlide1);
             CurrentTime += 0.25f;
         }
 
         // 2
-        CurrentTime += 2f;
+        CurrentTime += 2.0f;
 
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[3], DropLeave));
+        AddMinion(SergeantDouble, TopTransformsFlipped[3], DropLeave);
         CurrentTime += 1f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransforms[-3], DropLeave));
+        AddMinion(SergeantSingle, TopTransforms[-3], DropLeave);
         CurrentTime += 1f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransformsFlipped[1], DropLeave));
+        AddMinion(SergeantSingle, TopTransformsFlipped[1], DropLeave);
         CurrentTime += 1f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-1], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[-1], DropLeave);
         CurrentTime += 1f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[4], DropLeave));
+        AddMinion(SergeantDouble, TopTransformsFlipped[4], DropLeave);
         CurrentTime += 0.75f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransforms[-4], DropLeave));
+        AddMinion(SergeantSingle, TopTransforms[-4], DropLeave);
         CurrentTime += 0.75f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransformsFlipped[2], DropLeave));
+        AddMinion(SergeantSingle, TopTransformsFlipped[2], DropLeave);
         CurrentTime += 0.75f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-2], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[-2], DropLeave);
         CurrentTime += 0.75f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[3], DropLeave));
+        AddMinion(SergeantDouble, TopTransformsFlipped[3], DropLeave);
         CurrentTime += 0.5f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransforms[-1], DropLeave));
+        AddMinion(SergeantSingle, TopTransforms[-1], DropLeave);
         CurrentTime += 0.5f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransformsFlipped[4], DropLeave));
+        AddMinion(SergeantSingle, TopTransformsFlipped[4], DropLeave);
         CurrentTime += 0.5f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-2], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[-2], DropLeave);
         CurrentTime += 0.5f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[0], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[0], DropLeave);
         CurrentTime += 0.25f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransforms[-3], DropLeave));
+        AddMinion(SergeantSingle, TopTransforms[-3], DropLeave);
         CurrentTime += 0.25f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransformsFlipped[3], DropLeave));
+        AddMinion(SergeantSingle, TopTransformsFlipped[3], DropLeave);
         CurrentTime += 0.25f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-1], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[-1], DropLeave);
         CurrentTime += 0.25f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[1], DropLeave));
+        AddMinion(SergeantDouble, TopTransformsFlipped[1], DropLeave);
 
         // 3
         CurrentTime += 5.5f;
 
         for (var i = 0; i < 10; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[0], HSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[0], HSlide1));
+            AddMinion(Soldier, TopTransforms[0], HSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[0], HSlide1);
 
             CurrentTime += 0.25f;
         }
 
-        Minions.Add(new MinionData(CurrentTime, eliteArcherShooting, TopTransforms[0], VDangle));
+        AddMinion(LieutenantConstant, TopTransforms[0], VDangle);
 
         for (var i = 0; i < 15; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[0], HSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[0], HSlide1));
+            AddMinion(Soldier, TopTransforms[0], HSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[0], HSlide1);
 
             CurrentTime += 0.25f;
         }
 
         // Boss 1
-        CurrentTime += 5f;
+        CurrentTime += 5.0f;
 
-        Bosses.Add(new BossData(CurrentTime, boss1, new Vector2(0f, GameData.ScreenRect.yMax + 5f)));
+        AddBoss(General1, new Vector2(0f, GameData.ScreenRect.yMax + 5f));
 
         // 5
-        CurrentTime += 5f;
+        CurrentTime += 5.0f;
 
         for (var i = 0; i < 5; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[-3], VSlide1));
+            AddMinion(Soldier, TopTransforms[-3], VSlide1);
 
             CurrentTime += 0.25f;
         }
 
         for (var i = 0; i < 5; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[-3], VSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[3], VSlide1));
+            AddMinion(Soldier, TopTransforms[-3], VSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[3], VSlide1);
 
             CurrentTime += 0.25f;
         }
 
         for (var i = 0; i < 5; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[3], VSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[0], HSlide1));
+            AddMinion(Soldier, TopTransformsFlipped[3], VSlide1);
+            AddMinion(Soldier, TopTransforms[0], HSlide1);
 
             CurrentTime += 0.25f;
         }
 
         for (var i = 0; i < 5; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[0], HSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[0], HSlide1));
+            AddMinion(Soldier, TopTransforms[0], HSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[0], HSlide1);
 
             CurrentTime += 0.25f;
         }
 
         // 6
-        CurrentTime += 4f;
+        CurrentTime += 4.0f;
 
         for (var i = 0; i < 5; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[0], HSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[0], HSlide1));
+            AddMinion(Soldier, TopTransforms[0], HSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[0], HSlide1);
 
             CurrentTime += 0.25f;
         }
 
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-3], DropLeave));
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[3], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[-3], DropLeave);
+        AddMinion(SergeantDouble, TopTransformsFlipped[3], DropLeave);
 
         for (var i = 0; i < 5; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[0], HSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[0], HSlide1));
+            AddMinion(Soldier, TopTransforms[0], HSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[0], HSlide1);
 
             CurrentTime += 0.25f;
         }
 
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-4], DropLeave));
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[4], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[-4], DropLeave);
+        AddMinion(SergeantDouble, TopTransformsFlipped[4], DropLeave);
 
         for (var i = 0; i < 10; ++i)
         {
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransforms[0], HSlide1));
-            Minions.Add(new MinionData(CurrentTime, basicShoot, TopTransformsFlipped[0], HSlide1));
+            AddMinion(Soldier, TopTransforms[0], HSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[0], HSlide1);
 
             CurrentTime += 0.25f;
         }
@@ -185,46 +172,44 @@ public class Level1Manager : LevelManager
         // 7
         CurrentTime += 7f;
 
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[3], DropLeave));
-        CurrentTime += 1f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransforms[-3], DropLeave));
-        CurrentTime += 1f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransformsFlipped[1], DropLeave));
-        CurrentTime += 1f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-1], DropLeave));
-        CurrentTime += 1f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[4], DropLeave));
+        AddMinion(SergeantDouble, TopTransformsFlipped[3], DropLeave);
+        CurrentTime += 1.0f;
+        AddMinion(SergeantSingle, TopTransforms[-3], DropLeave);
+        CurrentTime += 1.0f;
+        AddMinion(SergeantSingle, TopTransformsFlipped[1], DropLeave);
+        CurrentTime += 1.0f;
+        AddMinion(SergeantDouble, TopTransforms[-1], DropLeave);
+        CurrentTime += 1.0f;
+        AddMinion(SergeantDouble, TopTransformsFlipped[4], DropLeave);
         CurrentTime += 0.75f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransforms[-4], DropLeave));
+        AddMinion(SergeantSingle, TopTransforms[-4], DropLeave);
         CurrentTime += 0.75f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransformsFlipped[2], DropLeave));
+        AddMinion(SergeantSingle, TopTransformsFlipped[2], DropLeave);
         CurrentTime += 0.75f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-2], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[-2], DropLeave);
         CurrentTime += 0.75f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransformsFlipped[3], DropLeave));
+        AddMinion(SergeantDouble, TopTransformsFlipped[3], DropLeave);
         CurrentTime += 0.5f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransforms[-1], DropLeave));
+        AddMinion(SergeantSingle, TopTransforms[-1], DropLeave);
         CurrentTime += 0.5f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransformsFlipped[4], DropLeave));
+        AddMinion(SergeantSingle, TopTransformsFlipped[4], DropLeave);
         CurrentTime += 0.5f;
-        Minions.Add(new MinionData(CurrentTime, archerDoubleShot, TopTransforms[-2], DropLeave));
+        AddMinion(SergeantDouble, TopTransforms[-2], DropLeave);
         CurrentTime += 0.5f;
-        Minions.Add(new MinionData(CurrentTime, eliteArcherDoubleShot, TopTransforms[0], DropLeave));
+        AddMinion(LieutenantDouble, TopTransforms[0], DropLeave);
         CurrentTime += 0.25f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransforms[-3], DropLeave));
+        AddMinion(SergeantSingle, TopTransforms[-3], DropLeave);
         CurrentTime += 0.25f;
-        Minions.Add(new MinionData(CurrentTime, archerSingleShot, TopTransformsFlipped[3], DropLeave));
+        AddMinion(SergeantSingle, TopTransformsFlipped[3], DropLeave);
         CurrentTime += 0.25f;
-        Minions.Add(new MinionData(CurrentTime, eliteArcherDoubleShot, TopTransforms[-1], DropLeave));
+        AddMinion(LieutenantDouble, TopTransforms[-1], DropLeave);
         CurrentTime += 0.25f;
-        Minions.Add(new MinionData(CurrentTime, eliteArcherDoubleShot, TopTransformsFlipped[1], DropLeave));
+        AddMinion(LieutenantDouble, TopTransformsFlipped[1], DropLeave);
 
-        CurrentTime += 7f;
+        CurrentTime += 7.0f;
 
-        Bosses.Add(new BossData(CurrentTime, boss2, new Vector2(0f, GameData.ScreenRect.yMax + 5f)));
+        AddBoss(General2, new Vector2(0.0f, GameData.ScreenRect.yMax + 5.0f));
 
-
-
-        Debug.Log(CurrentTime + " " + Minions.Count);
+        Debug.Log($"Current level length: {CurrentTime}");
     }
 }
