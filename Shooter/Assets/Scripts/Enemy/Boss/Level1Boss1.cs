@@ -41,12 +41,12 @@ public class Level1Boss1 : Boss
         {
             if (!_initiatedDialogue)
             {
-                UIManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "fine lol")});
+                //UIManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "fine lol")});
                 _initiatedDialogue = true;
             }
             else
             {
-                UIManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
+                //UIManager.StartDialogue(new[] {Tuple.Create("dude", "fite me bro"), Tuple.Create("you", "omg we been through this b4, just die already")});
             }
 
             //ShootBehaviours = new List<ShootBehaviour> {new ShootSuccessiveHoming(GameData.Player.gameObject, 0, new Timer(0.5f), boss2BigProjectileStraight, new Timer(0.25f), 5, 20f, 5f)};
@@ -110,7 +110,7 @@ public class Level1Boss1 : Boss
 
     private bool Phase6()
     {
-        UIManager.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
+        //UIManager.StartDialogue(new[] {Tuple.Create("dude", "dang bro ur stronk"), Tuple.Create("dude", "bye!!")});
         GameState.IsBossActive = false;
 
         ResetMovement(transform.position, new Vector2(0, GameData.ScreenRect.yMax + 7f), 2f, 0f);

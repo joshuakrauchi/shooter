@@ -1,57 +1,45 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Level1Boss2 : Boss
+public class Level2Boss1 : Boss
 {
-    [SerializeField] private GameObject slowArrow;
-    [SerializeField] private GameObject fastArrow;
-    [SerializeField] private GameObject bigArrow;
-
-    /*private ProjectileDefinition slowingProjectileStraight;
-    private ProjectileDefinition smallProjectileStraight;
-    private ProjectileDefinition boss2SmallProjectileRain;
-    private ProjectileDefinition boss2BigProjectileStraight;
-    private ProjectileDefinition boss2BigProjectileRain;*/
-
-    private bool _initiatedDialogue;
+    private bool HasInitiatedDialogue { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
-
-/*        slowingProjectileStraight = new ProjectileDefinition(slowArrow, new MoveBehaviour[] {new MoveStraight(0.0f, 0.1f, -0.1f)});
-        smallProjectileStraight = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(0.0f)});
-        boss2SmallProjectileRain = new ProjectileDefinition(fastArrow, new MoveBehaviour[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});
-        boss2BigProjectileStraight = new ProjectileDefinition(bigArrow, new MoveBehaviour[] {new MoveStraight(0.0f)});
-        boss2BigProjectileRain = new ProjectileDefinition(bigArrow, new MoveBehaviour[] {new MoveStraight(0.0f), new MoveStraight(2.0f, -90f)});*/
 
         Phases = new PhaseBehaviour[] {Phase1, Phase2, Phase3, Phase4, Phase5, Phase6, Phase7};
     }
 
     private bool Phase1()
     {
-        ResetMovement(transform.position, new Vector2(0f, GameData.ScreenRect.yMax - 10f), 2f, 0f);
+        ResetMovement(transform.position, new Vector2(0.0f, GameData.ScreenRect.yMax - 10.0f), 1.0f, 0.0f);
 
         return true;
     }
 
     private bool Phase2()
     {
-        if (BossMovement.IsFinished(GameState.IsRewinding))
+        if (!BossMovement.IsFinished(GameState.IsRewinding)) return false;
+        
+        if (!HasInitiatedDialogue)
         {
-            if (!_initiatedDialogue)
-            {
-                UIManager.StartDialogue();
-                _initiatedDialogue = true;
-            }
-
-
-
-            return true;
+            UIManager.AddDialogue("Boss", "Hi");
+            UIManager.AddDialogue("You", "What's up");
+            UIManager.StartDialogue();
+            
+            HasInitiatedDialogue = true;
+        }
+        else
+        {
+            UIManager.AddDialogue("You", "We talked already");
+            UIManager.StartDialogue();
         }
 
-        return false;
+        ShootBehaviours[0].IsDisabled = false;
+        GameState.IsBossActive = true;
+
+        return true;
     }
 
     private bool Phase3()

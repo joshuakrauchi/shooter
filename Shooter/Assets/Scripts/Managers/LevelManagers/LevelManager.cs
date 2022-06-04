@@ -3,7 +3,11 @@ using UnityEngine;
 
 public abstract class LevelManager : MonoBehaviour
 {
-    [field: SerializeField] protected GameData GameData { get; private set; }
+    [field: Header("ScriptableObjects")]
+    [field: SerializeField]
+    protected GameData GameData { get; private set; }
+
+    [field: SerializeField] protected ProjectileManager ProjectileManager { get; private set; }
 
     private List<MinionData> Minions { get; set; }
     private List<BossData> Bosses { get; set; }
@@ -23,17 +27,30 @@ public abstract class LevelManager : MonoBehaviour
         Minions = new List<MinionData>();
         Bosses = new List<BossData>();
 
-        CurrentTime = 2.5f;
+        CurrentTime = 0.1f;
 
         TopTransforms = new Dictionary<int, Transform>();
         TopTransformsFlipped = new Dictionary<int, Transform>();
 
         Origin = new GameObject("SpawnTransforms").transform;
 
+        Quaternion flippedRotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+
         for (var i = -5; i <= 5; ++i)
         {
-            TopTransforms[i] = Instantiate(Origin, new Vector3(5.0f * i, GameData.ScreenRect.yMax + Padding, 0.0f), Quaternion.identity).transform;
-            TopTransformsFlipped[i] = Instantiate(Origin, new Vector3(5.0f * i, GameData.ScreenRect.yMax + Padding, 0.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f)).transform;
+            Vector3 transformPosition = new(5.0f * i, GameData.ScreenRect.yMax + Padding, 0.0f);
+
+            Transform newTransform = new GameObject($"SpawnTransform {i}").transform;
+            newTransform.position = transformPosition;
+            newTransform.rotation = Quaternion.identity;
+            newTransform.SetParent(Origin);
+            TopTransforms[i] = newTransform;
+
+            Transform newTransformFlipped = new GameObject($"SpawnTransform {i} Flipped").transform;
+            newTransformFlipped.position = transformPosition;
+            newTransformFlipped.rotation = flippedRotation;
+            newTransformFlipped.SetParent(Origin);
+            TopTransformsFlipped[i] = newTransformFlipped;
         }
     }
 
@@ -66,5 +83,5 @@ public abstract class LevelManager : MonoBehaviour
 
     protected void AddMinion(GameObject minionPrefab, Transform parentTransform, string animationName) => Minions.Add(new MinionData(CurrentTime, minionPrefab, parentTransform, animationName));
 
-    protected void AddBoss(GameObject bossPrefab, Vector2 position) => Bosses.Add(new BossData(CurrentTime, bossPrefab, position));
+    protected void AddBoss(GameObject bossPrefab, Vector2 spawnPosition) => Bosses.Add(new BossData(CurrentTime, bossPrefab, spawnPosition));
 }

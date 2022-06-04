@@ -89,4 +89,14 @@ public class ProjectileManager : ScriptableObject
 
         return projectileObject;
     }
+
+    public GameObject CreateProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, float speed)
+    {
+        GameObject projectileObject = CreateProjectile(projectilePrefab, position, rotation);
+        
+        ProjectileMovement projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
+        projectileMovement.Speed = speed;
+
+        return projectileObject;
+    }
 }

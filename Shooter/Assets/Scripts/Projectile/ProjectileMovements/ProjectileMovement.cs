@@ -13,10 +13,13 @@ public class ProjectileMovement : MonoBehaviour
 
     protected Rigidbody2D Rigidbody { get; private set; }
     protected float TimeAlive { get; private set; }
+    
+    private float DefaultSpeed { get; set; }
 
     protected virtual void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
+        DefaultSpeed = Speed;
     }
 
     public void UpdateMovement(bool isRewinding)
@@ -40,6 +43,7 @@ public class ProjectileMovement : MonoBehaviour
 
     public virtual void ActivatePoolable()
     {
+        Speed = DefaultSpeed;
         TimeAlive = 0.0f;
     }
 

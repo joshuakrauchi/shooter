@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public abstract class ShootBehaviour : MonoBehaviour
@@ -13,11 +14,16 @@ public abstract class ShootBehaviour : MonoBehaviour
             CurrentCycles = currentCycles;
         }
     }
-    
-    [field: SerializeField] protected GameObject ProjectilePrefab { get; private set; }
 
+    [field: Header("Status")]
+    [field: SerializeField] public bool IsDisabled { get; set; }
+
+    [field: Header("Prefab")]
+    [field: SerializeField] protected GameObject ProjectilePrefab { get; private set; }
+    
     // A "Cycle" is a full iteration of a ShootBehaviour. A single cycle can hold one to many "shots".
     // "0" TotalCycles means repeat infinitely.
+    [field: Header("Cycles")]
     [field: SerializeField] private uint TotalCycles { get; set; }
     // There can be a delay between cycles, so you can do rapid fire shots split up by short pauses.
     [field: SerializeField] private float TimeBetweenCycles { get; set; } = 1.0f;

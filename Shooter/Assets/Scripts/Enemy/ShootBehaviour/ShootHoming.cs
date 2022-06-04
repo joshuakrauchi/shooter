@@ -15,8 +15,11 @@ public class ShootHoming : ShootBehaviour
         }
     }
 
+    [field: Header("ScriptableObjects")]
     [field: SerializeField] private GameData GameData { get; set; }
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
+    
+    [field: Header("Properties")]
     [field: SerializeField] private float TimeBetweenShots { get; set; }
     [field: SerializeField] private uint ShotsPerCycle { get; set; } = 1;
     [field: SerializeField] private uint ProjectilesPerShot { get; set; } = 3;

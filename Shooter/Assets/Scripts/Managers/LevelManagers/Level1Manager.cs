@@ -100,7 +100,7 @@ public class Level1Manager : LevelManager
         // Boss 1
         CurrentTime += 5.0f;
 
-        AddBoss(General1, new Vector2(0f, GameData.ScreenRect.yMax + 5f));
+        AddBoss(General1, new Vector2(0f, GameData.ScreenRect.yMax + 5.0f));
 
         // 5
         CurrentTime += 5.0f;

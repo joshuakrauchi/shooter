@@ -49,16 +49,19 @@ public class UIManager : ScriptableObject, IUpdateable
         EndDialogue();
     }
 
-    public void StartDialogue(IEnumerable<Tuple<string, string>> dialogue)
+    public void AddDialogue(string header, string dialogue)
+    {
+        if (GameState.IsRewinding) return;
+
+        TextQueue.Enqueue(new Tuple<string, string>(header, dialogue));
+        
+    }
+
+    public void StartDialogue()
     {
         if (GameState.IsRewinding) return;
         
         GameState.IsPaused = true;
-
-        foreach (var entry in dialogue)
-        {
-            TextQueue.Enqueue(entry);
-        }
 
         DialogueBoxCanvas.enabled = true;
         GameState.IsDisplayingDialogue = true;

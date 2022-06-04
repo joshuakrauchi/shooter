@@ -35,7 +35,7 @@ public abstract class Boss : Enemy
         for (var i = 0; i < numberOfShootBehaviours; ++i)
         {
             ShootBehaviour shootBehaviour = ShootBehaviours[i];
-            if (!shootBehaviour.enabled) return;
+            if (shootBehaviour.IsDisabled) return;
             
             shootTimeData[i] = shootBehaviour.GetRecordData();
         }
@@ -58,7 +58,7 @@ public abstract class Boss : Enemy
         {
             ShootBehaviour.ShootTimeData shootTimeData = bossTimeData.ShootTimeData[i];
             // If the ShootTimeData is null/default, the corresponding ShootBehaviour was disabled at the time of recording.
-            ShootBehaviours[i].enabled = shootTimeData != default;
+            ShootBehaviours[i].IsDisabled = shootTimeData == default;
 
             if (shootTimeData == default) return;
             
@@ -96,7 +96,7 @@ public abstract class Boss : Enemy
 
         foreach (ShootBehaviour shootBehaviour in ShootBehaviours)
         {
-            if (!shootBehaviour.enabled) return;
+            if (shootBehaviour.IsDisabled) return;
             
             shootBehaviour.UpdateShoot(GameState.IsRewinding);
         }
