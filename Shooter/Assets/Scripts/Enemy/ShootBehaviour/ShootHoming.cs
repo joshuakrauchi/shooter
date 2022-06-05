@@ -20,6 +20,9 @@ public class ShootHoming : ShootBehaviour
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
     
     [field: Header("Properties")]
+    // If true, this will update the direction of the shots, even in the middle of a cycle.
+    // So, even if the player moves in the middle of a cycle, it will update its direction and shoot towards the player.
+    [field: SerializeField] private bool DoesUpdateDirectionEveryShot { get; set; }
     [field: SerializeField] private float TimeBetweenShots { get; set; }
     [field: SerializeField] private uint ShotsPerCycle { get; set; } = 1;
     [field: SerializeField] private uint ProjectilesPerShot { get; set; } = 3;
@@ -30,6 +33,7 @@ public class ShootHoming : ShootBehaviour
     private Transform Target { get; set; }
     private Timer ShotTimer { get; set; }
     private uint CurrentShots { get; set; }
+    private Vector2 CurrentDirection { get; set; }
 
     protected override void Awake()
     {
@@ -62,9 +66,12 @@ public class ShootHoming : ShootBehaviour
 
         ShotTimer = new Timer(ShotTimer.TimeToFinish);
 
-        Vector2 direction = Target.position - transform.position;
-        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
+        if (CurrentShots == 0 || DoesUpdateDirectionEveryShot)
+        {
+            CurrentDirection = Target.position - transform.position;
+        }
+        
+        var angle = Mathf.Atan2(CurrentDirection.y, CurrentDirection.x) * Mathf.Rad2Deg;
         angle -= AngleBetweenProjectiles * Mathf.Floor(ProjectilesPerShot / 2.0f) + Random.Range(-AngleVariation, AngleVariation);
 
         for (var i = 0; i < ProjectilesPerShot; ++i)

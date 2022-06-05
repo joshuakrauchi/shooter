@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4387279304944741517
+--- !u!1001 &7980892940412650532
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1578316402993923355, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Size.x
-      value: 1.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1578316402993923355, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Size.y
-      value: 1.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1578316402993923355, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
@@ -45,79 +45,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Name
-      value: PlayerCollidingProjectile
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
+      value: NewProjectile
       objectReference: {fileID: 0}
     - target: {fileID: 3957471538627455803, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -2413806693520163455, guid: cffeb48e6afba6741b867855473e9354, type: 3}
     - target: {fileID: 3957471538627455803, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_Color.a
-      value: 0.42745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957471538627455803, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.2264843
       objectReference: {fileID: 0}
     - target: {fileID: 3957471538627455803, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_Color.g
-      value: 0.018271448
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957471538627455803, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3957471538627455803, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3957471538627455803, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5231007007027146894, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5231007007027146894, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_Color.g
-      value: 0.62925303
-      objectReference: {fileID: 0}
-    - target: {fileID: 5231007007027146894, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_Color.r
-      value: 0.45660377
-      objectReference: {fileID: 0}
-    - target: {fileID: 8180888819730415870, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: speed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8180888819730415870, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: ySpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8180888819730415870, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: <Speed>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8966563801101554868, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8966563801101554868, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8966563801101554868, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8966563801101554868, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -131,71 +83,43 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1673088781427909326, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
---- !u!1 &2810963475559622834 stripped
+--- !u!1 &8440274511073067035 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2008661694539318335, guid: ba39452ad67e1634fab3d5cb1745707d, type: 3}
-  m_PrefabInstance: {fileID: 4387279304944741517}
+  m_PrefabInstance: {fileID: 7980892940412650532}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4719650598345931308
+--- !u!114 &-6509709913253120155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2810963475559622834}
+  m_GameObject: {fileID: 8440274511073067035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aee919618ad43dca85f7c59167b586f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxOverlapHits>k__BackingField: 10
-  <OverlapFilter>k__BackingField:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 0
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
---- !u!114 &9128600727271739837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2810963475559622834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b1aa534083b4b2448c06cb644949c30, type: 3}
+  m_Script: {fileID: 11500000, guid: d37ff356256af854eb46323a904bb517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
-  <DamageMultiplier>k__BackingField: 2
---- !u!114 &2852008648047395683
+--- !u!114 &2655143856761111681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2810963475559622834}
+  m_GameObject: {fileID: 8440274511073067035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cf0df94ae608104995f21d4fdfbef6a, type: 3}
+  m_Script: {fileID: 11500000, guid: f9b466030b4ddc743b2448bf1417867b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DoesDrawDebugPath>k__BackingField: 0
-  <Speed>k__BackingField: 5
+  <Speed>k__BackingField: 2
   <IsVariableSpeed>k__BackingField: 0
   <MinimumSpeed>k__BackingField: 0.1
   <SpeedOverTimeMultiplier>k__BackingField: -0.05
+  <InitialAmplitude>k__BackingField: 1
+  <AmplitudeIncreaseRate>k__BackingField: 0.005

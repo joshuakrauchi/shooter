@@ -2,30 +2,23 @@ using UnityEngine;
 
 public class TestLevelManager : LevelManager
 {
-    [SerializeField] private GameObject enemy;
-    [SerializeField] private GameObject projectile;
+    [field: SerializeField] private GameObject Boss { get; set; }
+    
+    [field: SerializeField] private GameObject Projectile1 { get; set; }
+    [field: SerializeField] private GameObject Projectile2 { get; set; }
+    [field: SerializeField] private GameObject Projectile3 { get; set; }
 
-
+    
     protected override void Awake()
     {
         base.Awake();
         
-        //ProjectileDefinition projectileDefinition = new(projectile, new MoveBehaviour[] {new MoveStraight(0.0f, 0.1f, -0.05f), new MoveSin(2.0f, 0.0f, 5.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f)});
+        //ProjectileManager.AddProjectilePool(Projectile1, 1000);
+        //ProjectileManager.AddProjectilePool(Projectile2, 1000);
+        //ProjectileManager.AddProjectilePool(Projectile3, 1000);
 
-/*        var x = new ShootSpinningFlower(1, new Timer(5f), new ProjectileDefinition(projectile, new MoveBehaviour[]
-        {
-            new MoveStraight(0.0f),
-            new MoveSin(1.0f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f),
-            new MoveStraight(3.0f)
-        }), 8, 30, 2f, 0.25f, 0f);
-*/
-        //var y = new ShootHoming(GameData.Player.gameObject, 0, new Timer(4.0f), projectile, new Timer(0.25f), 10, 1, 0.0f, 0.0f, 0.0f);
+        CurrentTime += 0.5f;
 
-        //MinionDefinition basicShoot = new(enemy, y);
-
-        //Minions.Add(new MinionSpawn(CurrentTime + 1.0f, basicShoot, TopTransforms[0], "Test"));
-
+        AddBoss(Boss, new Vector2());
     }
-
-
 }

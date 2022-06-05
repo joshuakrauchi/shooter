@@ -43,8 +43,8 @@ public abstract class Projectile : TimeObject, IPoolable
     {
         base.UpdateUpdateable();
 
-        SpriteRenderer.enabled = !IsDisabled;
-        Rigidbody.simulated = !IsDisabled;
+        SpriteRenderer.enabled = true;//!IsDisabled;
+        Rigidbody.simulated = true;//!IsDisabled;
 
         ProjectileMovement.UpdateMovement(GameState.IsRewinding);
     }

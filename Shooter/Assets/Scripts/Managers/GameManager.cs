@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private bool HasPausedAnimators { get; set; }
 
-    private void Awake()
+    private void Start()
     {
         GameData.Initialize();
         UIManager.Initialize();

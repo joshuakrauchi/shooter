@@ -24,7 +24,7 @@ public class PortalMovement : ProjectileMovement
         teleportDelay = new Timer(1.5f);
     }
 
-    protected override void UpdateTransform(bool isRewinding)
+    public override void UpdateTransform(bool isRewinding)
     {
         if (!HasTeleported && Vector2.Distance(transform.position, _intersection) <= DistanceToScreenEdgeBeforeTeleport)
         {
@@ -39,7 +39,7 @@ public class PortalMovement : ProjectileMovement
             return;
         }
 
-        transform.Translate(GetStraightMovement());
+        transform.Translate(new Vector2(Speed, 0.0f));
     }
 
     private void SetIntersectionPoint()

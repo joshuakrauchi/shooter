@@ -113,7 +113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4203282110089882886, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
       propertyPath: m_Name
-      value: LevelXBossX
+      value: Base
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5316285780021556633, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
@@ -123,7 +123,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4203282110089882886, guid: 366f1160c80ade944b56357a2784bd5e, type: 3}
   m_PrefabInstance: {fileID: 1785026681207629853}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4778271192220435195
+--- !u!114 &-7760347724041190092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,12 +138,7 @@ MonoBehaviour:
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   <EnemyManager>k__BackingField: {fileID: 11400000, guid: 95b10ea352e80854680bf0c99f7f9e8f, type: 2}
-  <Health>k__BackingField: 1
+  <Health>k__BackingField: 10000000
   <RewindRecharge>k__BackingField: 0.1
-  <DroppedObjects>k__BackingField: []
-  <ShootBehaviours>k__BackingField: []
   <UIManager>k__BackingField: {fileID: 11400000, guid: ed87595ad15e8aa4ca632d6a2316b4f6, type: 2}
-  fastArrow: {fileID: 63486078050849678, guid: d55e7faf99595d5479875343d62c1cbb, type: 3}
-  references:
-    version: 2
-    RefIds: []
+  <DroppedObjects>k__BackingField: []

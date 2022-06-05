@@ -153,22 +153,6 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
---- !u!114 &1153388965274207219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6646111290756534633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e391cda7a1e6e5245ba09d9de87a9210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 0
-  <IsVariableSpeed>k__BackingField: 0
-  <MinimumSpeed>k__BackingField: 0.1
-  <SpeedOverTimeMultiplier>k__BackingField: -0.05
 --- !u!114 &6482594513798203072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,5 +168,22 @@ MonoBehaviour:
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <GameState>k__BackingField: {fileID: 11400000, guid: 31dd36fc3d1a07d4e855898dff5923e2, type: 2}
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
-  <Damage>k__BackingField: 1
+  <DamageMultiplier>k__BackingField: 1
   <TimeToLive>k__BackingField: 0.5
+--- !u!114 &8981854686257452014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646111290756534633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf0df94ae608104995f21d4fdfbef6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DoesDrawDebugPath>k__BackingField: 0
+  <Speed>k__BackingField: 0
+  <IsVariableSpeed>k__BackingField: 0
+  <MinimumSpeed>k__BackingField: 0.1
+  <SpeedOverTimeMultiplier>k__BackingField: -0.05

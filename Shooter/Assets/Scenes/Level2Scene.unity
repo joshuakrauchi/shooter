@@ -484,4 +484,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
+  <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <Boss1>k__BackingField: {fileID: 9181186075599645892, guid: b96683d07f5d0d748ae41a46da2cb40b, type: 3}
+  <Projectile1>k__BackingField: {fileID: 498058925674781804, guid: 1fe959921ba5c6345abba3710f026dc9, type: 3}
+  <Projectile2>k__BackingField: {fileID: 7209250968108194165, guid: d2b2c0a6dd91ab64d8d3a6332b43946b, type: 3}
+  <Projectile3>k__BackingField: {fileID: 498058925674781804, guid: 1fe959921ba5c6345abba3710f026dc9, type: 3}

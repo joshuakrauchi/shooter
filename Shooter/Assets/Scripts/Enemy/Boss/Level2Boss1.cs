@@ -26,7 +26,7 @@ public class Level2Boss1 : Boss
         {
             UIManager.AddDialogue("Boss", "Hi");
             UIManager.AddDialogue("You", "What's up");
-            UIManager.StartDialogue();
+            //UIManager.StartDialogue();
             
             HasInitiatedDialogue = true;
         }
@@ -37,13 +37,14 @@ public class Level2Boss1 : Boss
         }
 
         ShootBehaviours[0].IsDisabled = false;
-        GameState.IsBossActive = true;
 
         return true;
     }
 
     private bool Phase3()
     {
+        GameState.IsBossActive = true;
+        
         if (Health <= MaxHealth * 0.75f)
         {
             ResetMovement(transform.position, new Vector2(0f, 5f), 2f, 0f);
@@ -51,7 +52,7 @@ public class Level2Boss1 : Boss
             return true;
         }
 
-        if (BossMovement.IsFinished(GameState.IsRewinding))
+        if (false)//BossMovement.IsFinished(GameState.IsRewinding))
         {
             Rect screenRect = GameData.ScreenRect;
             ResetMovement(transform.position, BossMovement.GetRandomPosition(screenRect.xMin, screenRect.xMax, 0.0f, screenRect.yMax), 2.0f, 3.0f);

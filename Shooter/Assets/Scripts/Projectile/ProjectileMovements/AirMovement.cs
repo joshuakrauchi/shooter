@@ -24,11 +24,11 @@ public class AirMovement : ProjectileMovement
         DescendTimer = new Timer(DescendTime);
     }
 
-    protected override void UpdateTransform(bool isRewinding)
+    public override void UpdateTransform(bool isRewinding)
     {
         if (!HasExploded && !isRewinding)
         {
-            Rigidbody.MovePosition(Rigidbody.position + (Vector2) transform.TransformDirection(GetStraightMovement() * Time.deltaTime));
+            Rigidbody.MovePosition(Rigidbody.position + (Vector2) transform.TransformDirection(new Vector2(Speed, 0.0f) * Time.deltaTime));
         }
         
         AscendTimer.UpdateTime(isRewinding);

@@ -4,11 +4,11 @@ public abstract class Boss : Enemy
 {
     protected delegate bool PhaseBehaviour();
 
-    [field: SerializeReference] protected ShootBehaviour[] ShootBehaviours { get; set; }
     [field: SerializeField] protected UIManager UIManager { get; set; }
     
     [field: SerializeField] private FloatGameObjectPair[] DroppedObjects { get; set; }
 
+    protected ShootBehaviour[] ShootBehaviours { get; private set; }
     protected float MaxHealth { get; private set; }
     protected BossMovement BossMovement { get; private set; }
     protected PhaseBehaviour[] Phases { get; set; }
