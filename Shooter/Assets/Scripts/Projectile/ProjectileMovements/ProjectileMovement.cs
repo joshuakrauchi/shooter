@@ -6,7 +6,7 @@ public abstract class ProjectileMovement : MonoBehaviour
     [field: SerializeField] private bool DoesDrawDebugPath { get; set; }
 
     [field: Header("Speed")]
-    [field: SerializeField] public float Speed { get; set; } = 5.0f;
+    [field: SerializeField] public float Speed { get; set; } = 10.0f;
     
     protected Rigidbody2D Rigidbody { get; private set; }
     protected float TimeAlive { get; private set; }
@@ -16,6 +16,7 @@ public abstract class ProjectileMovement : MonoBehaviour
     protected virtual void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
+        DefaultSpeed = Speed;
     }
 
     public void UpdateMovement(bool isRewinding)

@@ -39,7 +39,7 @@ public class SequentialMovement : ProjectileMovement
     {
         UpdateCurrentMovementIndex();
         
-        ProjectileMovements[CurrentMovementIndex].UpdateTransform(isRewinding);
+        ProjectileMovements[CurrentMovementIndex].UpdateMovement(isRewinding);
     }
 
     public override void ActivatePoolable()

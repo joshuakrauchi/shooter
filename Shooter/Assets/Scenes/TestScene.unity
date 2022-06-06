@@ -375,39 +375,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1552946566
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1552946568}
-  - component: {fileID: 3848792752024982884}
-  - component: {fileID: 8177289479525646435}
-  m_Layer: 0
-  m_Name: Container
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1552946568
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552946566}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1624531871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -522,37 +489,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c92dd1464d23fea498e11a5b45d80488, type: 3}
---- !u!114 &3848792752024982884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552946566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cf0df94ae608104995f21d4fdfbef6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <DoesDrawDebugPath>k__BackingField: 0
-  <Speed>k__BackingField: 0
-  <IsVariableSpeed>k__BackingField: 0
-  <MinimumSpeed>k__BackingField: 0.1
-  <SpeedOverTimeMultiplier>k__BackingField: -0.05
---- !u!114 &8177289479525646435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552946566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcc4aaefa5c76344a5e83e8c831b505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <DoesDrawDebugPath>k__BackingField: 0
-  <Speed>k__BackingField: 0
-  <Amplitude>k__BackingField: 1
-  <PhaseShift>k__BackingField: 1.5707964
-  <Period>k__BackingField: 1

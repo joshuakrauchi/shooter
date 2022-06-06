@@ -82,8 +82,8 @@ MonoBehaviour:
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <DoesUpdateDirectionEveryShot>k__BackingField: 0
   <TimeBetweenShots>k__BackingField: 0
-  <ShotsPerCycle>k__BackingField: 20
-  <ProjectilesPerShot>k__BackingField: 8
-  <AngleBetweenProjectiles>k__BackingField: 45
+  <ShotsPerCycle>k__BackingField: 16
+  <ProjectilesPerShot>k__BackingField: 40
+  <AngleBetweenProjectiles>k__BackingField: 22.5
   <AngleVariation>k__BackingField: 0
   <SpeedChangeBetweenShots>k__BackingField: -0.2

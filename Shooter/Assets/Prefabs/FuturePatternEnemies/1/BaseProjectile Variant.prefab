@@ -78,23 +78,6 @@ MonoBehaviour:
   <Speed>k__BackingField: 5
   <StartTimes>k__BackingField:
   - 1
---- !u!114 &1942208434177113721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7717752034864163377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bcc4aaefa5c76344a5e83e8c831b505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <DoesDrawDebugPath>k__BackingField: 0
-  <Speed>k__BackingField: 5
-  <Amplitude>k__BackingField: 1
-  <PhaseShift>k__BackingField: 1.5707964
-  <Period>k__BackingField: 1
 --- !u!114 &6163720462605721411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +91,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DoesDrawDebugPath>k__BackingField: 0
-  <Speed>k__BackingField: 5
+  <Speed>k__BackingField: 2
   <IsVariableSpeed>k__BackingField: 0
   <MinimumSpeed>k__BackingField: 0.1
   <SpeedOverTimeMultiplier>k__BackingField: -0.05
+--- !u!114 &8682275539691631414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7717752034864163377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bcc4aaefa5c76344a5e83e8c831b505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DoesDrawDebugPath>k__BackingField: 0
+  <Speed>k__BackingField: 5
+  <Amplitude>k__BackingField: 0.2
+  <PhaseShift>k__BackingField: 1.5707964
+  <Period>k__BackingField: 2
