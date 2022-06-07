@@ -1,3 +1,4 @@
+using Unity.Entities;
 using UnityEngine;
 
 /**
@@ -14,8 +15,10 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] private ProjectileManager ProjectileManager { get; set; }
     [field: SerializeField] private UpdateableManager CollectibleManager { get; set; }
 
-    private bool HasPausedAnimators { get; set; }
+    public static bool isRewinding;
 
+    private bool HasPausedAnimators { get; set; }
+    
     private void Start()
     {
         GameData.Initialize();
@@ -37,6 +40,8 @@ public class GameManager : MonoBehaviour
         GameData.UpdateScreenRect();
         */
 
+        isRewinding = GameState.IsRewinding;
+        
         if ((GameState.IsPaused || GameState.IsRewinding) && !HasPausedAnimators)
         {
             EnemyManager.SetMinionAnimatorSpeed(0.0f);
@@ -71,8 +76,6 @@ public class GameManager : MonoBehaviour
         GameData.CurrentLevelManager.UpdateEnemyCreation();
         UIManager.UpdateUpdateable();
         
-        ProjectileManager.UpdateNew();
-        //ProjectileManager.UpdateProjectiles();
         EnemyManager.UpdateEnemies();
         CollectibleManager.UpdateUpdateables();
         GameData.Player.UpdateUpdateable();

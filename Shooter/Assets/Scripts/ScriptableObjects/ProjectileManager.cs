@@ -1,27 +1,23 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Entities;
+using Unity.Transforms;
 
 [CreateAssetMenu(fileName = "ProjectileManager", menuName = "ScriptableObjects/ProjectileManager")]
 public class ProjectileManager : ScriptableObject
 {
-    
     private Dictionary<int, Stack<GameObject>> ProjectilePool { get; set; }
-    
+
     private readonly List<Projectile> _projectiles;
 
     private ProjectileManager()
     {
         ProjectilePool = new Dictionary<int, Stack<GameObject>>();
-        
+
         _projectiles = new List<Projectile>();
     }
-
-    public void UpdateNew()
-    {
-        
-        
-    }
-
+    
     public void UpdateProjectiles()
     {
         foreach (Projectile projectile in _projectiles.ToArray())
@@ -63,15 +59,39 @@ public class ProjectileManager : ScriptableObject
         }
     }
 
+
+    public void ProjectMe(Entity e, Vector3 position, Quaternion rotation)
+    {
+
+        var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        
+        
+
+        var newEntity = entityManager.Instantiate(e);
+        entityManager.SetComponentData(newEntity, new Translation
+        {
+            Value = position
+        });
+        
+        entityManager.SetComponentData(newEntity, new Rotation
+        {
+            Value = rotation
+        });
+
+        ComponentDataFromEntity<Translation> translation = new ComponentDataFromEntity<Translation>();
+    }
+
     public GameObject CreateProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation)
     {
+        return Instantiate(projectilePrefab, position, rotation);
+
         var projectileID = projectilePrefab.GetInstanceID();
 
         if (!ProjectilePool.ContainsKey(projectileID))
         {
             ProjectilePool.Add(projectileID, new Stack<GameObject>());
         }
-        
+
         var projectileStack = ProjectilePool[projectileID];
 
         GameObject projectileObject;
@@ -82,12 +102,12 @@ public class ProjectileManager : ScriptableObject
         else
         {
             projectileObject = projectileStack.Pop();
-            
+
             Transform projectileTransform = projectileObject.transform;
             projectileTransform.position = position;
             projectileTransform.rotation = rotation;
         }
-        
+
         Projectile projectile = projectileObject.GetComponent<Projectile>();
 
         projectile.PoolID = projectileID;
@@ -100,7 +120,7 @@ public class ProjectileManager : ScriptableObject
     public GameObject CreateProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, float speed)
     {
         GameObject projectileObject = CreateProjectile(projectilePrefab, position, rotation);
-        
+
         ProjectileMovement projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
         projectileMovement.Speed = speed;
 

@@ -12,16 +12,16 @@ public struct ProjectileComponent : IComponentData
     [HideInInspector] public bool isDisabled;
 
     // If the whole list is full of TimeData is disabled, it's safe to remove from the world.
-    public uint disabledTimeDataRunCount;
+    [HideInInspector] public uint disabledTimeDataRunCount;
 
+    [HideInInspector] public uint maxTimeData;
+    
     #endregion
 
     #region Projectile
 
-    public GameState gameState;
-
     public float speed;
-    
+    public float timeAlive;
 
     #endregion
 }
