@@ -38,7 +38,7 @@ public abstract class LevelManager : MonoBehaviour
 
         for (var i = -5; i <= 5; ++i)
         {
-            Vector3 transformPosition = new(5.0f * i, GameData.ScreenRect.yMax + Padding, 0.0f);
+            Vector3 transformPosition = new Vector3(5.0f * i, GameData.ScreenRect.yMax + Padding, 0.0f);
 
             Transform newTransform = new GameObject($"SpawnTransform {i}").transform;
             newTransform.position = transformPosition;

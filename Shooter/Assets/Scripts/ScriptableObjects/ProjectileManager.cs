@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ProjectileManager", menuName = "ScriptableObjects/ProjectileManager")]
 public class ProjectileManager : ScriptableObject
 {
+    
     private Dictionary<int, Stack<GameObject>> ProjectilePool { get; set; }
     
     private readonly List<Projectile> _projectiles;
@@ -13,6 +14,12 @@ public class ProjectileManager : ScriptableObject
         ProjectilePool = new Dictionary<int, Stack<GameObject>>();
         
         _projectiles = new List<Projectile>();
+    }
+
+    public void UpdateNew()
+    {
+        
+        
     }
 
     public void UpdateProjectiles()

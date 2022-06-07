@@ -2,7 +2,7 @@
 
 public static class Utilities
 {
-    public static Vector3 OffscreenPosition = new(1000.0f, 1000.0f, 1000.0f);
+    public static Vector3 OffscreenPosition = new Vector3(1000.0f, 1000.0f, 1000.0f);
     
     private const float OffscreenOffset = 1.0f;
 

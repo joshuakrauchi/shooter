@@ -6,16 +6,14 @@ public abstract class Projectile : TimeObject, IPoolable
 
     public int PoolID { get; set; }
 
-    protected BoxCollider2D Collider { get; private set; }
-    protected Rigidbody2D Rigidbody { get; set; }
-    protected ProjectileMovement ProjectileMovement { get; private set; }
+    private Rigidbody2D Rigidbody { get; set; }
+    private ProjectileMovement ProjectileMovement { get; set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
 
-        Collider = GetComponent<BoxCollider2D>();
         Rigidbody = GetComponent<Rigidbody2D>();
         ProjectileMovement = GetComponent<ProjectileMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,12 +39,12 @@ public abstract class Projectile : TimeObject, IPoolable
 
     public override void UpdateUpdateable()
     {
-        base.UpdateUpdateable();
+        //base.UpdateUpdateable();
 
-        SpriteRenderer.enabled = true;//!IsDisabled;
-        Rigidbody.simulated = true;//!IsDisabled;
+        //SpriteRenderer.enabled = true;//!IsDisabled;
+        //Rigidbody.simulated = true;//!IsDisabled;
 
-        ProjectileMovement.UpdateMovement(GameState.IsRewinding);
+        //ProjectileMovement.UpdateMovement(GameState.IsRewinding);
     }
 
     public virtual void ActivatePoolable()

@@ -70,7 +70,9 @@ public class GameManager : MonoBehaviour
         
         GameData.CurrentLevelManager.UpdateEnemyCreation();
         UIManager.UpdateUpdateable();
-        ProjectileManager.UpdateProjectiles();
+        
+        ProjectileManager.UpdateNew();
+        //ProjectileManager.UpdateProjectiles();
         EnemyManager.UpdateEnemies();
         CollectibleManager.UpdateUpdateables();
         GameData.Player.UpdateUpdateable();

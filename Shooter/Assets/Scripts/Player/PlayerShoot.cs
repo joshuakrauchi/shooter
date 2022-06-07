@@ -12,7 +12,7 @@ public class PlayerShoot : MonoBehaviour
 
     public void Start()
     {
-        ProjectileManager.AddProjectilePool(ProjectilePrefab, 2500);
+        ProjectileManager.AddProjectilePool(ProjectilePrefab, 100);
     }
 
     public void UpdateShoot(bool isShooting, bool isRewinding)

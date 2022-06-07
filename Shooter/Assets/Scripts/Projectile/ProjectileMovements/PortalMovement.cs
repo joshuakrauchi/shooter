@@ -48,7 +48,7 @@ public class PortalMovement : ProjectileMovement
         Vector2 travelPoint = transform.right * 100.0f;
         Rect screenRect = GameData.ScreenRect;
 
-        Vector2 bottomRight = new(screenRect.xMax, screenRect.yMin);
+        Vector2 bottomRight = new Vector2(screenRect.xMax, screenRect.yMin);
         
         // Check bottom screen side.
         if (Utilities.GetLineIntersection(origin, travelPoint, screenRect.min, bottomRight, ref _intersection)) return;
@@ -56,7 +56,7 @@ public class PortalMovement : ProjectileMovement
         // Check right screen side.
         if (Utilities.GetLineIntersection(origin, travelPoint, screenRect.max, bottomRight, ref _intersection)) return;
         
-        Vector2 topLeft = new(screenRect.xMin, screenRect.yMax);
+        Vector2 topLeft = new Vector2(screenRect.xMin, screenRect.yMax);
 
         // Check top screen side.
         if (Utilities.GetLineIntersection(origin, travelPoint, screenRect.max, topLeft, ref _intersection)) return;

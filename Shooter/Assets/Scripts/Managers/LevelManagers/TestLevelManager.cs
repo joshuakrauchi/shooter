@@ -19,6 +19,6 @@ public class TestLevelManager : LevelManager
 
         CurrentTime += 0.5f;
 
-        AddBoss(Boss, new Vector2());
+        //AddBoss(Boss, new Vector2());
     }
 }

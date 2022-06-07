@@ -18,7 +18,7 @@ public class StraightMovement : ProjectileMovement
     
     private Vector2 GetStraightMovement()
     {
-        Vector2 velocity = new()
+        Vector2 velocity = new Vector2()
         {
             x = Speed,
             y = 0.0f

@@ -17,5 +17,5 @@ MonoBehaviour:
   <InitialProjectileDamage>k__BackingField: 1
   <InitialRewindCharge>k__BackingField: 10
   <InitialSpecialCharge>k__BackingField: 10000
-  <InitialShots>k__BackingField: 1
-  <InitialShootDelay>k__BackingField: 0.25
+  <InitialShots>k__BackingField: 100
+  <InitialShootDelay>k__BackingField: 0.1
