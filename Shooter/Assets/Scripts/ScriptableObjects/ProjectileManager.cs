@@ -60,14 +60,11 @@ public class ProjectileManager : ScriptableObject
     }
 
 
-    public void ProjectMe(Entity e, Vector3 position, Quaternion rotation)
+    public void CreateProjectile(Entity entity, Vector3 position, Quaternion rotation)
     {
+        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        
-        
-
-        var newEntity = entityManager.Instantiate(e);
+        var newEntity = entityManager.Instantiate(entity);
         entityManager.SetComponentData(newEntity, new Translation
         {
             Value = position
@@ -77,53 +74,5 @@ public class ProjectileManager : ScriptableObject
         {
             Value = rotation
         });
-
-        ComponentDataFromEntity<Translation> translation = new ComponentDataFromEntity<Translation>();
-    }
-
-    public GameObject CreateProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation)
-    {
-        return Instantiate(projectilePrefab, position, rotation);
-
-        var projectileID = projectilePrefab.GetInstanceID();
-
-        if (!ProjectilePool.ContainsKey(projectileID))
-        {
-            ProjectilePool.Add(projectileID, new Stack<GameObject>());
-        }
-
-        var projectileStack = ProjectilePool[projectileID];
-
-        GameObject projectileObject;
-        if (projectileStack.Count <= 0)
-        {
-            projectileObject = Instantiate(projectilePrefab, position, rotation);
-        }
-        else
-        {
-            projectileObject = projectileStack.Pop();
-
-            Transform projectileTransform = projectileObject.transform;
-            projectileTransform.position = position;
-            projectileTransform.rotation = rotation;
-        }
-
-        Projectile projectile = projectileObject.GetComponent<Projectile>();
-
-        projectile.PoolID = projectileID;
-        projectile.ActivatePoolable();
-        _projectiles.Add(projectile);
-
-        return projectileObject;
-    }
-
-    public GameObject CreateProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation, float speed)
-    {
-        GameObject projectileObject = CreateProjectile(projectilePrefab, position, rotation);
-
-        ProjectileMovement projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
-        projectileMovement.Speed = speed;
-
-        return projectileObject;
     }
 }

@@ -76,8 +76,8 @@ public class ShootHoming : ShootBehaviour
 
         for (var i = 0; i < ProjectilesPerShot; ++i)
         {
-            ProjectileMovement projectileMovement = ProjectileManager.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, angle)).GetComponent<ProjectileMovement>();
-            projectileMovement.Speed += SpeedChangeBetweenShots * CurrentShots;
+            //ProjectileMovement projectileMovement = ProjectileManager.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, angle)).GetComponent<ProjectileMovement>();
+            //projectileMovement.Speed += SpeedChangeBetweenShots * CurrentShots;
             angle += AngleBetweenProjectiles;
         }
 

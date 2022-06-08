@@ -40,9 +40,9 @@ public abstract class Enemy : TimeObject
         
         SpriteRenderer.enabled = !IsDisabled;
 
-        if (!EnemyCollision.Collider.enabled || GameState.IsRewinding) return;
+        //if (!EnemyCollision.Collider.enabled || GameState.IsRewinding) return;
 
-        EnemyCollision.UpdateCollision();
+        //EnemyCollision.UpdateCollision();
     }
 
     protected override void Rewind(ITimeData timeData)
@@ -74,7 +74,7 @@ public abstract class Enemy : TimeObject
 
     private void DestroySelf()
     {
-        EnemyManager.RemoveEnemy(this);
-        Destroy(gameObject);
+        //EnemyManager.RemoveEnemy(this);
+        //Destroy(gameObject);
     }
 }

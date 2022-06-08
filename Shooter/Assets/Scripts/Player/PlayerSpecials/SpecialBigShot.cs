@@ -24,7 +24,7 @@ public class SpecialBigShot : PlayerSpecial
 
     private void Shoot()
     {
-        ProjectileManager.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0f, 0f, 90.0f));
+        //ProjectileManager.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0f, 0f, 90.0f));
         
         DecreaseSpecialCharge();
     }

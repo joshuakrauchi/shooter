@@ -28,18 +28,18 @@ public class PlayerRayCollision : Collision
     {
         HitColliders.Clear();
         
-        Collider.OverlapCollider(OverlapFilter, OverlapHits);
+        Physics.OverlapSphereNonAlloc(transform.position, 1.0f, OverlapHits);
 
         for (var i = 0; i < OverlapHits.Length; ++i)
         {
             if (OverlapHits[i] == default) break;
 
-            HitColliders.Add(OverlapHits[i]);
+            //HitColliders.Add(OverlapHits[i]);
 
             OverlapHits[i] = default;
         }
-        
-        Vector2 size = Collider.size * CachedTransform.localScale;
+
+        Vector2 size = new Vector2();//Collider.size * CachedTransform.localScale;
         var lineGap = size.y / NumberOfSweepLines;
         var colliderHalfHeight = size.y / 2;
 
@@ -62,13 +62,13 @@ public class PlayerRayCollision : Collision
 
         foreach (Collider2D hitCollider in HitColliders)
         {
-            HandleOverlapCollision(hitCollider);
+            //HandleOverlapCollision(hitCollider);
         }
 
         PreviousFramePosition = CachedTransform.position;
     }
 
-    protected override void HandleOverlapCollision(Collider2D hit)
+    protected override void HandleOverlapCollision(Collider hit)
     {
         if (hit.GetComponent<EnemyProjectile>() is { } enemyProjectile)
         {

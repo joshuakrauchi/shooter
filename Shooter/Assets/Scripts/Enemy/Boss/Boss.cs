@@ -70,7 +70,7 @@ public abstract class Boss : Enemy
     {
         base.UpdateUpdateable();
 
-        EnemyCollision.Collider.enabled = !IsDisabled && GameState.IsBossActive;
+        //EnemyCollision.Collider.enabled = !IsDisabled && GameState.IsBossActive;
 
         if (IsDisabled) return;
 

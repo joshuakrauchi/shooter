@@ -30,10 +30,12 @@ public class Minion : Enemy
         {
             IsDisabled = true;
         }
+
+        if (!Animator) return;
         
         Animator.SetFloat(MotionTime, newMotionTime);
 
-        EnemyCollision.Collider.enabled = !IsDisabled;
+        //EnemyCollision.Collider.enabled = !IsDisabled;
 
         if (IsDisabled) return;
 

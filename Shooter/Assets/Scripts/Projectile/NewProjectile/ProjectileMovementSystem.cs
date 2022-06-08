@@ -28,8 +28,11 @@ public partial class ProjectileMovementSystem : SystemBase
         }
 
         if (isRewinding) return;
-
-        translation.Value += math.mul(rotation.Value, GetStraightMovement(ref projectileComponent)) * deltaTime;
+        
+        float3 straightMovement = GetStraightMovement(ref projectileComponent) * deltaTime;
+        straightMovement.y = 0.4f * math.sin(projectileComponent.timeAlive * 1.4f);
+        
+        translation.Value += math.mul(rotation.Value, straightMovement);
     }
 
     private static float3 GetStraightMovement(ref ProjectileComponent projectileComponent)

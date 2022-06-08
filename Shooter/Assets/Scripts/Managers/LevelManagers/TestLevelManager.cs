@@ -29,10 +29,15 @@ public class TestLevelManager : LevelManager
         //ProjectileManager.AddProjectilePool(Projectile1, 1000);
         //ProjectileManager.AddProjectilePool(Projectile2, 1000);
         //ProjectileManager.AddProjectilePool(Projectile3, 1000);
+        
+        AddMinion(Soldier, TopTransforms[-3], VSlide1);
+
 
         return;
         
         CurrentTime += 0.5f;
+        
+
         
         for (var i = 0; i < 10; ++i)
         {

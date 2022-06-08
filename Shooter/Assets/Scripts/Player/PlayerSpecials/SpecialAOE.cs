@@ -22,6 +22,6 @@ public class SpecialAOE : PlayerSpecial
 
     private void Shoot()
     {
-        ProjectileManager.CreateProjectile(AOEPrefab, transform.position, Quaternion.identity);
+        //ProjectileManager.CreateProjectile(AOEPrefab, transform.position, Quaternion.identity);
     }
 }

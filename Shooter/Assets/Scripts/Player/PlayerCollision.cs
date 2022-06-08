@@ -14,7 +14,7 @@ public class PlayerCollision : Collision
         Player = GetComponent<Player>();
     }
 
-    protected override void HandleOverlapCollision(Collider2D hit)
+    protected override void HandleOverlapCollision(Collider hit)
     {
         if (hit.GetComponent<Enemy>() is { })
         {

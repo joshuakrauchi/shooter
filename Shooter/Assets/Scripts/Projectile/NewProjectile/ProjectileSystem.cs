@@ -10,10 +10,9 @@ public partial class ProjectileSystem : SystemBase
         var isRewinding = GameManager.isRewinding;
         float3 offscreenPosition = Utilities.OffscreenPosition;
 
-        Entities.ForEach((ref Translation translation, ref Rotation rotation, ref ProjectileComponent projectileComponent,
-            ref DynamicBuffer<ProjectileTimeDataBufferElement> timeData) =>
+        Entities.ForEach((ref Translation translation, ref Rotation rotation, ref ProjectileComponent projectileComponent) =>
         {
-            UpdateTimeData(isRewinding, ref translation, ref rotation, ref projectileComponent, ref timeData);
+            //UpdateTimeData(isRewinding, ref translation, ref rotation, ref projectileComponent, ref timeData);
 
             if (projectileComponent.isDisabled)
             {

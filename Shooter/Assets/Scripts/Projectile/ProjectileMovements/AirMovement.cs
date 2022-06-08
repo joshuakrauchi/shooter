@@ -51,7 +51,7 @@ public class AirMovement : ProjectileMovement
         {
             Rigidbody.MovePosition(Utilities.OffscreenPosition);
 
-            ProjectileManager.CreateProjectile(ExplosionPrefab, transform.position, Quaternion.identity);
+            //ProjectileManager.CreateProjectile(ExplosionPrefab, transform.position, Quaternion.identity);
             HasExploded = true;
         }
     }
