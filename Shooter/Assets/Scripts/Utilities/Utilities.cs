@@ -1,14 +1,41 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 
 public static class Utilities
 {
-    public static Vector3 OffscreenPosition = new Vector3(1000.0f, 1000.0f, 1000.0f);
-    
-    private const float OffscreenOffset = 1.0f;
+    public static readonly Rect ScreenRect = GetScreenRect();
 
+    public static Vector3 OffscreenPosition = new Vector3(1000.0f, 1000.0f, 1000.0f);
+
+    private const float OffscreenOffset = 1.0f;
+    public const uint MaxTimeData = 100;
+
+    
     public static bool IsOffscreen(Vector2 position, Vector2 spriteExtents, Rect screenRect) =>
         position.x < screenRect.xMin - spriteExtents.x - OffscreenOffset || position.x > screenRect.xMax + spriteExtents.x + OffscreenOffset ||
         position.y < screenRect.yMin - spriteExtents.y - OffscreenOffset || position.y > screenRect.yMax + spriteExtents.y + OffscreenOffset;
+
+    public static bool IsOutsideRect(float3 position, float3 spriteExtents, Rect rect)
+    {
+        return position.x < rect.xMin - spriteExtents.x - OffscreenOffset || position.x > rect.xMax + spriteExtents.x + OffscreenOffset ||
+               position.y < rect.yMin - spriteExtents.y - OffscreenOffset || position.y > rect.yMax + spriteExtents.y + OffscreenOffset;
+    }
+
+    private static Rect GetScreenRect()
+    {
+        Camera mainCamera = Camera.main;
+
+        if (!mainCamera) return Rect.zero;
+
+        Vector3 bottomLeft = mainCamera.ScreenToWorldPoint(Vector2.zero);
+        Vector3 topRight = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+
+        return Rect.MinMaxRect(
+            bottomLeft.x < 0 ? bottomLeft.x : -bottomLeft.x,
+            bottomLeft.y < 0 ? bottomLeft.y : -bottomLeft.y,
+            topRight.x > 0 ? topRight.x : -topRight.x,
+            topRight.y > 0 ? topRight.y : -topRight.y);
+    }
 
     public static bool IsSameSign(float first, float second)
     {

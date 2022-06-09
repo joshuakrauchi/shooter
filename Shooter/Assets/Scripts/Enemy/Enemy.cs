@@ -38,7 +38,7 @@ public abstract class Enemy : TimeObject
             DestroySelf();
         }
         
-        SpriteRenderer.enabled = !IsDisabled;
+        //SpriteRenderer.enabled = !IsDisabled;
 
         //if (!EnemyCollision.Collider.enabled || GameState.IsRewinding) return;
 

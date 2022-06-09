@@ -2,6 +2,6 @@ using System;
 using Unity.Entities;
 
 [Serializable, GenerateAuthoringComponent]
-public struct StraightMovementComponent : IComponentData
+public struct DestroyTag : IComponentData
 {
 }

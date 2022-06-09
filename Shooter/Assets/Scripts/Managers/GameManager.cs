@@ -16,15 +16,15 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] private UpdateableManager CollectibleManager { get; set; }
 
     public static bool isRewinding;
-
-    private bool HasPausedAnimators { get; set; }
     
+    private bool HasPausedAnimators { get; set; }
+
     private void Start()
     {
         GameData.Initialize();
         UIManager.Initialize();
     }
-
+    
     private void Update()
     {
         GameData.Player.UpdatePlayerInput();

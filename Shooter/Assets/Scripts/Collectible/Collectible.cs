@@ -20,6 +20,8 @@ public class Collectible : MonoBehaviour, IUpdateable
 
     public void UpdateUpdateable()
     {
+        return;
+        
         _velocity.y += GravityPower * Time.deltaTime;
 
         if (_velocity.y < TerminalVelocity)
@@ -32,7 +34,7 @@ public class Collectible : MonoBehaviour, IUpdateable
 
     public void DestroySelf()
     {
-        UpdateableManager.RemoveUpdateable(this);
-        Destroy(gameObject);
+        //UpdateableManager.RemoveUpdateable(this);
+        //Destroy(gameObject);
     }
 }
