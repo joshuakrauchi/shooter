@@ -4,5 +4,5 @@ using Unity.Entities;
 [Serializable, GenerateAuthoringComponent]
 public struct EntitySpawnComponent : IComponentData
 {
-    public Entity entity;
+    public Entity Entity;
 }

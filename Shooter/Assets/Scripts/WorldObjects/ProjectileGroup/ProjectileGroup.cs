@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-[UpdateInGroup(typeof(TimeObjectGroup))]
+[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 public class ProjectileGroup : ComponentSystemGroup
 {
 }

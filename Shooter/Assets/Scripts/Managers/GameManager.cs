@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         */
 
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        
         var playerControllerComponent = entityManager.GetComponentData<PlayerControllerComponent>(GameInfo.Instance.PlayerEntity);
         isRewinding = GameState.IsRewinding || playerControllerComponent.isRewindHeld;
         

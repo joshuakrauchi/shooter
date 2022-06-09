@@ -9,5 +9,6 @@ public class PlayerComponentAuthoring : MonoBehaviour, IConvertGameObjectToEntit
         GameInfo.Instance.PlayerEntity = entity;
 
         dstManager.AddComponent<PlayerComponent>(entity);
+        dstManager.AddBuffer<EntitySpawnBufferElement>(entity);
     }
 }

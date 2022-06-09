@@ -9,6 +9,7 @@ public static class Utilities
 
     private const float OffscreenOffset = 1.0f;
     public const uint MaxTimeData = 500;
+    public static Camera MainCamera { get; set; } = Camera.main;
 
     
     public static bool IsOffscreen(Vector2 position, Vector2 spriteExtents, Rect screenRect) =>
