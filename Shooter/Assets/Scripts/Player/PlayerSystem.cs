@@ -26,11 +26,11 @@ public partial class PlayerSystem : SystemBase
         ShootTimer.UpdateTime(isRewinding);
         var isShootTimerFinished = ShootTimer.IsFinished(false);
 
-        Entities.ForEach((ref PlayerComponent playerComponent, ref PlayerControllerComponent playerControllerComponent, ref Translation translation, in Rotation rotation) =>
+        Entities.ForEach((ref PlayerComponent playerComponent, ref PlayerControllerComponent playerControllerComponent, ref Translation translation, ref EntitySpawnComponent entitySpawnComponent, ref DynamicBuffer<EntitySpawnBufferElement> entitySpawnBufferElements) =>
         {
             UpdateInput(ref playerControllerComponent);
             UpdateMovement(movementSpeed, mousePosition, ref translation);
-            UpdateShoot(isShootTimerFinished, numberOfShots, ref translation, ref playerControllerComponent);
+            UpdateShoot(isShootTimerFinished, numberOfShots, ref translation, ref playerControllerComponent, ref entitySpawnComponent, ref entitySpawnBufferElements);
         }).Run();
 
         if (isShootTimerFinished)
@@ -81,14 +81,21 @@ public partial class PlayerSystem : SystemBase
         translation.Value = newPosition;
     }
 
-    private static void UpdateShoot(bool isShootTimerFinished, float numberOfShots, ref Translation translation, ref PlayerControllerComponent playerControllerComponent)
+    private static void UpdateShoot(bool isShootTimerFinished, float numberOfShots, ref Translation translation, ref PlayerControllerComponent playerControllerComponent, ref EntitySpawnComponent entitySpawnComponent, ref DynamicBuffer<EntitySpawnBufferElement> entitySpawnBufferElements)
     {
-
         if (!isShootTimerFinished || !playerControllerComponent.isShootHeld) return;
         
         for (var i = 0; i < numberOfShots; ++i)
         {
-            //ProjectileManager.CreateProjectile(e, new Vector2(position.x + ArmSpan * i, position.y), Quaternion.Euler(0f, 0f, 90.0f));
+            entitySpawnBufferElements.Add(new EntitySpawnBufferElement
+            {
+                Entity = entitySpawnComponent.entity,
+                Translation = translation,
+                Rotation = new Rotation
+                {
+                    Value = quaternion.Euler(0.0f, 0.0f, math.PI / 2.0f)
+                }
+            });
         }
     }
 }

@@ -38,8 +38,8 @@ public class ShootHoming : ShootBehaviour
     protected override void Awake()
     {
         base.Awake();
-        
-        Target = GameData.Player.transform;
+
+        Target = new GameObject().transform;//GameData.Player.transform;
         ShotTimer = new Timer(TimeBetweenShots);
     }
 

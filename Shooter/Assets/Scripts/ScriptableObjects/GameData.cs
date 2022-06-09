@@ -87,7 +87,7 @@ public class GameData : ScriptableObject
         UpdateScreenRect();
 
         InitializeValues();
-        Player.UpdateStats();
+        //Player.UpdateStats();
     }
 
     public void UpdateScreenRect()
@@ -135,7 +135,7 @@ public class GameData : ScriptableObject
         NumberOfShots += 1;
         ProjectileDamage += 1;
         
-        Player.UpdateStats();
+        //Player.UpdateStats();
         
         NextLevelExperience *= 2;
     }

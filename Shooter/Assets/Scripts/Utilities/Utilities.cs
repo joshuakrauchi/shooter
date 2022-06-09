@@ -8,7 +8,7 @@ public static class Utilities
     public static Vector3 OffscreenPosition = new Vector3(1000.0f, 1000.0f, 1000.0f);
 
     private const float OffscreenOffset = 1.0f;
-    public const uint MaxTimeData = 100;
+    public const uint MaxTimeData = 500;
 
     
     public static bool IsOffscreen(Vector2 position, Vector2 spriteExtents, Rect screenRect) =>

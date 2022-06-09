@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        GameData.Player.UpdatePlayerInput();
+        //GameData.Player.UpdatePlayerInput();
     }
 
     private void FixedUpdate()
@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour
         GameData.UpdateScreenRect();
         */
 
-        isRewinding = GameState.IsRewinding;
+        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        var playerControllerComponent = entityManager.GetComponentData<PlayerControllerComponent>(GameInfo.Instance.PlayerEntity);
+        isRewinding = GameState.IsRewinding || playerControllerComponent.isRewindHeld;
         
         if ((GameState.IsPaused || GameState.IsRewinding) && !HasPausedAnimators)
         {
@@ -78,6 +80,5 @@ public class GameManager : MonoBehaviour
         
         EnemyManager.UpdateEnemies();
         CollectibleManager.UpdateUpdateables();
-        GameData.Player.UpdateUpdateable();
     }
 }

@@ -1,8 +1,7 @@
 using System;
 using Unity.Entities;
 
-[Serializable, GenerateAuthoringComponent]
+[Serializable]
 public struct PlayerComponent : IComponentData
 {
-    
 }
