@@ -52,6 +52,11 @@ public partial class ProjectileSystem : SystemBase
                 timeObjectComponent.isDisabled = true;
             }
         }).Schedule();
+
+        Entities.WithAll<EnemyProjectileComponent>().ForEach((ref TimeObjectComponent timeObjectComponent, in Translation translation, in WorldRenderBounds worldRenderBounds) =>
+        {
+            timeObjectComponent.isDisabled = Utilities.IsOutsideRect(translation.Value, worldRenderBounds.Value.Extents, screenRect);
+        }).Schedule();
     }
 
     private static void UpdateTimeData(bool isRewinding, uint maxTimeData, ref Translation translation, ref Rotation rotation, ref TimeObjectComponent timeObjectComponent,
