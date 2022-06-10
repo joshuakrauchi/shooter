@@ -151,15 +151,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsDisabled>k__BackingField: 0
-  <ProjectilePrefab>k__BackingField: {fileID: 7267865271484069695, guid: f10e3d761df637149a32d949889fabb7, type: 3}
-  <TotalCycles>k__BackingField: 1
-  <TimeBetweenCycles>k__BackingField: 0.2
+  <ProjectilePrefab>k__BackingField: {fileID: 4571659381038518078, guid: 0e077376d4000304c9dba634e145b63f, type: 3}
+  <TotalCycles>k__BackingField: 2
+  <TimeBetweenCycles>k__BackingField: 1
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <DoesUpdateDirectionEveryShot>k__BackingField: 0
-  <TimeBetweenShots>k__BackingField: 0
-  <ShotsPerCycle>k__BackingField: 1
-  <ProjectilesPerShot>k__BackingField: 3
+  <TimeBetweenShots>k__BackingField: 0.2
+  <ShotsPerCycle>k__BackingField: 5
+  <ProjectilesPerShot>k__BackingField: 50
   <AngleBetweenProjectiles>k__BackingField: 20
   <AngleVariation>k__BackingField: 2
   <SpeedChangeBetweenShots>k__BackingField: 0

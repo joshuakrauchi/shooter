@@ -73,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7131659608439137991, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
       propertyPath: m_Name
-      value: MinionSlowDouble
+      value: SergeantDouble
       objectReference: {fileID: 0}
     - target: {fileID: 8747226909271768529, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
       propertyPath: m_RootOrder
@@ -142,14 +142,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9266c0f979babd6469dfdd822e55ef71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ProjectilePrefab>k__BackingField: {fileID: 7209250968108194165, guid: d2b2c0a6dd91ab64d8d3a6332b43946b, type: 3}
+  <IsDisabled>k__BackingField: 0
+  <ProjectilePrefab>k__BackingField: {fileID: 4571659381038518078, guid: 0e077376d4000304c9dba634e145b63f, type: 3}
   <TotalCycles>k__BackingField: 1
   <TimeBetweenCycles>k__BackingField: 1
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
+  <DoesUpdateDirectionEveryShot>k__BackingField: 0
   <TimeBetweenShots>k__BackingField: 0.1
   <ShotsPerCycle>k__BackingField: 2
-  <ProjectilesPerShot>k__BackingField: 15
+  <ProjectilesPerShot>k__BackingField: 50
   <AngleBetweenProjectiles>k__BackingField: 10
   <AngleVariation>k__BackingField: 2
   <SpeedChangeBetweenShots>k__BackingField: -0.05

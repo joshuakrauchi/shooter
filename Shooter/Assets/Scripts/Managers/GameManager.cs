@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         GameData.Initialize();
         EnemyManager.Initialize();
         UIManager.Initialize();
+        NPCCreator.Initialize();
     }
 
     private void FixedUpdate()

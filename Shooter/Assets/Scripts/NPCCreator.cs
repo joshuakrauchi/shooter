@@ -7,6 +7,11 @@ public static class NPCCreator
 {
     private static Dictionary<GameObject, Entity> ConvertedGameObjects { get; set; }
 
+    public static void Initialize()
+    {
+        ConvertedGameObjects = new Dictionary<GameObject, Entity>();
+    }
+    
     public static void CreateMinion(MinionData minionData)
     {
         GameObject minionObject = Object.Instantiate(minionData.MinionPrefab, minionData.ParentTransform);
@@ -43,15 +48,18 @@ public static class NPCCreator
 
     public static Entity CreateProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation)
     {
+        if (!ConvertedGameObjects.TryGetValue(projectilePrefab, out Entity projectileEntity))
+        {
+            GameObjectConversionSettings settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, GameManager.BlobAssetStore);
+            projectileEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(projectilePrefab, settings);
+            ConvertedGameObjects.Add(projectilePrefab, projectileEntity);
+        }
+
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        Entity newProjectile = entityManager.Instantiate(projectileEntity);
+        entityManager.SetComponentData(newProjectile, new Translation {Value = position});
+        entityManager.SetComponentData(newProjectile, new Rotation {Value = rotation});
 
-        GameObjectConversionSettings settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, GameManager.BlobAssetStore);
-        Entity entity = GameObjectConversionUtility.ConvertGameObjectHierarchy(projectilePrefab, settings);
-
-        Entity projectile = entityManager.Instantiate(entity);
-        entityManager.SetComponentData(projectile, new Translation {Value = position});
-        entityManager.SetComponentData(projectile, new Rotation {Value = rotation});
-
-        return projectile;
+        return newProjectile;
     }
 }

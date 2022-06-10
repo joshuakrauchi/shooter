@@ -2,7 +2,7 @@ using System;
 using Unity.Entities;
 using Unity.Mathematics;
 
-[Serializable, GenerateAuthoringComponent]
+[Serializable]
 public struct ProjectileTimeDataBufferElement : IBufferElementData
 {
     public bool isDisabled;

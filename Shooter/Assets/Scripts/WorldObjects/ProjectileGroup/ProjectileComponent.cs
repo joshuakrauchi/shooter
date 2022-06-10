@@ -2,7 +2,7 @@ using System;
 using Unity.Entities;
 using UnityEngine;
 
-[Serializable, GenerateAuthoringComponent]
+[Serializable]
 public struct ProjectileComponent : IComponentData
 {
     public float speed;

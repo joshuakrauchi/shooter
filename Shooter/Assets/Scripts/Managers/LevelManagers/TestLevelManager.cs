@@ -9,6 +9,8 @@ public class TestLevelManager : LevelManager
     [field: SerializeField] private GameObject Projectile3 { get; set; }
     
     [field: SerializeField] private GameObject Soldier { get; set; }
+    [field: SerializeField] private GameObject SergeantSingle { get; set; }
+    [field: SerializeField] private GameObject SergeantDouble { get; set; }
 
     
     private const string HDangle = "HDangle";
@@ -26,27 +28,55 @@ public class TestLevelManager : LevelManager
     {
         base.Awake();
         
-        //ProjectileManager.AddProjectilePool(Projectile1, 1000);
-        //ProjectileManager.AddProjectilePool(Projectile2, 1000);
-        //ProjectileManager.AddProjectilePool(Projectile3, 1000);
-        
-        CurrentTime += 0.5f;
-        
-        AddMinion(Soldier, TopTransforms[-3], VSlide1);
-
-
-        return;
-        
-        CurrentTime += 0.5f;
-        
-
-        
+        // 1
         for (var i = 0; i < 10; ++i)
         {
             AddMinion(Soldier, TopTransforms[-3], VSlide1);
             CurrentTime += 0.25f;
         }
 
-        //AddBoss(Boss, new Vector2());
+        for (var i = 0; i < 10; ++i)
+        {
+            AddMinion(Soldier, TopTransforms[-3], VSlide1);
+            AddMinion(Soldier, TopTransformsFlipped[3], VSlide1);
+            CurrentTime += 0.25f;
+        }
+
+        // 2
+        CurrentTime += 2.0f;
+
+        AddMinion(SergeantDouble, TopTransformsFlipped[3], DropLeave);
+        CurrentTime += 1f;
+        AddMinion(SergeantSingle, TopTransforms[-3], DropLeave);
+        CurrentTime += 1f;
+        AddMinion(SergeantSingle, TopTransformsFlipped[1], DropLeave);
+        CurrentTime += 1f;
+        AddMinion(SergeantDouble, TopTransforms[-1], DropLeave);
+        CurrentTime += 1f;
+        AddMinion(SergeantDouble, TopTransformsFlipped[4], DropLeave);
+        CurrentTime += 0.75f;
+        AddMinion(SergeantSingle, TopTransforms[-4], DropLeave);
+        CurrentTime += 0.75f;
+        AddMinion(SergeantSingle, TopTransformsFlipped[2], DropLeave);
+        CurrentTime += 0.75f;
+        AddMinion(SergeantDouble, TopTransforms[-2], DropLeave);
+        CurrentTime += 0.75f;
+        AddMinion(SergeantDouble, TopTransformsFlipped[3], DropLeave);
+        CurrentTime += 0.5f;
+        AddMinion(SergeantSingle, TopTransforms[-1], DropLeave);
+        CurrentTime += 0.5f;
+        AddMinion(SergeantSingle, TopTransformsFlipped[4], DropLeave);
+        CurrentTime += 0.5f;
+        AddMinion(SergeantDouble, TopTransforms[-2], DropLeave);
+        CurrentTime += 0.5f;
+        AddMinion(SergeantDouble, TopTransforms[0], DropLeave);
+        CurrentTime += 0.25f;
+        AddMinion(SergeantSingle, TopTransforms[-3], DropLeave);
+        CurrentTime += 0.25f;
+        AddMinion(SergeantSingle, TopTransformsFlipped[3], DropLeave);
+        CurrentTime += 0.25f;
+        AddMinion(SergeantDouble, TopTransforms[-1], DropLeave);
+        CurrentTime += 0.25f;
+        AddMinion(SergeantDouble, TopTransformsFlipped[1], DropLeave);
     }
 }
