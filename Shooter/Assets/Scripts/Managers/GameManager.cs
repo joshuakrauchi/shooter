@@ -1,3 +1,4 @@
+using System;
 using Unity.Entities;
 using UnityEngine;
 
@@ -16,18 +17,25 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] private UpdateableManager CollectibleManager { get; set; }
 
     public static bool isRewinding;
+    public static BlobAssetStore BlobAssetStore { get; set; }
     
     private bool HasPausedAnimators { get; set; }
+
+    private void Awake()
+    {
+        BlobAssetStore = new BlobAssetStore();
+    }
+
+    private void OnDestroy()
+    {
+        BlobAssetStore.Dispose();
+    }
 
     private void Start()
     {
         GameData.Initialize();
+        EnemyManager.Initialize();
         UIManager.Initialize();
-    }
-    
-    private void Update()
-    {
-        //GameData.Player.UpdatePlayerInput();
     }
 
     private void FixedUpdate()
@@ -44,6 +52,7 @@ public class GameManager : MonoBehaviour
         
         var playerControllerComponent = entityManager.GetComponentData<PlayerControllerComponent>(GameInfo.Instance.PlayerEntity);
         isRewinding = GameState.IsRewinding || playerControllerComponent.isRewindHeld;
+        
         
         if ((GameState.IsPaused || GameState.IsRewinding) && !HasPausedAnimators)
         {

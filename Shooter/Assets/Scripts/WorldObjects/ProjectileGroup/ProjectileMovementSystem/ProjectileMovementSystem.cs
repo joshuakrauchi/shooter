@@ -13,11 +13,12 @@ public partial class ProjectileMovementSystem : SystemBase
 
         var deltaTime = Time.DeltaTime;
 
-        Entities.ForEach((ref Translation translation, ref Rotation rotation, in TimeObjectComponent timeObjectComponent, in StraightMovementComponent straightMovementComponent) =>
+        Entities.ForEach((ref Translation translation, ref Rotation rotation, in TimeObjectComponent timeObjectComponent, in StraightMovementComponent straightMovementComponent,
+            in ProjectileComponent projectileComponent) =>
         {
             if (timeObjectComponent.isDisabled) return;
 
-            UpdateStraightMovement(deltaTime, ref translation, ref rotation, straightMovementComponent);
+            UpdateStraightMovement(deltaTime, ref translation, ref rotation, straightMovementComponent, projectileComponent);
         }).Schedule();
 
         Entities.ForEach((ref Translation translation, ref Rotation rotation, in TimeObjectComponent timeObjectComponent, in SineMovementComponent sineMovementComponent,
@@ -45,9 +46,9 @@ public partial class ProjectileMovementSystem : SystemBase
         }).Schedule();
     }
 
-    private static void UpdateStraightMovement(float deltaTime, ref Translation translation, ref Rotation rotation, in StraightMovementComponent straightMovementComponent)
+    private static void UpdateStraightMovement(float deltaTime, ref Translation translation, ref Rotation rotation, in StraightMovementComponent straightMovementComponent, in ProjectileComponent projectileComponent)
     {
-        float3 straightMovement = new float3(straightMovementComponent.speed * deltaTime, 0.0f, 0.0f);
+        float3 straightMovement = new float3(projectileComponent.speed * deltaTime, 0.0f, 0.0f);
 
         translation.Value += math.mul(rotation.Value, straightMovement);
     }
@@ -55,7 +56,7 @@ public partial class ProjectileMovementSystem : SystemBase
     private static void UpdateSineMovement(float deltaTime, ref Translation translation, ref Rotation rotation, in SineMovementComponent sineMovementComponent,
         in ProjectileComponent projectileComponent)
     {
-        float3 sineMovement = new float3(sineMovementComponent.speed * deltaTime,
+        float3 sineMovement = new float3(projectileComponent.speed * deltaTime,
             sineMovementComponent.amplitude * math.sin(projectileComponent.timeAlive * sineMovementComponent.period + sineMovementComponent.phaseShift), 0.0f);
 
         translation.Value += math.mul(rotation.Value, sineMovement);
@@ -64,7 +65,7 @@ public partial class ProjectileMovementSystem : SystemBase
     private static void UpdateVariableSpeedStraightMovement(float deltaTime, ref Translation translation, ref Rotation rotation,
         in VariableSpeedStraightMovementComponent variableSpeedStraightMovementComponent, in ProjectileComponent projectileComponent)
     {
-        var speed = variableSpeedStraightMovementComponent.speed;
+        var speed = projectileComponent.speed;
         var minimumSpeed = variableSpeedStraightMovementComponent.minimumSpeed;
 
         var variableSpeed = projectileComponent.timeAlive * variableSpeedStraightMovementComponent.speedOverTimeMultiplier + speed;
@@ -83,7 +84,7 @@ public partial class ProjectileMovementSystem : SystemBase
     private static void UpdateSpiralMovement(float deltaTime, ref Translation translation, ref Rotation rotation, ref SpiralMovementComponent spiralMovementComponent,
         in ProjectileComponent projectileComponent)
     {
-        var speed = spiralMovementComponent.speed;
+        var speed = projectileComponent.speed;
         var timeAlive = projectileComponent.timeAlive;
         var movement = timeAlive * speed;
         spiralMovementComponent.initialAmplitude += deltaTime * spiralMovementComponent.amplitudeIncreaseRate;

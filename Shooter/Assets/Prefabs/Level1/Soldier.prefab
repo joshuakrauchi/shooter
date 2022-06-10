@@ -75,6 +75,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soldier
       objectReference: {fileID: 0}
+    - target: {fileID: 8104272181657772054, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8747226909271768529, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -123,6 +127,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8918033170834842884, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab5222ed345ca4c4d8690135a09ac80e, type: 3}
 --- !u!1 &4291872295983173431 stripped
@@ -143,9 +151,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsDisabled>k__BackingField: 0
-  <ProjectilePrefab>k__BackingField: {fileID: 498058925674781804, guid: 1fe959921ba5c6345abba3710f026dc9, type: 3}
+  <ProjectilePrefab>k__BackingField: {fileID: 7267865271484069695, guid: f10e3d761df637149a32d949889fabb7, type: 3}
   <TotalCycles>k__BackingField: 1
-  <TimeBetweenCycles>k__BackingField: 50
+  <TimeBetweenCycles>k__BackingField: 0.2
   <GameData>k__BackingField: {fileID: 11400000, guid: edd3a001b7795e14db2ad27073a04d54, type: 2}
   <ProjectileManager>k__BackingField: {fileID: 11400000, guid: 0f0b22d5246b750468a15b6acabbe771, type: 2}
   <DoesUpdateDirectionEveryShot>k__BackingField: 0

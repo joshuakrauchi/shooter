@@ -5,4 +5,5 @@ using Unity.Entities;
 public struct PlayerProjectileComponent : IComponentData
 {
     public float damageMultiplier;
+    public bool hasHitEnemyThisFrame;
 }

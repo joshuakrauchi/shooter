@@ -67,7 +67,7 @@ public class PortalMovement : ProjectileMovement
 
     private void Teleport()
     {
-        Vector2 playerPosition = GameData.Player.transform.position;
+        Vector2 playerPosition = new Vector2();//(GameData.Player.transform.position);
         var randomRotation = Random.Range(-180.0f, 180.0f);
         Vector2 newPosition = playerPosition + (Vector2) (Quaternion.Euler(0.0f, 0.0f, randomRotation) * Vector3.right) * DistanceToPlayerAfterTeleport;
 

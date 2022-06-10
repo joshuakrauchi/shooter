@@ -1,3 +1,7 @@
+using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Physics;
+using Unity.Physics.Systems;
 using UnityEngine;
 
 public abstract class Enemy : TimeObject
@@ -8,7 +12,6 @@ public abstract class Enemy : TimeObject
 
     public float CreationTime { get; set; }
 
-    protected EnemyCollision EnemyCollision { get; private set; }
     protected SpriteRenderer SpriteRenderer { get; private set; }
     protected bool HasDied { get; set; }
     
@@ -16,7 +19,6 @@ public abstract class Enemy : TimeObject
     {
         base.Awake();
 
-        EnemyCollision = GetComponent<EnemyCollision>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         EnemyManager.AddEnemy(this);
     }
@@ -38,11 +40,11 @@ public abstract class Enemy : TimeObject
             DestroySelf();
         }
         
-        //SpriteRenderer.enabled = !IsDisabled;
+        SpriteRenderer.enabled = !IsDisabled;
 
-        //if (!EnemyCollision.Collider.enabled || GameState.IsRewinding) return;
+        if (IsDisabled || GameState.IsRewinding) return;
 
-        //EnemyCollision.UpdateCollision();
+        UpdateCollision();
     }
 
     protected override void Rewind(ITimeData timeData)
@@ -74,7 +76,28 @@ public abstract class Enemy : TimeObject
 
     private void DestroySelf()
     {
-        //EnemyManager.RemoveEnemy(this);
+        EnemyManager.RemoveEnemy(this);
         //Destroy(gameObject);
+    }
+    
+    private void UpdateCollision()
+    {
+        CollisionWorld collisionWorld = World.DefaultGameObjectInjectionWorld.GetExistingSystem<BuildPhysicsWorld>().PhysicsWorld.CollisionWorld;
+        
+        var result = collisionWorld.SphereCast(transform.position, 1.0f, new float3(1.0f), 0.0f, out ColliderCastHit hit, CollisionFilter.Default);
+        
+        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+        if (!result) return;
+
+        Entity hitEntity = hit.Entity;
+
+        if (!entityManager.HasComponent<PlayerProjectileComponent>(hitEntity)) return;
+        
+        PlayerProjectileComponent playerProjectileComponent = entityManager.GetComponentData<PlayerProjectileComponent>(hit.Entity);
+
+        OnHit(GameData.ProjectileDamage * playerProjectileComponent.damageMultiplier);
+        playerProjectileComponent.hasHitEnemyThisFrame = true;
+        entityManager.SetComponentData(hitEntity, playerProjectileComponent);
     }
 }

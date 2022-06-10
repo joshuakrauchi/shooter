@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 public static class Utilities
@@ -9,9 +10,8 @@ public static class Utilities
 
     private const float OffscreenOffset = 1.0f;
     public const uint MaxTimeData = 500;
-    public static Camera MainCamera { get; set; } = Camera.main;
+    public static Camera MainCamera { get; } = Camera.main;
 
-    
     public static bool IsOffscreen(Vector2 position, Vector2 spriteExtents, Rect screenRect) =>
         position.x < screenRect.xMin - spriteExtents.x - OffscreenOffset || position.x > screenRect.xMax + spriteExtents.x + OffscreenOffset ||
         position.y < screenRect.yMin - spriteExtents.y - OffscreenOffset || position.y > screenRect.yMax + spriteExtents.y + OffscreenOffset;

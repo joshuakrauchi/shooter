@@ -45,12 +45,12 @@ public partial class ProjectileSystem : SystemBase
 
         Rect screenRect = Utilities.ScreenRect;
 
-        Entities.WithAll<PlayerProjectileComponent>().ForEach((ref TimeObjectComponent timeObjectComponent, in Translation translation, in WorldRenderBounds worldRenderBounds) =>
+        Entities.ForEach((ref PlayerProjectileComponent playerProjectileComponent, ref TimeObjectComponent timeObjectComponent, in Translation translation, in WorldRenderBounds worldRenderBounds) =>
         {
-            if (Utilities.IsOutsideRect(translation.Value, worldRenderBounds.Value.Extents, screenRect))
-            {
-                timeObjectComponent.isDisabled = true;
-            }
+            if (!playerProjectileComponent.hasHitEnemyThisFrame && !Utilities.IsOutsideRect(translation.Value, worldRenderBounds.Value.Extents, screenRect)) return;
+
+            playerProjectileComponent.hasHitEnemyThisFrame = false;
+            timeObjectComponent.isDisabled = true;
         }).Schedule();
 
         Entities.WithAll<EnemyProjectileComponent>().ForEach((ref TimeObjectComponent timeObjectComponent, in Translation translation, in WorldRenderBounds worldRenderBounds) =>

@@ -30,6 +30,8 @@ public class TestLevelManager : LevelManager
         //ProjectileManager.AddProjectilePool(Projectile2, 1000);
         //ProjectileManager.AddProjectilePool(Projectile3, 1000);
         
+        CurrentTime += 0.5f;
+        
         AddMinion(Soldier, TopTransforms[-3], VSlide1);
 
 

@@ -4,5 +4,4 @@ using Unity.Entities;
 [Serializable, GenerateAuthoringComponent]
 public struct StraightMovementComponent : IComponentData
 {
-    public float speed;
 }

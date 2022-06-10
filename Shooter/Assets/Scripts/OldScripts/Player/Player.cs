@@ -21,7 +21,7 @@ public class Player : MonoBehaviour, IUpdateable
         PlayerShoot = GetComponent<PlayerShoot>();
         PlayerSpecialShoot = GetComponent<PlayerSpecialShoot>();
 
-        GameData.Player = this;
+        //GameData.Player = this;
     }
 
     public void UpdatePlayerInput()

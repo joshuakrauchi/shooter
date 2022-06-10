@@ -1,3 +1,5 @@
+using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -30,16 +32,19 @@ public class ShootHoming : ShootBehaviour
     [field: SerializeField] private float AngleVariation { get; set; } = 2.0f;
     [field: SerializeField] private float SpeedChangeBetweenShots { get; set; }
 
-    private Transform Target { get; set; }
     private Timer ShotTimer { get; set; }
     private uint CurrentShots { get; set; }
     private Vector2 CurrentDirection { get; set; }
+    private EntityManager EntityManager { get; set; }
+    private Entity PlayerEntity { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
 
-        Target = new GameObject().transform;//GameData.Player.transform;
+        EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        PlayerEntity = GameInfo.Instance.PlayerEntity;
+        
         ShotTimer = new Timer(TimeBetweenShots);
     }
 
@@ -68,7 +73,8 @@ public class ShootHoming : ShootBehaviour
 
         if (CurrentShots == 0 || DoesUpdateDirectionEveryShot)
         {
-            CurrentDirection = Target.position - transform.position;
+            Vector3 playerPosition = EntityManager.GetComponentData<Translation>(PlayerEntity).Value;
+            CurrentDirection = playerPosition - transform.position;
         }
         
         var angle = Mathf.Atan2(CurrentDirection.y, CurrentDirection.x) * Mathf.Rad2Deg;
@@ -76,8 +82,11 @@ public class ShootHoming : ShootBehaviour
 
         for (var i = 0; i < ProjectilesPerShot; ++i)
         {
-            //ProjectileMovement projectileMovement = ProjectileManager.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, angle)).GetComponent<ProjectileMovement>();
-            //projectileMovement.Speed += SpeedChangeBetweenShots * CurrentShots;
+            Entity projectile = NPCCreator.CreateProjectile(ProjectilePrefab, transform.position, Quaternion.Euler(0.0f, 0.0f, angle));
+
+            ProjectileComponent projectileComponent = EntityManager.GetComponentData<ProjectileComponent>(projectile);
+            projectileComponent.speed += SpeedChangeBetweenShots * CurrentShots;
+            EntityManager.SetComponentData(projectile, projectileComponent);
             angle += AngleBetweenProjectiles;
         }
 

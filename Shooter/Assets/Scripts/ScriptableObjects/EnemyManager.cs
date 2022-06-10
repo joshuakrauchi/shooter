@@ -4,16 +4,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyManager", menuName = "ScriptableObjects/EnemyManager")]
 public class EnemyManager : ScriptableObject
 {
-    private readonly List<Enemy> _enemies;
+    private List<Enemy> Enemies { get; set; }
 
-    private EnemyManager()
+    public void Initialize()
     {
-        _enemies = new List<Enemy>();
+        Enemies = new List<Enemy>();
     }
 
     public void UpdateEnemies()
     {
-        foreach (Enemy enemy in _enemies.ToArray())
+        foreach (Enemy enemy in Enemies.ToArray())
         {
             enemy.UpdateUpdateable();
         }
@@ -21,17 +21,17 @@ public class EnemyManager : ScriptableObject
 
     public void AddEnemy(Enemy enemy)
     {
-        _enemies.Add(enemy);
+        Enemies.Add(enemy);
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        _enemies.Remove(enemy);
+        Enemies.Remove(enemy);
     }
 
     public void SetMinionAnimatorSpeed(float speed)
     {
-        foreach (Enemy enemy in _enemies)
+        foreach (Enemy enemy in Enemies)
         {
             if (enemy is Minion minion)
             {

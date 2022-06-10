@@ -12,7 +12,6 @@ public class GameData : ScriptableObject
     [field: SerializeField] private float InitialShootDelay { get; set; } = 0.1f;
 
     public LevelManager CurrentLevelManager { get; set; }
-    public Player Player { get; set; }
     public Camera MainCamera { get; private set; }
     public Rect ScreenRect { get; private set; }
     public uint Currency { get; set; }
